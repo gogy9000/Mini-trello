@@ -1,7 +1,34 @@
 import React from 'react';
 import './App.css';
+import {Task1Type, Task2Type} from "./index";
 
-function App() {
+export type AppPropsType = {
+    task1: Task1Type[]
+    task2: Task2Type[]
+}
+
+
+function App(props: AppPropsType) {
+    return (
+        <div>
+            <Todo task1={props.task1}/>
+            <Todo task1={props.task2}/>
+        </div>
+
+    );
+}
+
+export default App;
+
+
+export type TodoPropsType = {
+    task1: Array<Task1Type>
+
+
+}
+
+export const Todo = (props: TodoPropsType) => {
+    console.log(props)
     return (
         <div className="App">
             <div>
@@ -11,7 +38,7 @@ function App() {
                     <button>+</button>
                 </div>
                 <ul>
-                    <li><input type="checkbox" checked={true}/> <span>HTML&CSS</span></li>
+                    <li><input type={props.task1[0].type} checked={props.task1[0].checked}/> <span>HTML&CSS</span></li>
                     <li><input type="checkbox" checked={true}/> <span>JS</span></li>
                     <li><input type="checkbox" checked={false}/> <span>React</span></li>
                 </ul>
@@ -22,7 +49,5 @@ function App() {
                 </div>
             </div>
         </div>
-    );
+    )
 }
-
-export default App;
