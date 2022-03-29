@@ -1,14 +1,14 @@
 import React from 'react';
 import './App.css';
 import {Todo} from "./Todo";
-import {AppPropsType} from "./Types";
 
 
-function App(props: AppPropsType) {
+
+function App() {
+
     return (
         <div>
-            <Todo tasks={props.state.taskArr1}/>
-
+            <Todo />
         </div>
 
     );
