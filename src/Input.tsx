@@ -4,7 +4,7 @@ import {addTaskAC, ChangeTextTaskTitleAC} from "./Redux/TaskBlokReducer";
 
 
 export const Input = (props: InputPropsType) => {
-    console.log(props)
+
 
     const addTask = () => {
 

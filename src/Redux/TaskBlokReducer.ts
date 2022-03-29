@@ -1,9 +1,14 @@
 import {StateType} from "../Types";
-import {type} from "os";
+
 
 const initialState: StateType = {
     tasks: [
         {id: 1, title: 'HTML&CSS', isDone: false},
+        {id: 21, title: 'HTML&CSS', isDone: false},
+        {id: 31, title: 'HTML&CSS', isDone: false},
+        {id: 51, title: 'HTML&CSS', isDone: false},
+        {id: 61, title: 'HTML&CSS', isDone: false},
+        {id: 71, title: 'HTML&CSS', isDone: false},
     ],
 
     newTaskTitle: ''
@@ -36,8 +41,17 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                     task.isDone ?
                         {...task, isDone: false} : {...task, isDone: true} : task)
             }
+
         case 'GET-ACTIVE-TASKS':
             return {...state, tasks: state.tasks.filter(task => !task.isDone)}
+
+
+        case 'GET-COMPLETED-TASKS':
+            return {...state, tasks: state.tasks.filter(task => task.isDone)}
+
+
+        case 'GET-ALL-STATE':
+            return {...state,tasks: [...state.tasks],newTaskTitle:''}
 
         default:
             return state
@@ -61,3 +75,11 @@ export const checkTaskAC = (id: number): checkTaskACType => ({type: CHECK_TASK, 
 type getActiveTasksACType = { type: typeof GET_ACTIVE_TASKS }
 const GET_ACTIVE_TASKS = 'GET-ACTIVE-TASKS'
 export const getActiveTasksAC = (): getActiveTasksACType => ({type: GET_ACTIVE_TASKS})
+
+type getCompletedTasksACType = { type: typeof GET_COMPLETED_TASKS }
+const GET_COMPLETED_TASKS = 'GET-COMPLETED-TASKS'
+export const getCompletedTasksAC = (): getCompletedTasksACType => ({type: GET_COMPLETED_TASKS})
+
+type getAllTasksACType = { type: typeof GET_ALL_STATE }
+const GET_ALL_STATE = 'GET-ALL-STATE'
+export const getAllTasksAC = (): getAllTasksACType => ({type: GET_ALL_STATE})

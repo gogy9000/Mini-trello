@@ -26,7 +26,8 @@ export const Todo = () => {
                 <TaskBlock tasks={state.tasks}
                            dispatch={dispatch}/>
 
-                <ButtonsBlock dispatch={dispatch}/>
+                <ButtonsBlock dispatch={dispatch}
+                              tasks={state.tasks}/>
 
             </div>
         </div>
