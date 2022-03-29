@@ -1,12 +1,17 @@
 import React from "react";
+import {Task1Type, Task2Type, TaskBlockType} from "./Types";
 
-export const TaskBlock = (props: any) => {
+export const TaskBlock = (props: TaskBlockType) => {
+    console.log(props.tasks)
     return (
         <div>
             <ul>
-                <li><input type={props.type} checked={props.checked}/> <span>HTML&CSS</span></li>
-                <li><input type="checkbox" checked={true}/> <span>JS</span></li>
-                <li><input type="checkbox" checked={false}/> <span>React</span></li>
+                {props.tasks.map((taskElem: Task1Type | Task2Type) =>
+                    <li>
+                        <input type='checkbox' checked={taskElem.isDone}/>
+                        <span>{taskElem.title}</span>
+                    </li>
+                )}
             </ul>
         </div>
 

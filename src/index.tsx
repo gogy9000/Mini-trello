@@ -4,25 +4,24 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 
+ export let state={
+    taskArr1 : [
+        {id: 0, title: 'HTML&CSS', isDone: true},
+        {id: 1, title: 'JS', isDone: true},
+        {id: 2, title: 'ReactJS', isDone: true},
+        {id: 3, title: 'RestAPI', isDone: true},
+        {id: 4, title: 'GraphQL', isDone: true},
+    ],
+    taskArr2 : [
+        {id: 0, title: 'HTML&CSS', isDone: true},
+        {id: 1, title: 'JS', isDone: true},
+        {id: 2, title: 'ReactJS', isDone: true},
+        {id: 3, title: 'RestAPI', isDone: true},
+        {id: 4, title: 'GraphQL', isDone: true},
+    ]}
 
-export let task1=[
-{type :"checkbox", checked: false},
-]
-export type Task1Type={
-    type: string
-    checked: boolean
-}
-export let task2=[
-    {type :"checkbox", checked: true},
-]
-export type Task2Type={
-    type: string
-    checked: boolean
-}
 
-
-
-ReactDOM.render(<App task1={task1}  task2={task2}  />,  document.getElementById('root'));
+ReactDOM.render(<App state={state}/>, document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
 // unregister() to register() below. Note this comes with some pitfalls.
