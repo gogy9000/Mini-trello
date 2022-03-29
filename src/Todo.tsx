@@ -5,11 +5,14 @@ import {ButtonsBlock} from "./ButtonsBlock";
 
 import {useDispatch, useSelector} from "react-redux";
 
+
+
+
 export const Todo = () => {
 
-    let state = useSelector((state: any) => state)
+    let state = useSelector((state: any) => state.stateTaskBlock)
     let dispatch = useDispatch()
-    console.log(state)
+
 
     return (
         <div className="App">
@@ -17,11 +20,14 @@ export const Todo = () => {
                 <h3>What too learn</h3>
 
                 <Input dispatch={dispatch}
-                       state={state}/>
+                       state={state}
+                       newTaskTitle={state.newTaskTitle}/>
 
-                <TaskBlock tasks={state.stateTaskBlock.tasks}
+                <TaskBlock tasks={state.tasks}
                            dispatch={dispatch}/>
-                <ButtonsBlock/>
+
+                <ButtonsBlock dispatch={dispatch}/>
+
             </div>
         </div>
     )

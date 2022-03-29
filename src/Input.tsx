@@ -16,7 +16,8 @@ export const Input = (props: InputPropsType) => {
 
     return (
         <div>
-            <input onChange={ChangeTextTaskTitle} value={props.state.newTaskTitle}/>
+            <input onChange={ChangeTextTaskTitle} value={props.newTaskTitle}/>
+
             <button onClick={addTask}>+</button>
         </div>
     )

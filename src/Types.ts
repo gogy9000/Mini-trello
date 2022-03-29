@@ -26,4 +26,5 @@ export type TaskBlockType = {
 export type InputPropsType = {
     state: StateType
     dispatch: (action:any) => void
+    newTaskTitle: string | number | readonly string[] | undefined
 }
