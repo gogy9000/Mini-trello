@@ -7,7 +7,8 @@ export type Task1Type = {
 
 
 export type StateType={
-    tasks: Array<Task1Type>
+    activeTasks: Array<Task1Type>
+    completedTasks:Array<Task1Type>
 
     newTaskTitle: string | number | readonly string[] | undefined
 }
@@ -20,7 +21,8 @@ export type TodoPropsType = {
 
 export type TaskBlockType = {
     tasks: Array<Task1Type>
-    dispatch: (action:any) => void
+    callBack:(id:number)=>void
+
 }
 
 export type InputPropsType = {
