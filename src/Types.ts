@@ -11,13 +11,8 @@ export type StateType={
     completedTasks:Array<Task1Type>
 
     newTaskTitle: string | number | readonly string[] | undefined
+    taskFilterMode: string
 }
-
-export type TodoPropsType = {
-    state: StateType
-    dispatch: (action:any) => void
-}
-
 
 export type TaskBlockType = {
     tasks: Array<Task1Type>

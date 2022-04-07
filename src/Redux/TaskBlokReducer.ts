@@ -12,85 +12,91 @@ const initialState: StateType = {
     ],
     completedTasks: [] as Array<Task1Type>,
 
-    newTaskTitle: ''
+    newTaskTitle: '',
+
+    taskFilterMode: 'All'
 
 }
 
 export let taskBlockReducer = (state: StateType = initialState, action: any) => {
     switch (action.type) {
 
+        case 'SET-TASK-FILTER-MODE':
+            return {...state, taskFilterMode: action.filterMod};
+
         case 'ADD-TASK':
             let newTask = {
                 id: Math.round(state.activeTasks.length * Math.random() * 1000000),
                 title: state.newTaskTitle,
                 isDone: false
-            }
+            };
+
             return {
                 ...state,
                 activeTasks: [...state.activeTasks, newTask],
-                newTaskTitle:''
-
-
-            }
+                newTaskTitle: '',
+                taskFilterMode: state.taskFilterMode
+            };
 
 
         case 'CHANGE-TEXT-TASK-TITLE':
-            return {...state, newTaskTitle: action.text}
+            return {...state, newTaskTitle: action.text};
 
         case 'CHECK-TASK':
 
             let copyState = {
-                activeTasks:[
-                ...state.activeTasks.map(task =>
+                activeTasks: [
+                    ...state.activeTasks.map(task =>
 
-                    task.id === action.id ?
-                        task.isDone ?
-                            {task, isDone: false} : {...task, isDone: true}:task)
-            ],
-                completedTasks:[
+                        task.id === action.id ?
+                            task.isDone ?
+                                {task, isDone: false} : {...task, isDone: true} : task)
+                ],
+                completedTasks: [
                     ...state.completedTasks.map(task =>
 
                         task.id === action.id ?
                             task.isDone ?
                                 {...task, isDone: false} : {...task, isDone: true} : task)
                 ],
-            }
-
+            };
             return {
                 ...copyState,
                 activeTasks: [
                     ...copyState.activeTasks.filter(el =>
-                        !el.isDone),...copyState.completedTasks.filter(el => !el.isDone)
+                        !el.isDone), ...copyState.completedTasks.filter(el => !el.isDone)
                 ],
                 completedTasks: [
                     ...copyState.completedTasks.filter(el =>
-                        el.isDone),...copyState.activeTasks.filter(el => el.isDone)
+                        el.isDone), ...copyState.activeTasks.filter(el => el.isDone)
                 ],
-                newTaskTitle: ''
-            }
+                newTaskTitle: '',
+                taskFilterMode: state.taskFilterMode
+            };
 
 
         case 'GET-ACTIVE-TASKS':
 
             return {
                 ...state,
-                activeTasks: [...action.activeFilter], newTaskTitle: ''
-            }
+                activeTasks: [...action.activeFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
+            };
 
         case 'GET-COMPLETED-TASKS':
             return {
                 ...state,
-                completedTasks: [...action.completedFilter], newTaskTitle: ''
-            }
+                completedTasks: [...action.completedFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
+            };
 
 
         case 'GET-ALL-STATE':
-            return {...state}
+            return {...state};
 
         default:
             return state
 
     }
+    ;
 
 }
 
@@ -105,6 +111,13 @@ export const ChangeTextTaskTitleAC = (text: string): ChangeTextTaskTitleACType =
 export type checkTaskACType = { type: typeof CHECK_TASK, id: number }
 const CHECK_TASK = 'CHECK-TASK'
 export const checkTaskAC = (id: number): checkTaskACType => ({type: CHECK_TASK, id})
+
+export type setTaskFilterModeACType = { type: typeof SET_TASK_FILTER_MODE, filterMod: string }
+const SET_TASK_FILTER_MODE = 'SET-TASK-FILTER-MODE'
+export const setTaskFilterModeAC = (filterMod: string): setTaskFilterModeACType => ({
+    type: SET_TASK_FILTER_MODE,
+    filterMod
+})
 
 type getActiveTasksACType = { type: typeof GET_ACTIVE_TASKS, activeFilter: Task1Type }
 const GET_ACTIVE_TASKS = 'GET-ACTIVE-TASKS'
@@ -123,3 +136,5 @@ export const getCompletedTasksAC = (completedFilter: Task1Type): getCompletedTas
 type getAllTasksACType = { type: typeof GET_ALL_STATE, state: Task1Type }
 const GET_ALL_STATE = 'GET-ALL-STATE'
 export const getAllTasksAC = (state: Task1Type): getAllTasksACType => ({type: GET_ALL_STATE, state})
+
+

@@ -4,29 +4,21 @@ import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 
 import {useDispatch, useSelector} from "react-redux";
-import {Task1Type} from "./Types";
-import {checkTaskAC, getActiveTasksAC, getAllTasksAC, getCompletedTasksAC} from "./Redux/TaskBlokReducer";
+
+import {checkTaskAC} from "./Redux/TaskBlokReducer";
 
 
 export const Todo = () => {
 
-
     let state = useSelector((state: any) => state.stateTaskBlock)
-    console.log(state)
+    console.log(state.taskFilterMode)
     let dispatch = useDispatch()
 
-        const onCheckHandler = (id:number)=>{
-            dispatch(checkTaskAC(id))
-        }
-
-
-
-
-
-    const onButtonHandler = (action: string) => {
-
-
+    const onCheckHandler = (id: number) => {
+        dispatch(checkTaskAC(id))
     }
+
+
 
     return (
         <div className="App">
@@ -37,18 +29,17 @@ export const Todo = () => {
                        state={state}
                        newTaskTitle={state.newTaskTitle}/>
 
-                <TaskBlock tasks={state.activeTasks}
-                           callBack={onCheckHandler}
-                           />
-                <TaskBlock tasks={state.completedTasks}
-                           callBack={onCheckHandler}/>
+                {state.taskFilterMode==='All'&&
+                    <div>
+                        <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>
+                        <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>
+                    </div>
+                }
 
-                <ButtonsBlock
-                    // dispatch={dispatch}
-                    //           tasks={state.tasks}
-                              callBack={onButtonHandler}
+                { state.taskFilterMode==='Active'&&<TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/> }
+                { state.taskFilterMode==='Completed'&&<TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
 
-                />
+                <ButtonsBlock dispatch={dispatch}/>
 
             </div>
         </div>

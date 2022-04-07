@@ -1,38 +1,40 @@
-import React, {useState} from "react";
-import {Task1Type} from "./Types";
-import {getAllTasksAC} from "./Redux/TaskBlokReducer";
+import React, {FC} from "react";
+import { setTaskFilterModeAC} from "./Redux/TaskBlokReducer";
+import {setTaskFilterModeACType} from "./Redux/TaskBlokReducer";
+
 
 type ButtonsBlockType={
-    // dispatch: (action:any) => void
-    // tasks: Array<Task1Type>
-    callBack:(action:string)=>void
-    // onAllTasks:()=>void
-    // onActiveTasks:()=>void
-    // onCompletedTasks:()=>void
+    dispatch:(action: setTaskFilterModeACType)=>void
 }
 
-export const ButtonsBlock:React.FC<ButtonsBlockType> = (
-    props) => {
+export const ButtonsBlock:React.FC<ButtonsBlockType> = ({dispatch}) => {
 
-    const onActiveTasks = () => {
-        props.callBack('Active')
 
-    }
-    const onCompletedTasks=()=>{
-        props.callBack('Completed')
-
-    }
-    const onAllTasks = () => {
-        props.callBack('all')
-
+    const onClickHandler = (filterMode:string) => {
+        dispatch(setTaskFilterModeAC(filterMode))
     }
 
 
     return (
         <div>
-            <button onClick={onAllTasks}>All</button>
-            <button onClick={onActiveTasks}>Active</button>
-            <button onClick={onCompletedTasks}>Completed</button>
+            <CustomButton onClickHandler={onClickHandler}
+                          buttonName={'All'}  />
+            <CustomButton onClickHandler={onClickHandler}
+                          buttonName={'Active'}  />
+            <CustomButton onClickHandler={onClickHandler}
+                          buttonName={'Completed'}  />
+
         </div>
     )
+}
+
+type CustomButtonPropsType={
+    onClickHandler:(buttonName: string)=>void
+    buttonName: string
+}
+const CustomButton:FC<CustomButtonPropsType> = ({onClickHandler,buttonName}) => {
+    return(
+        <button onClick={()=>onClickHandler(buttonName)}>{buttonName}</button>
+    )
+
 }

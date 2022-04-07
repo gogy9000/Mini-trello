@@ -1,6 +1,6 @@
 import React from "react";
 import {Task1Type, TaskBlockType} from "./Types";
-import {checkTaskAC} from "./Redux/TaskBlokReducer";
+
 
 
 export const TaskBlock = (props: TaskBlockType) => {
