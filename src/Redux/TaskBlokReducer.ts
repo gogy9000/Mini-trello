@@ -1,15 +1,17 @@
 import {StateType, Task1Type} from "../Types";
 
+// @ts-ignore
+import {v1} from 'uuid'
 
 const initialState: StateType = {
     activeTasks: [
-        {id: 1, title: 'фывыфв', isDone: false},
-        {id: 21, title: 'HTML&фывыф', isDone: false},
-        {id: 31, title: 'пап&CSS', isDone: false},
-        {id: 51, title: 'онгш&CSS', isDone: false},
-        {id: 61, title: 'HTML&олдрд', isDone: false},
-        {id: 71, title: 'рпо&CSS', isDone: false},
-    ],
+        // {id: 1, title: 'фывыфв', isDone: false},
+        // {id: 21, title: 'HTML&фывыф', isDone: false},
+        // {id: 31, title: 'пап&CSS', isDone: false},
+        // {id: 51, title: 'онгш&CSS', isDone: false},
+        // {id: 61, title: 'HTML&олдрд', isDone: false},
+        // {id: 71, title: 'рпо&CSS', isDone: false},
+    ] as Array<Task1Type>,
     completedTasks: [] as Array<Task1Type>,
 
     newTaskTitle: '',
@@ -26,7 +28,8 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
         case 'ADD-TASK':
             let newTask = {
-                id: Math.round(state.activeTasks.length * Math.random() * 1000000),
+                id:v1(),
+                // id: Math.round(state.activeTasks.length * Math.random() * 1000000),
                 title: state.newTaskTitle,
                 isDone: false
             };
@@ -40,10 +43,11 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
 
         case 'CHANGE-TEXT-TASK-TITLE':
+
             return {...state, newTaskTitle: action.text};
 
         case 'CHECK-TASK':
-
+            debugger
             let copyState = {
                 activeTasks: [
                     ...state.activeTasks.map(task =>
@@ -108,9 +112,9 @@ type ChangeTextTaskTitleACType = { type: typeof CHANGE_TEXT_TASK_TITLE, text: st
 const CHANGE_TEXT_TASK_TITLE = 'CHANGE-TEXT-TASK-TITLE'
 export const ChangeTextTaskTitleAC = (text: string): ChangeTextTaskTitleACType => ({type: CHANGE_TEXT_TASK_TITLE, text})
 
-export type checkTaskACType = { type: typeof CHECK_TASK, id: number }
+export type checkTaskACType = { type: typeof CHECK_TASK, id: string }
 const CHECK_TASK = 'CHECK-TASK'
-export const checkTaskAC = (id: number): checkTaskACType => ({type: CHECK_TASK, id})
+export const checkTaskAC = (id: string): checkTaskACType => ({type: CHECK_TASK, id})
 
 export type setTaskFilterModeACType = { type: typeof SET_TASK_FILTER_MODE, filterMod: string }
 const SET_TASK_FILTER_MODE = 'SET-TASK-FILTER-MODE'

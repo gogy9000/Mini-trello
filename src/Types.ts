@@ -1,5 +1,5 @@
 export type Task1Type = {
-    id: number
+    id: string
     title: string
     isDone: boolean
 }
@@ -16,7 +16,7 @@ export type StateType={
 
 export type TaskBlockType = {
     tasks: Array<Task1Type>
-    callBack:(id:number)=>void
+    callBack: (id: string)=>void
 
 }
 

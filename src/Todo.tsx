@@ -11,10 +11,10 @@ import {checkTaskAC} from "./Redux/TaskBlokReducer";
 export const Todo = () => {
 
     let state = useSelector((state: any) => state.stateTaskBlock)
-    console.log(state.taskFilterMode)
+
     let dispatch = useDispatch()
 
-    const onCheckHandler = (id: number) => {
+    const onCheckHandler = (id: string) => {
         dispatch(checkTaskAC(id))
     }
 
@@ -29,15 +29,8 @@ export const Todo = () => {
                        state={state}
                        newTaskTitle={state.newTaskTitle}/>
 
-                {state.taskFilterMode==='All'&&
-                    <div>
-                        <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>
-                        <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>
-                    </div>
-                }
-
-                { state.taskFilterMode==='Active'&&<TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/> }
-                { state.taskFilterMode==='Completed'&&<TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
+                {state.taskFilterMode==='Completed'||'All'&& <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>}
+                {state.taskFilterMode==='Active'||'All'&& <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
 
                 <ButtonsBlock dispatch={dispatch}/>
 
