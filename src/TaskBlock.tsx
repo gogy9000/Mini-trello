@@ -4,6 +4,10 @@ import {Task1Type, TaskBlockType} from "./Types";
 
 
 export const TaskBlock = (props: TaskBlockType) => {
+    console.log(props.tasks)
+
+
+
 
 
     return (
@@ -17,15 +21,17 @@ export const TaskBlock = (props: TaskBlockType) => {
 
                         }
                         return (
-                            <div key={taskElem.id}>
-                                <li>
-                                    <input type='checkbox' checked={taskElem.isDone} onClick={checkTask}/>
+
+                                <li key={taskElem.id}>
+                                    <input type='checkbox' checked={taskElem.isDone} onClick={checkTask} />
                                     <span>{taskElem.title}</span>
                                 </li>
-                            </div>)
+                            )
                     }
                 )}
             </ul>
+
+
         </div>
 
     )

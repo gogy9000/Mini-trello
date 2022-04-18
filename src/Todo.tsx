@@ -1,10 +1,9 @@
-import React, {useState} from "react";
+import React from "react";
 import {Input} from "./Input";
 import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
-
+import './App.css';
 import {useDispatch, useSelector} from "react-redux";
-
 import {checkTaskAC} from "./Redux/TaskBlokReducer";
 
 
@@ -19,7 +18,6 @@ export const Todo = () => {
     }
 
 
-
     return (
         <div className="App">
             <div>
@@ -27,12 +25,18 @@ export const Todo = () => {
 
                 <Input dispatch={dispatch}
                        state={state}
-                       newTaskTitle={state.newTaskTitle}/>
+                       newTaskTitle={state.newTaskTitle}
+                />
+                {state.activeTasks.length===0&&state.completedTasks.length===0&&<div>no active and completed tasks</div>}
+                <div>{state.taskFilterMode === 'Completed' || 'All' &&
+                    <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>}
+                </div>
 
-                {state.taskFilterMode==='Completed'||'All'&& <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>}
-                {state.taskFilterMode==='Active'||'All'&& <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
+                <div className={'CompletedTasks'}>{state.taskFilterMode === 'Active' || 'All' &&
+                    <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
+                </div>
 
-                <ButtonsBlock dispatch={dispatch}/>
+                <ButtonsBlock dispatch={dispatch} taskFilterMode={state.taskFilterMode}/>
 
             </div>
         </div>

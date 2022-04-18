@@ -12,6 +12,7 @@ export type StateType={
 
     newTaskTitle: string | number | readonly string[] | undefined
     taskFilterMode: string
+    errorInput:boolean
 }
 
 export type TaskBlockType = {

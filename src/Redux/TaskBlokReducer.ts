@@ -16,8 +16,9 @@ const initialState: StateType = {
 
     newTaskTitle: '',
 
-    taskFilterMode: 'All'
+    taskFilterMode: 'All',
 
+    errorInput:false
 }
 
 export let taskBlockReducer = (state: StateType = initialState, action: any) => {
@@ -27,10 +28,16 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             return {...state, taskFilterMode: action.filterMod};
 
         case 'ADD-TASK':
+            // @ts-ignore
+            if((/^\s+$/).test(state.newTaskTitle)||state.newTaskTitle===''){
+                return {...state,newTaskTitle: '',errorInput:true}
+            }
+            // @ts-ignore
+            let trimText=state.newTaskTitle.trim()
+            console.log(trimText)
             let newTask = {
                 id:v1(),
-                // id: Math.round(state.activeTasks.length * Math.random() * 1000000),
-                title: state.newTaskTitle,
+                title: trimText,
                 isDone: false
             };
 
@@ -47,7 +54,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             return {...state, newTaskTitle: action.text};
 
         case 'CHECK-TASK':
-            debugger
+
             let copyState = {
                 activeTasks: [
                     ...state.activeTasks.map(task =>
@@ -78,31 +85,35 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                 taskFilterMode: state.taskFilterMode
             };
 
+        case 'ERROR-INPUT-RESET':
+            return {...state,errorInput:false}
 
-        case 'GET-ACTIVE-TASKS':
-
-            return {
-                ...state,
-                activeTasks: [...action.activeFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
-            };
-
-        case 'GET-COMPLETED-TASKS':
-            return {
-                ...state,
-                completedTasks: [...action.completedFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
-            };
-
-
-        case 'GET-ALL-STATE':
-            return {...state};
+        //
+        // case 'GET-ACTIVE-TASKS':
+        //
+        //     return {
+        //         ...state,
+        //         activeTasks: [...action.activeFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
+        //     };
+        //
+        // case 'GET-COMPLETED-TASKS':
+        //     return {
+        //         ...state,
+        //         completedTasks: [...action.completedFilter], newTaskTitle: '', taskFilterMode: state.taskFilterMode
+        //     };
+        //
+        //
+        // case 'GET-ALL-STATE':
+        //     return {...state};
 
         default:
             return state
 
     }
-    ;
-
 }
+type errorInputResetACType={type:typeof ERROR_INPUT_RESET}
+const ERROR_INPUT_RESET='ERROR-INPUT-RESET'
+export const errorInputResetAC = ():errorInputResetACType => ({type:ERROR_INPUT_RESET})
 
 type  addTaskACType = { type: typeof ADD_TASK }
 const ADD_TASK = 'ADD-TASK'
@@ -122,23 +133,23 @@ export const setTaskFilterModeAC = (filterMod: string): setTaskFilterModeACType 
     type: SET_TASK_FILTER_MODE,
     filterMod
 })
-
-type getActiveTasksACType = { type: typeof GET_ACTIVE_TASKS, activeFilter: Task1Type }
-const GET_ACTIVE_TASKS = 'GET-ACTIVE-TASKS'
-export const getActiveTasksAC = (activeFilter: Task1Type): getActiveTasksACType => ({
-    type: GET_ACTIVE_TASKS,
-    activeFilter
-})
-
-type getCompletedTasksACType = { type: typeof GET_COMPLETED_TASKS, completedFilter: Task1Type }
-const GET_COMPLETED_TASKS = 'GET-COMPLETED-TASKS'
-export const getCompletedTasksAC = (completedFilter: Task1Type): getCompletedTasksACType => ({
-    type: GET_COMPLETED_TASKS,
-    completedFilter
-})
-
-type getAllTasksACType = { type: typeof GET_ALL_STATE, state: Task1Type }
-const GET_ALL_STATE = 'GET-ALL-STATE'
-export const getAllTasksAC = (state: Task1Type): getAllTasksACType => ({type: GET_ALL_STATE, state})
-
+//
+// type getActiveTasksACType = { type: typeof GET_ACTIVE_TASKS, activeFilter: Task1Type }
+// const GET_ACTIVE_TASKS = 'GET-ACTIVE-TASKS'
+// export const getActiveTasksAC = (activeFilter: Task1Type): getActiveTasksACType => ({
+//     type: GET_ACTIVE_TASKS,
+//     activeFilter
+// })
+//
+// type getCompletedTasksACType = { type: typeof GET_COMPLETED_TASKS, completedFilter: Task1Type }
+// const GET_COMPLETED_TASKS = 'GET-COMPLETED-TASKS'
+// export const getCompletedTasksAC = (completedFilter: Task1Type): getCompletedTasksACType => ({
+//     type: GET_COMPLETED_TASKS,
+//     completedFilter
+// })
+//
+// type getAllTasksACType = { type: typeof GET_ALL_STATE, state: Task1Type }
+// const GET_ALL_STATE = 'GET-ALL-STATE'
+// export const getAllTasksAC = (state: Task1Type): getAllTasksACType => ({type: GET_ALL_STATE, state})
+//
 
