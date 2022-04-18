@@ -6,11 +6,6 @@ import {v1} from 'uuid'
 const initialState: StateType = {
     activeTasks: [
         // {id: 1, title: 'фывыфв', isDone: false},
-        // {id: 21, title: 'HTML&фывыф', isDone: false},
-        // {id: 31, title: 'пап&CSS', isDone: false},
-        // {id: 51, title: 'онгш&CSS', isDone: false},
-        // {id: 61, title: 'HTML&олдрд', isDone: false},
-        // {id: 71, title: 'рпо&CSS', isDone: false},
     ] as Array<Task1Type>,
     completedTasks: [] as Array<Task1Type>,
 
@@ -18,7 +13,7 @@ const initialState: StateType = {
 
     taskFilterMode: 'All',
 
-    errorInput:false
+    errorInput: false
 }
 
 export let taskBlockReducer = (state: StateType = initialState, action: any) => {
@@ -28,15 +23,15 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             return {...state, taskFilterMode: action.filterMod};
 
         case 'ADD-TASK':
-            // @ts-ignore
-            if((/^\s+$/).test(state.newTaskTitle)||state.newTaskTitle===''){
-                return {...state,newTaskTitle: '',errorInput:true}
+
+            if ((/^\s+$/).test(state.newTaskTitle) || state.newTaskTitle === '') {
+                return {...state, newTaskTitle: '', errorInput: true}
             }
-            // @ts-ignore
-            let trimText=state.newTaskTitle.trim()
-            console.log(trimText)
+
+            let trimText = state.newTaskTitle.trim()
+
             let newTask = {
-                id:v1(),
+                id: v1(),
                 title: trimText,
                 isDone: false
             };
@@ -86,7 +81,18 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             };
 
         case 'ERROR-INPUT-RESET':
-            return {...state,errorInput:false}
+            return {...state, errorInput: false}
+        case 'DELETE-TASK':
+            debugger
+            return {
+                ...state,
+                activeTasks: state.activeTasks.filter(task => task.id !== action.id),
+                completedTasks: state.completedTasks.filter(task => task.id !== action.id),
+                newTaskTitle: state.newTaskTitle,
+                taskFilterMode: state.taskFilterMode,
+                errorInput: state.errorInput
+            }
+
 
         //
         // case 'GET-ACTIVE-TASKS':
@@ -111,9 +117,13 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
     }
 }
-type errorInputResetACType={type:typeof ERROR_INPUT_RESET}
-const ERROR_INPUT_RESET='ERROR-INPUT-RESET'
-export const errorInputResetAC = ():errorInputResetACType => ({type:ERROR_INPUT_RESET})
+type deleteTaskACType = { type: typeof DELETE_TASK, id: string }
+const DELETE_TASK = 'DELETE-TASK'
+export const deleteTaskAC = (id: string): deleteTaskACType => ({type: DELETE_TASK, id})
+
+type errorInputResetACType = { type: typeof ERROR_INPUT_RESET }
+const ERROR_INPUT_RESET = 'ERROR-INPUT-RESET'
+export const errorInputResetAC = (): errorInputResetACType => ({type: ERROR_INPUT_RESET})
 
 type  addTaskACType = { type: typeof ADD_TASK }
 const ADD_TASK = 'ADD-TASK'

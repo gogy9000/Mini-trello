@@ -1,3 +1,5 @@
+import {deleteTaskAC} from "./Redux/TaskBlokReducer";
+
 export type Task1Type = {
     id: string
     title: string
@@ -10,7 +12,7 @@ export type StateType={
     activeTasks: Array<Task1Type>
     completedTasks:Array<Task1Type>
 
-    newTaskTitle: string | number | readonly string[] | undefined
+    newTaskTitle: string
     taskFilterMode: string
     errorInput:boolean
 }
@@ -18,6 +20,7 @@ export type StateType={
 export type TaskBlockType = {
     tasks: Array<Task1Type>
     callBack: (id: string)=>void
+    dispatch:(action:any)=>void
 
 }
 

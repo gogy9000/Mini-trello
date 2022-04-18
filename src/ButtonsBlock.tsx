@@ -37,7 +37,7 @@ type CustomButtonPropsType={
     buttonName: string
     className:string
 }
-const CustomButton:FC<CustomButtonPropsType> = ({onClickHandler,buttonName,className}) => {
+export const CustomButton:FC<CustomButtonPropsType> = ({onClickHandler,buttonName,className}) => {
     return(
         <button className={className}
             onClick={()=>onClickHandler(buttonName)}>{buttonName}</button>

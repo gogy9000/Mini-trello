@@ -29,11 +29,11 @@ export const Todo = () => {
                 />
                 {state.activeTasks.length===0&&state.completedTasks.length===0&&<div>no active and completed tasks</div>}
                 <div>{state.taskFilterMode === 'Completed' || 'All' &&
-                    <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler}/>}
+                    <TaskBlock tasks={state.activeTasks} callBack={onCheckHandler} dispatch={dispatch}/>}
                 </div>
 
                 <div className={'CompletedTasks'}>{state.taskFilterMode === 'Active' || 'All' &&
-                    <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler}/>}
+                    <TaskBlock tasks={state.completedTasks} callBack={onCheckHandler} dispatch={dispatch}/>}
                 </div>
 
                 <ButtonsBlock dispatch={dispatch} taskFilterMode={state.taskFilterMode}/>
