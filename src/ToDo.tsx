@@ -1,7 +1,7 @@
 import {StateType, taskTitle} from "./Types";
-import React, {useState} from "react";
+import React, {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
-import {checkTaskAC} from "./Redux/ToDoReducer";
+import {checkTaskAC, removeTodoAC, updateTodoNameAC} from "./Redux/ToDoReducer";
 import {Input} from "./Input";
 import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
@@ -17,14 +17,34 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
     const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
 
     const [filter, setFilter] = useState<string>('All')
+    const [updateTodoMode, setUpdateTodoMode]=useState<boolean>(false)
+    const [todoName, setTodoName]=useState<string>('')
+
+    const todoNameChanger = (e:ChangeEvent<HTMLInputElement>) => {
+        setTodoName(e.currentTarget.value)
+    }
 
     const useSetFilterHandler = (filter: string) => setFilter(filter)
 
+    const onUpdateTodoMode=()=>setUpdateTodoMode(true)
+
+    const updateTodoName = () => {
+        dispatch(updateTodoNameAC(todoName,task.id))
+      setUpdateTodoMode(false)
+    }
+
+    const removeTodo = () => {
+      dispatch(removeTodoAC(task.id))
+    }
 
     return (
         <div key={task.id}>
-            <h3>{task.titleName}</h3>
+            {!updateTodoMode?
+                <h3 onClick={onUpdateTodoMode}>{task.titleName}</h3>
 
+                : <input onChange={todoNameChanger} onMouseLeave={updateTodoName} value={todoName}/>}
+
+                <span><button onClick={removeTodo}>X</button></span>
             <Input dispatch={dispatch}
                    state={state}
 

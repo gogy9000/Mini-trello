@@ -22,7 +22,42 @@ const initialState: StateType = {
 }
 
 export let taskBlockReducer = (state: StateType = initialState, action: any) => {
+
     switch (action.type) {
+
+        case 'REMOVE-TODO':
+            delete state.taskBody[action.idTitle]
+            return {
+                ...state,
+                tasksTitle: state.tasksTitle.filter((title:taskTitle)=>title.id!=action.idTitle),
+            }
+
+        case 'UPDATE-TODO-NAME':
+            debugger
+            return {
+                ...state,
+                tasksTitle: [...state.tasksTitle.map((title: taskTitle) =>
+                    title.id !== action.idTitle ?
+                        title
+                        :{id: action.idTitle, titleName: action.titleName}
+                )
+                ],
+                taskBody:{...state.taskBody}
+            }
+
+        case 'CREATE-NEW-TODO':
+            let todoId = v1()
+            return {
+                ...state,
+                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName}],
+                taskBody: {
+                    ...state.taskBody,
+                    [todoId]: {
+                        activeTasks: [],
+                        completedTasks: []
+                    }
+                }
+            }
 
         case 'ADD-TASK':
 
@@ -43,7 +78,6 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                     }
                 },
                 //ты должен страдать от вложенности!!!
-
 
             };
 
@@ -113,16 +147,31 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
     }
 }
+
+type removeTodoACType={type: typeof REMOVE_TODO, idTitle:string}
+const REMOVE_TODO='REMOVE-TODO'
+export const removeTodoAC = (idTitle:string):removeTodoACType => ({type:REMOVE_TODO,idTitle})
+
+
+type updateTodoNameACType = { type: typeof UPDATE_TODO_NAME, titleName: string, idTitle: string }
+const UPDATE_TODO_NAME = 'UPDATE-TODO-NAME'
+export const updateTodoNameAC = (titleName: string, idTitle: string): updateTodoNameACType =>
+    ({type: UPDATE_TODO_NAME, idTitle ,titleName})
+
+
+type createNewTodoACType = { type: typeof CREATE_NEW_TODO, todoName: string }
+const CREATE_NEW_TODO = 'CREATE-NEW-TODO'
+export const createNewTodoAC = (todoName: string): createNewTodoACType => ({type: CREATE_NEW_TODO, todoName})
+
+
 type deleteTaskACType = { type: typeof DELETE_TASK, id: string, idTitle: string }
 const DELETE_TASK = 'DELETE-TASK'
 export const deleteTaskAC = (id: string, idTitle: string): deleteTaskACType => ({type: DELETE_TASK, id, idTitle})
 
 
-
-type  addTaskACType = { type: typeof ADD_TASK, idTitle: string,inputText:string }
+type  addTaskACType = { type: typeof ADD_TASK, idTitle: string, inputText: string }
 const ADD_TASK = 'ADD-TASK'
-export const addTaskAC = (idTitle: string,inputText:string): addTaskACType => ({type: ADD_TASK, idTitle,inputText})
-
+export const addTaskAC = (idTitle: string, inputText: string): addTaskACType => ({type: ADD_TASK, idTitle, inputText})
 
 
 export type checkTaskACType = { type: typeof CHECK_TASK, id: string, idTitle: string }
