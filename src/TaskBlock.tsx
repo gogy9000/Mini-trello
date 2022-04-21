@@ -1,21 +1,21 @@
 import React from "react";
 import {Task1Type, TaskBlockType} from "./Types";
-import {CustomButton} from "./ButtonsBlock";
-import {deleteTaskAC} from "./Redux/TaskBlokReducer";
 
-// @ts-ignore
-import {v1} from 'uuid'
+import {deleteTaskAC} from "./Redux/ToDoReducer";
+
+
+
 
 
 
 export const TaskBlock = (props: TaskBlockType) => {
 
-    const checkTask = (id:string) => {
-        props.callBack(id)
+    const checkTask = (id:string,idTitle:string) => {
+        props.callBack(id,idTitle)
     }
 
-    const deleteTask = (id:string) => {
-        props.dispatch(deleteTaskAC(id))
+    const deleteTask = (id:string,idTitle:string) => {
+        props.dispatch(deleteTaskAC(id,idTitle))
     }
 
     const mapTasks= props.tasks.map((taskElem: Task1Type) => {
@@ -23,13 +23,13 @@ export const TaskBlock = (props: TaskBlockType) => {
 
 
             return (
-                <li key={v1()}>
+                <li key={taskElem.id}>
                     <input type='checkbox'
                            checked={taskElem.isDone}
-                           onClick={()=>{checkTask(taskElem.id)}}
+                           onClick={()=>{checkTask(taskElem.id,props.idTitle)}}
                     />
                     <span>{taskElem.title}</span>
-                    <button onClick={()=>{deleteTask(taskElem.id)}}>*</button>
+                    <button onClick={()=>{deleteTask(taskElem.id,props.idTitle)}}>x</button>
                 </li>
             )
         }

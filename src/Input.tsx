@@ -1,29 +1,38 @@
-import React from "react";
+import React, {useState} from "react";
 import './App.css';
 import {InputPropsType} from "./Types";
-import {addTaskAC, ChangeTextTaskTitleAC, errorInputResetAC} from "./Redux/TaskBlokReducer";
+import {addTaskAC} from "./Redux/ToDoReducer";
 
 
 export const Input = (props: InputPropsType) => {
 
+    const [inputText, setInputText]= useState<string>('')
+    const [errorInput, setErrorInput]=useState<boolean>(false)
 
     const addTask = () => {
+        if ((/^\s+$/).test(inputText) || inputText === '') {
+            setErrorInput(true)
+            return
+        }
+      props.dispatch(addTaskAC(props.idTitle,inputText))
+        setInputText('')
+    }
 
-      props.dispatch(addTaskAC())
-    }
     const ChangeTextTaskTitle = (e:React.ChangeEvent<HTMLInputElement>) => {
-        props.dispatch(ChangeTextTaskTitleAC(e.currentTarget.value))
+        setInputText(e.currentTarget.value)
     }
+
     const onclickHandler = () => {
-        props.dispatch(errorInputResetAC())
+        setInputText('')
+        setErrorInput(false)
     }
 
     return (
-        <div className={props.state.errorInput?'error':'notError'}>
-            <input onChange={ChangeTextTaskTitle} value={props.newTaskTitle}
+        <div className={errorInput?'error':'notError'}>
+            <input onChange={ChangeTextTaskTitle} value={inputText}
             onClick={onclickHandler}/>
             <button onClick={addTask}>add</button>
-            {props.state.errorInput&&<div >field is empty</div>}
+            {errorInput&&<div >field is empty</div>}
         </div>
     )
 }
