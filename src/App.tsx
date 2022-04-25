@@ -1,16 +1,13 @@
 import React from 'react';
 import './App.css';
-import {Todo} from "./Todo";
+import {ToDos} from "./Todos";
 
 
 
 function App() {
 
     return (
-        <div>
-            <Todo />
-        </div>
-
+            <ToDos />
     );
 }
 

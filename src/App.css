@@ -6,3 +6,15 @@
 .App > div {
   margin-right: 50px;
 }
+.error{
+  color: red;
+}
+.notError{
+  color: black;
+}
+.activeButton{
+  background-color: aqua;
+}
+.CompletedTasks{
+  opacity: 0.5;
+}

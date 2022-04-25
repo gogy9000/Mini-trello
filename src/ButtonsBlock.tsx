@@ -1,38 +1,47 @@
-import React, {useState} from "react";
-import {Task1Type} from "./Types";
-import {getAllTasksAC} from "./Redux/TaskBlokReducer";
+import React, {FC} from "react";
+import './App.css';
+
+
 
 type ButtonsBlockType={
-    // dispatch: (action:any) => void
-    // tasks: Array<Task1Type>
-    callBack:(action:string)=>void
-    // onAllTasks:()=>void
-    // onActiveTasks:()=>void
-    // onCompletedTasks:()=>void
+    filterHandler:(filter:string)=>void
+    filter:string
 }
 
-export const ButtonsBlock:React.FC<ButtonsBlockType> = (
-    props) => {
+export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) => {
 
-    const onActiveTasks = () => {
-        props.callBack('Active')
 
-    }
-    const onCompletedTasks=()=>{
-        props.callBack('Completed')
-
-    }
-    const onAllTasks = () => {
-        props.callBack('all')
-
+    const onClickHandler = (filter:string) => {
+        filterHandler(filter)
     }
 
 
     return (
         <div>
-            <button onClick={onAllTasks}>All</button>
-            <button onClick={onActiveTasks}>Active</button>
-            <button onClick={onCompletedTasks}>Completed</button>
+            <CustomButton onClickHandler={onClickHandler}
+                          className={filter==='All'?'activeButton':''}
+                          buttonName={'All'}  />
+            <CustomButton onClickHandler={onClickHandler}
+                          className={filter==='Active'?'activeButton':''}
+                          buttonName={'Active'}  />
+            <CustomButton onClickHandler={onClickHandler}
+                          className={filter==='Completed'?'activeButton':''}
+                          buttonName={'Completed'}  />
         </div>
     )
+}
+
+
+
+type CustomButtonPropsType={
+    onClickHandler:(buttonName: string)=>void
+    buttonName: string
+    className:string
+}
+export const CustomButton:FC<CustomButtonPropsType> = ({onClickHandler,buttonName,className}) => {
+    return(
+        <button className={className}
+            onClick={()=>onClickHandler(buttonName)}>{buttonName}</button>
+    )
+
 }

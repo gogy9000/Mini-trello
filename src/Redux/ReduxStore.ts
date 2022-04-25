@@ -1,5 +1,5 @@
 import {combineReducers, createStore} from "redux";
-import {taskBlockReducer} from "./TaskBlokReducer";
+import {taskBlockReducer} from "./ToDoReducer";
 
 
 let rootReducer= combineReducers({
