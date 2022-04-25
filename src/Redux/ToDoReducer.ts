@@ -1,23 +1,19 @@
 import {StateType, Task1Type, taskTitle} from "../Types";
 import {v1} from 'uuid'
 
-export let taskIdWhat = v1()
-export let taskIdWho = v1()
 
 const initialState: StateType = {
-    tasksTitle: [
-        {id: taskIdWhat, titleName: 'what?'},
-        {id: taskIdWho, titleName: 'who?'},] as Array<taskTitle>,
+    tasksTitle: [] as Array<taskTitle>,
 
     taskBody: {
-        [taskIdWhat]: {
-            activeTasks: [{id: 'string', title: 'string', isDone: false}] as Array<Task1Type>,
-            completedTasks: [] as Array<Task1Type>
-        },
-        [taskIdWho]: {
-            activeTasks: [] as Array<Task1Type>,
-            completedTasks: [] as Array<Task1Type>
-        }
+        // [taskIdWhat]: {
+        //     activeTasks: [] as Array<Task1Type>,
+        //     completedTasks: [] as Array<Task1Type>
+        // },
+        // [taskIdWho]: {
+        //     activeTasks: [] as Array<Task1Type>,
+        //     completedTasks: [] as Array<Task1Type>
+        // }
     },
 }
 
@@ -29,7 +25,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
-                tasksTitle: state.tasksTitle.filter((title:taskTitle)=>title.id!=action.idTitle),
+                tasksTitle: state.tasksTitle.filter((title: taskTitle) => title.id != action.idTitle),
             }
 
         case 'UPDATE-TODO-NAME':
@@ -39,10 +35,9 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                 tasksTitle: [...state.tasksTitle.map((title: taskTitle) =>
                     title.id !== action.idTitle ?
                         title
-                        :{id: action.idTitle, titleName: action.titleName}
-                )
+                        : {id: action.idTitle, titleName: action.titleName})
                 ],
-                taskBody:{...state.taskBody}
+                taskBody: {...state.taskBody}
             }
 
         case 'CREATE-NEW-TODO':
@@ -148,15 +143,15 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
     }
 }
 
-type removeTodoACType={type: typeof REMOVE_TODO, idTitle:string}
-const REMOVE_TODO='REMOVE-TODO'
-export const removeTodoAC = (idTitle:string):removeTodoACType => ({type:REMOVE_TODO,idTitle})
+type removeTodoACType = { type: typeof REMOVE_TODO, idTitle: string }
+const REMOVE_TODO = 'REMOVE-TODO'
+export const removeTodoAC = (idTitle: string): removeTodoACType => ({type: REMOVE_TODO, idTitle})
 
 
 type updateTodoNameACType = { type: typeof UPDATE_TODO_NAME, titleName: string, idTitle: string }
 const UPDATE_TODO_NAME = 'UPDATE-TODO-NAME'
 export const updateTodoNameAC = (titleName: string, idTitle: string): updateTodoNameACType =>
-    ({type: UPDATE_TODO_NAME, idTitle ,titleName})
+    ({type: UPDATE_TODO_NAME, idTitle, titleName})
 
 
 type createNewTodoACType = { type: typeof CREATE_NEW_TODO, todoName: string }
