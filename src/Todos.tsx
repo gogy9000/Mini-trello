@@ -4,16 +4,24 @@ import {useDispatch, useSelector} from "react-redux";
 import {taskTitle} from "./Types";
 import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
+import {CustomInput} from "./CustomInput";
+import {CustomEditSpan} from "./CustomEditSpan";
 
 
 export const ToDos = () => {
-    let state = useSelector((state:any) => state.stateTaskBlock)
-    let dispatch=useDispatch()
+    let state = useSelector((state: any) => state.stateTaskBlock)
+    let dispatch = useDispatch()
+    const [editTaskMode, setEditTaskMode] = useState<boolean>(false)
 
-    let [todoName, setTodoName]= useState<string>('noName')
+    let [todoName, setTodoName] = useState<string>('')
 
-    const onclickHandler = () => {
-      dispatch(createNewTodoAC(todoName))
+    const onEnterHandler = () => {
+        dispatch(createNewTodoAC(todoName ? todoName : 'no name task'))
+        // setEditTaskMode(false)
+        setTodoName('')
+    }
+    const onDoubleClickHandler = () => {
+        setTodoName('')
     }
 
 
@@ -21,7 +29,18 @@ export const ToDos = () => {
 
     return (
         <div className="App">
-            <div><button onClick={onclickHandler}>new todo</button></div>
+            {/*<div>*/}
+            {/*    <button onClick={() => {*/}
+            {/*        setEditTaskMode(true)*/}
+            {/*    }}>{'new todo'}</button>*/}
+            {/*</div>*/}
+            <CustomEditSpan value={todoName} onChangeText={setTodoName}
+                            onClick={onDoubleClickHandler}
+                            onBlur={onEnterHandler}
+                            onDoubleClick={onDoubleClickHandler}
+                            onEnter={onEnterHandler}
+                            spanProps={{children: todoName?undefined:'New Task'}} />
+            {/*{editTaskMode && <CustomInput onChangeText={setTodoName} onEnter={onclickHandler}/>}*/}
 
             <span>{todos}</span>
 
