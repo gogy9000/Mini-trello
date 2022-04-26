@@ -2,10 +2,11 @@ import {StateType, taskTitle} from "./Types";
 import React, {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {checkTaskAC, removeTodoAC, updateTodoNameAC} from "./Redux/ToDoReducer";
-import {Input} from "./Input";
+import {InputBlock} from "./InputBlock";
 import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 import {CustomInput} from "./CustomInput";
+import {CustomButton} from "./CustomButton";
 
 type ToDoType = {
     task: taskTitle
@@ -52,9 +53,9 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
             }
 
 
-            <span><button onClick={removeTodo}>X</button></span>
 
-            <Input dispatch={dispatch} state={state} idTitle={task.id}/>
+
+            <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
 
             {
                 state.taskBody[task.id].activeTasks.length === 0
@@ -77,8 +78,13 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
                                   callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
-
-            <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
+            <div>
+                <CustomButton onClick={()=>{setFilter('all')}}>all </CustomButton>
+                <CustomButton onClick={()=>{setFilter('Active')}}>Active </CustomButton>
+                <CustomButton onClick={()=>{setFilter('Completed')}}>Completed </CustomButton>
+                <CustomButton onClick={()=>{removeTodo()}}>remove todo </CustomButton>
+            </div>
+            {/*<ButtonsBlock  filterHandler={useSetFilterHandler} filter={filter}/>*/}
 
         </div>)
 }
