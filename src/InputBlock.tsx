@@ -2,9 +2,10 @@ import React, {useState} from "react";
 import './App.css';
 import {InputPropsType} from "./Types";
 import {addTaskAC} from "./Redux/ToDoReducer";
+import {CustomButton} from "./CustomButton";
 
 
-export const Input = (props: InputPropsType) => {
+export const InputBlock = (props: InputPropsType) => {
 
     const [inputText, setInputText]= useState<string>('')
     const [errorInput, setErrorInput]=useState<boolean>(false)
@@ -31,7 +32,8 @@ export const Input = (props: InputPropsType) => {
         <div className={errorInput?'error':'notError'}>
             <input onChange={ChangeTextTaskTitle} value={inputText}
             onClick={onclickHandler}/>
-            <button onClick={addTask}>add</button>
+            <CustomButton onClick={addTask}>add</CustomButton>
+
             {errorInput&&<div >field is empty</div>}
         </div>
     )
