@@ -21,6 +21,27 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
     switch (action.type) {
 
+        case 'UPDATE-TASK':
+            return {
+                ...state,
+                taskBody: {
+                    ...state.taskBody,
+                    [action.idTitle]: {
+                        activeTasks:
+                            state.taskBody[action.idTitle].activeTasks.map(
+                                (task: Task1Type) => task.id === action.taskId
+                                    ? {id: task.id, title: action.taskValue, isDone: task.isDone}
+                                    : task),
+                        completedTasks:
+                            state.taskBody[action.idTitle].completedTasks.map(
+                                (task: Task1Type) => task.id === action.taskId
+                                    ? {id: task.id, title: action.taskValue, isDone: task.isDone}
+                                    : task)
+                    }
+                }
+            }
+
+
         case 'REMOVE-TODO':
             delete state.taskBody[action.idTitle]
             return {
@@ -142,6 +163,15 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
     }
 }
+type updateTaskACType={type:typeof UPDATE_TASK, idTitle: string, taskId: string, taskValue: string }
+const UPDATE_TASK = 'UPDATE-TASK'
+export const updateTaskAC = (idTitle: string, taskId: string, taskValue: string):updateTaskACType => ({
+    type: UPDATE_TASK,
+    idTitle,
+    taskId,
+    taskValue
+})
+
 
 type removeTodoACType = { type: typeof REMOVE_TODO, idTitle: string }
 const REMOVE_TODO = 'REMOVE-TODO'
@@ -166,7 +196,11 @@ export const deleteTaskAC = (id: string, idTitle: string): deleteTaskACType => (
 
 type  addTaskACType = { type: typeof ADD_TASK, idTitle: string, inputText: string }
 const ADD_TASK = 'ADD-TASK'
-export const addTaskAC = (idTitle: string, inputText: string): addTaskACType => ({type: ADD_TASK, idTitle, inputText})
+export const addTaskAC = (idTitle: string, inputText: string): addTaskACType => ({
+    type: ADD_TASK,
+    idTitle,
+    inputText
+})
 
 
 export type checkTaskACType = { type: typeof CHECK_TASK, id: string, idTitle: string }

@@ -13,7 +13,7 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
 export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = (
     {
         autoFocus, onBlur, onEnter,
-        spanProps, ...restProps
+        spanProps,onChangeText, ...restProps
     }) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
@@ -26,6 +26,7 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = (
 
     const onBlurCallBack = (e: React.FocusEvent<HTMLInputElement>) => {
         setEditMode(false)
+
         onBlur && onBlur(e)
     }
 
@@ -40,15 +41,17 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = (
             {
                 editMode
                     ? <CustomInput
+
                         autoFocus
                         onBlur={onBlurCallBack}
                         onEnter={onEnterCallBack}
+                        onChangeText={onChangeText}
                         {...restProps}/>
 
                     : <span onDoubleClick={onDoubleClickCallBack}
                             className={finalClassName}
                             {...restSpanProps}>
-                        {children || restProps.value}
+                        {  children|| restProps.value}
                     </span>
 
             }
