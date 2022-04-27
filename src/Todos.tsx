@@ -6,6 +6,7 @@ import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
 import {CustomInput} from "./CustomInput";
 import {CustomEditSpan} from "./CustomEditSpan";
+import {CustomButton} from "./CustomButton";
 
 
 export const ToDos = () => {
@@ -13,31 +14,45 @@ export const ToDos = () => {
     let state = useSelector((state: any) => state.stateTaskBlock)
     let dispatch = useDispatch()
     let [todoName, setTodoName] = useState<string>('')
+    const [createMode, setCreateMode] = useState<boolean>(false)
 
-    const onEnterHandler = () => {
+    const createTask = () => {
+        if (!todoName && createMode) {
+            return
+        }
         dispatch(createNewTodoAC(todoName ? todoName : 'no name task'))
-        // setEditTaskMode(false)
         setTodoName('')
+        setCreateMode(false)
+
+
     }
-    const onDoubleClickHandler = () => {
+    const onDoubleClickHandler = () => setTodoName('')
+
+
+    const moveCreateTask = () => {
         setTodoName('')
+        setCreateMode(true)
     }
 
 
-    const todos = state.tasksTitle.map((task: taskTitle) => <ToDo key={task.id} task={task} state={state}/>)
+    const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => <ToDo
+        lastItem={arr.length - index} createMode={createMode} key={task.id} task={task} state={state}/>)
+
 
     return (
         <div className="App">
 
             <CustomEditSpan value={todoName} onChangeText={setTodoName}
-                            onClick={onDoubleClickHandler}
-                            onBlur={onEnterHandler}
+                            className={'new-todo-input'}
+                            onBlur={()=>{setTodoName('')}}
                             onDoubleClick={onDoubleClickHandler}
-                            onEnter={onEnterHandler}
-                            spanProps={{children : todoName ? undefined :'New Task'}} />
-            {/*{editTaskMode && <CustomInput onChangeText={setTodoName} onEnter={onclickHandler}/>}*/}
+                            spanProps={{children: todoName ? undefined : ' Create new task'}}/>
 
-            <span>{todos}</span>
+            <CustomButton onMouseUp={moveCreateTask}
+                          onMouseDown={createTask}
+                          >Create</CustomButton>
+
+            <div>{todos}</div>
 
 
         </div>

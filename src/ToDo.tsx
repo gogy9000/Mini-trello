@@ -11,8 +11,10 @@ import {CustomButton} from "./CustomButton";
 type ToDoType = {
     task: taskTitle
     state: StateType
+    createMode:boolean
+    lastItem:number
 }
-export const ToDo: React.FC<ToDoType> = ({task, state}) => {
+export const ToDo: React.FC<ToDoType> = ({task, state,createMode,lastItem}) => {
 
     let dispatch = useDispatch()
 
@@ -21,7 +23,7 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
     const [filter, setFilter] = useState<string>('All')
     const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
-    const [error, setError]=useState<string>('')
+    const [error, setError] = useState<string>('')
 
     const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => {
 
@@ -34,16 +36,16 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
 
     const updateTodoName = () => {
 
-        dispatch(updateTodoNameAC(todoName?todoName:'no name', task.id))
+        dispatch(updateTodoNameAC(todoName ? todoName : 'no name', task.id))
         setUpdateTodoMode(false)
     }
 
     const removeTodo = () => {
         dispatch(removeTodoAC(task.id))
     }
-
+    console.log(lastItem)
     return (
-        <div key={task.id}>
+        <div key={task.id} className={lastItem===1&&!createMode?'todo-mapped-created':'todo-mapped'}>
             {
                 !updateTodoMode
                     ? <h3 onClick={onUpdateTodoMode}>{task.titleName}</h3>
@@ -51,8 +53,6 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
                                    value={todoName} error={error}/>
 
             }
-
-
 
 
             <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
@@ -79,12 +79,26 @@ export const ToDo: React.FC<ToDoType> = ({task, state}) => {
                 }
             </div>
             <div>
-                <CustomButton onClick={()=>{setFilter('all')}}>all </CustomButton>
-                <CustomButton onClick={()=>{setFilter('Active')}}>Active </CustomButton>
-                <CustomButton onClick={()=>{setFilter('Completed')}}>Completed </CustomButton>
-                <CustomButton onClick={()=>{removeTodo()}}>remove todo </CustomButton>
+                <CustomButton className={filter === 'All' ? 'activeButton' : ''}
+                              onClick={() => {
+                                  setFilter('all')
+                              }}>all </CustomButton>
+
+                <CustomButton className={filter === 'Active' ? 'activeButton' : ''}
+                              onClick={() => {
+                                  setFilter('Active')
+                              }}>Active </CustomButton>
+
+                <CustomButton className={filter === 'Completed' ? 'activeButton' : ''}
+                              onClick={() => {
+                                  setFilter('Completed')
+                              }}>Completed </CustomButton>
+
+                <CustomButton onClick={() => {
+                    removeTodo()
+                }}>remove todo </CustomButton>
             </div>
-            {/*<ButtonsBlock  filterHandler={useSetFilterHandler} filter={filter}/>*/}
+            <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
 
         </div>)
 }

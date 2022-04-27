@@ -43,6 +43,7 @@ export const TaskBlock = (props: TaskBlockType) => {
                     <CustomEditSpan value={taskValue}
                                     onBlur={() => {
                                         updateTask(taskElem.id, props.idTitle)
+                                        setTaskValue('')
                                     }}
                                     onChangeText={(text) => {
                                         setTaskValue(text)
