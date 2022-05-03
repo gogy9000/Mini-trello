@@ -11,10 +11,10 @@ import {CustomButton} from "./CustomButton";
 type ToDoType = {
     task: taskTitle
     state: StateType
-    createMode:boolean
-    lastItem:number
+    createMode: boolean
+    lastItem: number
 }
-export const ToDo: React.FC<ToDoType> = ({task, state,createMode,lastItem}) => {
+export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) => {
 
     let dispatch = useDispatch()
 
@@ -45,7 +45,7 @@ export const ToDo: React.FC<ToDoType> = ({task, state,createMode,lastItem}) => {
     }
     console.log(lastItem)
     return (
-        <div key={task.id} className={lastItem===1&&!createMode?'todo-mapped-created':'todo-mapped'}>
+        <div key={task.id} className={lastItem === 1 && !createMode ? 'todo-mapped-created' : 'todo-mapped'}>
             {
                 !updateTodoMode
                     ? <h3 onClick={onUpdateTodoMode}>{task.titleName}</h3>

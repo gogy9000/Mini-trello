@@ -1,5 +1,6 @@
 import {StateType, Task1Type, taskTitle} from "../Types";
-import {v1} from 'uuid'
+
+import { v1  } from 'uuid';
 
 
 const initialState: StateType = {
