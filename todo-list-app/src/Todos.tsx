@@ -6,8 +6,8 @@ import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
 import {CustomEditSpan} from "./CustomEditSpan";
 import {CustomButton} from "./CustomButton";
-import { Button } from "@mui/material";
-// import {Button} from "@mui/material";
+import {Button, Grid, TextField} from "@mui/material";
+
 
 
 export const ToDos = () => {
@@ -41,27 +41,35 @@ export const ToDos = () => {
 
 
     return (
-        <div className="App">
+            <div>
+            <TextField  id="outlined-basic" label="Create new todo" variant="standard"
+                       value={todoName}
+                       onBlur={() => {
+                           setTodoName('')
+                       }}
+                       onChange={(e)=> {
+                           setTodoName(e.currentTarget.value)
+                       }} />
 
-            <CustomEditSpan value={todoName} onChangeText={setTodoName}
-                            className={'new-todo-input'}
-                            onBlur={() => {
-                                setTodoName('')
-                            }}
-                            onDoubleClick={onDoubleClickHandler}
-                            spanProps={{children: todoName ? undefined : ' Create new task'}}/>
+            {/*<CustomEditSpan value={todoName} onChangeText={setTodoName}*/}
+            {/*                className={'new-todo-input'}*/}
+            {/*                onBlur={() => {*/}
+            {/*                    setTodoName('')*/}
+            {/*                }}*/}
+            {/*                onDoubleClick={onDoubleClickHandler}*/}
+            {/*                spanProps={{children: todoName ? undefined : ' Create new task'}}/>*/}
 
             {/*<CustomButton onMouseUp={moveCreateTask}*/}
             {/*              onMouseDown={createTask}*/}
             {/*>Create</CustomButton>*/}
-            <Button variant="contained" onMouseUp={moveCreateTask}
+            <Button variant="outlined" onMouseUp={moveCreateTask}
                     onMouseDown={createTask}
             >Create</Button>
 
-            <div>{todos}</div>
+            <div >{todos}</div>
 
+            </div>
 
-        </div>
     )
 }
 
