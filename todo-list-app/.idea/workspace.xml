@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="95b80098-50b2-49f8-9d91-2a9d6a6a78e3" name="Changes" comment="">
+    <list default="true" id="95b80098-50b2-49f8-9d91-2a9d6a6a78e3" name="Changes" comment="use material ui">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TaskBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Todos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todos.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -83,8 +79,23 @@
       <option name="presentableId" value="Default" />
       <updated>1651637412336</updated>
       <workItem from="1651637414373" duration="18057000" />
-      <workItem from="1651663610156" duration="2274000" />
+      <workItem from="1651663610156" duration="2377000" />
     </task>
+    <task id="LOCAL-00001" summary="use material ui">
+      <created>1651666246196</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1651666246196</updated>
+    </task>
+    <task id="LOCAL-00002" summary="use material ui">
+      <created>1651666255139</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651666255139</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -112,5 +123,9 @@
         </entry>
       </map>
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="use material ui" />
+    <option name="LAST_COMMIT_MESSAGE" value="use material ui" />
   </component>
 </project>

@@ -12,7 +12,7 @@ function App() {
         <div>
             <AppBar>Todo</AppBar>
             <Typography mt={4}>
-                <Container fixed  >
+                <Container fixed>
                     <Grid container >
                         <ToDos/>
                     </Grid>
