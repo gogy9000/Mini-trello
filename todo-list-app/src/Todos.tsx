@@ -4,9 +4,10 @@ import {useDispatch, useSelector} from "react-redux";
 import {taskTitle} from "./Types";
 import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
-import {CustomInput} from "./CustomInput";
 import {CustomEditSpan} from "./CustomEditSpan";
 import {CustomButton} from "./CustomButton";
+import { Button } from "@mui/material";
+// import {Button} from "@mui/material";
 
 
 export const ToDos = () => {
@@ -44,13 +45,18 @@ export const ToDos = () => {
 
             <CustomEditSpan value={todoName} onChangeText={setTodoName}
                             className={'new-todo-input'}
-                            onBlur={()=>{setTodoName('')}}
+                            onBlur={() => {
+                                setTodoName('')
+                            }}
                             onDoubleClick={onDoubleClickHandler}
                             spanProps={{children: todoName ? undefined : ' Create new task'}}/>
 
-            <CustomButton onMouseUp={moveCreateTask}
-                          onMouseDown={createTask}
-                          >Create</CustomButton>
+            {/*<CustomButton onMouseUp={moveCreateTask}*/}
+            {/*              onMouseDown={createTask}*/}
+            {/*>Create</CustomButton>*/}
+            <Button variant="contained" onMouseUp={moveCreateTask}
+                    onMouseDown={createTask}
+            >Create</Button>
 
             <div>{todos}</div>
 
