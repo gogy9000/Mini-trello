@@ -5,6 +5,8 @@ import {deleteTaskAC, updateTaskAC} from "./Redux/ToDoReducer";
 import {CustomInput} from "./CustomInput";
 import {CustomButton} from "./CustomButton";
 import {CustomEditSpan} from "./CustomEditSpan";
+import {Button, Checkbox, IconButton} from "@mui/material";
+import {Check, Clear, Create} from "@mui/icons-material";
 
 
 export const TaskBlock = (props: TaskBlockType) => {
@@ -31,15 +33,22 @@ export const TaskBlock = (props: TaskBlockType) => {
 
 
             return (
-                <li key={taskElem.id}>
+                <div key={taskElem.id}>
 
-                    <input type='checkbox'
-                           defaultChecked={taskElem.isDone}
-                           onClick={() => {
-                               checkTask(taskElem.id, props.idTitle)
-                           }}
+                    {/*<input type='checkbox'*/}
+                    {/*       defaultChecked={taskElem.isDone}*/}
+                    {/*       onClick={() => {*/}
+                    {/*           checkTask(taskElem.id, props.idTitle)*/}
+                    {/*       }}*/}
+                    {/*/>*/}
+                    <Checkbox
+                        checked= {taskElem.isDone}
+                        icon={<Check />}
+                        checkedIcon={<Check />}
+                        onClick={() => {
+                            checkTask(taskElem.id, props.idTitle)
+                        }}
                     />
-
                     <CustomEditSpan value={taskValue}
                                     onBlur={() => {
                                         updateTask(taskElem.id, props.idTitle)
@@ -49,21 +58,21 @@ export const TaskBlock = (props: TaskBlockType) => {
                                         setTaskValue(text)
                                     }}
                                     spanProps={{children:!taskElem.title? undefined : taskElem.title}}/>
-                    <CustomButton onClick={() => {
+
+                    <IconButton onClick={() => {
                         deleteTask(taskElem.id, props.idTitle)
-                    }}>
-                        remove task
-                    </CustomButton>
-                </li>
+                    } }><Clear/></IconButton>
+
+                </div>
             )
         }
     )
 
         return (
             <div>
-                <ul>
+                <div>
                     {mapTasks}
-                </ul>
+                </div>
 
 
             </div>
