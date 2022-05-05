@@ -164,6 +164,12 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
 
     }
 }
+
+export type actionType=updateTaskACType|removeTodoACType|
+    updateTodoNameACType|createNewTodoACType|
+    deleteTaskACType|addTaskACType|checkTaskACType
+
+
 type updateTaskACType={type:typeof UPDATE_TASK, idTitle: string, taskId: string, taskValue: string }
 const UPDATE_TASK = 'UPDATE-TASK'
 export const updateTaskAC = (idTitle: string, taskId: string, taskValue: string):updateTaskACType => ({

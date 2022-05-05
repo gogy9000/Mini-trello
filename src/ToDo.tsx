@@ -3,11 +3,11 @@ import React, {ChangeEvent, useState} from "react";
 import {useDispatch} from "react-redux";
 import {checkTaskAC, removeTodoAC, updateTodoNameAC} from "./Redux/ToDoReducer";
 import {InputBlock} from "./InputBlock";
-import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
-import {CustomInput} from "./CustomInput";
-import {CustomButton} from "./CustomButton";
-import {Button, Grid, TextField} from "@mui/material";
+import {TaskBlockWrapper} from "./TaskBlockWrapper";
+import {TaskTitleBlock} from "./TaskTitleBlock";
+import {Grid, Paper, Typography} from "@mui/material";
+
 
 type ToDoType = {
     task: taskTitle
@@ -37,96 +37,44 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
         setUpdateTodoMode(false)
     }
 
-    const removeTodo = () => {
-        dispatch(removeTodoAC(task.id))
-    }
+    // const removeTodo = () => {
+    //     dispatch(removeTodoAC(task.id))
+    // }
 
     return (
 
         <div key={task.id} className={lastItem === 1 && !createMode ? 'todo-mapped-created' : 'todo-mapped'}>
+            <Grid container direction={'row'}>
+                <Typography align={'center'}>
+                    <Paper>
+                        <TaskTitleBlock task={task}
+                                        error={error}
+                                        setError={setError}
+                                        onUpdateTodoMode={onUpdateTodoMode}
+                                        updateTodoMode={updateTodoMode}
+                                        todoName={todoName}
+                                        todoNameChanger={todoNameChanger}
+                                        updateTodoName={updateTodoName}/>
 
-
-            {
-                !updateTodoMode
-                    ?
-                    // <Grid item>
-                    <div onClick={onUpdateTodoMode}>{task.titleName}</div>
-                    // </Grid>
-                    :
-                    // <Grid item>
-                    <div>
-                        <TextField
-                            size={'small'}
-                            onClick={() => {
-                                setError('')
-                            }}
-                            onChange={todoNameChanger}
-                            value={todoName}
-                            error={error ? true : false}
-                            id="filled-error-helper-text"
-                            label={'New task name'}
-                            // helperText={updateTodoMode?"Press Enter.":'New task name'}
-                            variant="filled"
-                        />
-
-                        <Button variant={'outlined'} onClick={updateTodoName} size={'small'}>update</Button>
-                    </div>
-                // </Grid>
-                // <CustomInput onChange={todoNameChanger} onEnter={updateTodoName}
-                //                value={todoName} error={error}/>
-
-            }
-
-
-            <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
-
-            {
-                state.taskBody[task.id].activeTasks.length === 0
-                && state.taskBody[task.id].completedTasks.length === 0
-                && <div>no active and completed tasks</div>
-            }
-
-            <div>
-                {
-                    filter === 'Completed' || 'All'
-                    && <TaskBlock idTitle={task.id} tasks={state.taskBody[task.id].activeTasks}
-                                  callBack={onCheckHandler} dispatch={dispatch}/>
-                }
-            </div>
-
-            <div className={'CompletedTasks'}>
-                {
-                    filter === 'Active' || 'All'
-                    && <TaskBlock idTitle={task.id} tasks={state.taskBody[task.id].completedTasks}
-                                  callBack={onCheckHandler} dispatch={dispatch}/>
-                }
-            </div>
-
-            <div>
-                <Button color={filter === 'All' ? 'secondary' : 'primary'}
-                        onClick={() => {
-                            setFilter('all')
-                        }}>all </Button>
-
-                <Button color={filter === 'Active' ? 'secondary' : 'primary'}
-                        onClick={() => {
-                            setFilter('Active')
-                        }}>Active </Button>
-
-                <Button color={filter === 'Completed' ? 'secondary' : 'primary'}
-                        onClick={() => {
-                            setFilter('Completed')
-                        }}>Completed </Button>
-
-                <Button color={'success'} onClick={() => {
-                    removeTodo()
-                }}>remove todo </Button>
-            </div>
-
-            {/*<ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>*/}
-
+                        <Grid container direction={'column'} rowSpacing={2} mt={2}>
+                            <Grid item>
+                                <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
+                            </Grid>
+                            <Grid item>
+                                <TaskBlockWrapper state={state}
+                                                  task={task}
+                                                  filter={filter}
+                                                  onCheckHandler={onCheckHandler}
+                                                  dispatch={dispatch}/>
+                            </Grid>
+                            <Grid item>
+                                <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
+                            </Grid>
+                        </Grid>
+                    </Paper>
+                </Typography>
+            </Grid>
         </div>
-
     )
 }
 

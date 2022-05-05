@@ -6,7 +6,7 @@ import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
 import {CustomEditSpan} from "./CustomEditSpan";
 import {CustomButton} from "./CustomButton";
-import {Button, Grid, TextField} from "@mui/material";
+import {Button, Grid, TextField, Typography} from "@mui/material";
 
 
 export const ToDos = () => {
@@ -25,53 +25,55 @@ export const ToDos = () => {
         setCreateMode(false)
     }
 
-    const onDoubleClickHandler = () => setTodoName('')
-
-
     const moveCreateTask = () => {
         setTodoName('')
         setCreateMode(true)
     }
 
 
-    const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => <ToDo
-        lastItem={arr.length - index} createMode={createMode} key={task.id} task={task} state={state}/>)
+    const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => {
+            return (
+
+                 <ToDo lastItem={arr.length - index}
+                       createMode={createMode}
+                       key={task.id}
+                       task={task}
+                       state={state}/>
+
+            )
+        }
+    )
 
 
     return (
-<>
+        <>
 
+            <Grid container mt={2} spacing={2} direction={'column'}>
+                <Typography>
+                    <TextField id="outlined-basic" label="Create new todo" variant="standard"
+                               value={todoName}
+                               onBlur={() => {
+                                   setTodoName('')
+                               }}
+                               onChange={(e) => {
+                                   setTodoName(e.currentTarget.value)
+                               }}/>
 
-                <TextField id="outlined-basic" label="Create new todo" variant="standard"
-                           value={todoName}
-                           onBlur={() => {
-                               setTodoName('')
-                           }}
-                           onChange={(e) => {
-                               setTodoName(e.currentTarget.value)
-                           }}/>
+                    <Button variant="outlined" onMouseUp={moveCreateTask}
+                            onMouseDown={createTask}
+                    >Create</Button>
+                </Typography>
+            </Grid>
 
-            {/*<CustomEditSpan value={todoName} onChangeText={setTodoName}*/}
-            {/*                className={'new-todo-input'}*/}
-            {/*                onBlur={() => {*/}
-            {/*                    setTodoName('')*/}
-            {/*                }}*/}
-            {/*                onDoubleClick={onDoubleClickHandler}*/}
-            {/*                spanProps={{children: todoName ? undefined : ' Create new task'}}/>*/}
+            <Grid container m={4} direction={'column'} columns={3}>
+                <Grid item>
+                    <Typography>
+                        <span>{todos}</span>
+                    </Typography>
+                </Grid>
+            </Grid>
 
-            {/*<CustomButton onMouseUp={moveCreateTask}*/}
-            {/*              onMouseDown={createTask}*/}
-            {/*>Create</CustomButton>*/}
-                <Button variant="outlined" onMouseUp={moveCreateTask}
-                        onMouseDown={createTask}
-                >Create</Button>
-
-
-
-                <div>{todos}</div>
-
-
-</>
+        </>
     )
 }
 

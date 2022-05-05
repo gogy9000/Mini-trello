@@ -1,6 +1,7 @@
 import React from "react";
 import './App.css';
 import {CustomButton} from "./CustomButton";
+import {Button} from "@mui/material";
 
 
 type ButtonsBlockType= {
@@ -17,17 +18,28 @@ export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) 
 
 
     return (
-        <div>
-            {/*<CustomButton onClickHandler={onClickHandler}*/}
-            {/*              className={filter==='All'?'activeButton':''}*/}
-            {/*              buttonName={'All'}  />*/}
-            {/*<CustomButton onClickHandler={onClickHandler}*/}
-            {/*              className={filter==='Active'?'activeButton':''}*/}
-            {/*              buttonName={'Active'}  />*/}
-            {/*<CustomButton onClickHandler={onClickHandler}*/}
-            {/*              className={filter==='Completed'?'activeButton':''}*/}
-            {/*              buttonName={'Completed'}  />*/}
-        </div>
+
+            <div>
+                <Button color={filter === 'All' ? 'secondary' : 'primary'}
+                        onClick={() => {
+                            onClickHandler('All')
+                        }}>all </Button>
+
+                <Button color={filter === 'Active' ? 'secondary' : 'primary'}
+                        onClick={() => {
+                            onClickHandler('Active')
+                        }}>Active </Button>
+
+                <Button color={filter === 'Completed' ? 'secondary' : 'primary'}
+                        onClick={() => {
+                            onClickHandler('Completed')
+                        }}>Completed </Button>
+
+                {/*<Button color={'success'} onClick={() => {*/}
+                {/*    removeTodo()*/}
+                {/*}}>remove todo </Button>*/}
+            </div>
+
     )
 }
 

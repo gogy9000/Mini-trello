@@ -11,9 +11,9 @@ function App() {
 
         <div>
             <Container fixed>
-                <Grid container>
+
                     <ToDos/>
-                </Grid>
+
            
         </Container>
 </div>
