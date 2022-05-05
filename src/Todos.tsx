@@ -9,11 +9,10 @@ import {CustomButton} from "./CustomButton";
 import {Button, Grid, TextField} from "@mui/material";
 
 
-
 export const ToDos = () => {
 
     let state = useSelector((state: any) => state.stateTaskBlock)
-    let dispatch = useDispatch()
+    const dispatch = useDispatch()
     let [todoName, setTodoName] = useState<string>('')
     const [createMode, setCreateMode] = useState<boolean>(false)
 
@@ -24,9 +23,8 @@ export const ToDos = () => {
         dispatch(createNewTodoAC(todoName ? todoName : 'no name task'))
         setTodoName('')
         setCreateMode(false)
-
-
     }
+
     const onDoubleClickHandler = () => setTodoName('')
 
 
@@ -41,15 +39,17 @@ export const ToDos = () => {
 
 
     return (
-            <div>
-            <TextField  id="outlined-basic" label="Create new todo" variant="standard"
-                       value={todoName}
-                       onBlur={() => {
-                           setTodoName('')
-                       }}
-                       onChange={(e)=> {
-                           setTodoName(e.currentTarget.value)
-                       }} />
+<>
+
+
+                <TextField id="outlined-basic" label="Create new todo" variant="standard"
+                           value={todoName}
+                           onBlur={() => {
+                               setTodoName('')
+                           }}
+                           onChange={(e) => {
+                               setTodoName(e.currentTarget.value)
+                           }}/>
 
             {/*<CustomEditSpan value={todoName} onChangeText={setTodoName}*/}
             {/*                className={'new-todo-input'}*/}
@@ -62,14 +62,17 @@ export const ToDos = () => {
             {/*<CustomButton onMouseUp={moveCreateTask}*/}
             {/*              onMouseDown={createTask}*/}
             {/*>Create</CustomButton>*/}
-            <Button variant="outlined" onMouseUp={moveCreateTask}
-                    onMouseDown={createTask}
-            >Create</Button>
+                <Button variant="outlined" onMouseUp={moveCreateTask}
+                        onMouseDown={createTask}
+                >Create</Button>
 
-            <div >{todos}</div>
 
-            </div>
 
+                <div>{todos}</div>
+
+
+</>
     )
 }
+
 

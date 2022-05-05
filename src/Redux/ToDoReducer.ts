@@ -1,6 +1,6 @@
 import {StateType, Task1Type, taskTitle} from "../Types";
 
-import { v1  } from 'uuid';
+import {v1} from 'uuid';
 
 
 const initialState: StateType = {
@@ -51,7 +51,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             }
 
         case 'UPDATE-TODO-NAME':
-            debugger
+
             return {
                 ...state,
                 tasksTitle: [...state.tasksTitle.map((title: taskTitle) =>

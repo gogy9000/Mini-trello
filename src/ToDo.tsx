@@ -7,7 +7,7 @@ import {TaskBlock} from "./TaskBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 import {CustomInput} from "./CustomInput";
 import {CustomButton} from "./CustomButton";
-import {Button, TextField} from "@mui/material";
+import {Button, Grid, TextField} from "@mui/material";
 
 type ToDoType = {
     task: taskTitle
@@ -17,15 +17,15 @@ type ToDoType = {
 }
 export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) => {
 
-    let dispatch = useDispatch()
-    const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
-
     const [filter, setFilter] = useState<string>('All')
     const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
     const [error, setError] = useState<string>('')
 
-    const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) =>setTodoName(e.currentTarget.value)
+    let dispatch = useDispatch()
+    const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
+
+    const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
 
     const useSetFilterHandler = (filter: string) => setFilter(filter)
@@ -33,7 +33,6 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
     const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
     const updateTodoName = () => {
-
         dispatch(updateTodoNameAC(todoName ? todoName : 'unnamed task', task.id))
         setUpdateTodoMode(false)
     }
@@ -43,26 +42,38 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
     }
 
     return (
+
         <div key={task.id} className={lastItem === 1 && !createMode ? 'todo-mapped-created' : 'todo-mapped'}>
+
+
             {
                 !updateTodoMode
-                    ? <div onClick={onUpdateTodoMode}>{task.titleName}</div>
-                    :<div>
-                    <TextField
-                        size={'small'}
-                        onClick={()=>{setError('')}}
-                        onChange={todoNameChanger}
-                        value={todoName}
-                        error={error?true:false}
-                        id="filled-error-helper-text"
-                        label={'New task name'}
-                        // helperText={updateTodoMode?"Press Enter.":'New task name'}
-                        variant="filled"
-                    />
-                     <Button variant={'outlined'} onClick={updateTodoName} size={'small'} >update</Button>
+                    ?
+                    // <Grid item>
+                    <div onClick={onUpdateTodoMode}>{task.titleName}</div>
+                    // </Grid>
+                    :
+                    // <Grid item>
+                    <div>
+                        <TextField
+                            size={'small'}
+                            onClick={() => {
+                                setError('')
+                            }}
+                            onChange={todoNameChanger}
+                            value={todoName}
+                            error={error ? true : false}
+                            id="filled-error-helper-text"
+                            label={'New task name'}
+                            // helperText={updateTodoMode?"Press Enter.":'New task name'}
+                            variant="filled"
+                        />
+
+                        <Button variant={'outlined'} onClick={updateTodoName} size={'small'}>update</Button>
                     </div>
+                // </Grid>
                 // <CustomInput onChange={todoNameChanger} onEnter={updateTodoName}
-                    //                value={todoName} error={error}/>
+                //                value={todoName} error={error}/>
 
             }
 
@@ -90,28 +101,32 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
                                   callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
+
             <div>
                 <Button color={filter === 'All' ? 'secondary' : 'primary'}
-                              onClick={() => {
-                                  setFilter('all')
-                              }}>all </Button>
+                        onClick={() => {
+                            setFilter('all')
+                        }}>all </Button>
 
                 <Button color={filter === 'Active' ? 'secondary' : 'primary'}
-                              onClick={() => {
-                                  setFilter('Active')
-                              }}>Active </Button>
+                        onClick={() => {
+                            setFilter('Active')
+                        }}>Active </Button>
 
                 <Button color={filter === 'Completed' ? 'secondary' : 'primary'}
-                              onClick={() => {
-                                  setFilter('Completed')
-                              }}>Completed </Button>
+                        onClick={() => {
+                            setFilter('Completed')
+                        }}>Completed </Button>
 
                 <Button color={'success'} onClick={() => {
                     removeTodo()
                 }}>remove todo </Button>
             </div>
+
             {/*<ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>*/}
 
-        </div>)
+        </div>
+
+    )
 }
 
