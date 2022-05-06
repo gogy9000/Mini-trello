@@ -6,7 +6,7 @@ import {InputBlock} from "./InputBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 import {TaskBlockWrapper} from "./TaskBlockWrapper";
 import {TaskTitleBlock} from "./TaskTitleBlock";
-import {Grid, Paper, Typography} from "@mui/material";
+import {Divider, Grid, Paper, Typography} from "@mui/material";
 
 
 type ToDoType = {
@@ -43,38 +43,52 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
 
     return (
 
-        <div key={task.id} className={lastItem === 1 && !createMode ? 'todo-mapped-created' : 'todo-mapped'}>
-            <Grid container direction={'row'}>
-                <Typography align={'center'}>
-                    <Paper>
-                        <TaskTitleBlock task={task}
-                                        error={error}
-                                        setError={setError}
-                                        onUpdateTodoMode={onUpdateTodoMode}
-                                        updateTodoMode={updateTodoMode}
-                                        todoName={todoName}
-                                        todoNameChanger={todoNameChanger}
-                                        updateTodoName={updateTodoName}/>
+        <Paper elevation={24}>
+            <Grid container
+                    p={2}
+                  direction={"column"}
+                  justifyContent="center"
+                  alignItems="center">
 
-                        <Grid container direction={'column'} rowSpacing={2} mt={2}>
-                            <Grid item>
-                                <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
-                            </Grid>
-                            <Grid item>
-                                <TaskBlockWrapper state={state}
-                                                  task={task}
-                                                  filter={filter}
-                                                  onCheckHandler={onCheckHandler}
-                                                  dispatch={dispatch}/>
-                            </Grid>
-                            <Grid item>
-                                <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
-                            </Grid>
-                        </Grid>
-                    </Paper>
-                </Typography>
+                    <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
+                        <Typography variant={"h5"}>
+                            <TaskTitleBlock task={task}
+                                            error={error}
+                                            setError={setError}
+                                            onUpdateTodoMode={onUpdateTodoMode}
+                                            updateTodoMode={updateTodoMode}
+                                            todoName={todoName}
+                                            todoNameChanger={todoNameChanger}
+                                            updateTodoName={updateTodoName}/>
+                            <Divider />
+                        </Typography>
+                    </Grid>
+
+                <Grid item container direction={'column'} rowSpacing={2}  justifyContent={'center'}>
+                    <Grid item  >
+                        <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
+                    </Grid>
+                    <Grid container item justifyContent='center'>
+                        <Typography>
+                            <TaskBlockWrapper state={state}
+                                              task={task}
+                                              filter={filter}
+                                              onCheckHandler={onCheckHandler}
+                                              dispatch={dispatch}/>
+                        </Typography>
+                    </Grid>
+                    <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
+                        <Paper elevation={6}>
+                            <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
+                        </Paper>
+                    </Grid>
+
+                </Grid>
+
+
             </Grid>
-        </div>
+        </Paper>
+
     )
 }
 

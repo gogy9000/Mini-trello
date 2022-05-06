@@ -3,8 +3,9 @@ import './App.css';
 import {InputPropsType} from "./Types";
 import {addTaskAC} from "./Redux/ToDoReducer";
 import {CustomButton} from "./CustomButton";
-import {Button, TextField} from "@mui/material";
+import {Button, IconButton, Stack, TextField} from "@mui/material";
 import {Simulate} from "react-dom/test-utils";
+import {Edit} from "@mui/icons-material";
 
 
 
@@ -32,7 +33,7 @@ export const InputBlock = (props: InputPropsType) => {
     }
 
     return (
-        <div className={errorInput?'error':'notError'}>
+        <Stack direction='row' justifyContent={'center'}>
             <TextField
                 size={'small'}
                 onChange={ChangeTextTaskTitle}
@@ -44,12 +45,8 @@ export const InputBlock = (props: InputPropsType) => {
                 helperText={errorInput?"field is empty.":""}
                 variant="filled"
             />
-            {/*<input onChange={ChangeTextTaskTitle} value={inputText}*/}
-            {/*onClick={onclickHandler}/>*/}
-            <Button onClick={addTask} variant={'outlined'}>add</Button>
-            {/*<CustomButton onClick={addTask}>add</CustomButton>*/}
 
-            {/*{errorInput&&<div >field is empty</div>}*/}
-        </div>
+            <IconButton onClick={addTask}><Edit/></IconButton>
+        </Stack>
     )
 }

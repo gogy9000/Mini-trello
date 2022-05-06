@@ -2,6 +2,7 @@ import React from "react";
 import {TaskBlock} from "./TaskBlock";
 import {StateType, taskTitle} from "./Types";
 import {actionType} from "./Redux/ToDoReducer";
+import {Divider, Stack} from "@mui/material";
 
 type TaskBlockWrapperPropsType = {
     task: taskTitle
@@ -18,7 +19,9 @@ export const TaskBlockWrapper: React.FC<TaskBlockWrapperPropsType> = ({
                                                                           dispatch
                                                                       }) => {
     return (
-        <>
+        <Stack direction="column"
+               divider={<Divider orientation="horizontal" flexItem />}
+               spacing={1}>
             {
                 state.taskBody[task.id].activeTasks.length === 0
                 && state.taskBody[task.id].completedTasks.length === 0
@@ -40,6 +43,6 @@ export const TaskBlockWrapper: React.FC<TaskBlockWrapperPropsType> = ({
                                   callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
-        </>
+        </Stack>
     )
 }

@@ -4,13 +4,27 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="6060de9b-0b70-4d9f-ac52-f6d38f68be28" name="Changes" comment="reinstal nodmoduls">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/InputBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TaskBlockWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskBlockWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TaskTitleBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskTitleBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Todos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todos.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="TypeScript JSX File" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -18,41 +32,33 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
-  </component>
-  <component name="ProjectId" id="28f1DOVfusNtbV2BfqzWB4g6PZ8" />
-  <component name="ProjectLevelVcsManager">
-    <ConfirmationsSetting value="2" id="Add" />
-  </component>
+  <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
   <component name="PropertiesComponent">
-    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
-    <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
-    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
-    <property name="nodejs_package_manager_path" value="npm" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="nodejs_package_manager_path" value="yarn" />
+    <property name="ts.external.directory.path" value="G:\incubator-to-do-list\incubator-to-do-list\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="G:\incubator-to-do-list\todo-list-app\src" />
+    <key name="es6.move.members.recent.items">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskTitleBlock.tsx" />
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskBlockWrapper.tsx" />
     </key>
   </component>
   <component name="RunManager">
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/todo-list-app/package.json" />
+      <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
         <script value="start" />
@@ -70,31 +76,22 @@
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
-      <changelist id="6060de9b-0b70-4d9f-ac52-f6d38f68be28" name="Changes" comment="" />
-      <created>1651592707001</created>
+      <changelist id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="" />
+      <created>1651752654600</created>
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
-      <updated>1651592707001</updated>
-      <workItem from="1651592708329" duration="2188000" />
-      <workItem from="1651594939739" duration="1222000" />
-      <workItem from="1651637248311" duration="166000" />
-      <workItem from="1651749299694" duration="692000" />
+      <updated>1651752654600</updated>
+      <workItem from="1651752656265" duration="5751000" />
+      <workItem from="1651817888984" duration="13416000" />
     </task>
-    <task id="LOCAL-00001" summary="migration on react 18.0.0 (по дибильному)">
-      <created>1651596159178</created>
+    <task id="LOCAL-00001" summary="Refactoring">
+      <created>1651773775312</created>
       <option name="number" value="00001" />
       <option name="presentableId" value="LOCAL-00001" />
       <option name="project" value="LOCAL" />
-      <updated>1651596159178</updated>
+      <updated>1651773775312</updated>
     </task>
-    <task id="LOCAL-00002" summary="reinstal nodmoduls">
-      <created>1651749517201</created>
-      <option name="number" value="00002" />
-      <option name="presentableId" value="LOCAL-00002" />
-      <option name="project" value="LOCAL" />
-      <updated>1651749517201</updated>
-    </task>
-    <option name="localTasksCounter" value="3" />
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -105,28 +102,14 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State>
-              <option name="FILTERS">
-                <map>
-                  <entry key="branch">
-                    <value>
-                      <list>
-                        <option value="mui" />
-                      </list>
-                    </value>
-                  </entry>
-                </map>
-              </option>
-            </State>
+            <State />
           </value>
         </entry>
       </map>
     </option>
   </component>
   <component name="VcsManagerConfiguration">
-    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="migration on react 18.0.0 (по дибильному)" />
-    <MESSAGE value="reinstal nodmoduls" />
-    <option name="LAST_COMMIT_MESSAGE" value="reinstal nodmoduls" />
+    <MESSAGE value="Refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
   </component>
 </project>

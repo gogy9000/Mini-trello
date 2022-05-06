@@ -2,6 +2,7 @@ import React from 'react';
 import './App.css';
 import {ToDos} from "./Todos";
 import {AppBar, Container, Grid, Paper, Typography} from "@mui/material";
+import PrimarySearchAppBar from "./AppBar/AppBar";
 
 
 function App() {
@@ -9,17 +10,15 @@ function App() {
 
     return (
 
-        <div>
+        <>
+            <PrimarySearchAppBar/>
             <Container fixed>
+                <ToDos/>
+            </Container>
+        </>
 
-                    <ToDos/>
-
-           
-        </Container>
-</div>
-
-)
-    ;
+    )
+        ;
 }
 
 export default App;

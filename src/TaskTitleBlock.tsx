@@ -1,6 +1,7 @@
 import {taskTitle} from "./Types";
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
-import {Button, TextField} from "@mui/material";
+import {Button, IconButton, Stack, TextField} from "@mui/material";
+import {Edit, EditOff} from "@mui/icons-material";
 
 type TaskTitleBlockPropsType = {
     updateTodoMode: boolean
@@ -27,9 +28,12 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
             {
                 !updateTodoMode
                     ?
-                    <div onClick={onUpdateTodoMode}>{task.titleName}</div>
+                    <Stack direction='row' spacing={1}>
+                    <div >{task.titleName}</div>
+                    <IconButton onClick={onUpdateTodoMode}><Edit/></IconButton>
+                    </Stack>
                     :
-                    <div>
+                    <Stack direction='row' spacing={1}>
                         <TextField
                             size={'small'}
                             onClick={() => {
@@ -43,8 +47,8 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
                             // helperText={updateTodoMode?"Press Enter.":'New task name'}
                             variant="filled"
                         />
-                        <Button variant={'outlined'} onClick={updateTodoName} size={'small'}>update</Button>
-                    </div>
+                        <IconButton  onClick={updateTodoName} size={'small'}><EditOff/></IconButton>
+                    </Stack>
 
             }
         </>

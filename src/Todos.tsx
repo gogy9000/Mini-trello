@@ -6,7 +6,7 @@ import {ToDo} from "./ToDo";
 import {createNewTodoAC} from "./Redux/ToDoReducer";
 import {CustomEditSpan} from "./CustomEditSpan";
 import {CustomButton} from "./CustomButton";
-import {Button, Grid, TextField, Typography} from "@mui/material";
+import {Button, Grid, Paper, TextField, Typography} from "@mui/material";
 
 
 export const ToDos = () => {
@@ -33,13 +33,13 @@ export const ToDos = () => {
 
     const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => {
             return (
-
-                 <ToDo lastItem={arr.length - index}
-                       createMode={createMode}
-                       key={task.id}
-                       task={task}
-                       state={state}/>
-
+                <Grid item m={1} p={2}>
+                    <ToDo lastItem={arr.length - index}
+                          createMode={createMode}
+                          key={task.id}
+                          task={task}
+                          state={state}/>
+                </Grid>
             )
         }
     )
@@ -47,32 +47,40 @@ export const ToDos = () => {
 
     return (
         <>
-
-            <Grid container mt={2} spacing={2} direction={'column'}>
-                <Typography>
-                    <TextField id="outlined-basic" label="Create new todo" variant="standard"
-                               value={todoName}
-                               onBlur={() => {
-                                   setTodoName('')
-                               }}
-                               onChange={(e) => {
-                                   setTodoName(e.currentTarget.value)
-                               }}/>
-
-                    <Button variant="outlined" onMouseUp={moveCreateTask}
-                            onMouseDown={createTask}
-                    >Create</Button>
-                </Typography>
-            </Grid>
-
-            <Grid container m={4} direction={'column'} columns={3}>
-                <Grid item>
-                    <Typography>
-                        <span>{todos}</span>
-                    </Typography>
+            <Paper elevation={12}>
+                <Grid container
+                      m={2}
+                      p={2}
+                      columnSpacing={2}
+                      direction="row"
+                      justifyContent="center"
+                      alignItems="center">
+                    <Grid item>
+                        <TextField id="outlined-basic" label="Create new todo" variant="standard"
+                                   value={todoName}
+                                   onBlur={() => {
+                                       setTodoName('')
+                                   }}
+                                   onChange={(e) => {
+                                       setTodoName(e.currentTarget.value)
+                                   }}/>
+                    </Grid>
+                    <Grid item>
+                        <Button variant="outlined" onMouseUp={moveCreateTask}
+                                onMouseDown={createTask}
+                        >Create</Button>
+                    </Grid>
                 </Grid>
-            </Grid>
+            </Paper>
 
+
+            <Grid container
+                  direction="row"
+                  justifyContent="space-around"
+                  alignItems="flex-start"
+            >
+                {todos}
+            </Grid>
         </>
     )
 }
