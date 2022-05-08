@@ -14,7 +14,7 @@ export type StateType={
     tasksTitle:Array<taskTitle>
 
     taskBody:{
-        [taskIdWhat:string]:{
+        [id:string]:{
             activeTasks: Array<Task1Type>
             completedTasks:Array<Task1Type>
         }

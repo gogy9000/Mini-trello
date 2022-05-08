@@ -18,7 +18,7 @@ const initialState: StateType = {
     },
 }
 
-export let taskBlockReducer = (state: StateType = initialState, action: any) => {
+export let taskBlockReducer = (state: StateType = initialState, action: actionType) => {
 
     switch (action.type) {
 
@@ -95,7 +95,6 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                     }
                 },
                 //ты должен страдать от вложенности!!!
-
             };
 
 
@@ -104,6 +103,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
             let copyState: StateType = {
                 ...state,
                 tasksTitle: state.tasksTitle,
+                // @ts-ignore
                 taskBody: {
                     ...state.taskBody,
                     [action.idTitle]: {
@@ -152,8 +152,10 @@ export let taskBlockReducer = (state: StateType = initialState, action: any) => 
                 taskBody: {
                     ...state.taskBody,
                     [action.idTitle]: {
-                        activeTasks: [...state.taskBody[action.idTitle].activeTasks.filter(task => task.id !== action.id)],
-                        completedTasks: [...state.taskBody[action.idTitle].completedTasks.filter(task => task.id !== action.id)]
+                        activeTasks: [...state.taskBody[action.idTitle].activeTasks.filter(task =>
+                            task.id !== action.id)],
+                        completedTasks: [...state.taskBody[action.idTitle].completedTasks.filter(task =>
+                            task.id !== action.id)]
                     }
                     //не так уж и страшно впринципе
                 },

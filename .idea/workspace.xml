@@ -4,15 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="Refactoring">
+      <change afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/InputBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/InputBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TaskBlockWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskBlockWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/TaskTitleBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TaskTitleBlock.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Todos.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/Todos.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -23,6 +21,7 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -41,11 +40,12 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../exams/src/index.tsx" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
+    <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="ts.external.directory.path" value="G:\incubator-to-do-list\incubator-to-do-list\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
@@ -56,20 +56,79 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskBlockWrapper.tsx" />
     </key>
   </component>
-  <component name="RunManager">
-    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="start" />
-      </scripts>
+  <component name="RunManager" selected="Jest.task to be unchecked">
+    <configuration name="ToDo should be removed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="ToDo should be removed" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="Unnamed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="task to be checked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="task to be checked" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="task to be unchecked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="task to be unchecked" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="to-do name should be updated" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="to-do name should be updated" />
+      </test-names>
       <method v="2" />
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
+        <item itemvalue="Jest.task to be unchecked" />
+        <item itemvalue="Jest.task to be checked" />
+        <item itemvalue="Jest.Unnamed" />
+        <item itemvalue="Jest.ToDo should be removed" />
+        <item itemvalue="Jest.to-do name should be updated" />
       </list>
     </recent_temporary>
   </component>
@@ -82,7 +141,10 @@
       <option name="presentableId" value="Default" />
       <updated>1651752654600</updated>
       <workItem from="1651752656265" duration="5751000" />
-      <workItem from="1651817888984" duration="13416000" />
+      <workItem from="1651817888984" duration="14888000" />
+      <workItem from="1651850185560" duration="842000" />
+      <workItem from="1651914237835" duration="780000" />
+      <workItem from="1651984775056" duration="8307000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -91,7 +153,14 @@
       <option name="project" value="LOCAL" />
       <updated>1651773775312</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Refactoring">
+      <created>1651836579572</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1651836579572</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -111,5 +180,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="Refactoring" />
     <option name="LAST_COMMIT_MESSAGE" value="Refactoring" />
+  </component>
+  <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/incubator_to_do_list$to_do_name_should_be_updated.info" NAME="to-do name should be updated Coverage Results" MODIFIED="1651991567982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="JestJavaScriptTestRunnerCoverage" COVERAGE_BY_TEST_ENABLED="false" COVERAGE_TRACING_ENABLED="false" />
   </component>
 </project>
