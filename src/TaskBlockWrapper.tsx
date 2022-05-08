@@ -1,7 +1,7 @@
 import React from "react";
 import {TaskBlock} from "./TaskBlock";
 import {StateType, taskTitle} from "./Types";
-import {actionType} from "./Redux/ToDoReducer";
+import {actionType} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Divider, Stack} from "@mui/material";
 
 type TaskBlockWrapperPropsType = {
@@ -9,7 +9,7 @@ type TaskBlockWrapperPropsType = {
     state: StateType
     filter: string
     onCheckHandler: (d: string, idTitle: string) => void
-    dispatch: (x: actionType) => void
+    dispatch: (type: actionType) => void
 }
 export const TaskBlockWrapper: React.FC<TaskBlockWrapperPropsType> = ({
                                                                           state,

@@ -1,6 +1,5 @@
 import React from "react";
 import './App.css';
-import {CustomButton} from "./CustomButton";
 import {Button} from "@mui/material";
 
 
@@ -34,10 +33,6 @@ export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) 
                         onClick={() => {
                             onClickHandler('Completed')
                         }}>Completed </Button>
-
-                {/*<Button color={'success'} onClick={() => {*/}
-                {/*    removeTodo()*/}
-                {/*}}>remove todo </Button>*/}
             </div>
 
     )

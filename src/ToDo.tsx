@@ -1,7 +1,13 @@
 import {StateType, taskTitle} from "./Types";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useReducer, useState} from "react";
 import {useDispatch} from "react-redux";
-import {checkTaskAC, removeTodoAC, updateTodoNameAC} from "./Redux/ToDoReducer";
+import {
+    actionType,
+    checkTaskAC,
+    initialState,
+    ToDoReducer,
+    updateTodoNameAC
+} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {InputBlock} from "./InputBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 import {TaskBlockWrapper} from "./TaskBlockWrapper";
@@ -12,17 +18,17 @@ import {Divider, Grid, Paper, Typography} from "@mui/material";
 type ToDoType = {
     task: taskTitle
     state: StateType
-    createMode: boolean
+    createMode?: boolean
     lastItem: number
+    dispatch:(type:actionType)=>void
 }
-export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) => {
+export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, lastItem}) => {
 
     const [filter, setFilter] = useState<string>('All')
     const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
     const [error, setError] = useState<string>('')
 
-    let dispatch = useDispatch()
     const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
 
     const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)

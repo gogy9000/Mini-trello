@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import {Task1Type, TaskBlockType} from "./Types";
 
-import {deleteTaskAC, updateTaskAC} from "./Redux/ToDoReducer";
+import {deleteTaskAC, updateTaskAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {CustomInput} from "./CustomInput";
 import {CustomButton} from "./CustomButton";
 import {CustomEditSpan} from "./CustomEditSpan";
