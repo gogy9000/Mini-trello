@@ -1,29 +1,26 @@
 import React, {useState} from "react";
 import './App.css';
 import {InputPropsType} from "./Types";
-import {addTaskAC} from "./Redux/ToDoReducer";
-import {CustomButton} from "./CustomButton";
-import {Button, IconButton, Stack, TextField} from "@mui/material";
-import {Simulate} from "react-dom/test-utils";
-import {Edit} from "@mui/icons-material";
-
+import {addTaskAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {IconButton, Stack, TextField} from "@mui/material";
+import {AddTask} from "@mui/icons-material";
 
 
 export const InputBlock = (props: InputPropsType) => {
 
-    const [inputText, setInputText]= useState<string>('')
-    const [errorInput, setErrorInput]=useState<boolean>(false)
+    const [inputText, setInputText] = useState<string>('')
+    const [errorInput, setErrorInput] = useState<boolean>(false)
 
     const addTask = () => {
         if ((/^\s+$/).test(inputText) || inputText === '') {
             setErrorInput(true)
             return
         }
-      props.dispatch(addTaskAC(props.idTitle,inputText))
+        props.dispatch(addTaskAC(props.idTitle, inputText))
         setInputText('')
     }
 
-    const ChangeTextTaskTitle = (e:React.ChangeEvent<HTMLInputElement>) => {
+    const ChangeTextTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => {
         setInputText(e.currentTarget.value)
     }
 
@@ -41,12 +38,12 @@ export const InputBlock = (props: InputPropsType) => {
                 value={inputText}
                 error={errorInput}
                 id="filled-error-helper-text"
-                label={errorInput?"field is empty.":'New task'}
-                helperText={errorInput?"field is empty.":""}
+                label={errorInput ? "field is empty." : 'New task'}
+                helperText={errorInput ? "field is empty." : ""}
                 variant="filled"
             />
 
-            <IconButton onClick={addTask}><Edit/></IconButton>
+            <IconButton onClick={addTask}><AddTask/></IconButton>
         </Stack>
     )
 }

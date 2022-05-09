@@ -1,7 +1,7 @@
 import {StateType, taskTitle} from "./Types";
 import React, {ChangeEvent, useState} from "react";
-import {useDispatch} from "react-redux";
-import {checkTaskAC, removeTodoAC, updateTodoNameAC} from "./Redux/ToDoReducer";
+
+import {actionType, checkTaskAC, updateTodoNameAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {InputBlock} from "./InputBlock";
 import {ButtonsBlock} from "./ButtonsBlock";
 import {TaskBlockWrapper} from "./TaskBlockWrapper";
@@ -12,17 +12,17 @@ import {Divider, Grid, Paper, Typography} from "@mui/material";
 type ToDoType = {
     task: taskTitle
     state: StateType
-    createMode: boolean
+    createMode?: boolean
     lastItem: number
+    dispatch:(type:actionType)=>void
 }
-export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) => {
+export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, lastItem}) => {
 
     const [filter, setFilter] = useState<string>('All')
     const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
     const [todoName, setTodoName] = useState<string>('')
     const [error, setError] = useState<string>('')
 
-    let dispatch = useDispatch()
     const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
 
     const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
@@ -33,13 +33,9 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
     const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
     const updateTodoName = () => {
-        dispatch(updateTodoNameAC(todoName ? todoName : 'unnamed task', task.id))
+        dispatch(updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
         setUpdateTodoMode(false)
     }
-
-    // const removeTodo = () => {
-    //     dispatch(removeTodoAC(task.id))
-    // }
 
     return (
 
@@ -59,15 +55,18 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
                                             updateTodoMode={updateTodoMode}
                                             todoName={todoName}
                                             todoNameChanger={todoNameChanger}
-                                            updateTodoName={updateTodoName}/>
+                                            updateTodoName={updateTodoName}
+                                            dispatch={dispatch}/>
                             <Divider />
                         </Typography>
                     </Grid>
 
                 <Grid item container direction={'column'} rowSpacing={2}  justifyContent={'center'}>
+
                     <Grid item  >
                         <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
                     </Grid>
+
                     <Grid container item justifyContent='center'>
                         <Typography>
                             <TaskBlockWrapper state={state}
@@ -77,6 +76,7 @@ export const ToDo: React.FC<ToDoType> = ({task, state, createMode, lastItem}) =>
                                               dispatch={dispatch}/>
                         </Typography>
                     </Grid>
+
                     <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
                         <Paper elevation={6}>
                             <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
