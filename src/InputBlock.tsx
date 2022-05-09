@@ -3,7 +3,7 @@ import './App.css';
 import {InputPropsType} from "./Types";
 import {addTaskAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {IconButton, Stack, TextField} from "@mui/material";
-import {Edit} from "@mui/icons-material";
+import {AddTask} from "@mui/icons-material";
 
 
 export const InputBlock = (props: InputPropsType) => {
@@ -43,7 +43,7 @@ export const InputBlock = (props: InputPropsType) => {
                 variant="filled"
             />
 
-            <IconButton onClick={addTask}><Edit/></IconButton>
+            <IconButton onClick={addTask}><AddTask/></IconButton>
         </Stack>
     )
 }

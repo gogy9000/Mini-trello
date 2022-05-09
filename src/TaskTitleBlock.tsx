@@ -1,7 +1,7 @@
 import {taskTitle} from "./Types";
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
-import {Button, IconButton, Stack, TextField} from "@mui/material";
-import {Delete, Edit, EditOff, ModeEdit} from "@mui/icons-material";
+import {IconButton, Stack, TextField} from "@mui/material";
+import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {actionType, removeTodoAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 type TaskTitleBlockPropsType = {
@@ -55,7 +55,7 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
                             // helperText={updateTodoMode?"Press Enter.":'New task name'}
                             variant="filled"
                         />
-                        <IconButton onClick={updateTodoName} size={'small'}><EditOff color={"secondary"}/></IconButton>
+                        <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
                     </Stack>
 
             }

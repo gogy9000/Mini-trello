@@ -62,9 +62,11 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
                     </Grid>
 
                 <Grid item container direction={'column'} rowSpacing={2}  justifyContent={'center'}>
+
                     <Grid item  >
                         <InputBlock dispatch={dispatch} state={state} idTitle={task.id}/>
                     </Grid>
+
                     <Grid container item justifyContent='center'>
                         <Typography>
                             <TaskBlockWrapper state={state}
@@ -74,6 +76,7 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
                                               dispatch={dispatch}/>
                         </Typography>
                     </Grid>
+
                     <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
                         <Paper elevation={6}>
                             <ButtonsBlock filterHandler={useSetFilterHandler} filter={filter}/>
