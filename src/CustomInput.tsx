@@ -1,5 +1,6 @@
 import React, {ChangeEvent, DetailedHTMLProps, InputHTMLAttributes, KeyboardEvent} from "react";
 
+
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type CustomInputPropsType = DefaultInputPropsType & {
     onChangeText?: (value: string) => void
@@ -27,6 +28,7 @@ export const CustomInput: React.FC<CustomInputPropsType> = (
 
     return (
         <>
+
             <input type="text" onChange={onChangeCallBack} onKeyPress={onKeyPressCallBack}
                    {...restProps}/>
             {error && <div style={{color: 'red'}}>{error}</div>}

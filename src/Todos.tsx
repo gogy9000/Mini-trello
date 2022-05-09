@@ -1,18 +1,19 @@
 import React, {useReducer, useState} from "react";
 import './App.css';
-import {useDispatch, useSelector} from "react-redux";
 import {taskTitle} from "./Types";
 import {ToDo} from "./ToDo";
-import {createNewTodoAC, initialState, ToDoReducer} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
-import {CustomEditSpan} from "./CustomEditSpan";
-import {CustomButton} from "./CustomButton";
-import {Button, Grid, Paper, TextField, Typography} from "@mui/material";
+import {
+    createNewTodoAC,
+    initialState,
+    removeTodoAC,
+    ToDoReducer
+} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {Button, Grid, Paper, TextField} from "@mui/material";
 
 
 export const ToDos = () => {
     const [state,dispatch]=useReducer(ToDoReducer,initialState)
-    // let state = useSelector((state: any) => state.stateTaskBlock)
-    // const dispatch = useDispatch()
+
     let [todoName, setTodoName] = useState<string>('')
     const [createMode, setCreateMode] = useState<boolean>(false)
 
@@ -31,6 +32,7 @@ export const ToDos = () => {
     }
 
 
+
     const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => {
             return (
                 <Grid item m={1} p={2}>
@@ -40,7 +42,6 @@ export const ToDos = () => {
                           task={task}
                           state={state}
                           dispatch={dispatch}/>
-
                 </Grid>
             )
         }

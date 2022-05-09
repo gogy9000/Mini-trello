@@ -1,7 +1,7 @@
 import React, {DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, useState} from "react";
 import {CustomInput} from "./CustomInput";
 import {Create} from "@mui/icons-material";
-import {IconButton} from "@mui/material";
+import {IconButton, TextField} from "@mui/material";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -13,9 +13,8 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     spanProps?: DefaultSpanPropsType
     onClick?:()=>void
 }
-export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = (
-    {
-        autoFocus, onBlur, onEnter, onClick,
+export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
+      value, error,  autoFocus, onBlur, onEnter, onClick,
         spanProps,onChangeText, ...restProps
     }) => {
 
@@ -49,18 +48,23 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = (
             {
                 editMode
                     ? <span>
-                    <CustomInput
-                        autoFocus
-                        onBlur={onBlurCallBack}
-                        onEnter={onEnterCallBack}
-                        onChangeText={onChangeText}
-                        {...restProps}/>
+                    <TextField
+                               error={!!error}
+                               id="outlined-error"
+                               label="Error"
+                               value={value}/>
+                    {/*<CustomInput onClick={onClick}*/}
+                    {/*    autoFocus*/}
+                    {/*    onBlur={onBlurCallBack}*/}
+                    {/*    onEnter={onEnterCallBack}*/}
+                    {/*    onChangeText={onChangeText}*/}
+                    {/*    {...restProps}/>*/}
                     <IconButton onClick={onClickCallback}><Create color={'secondary'}/></IconButton>
                     </span>
                     : <span onDoubleClick={onDoubleClickCallBack}
                             className={finalClassName}
                             {...restSpanProps}>
-                        {  children|| restProps.value} <IconButton onClick={onClickCallback}><Create/></IconButton></span>
+                        {  children|| value} <IconButton onClick={onClickCallback}><Create/></IconButton></span>
 
             }
         </>

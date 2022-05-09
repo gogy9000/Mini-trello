@@ -1,7 +1,8 @@
 import {taskTitle} from "./Types";
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {Button, IconButton, Stack, TextField} from "@mui/material";
-import {Edit, EditOff} from "@mui/icons-material";
+import {Delete, Edit, EditOff, ModeEdit} from "@mui/icons-material";
+import {actionType, removeTodoAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 type TaskTitleBlockPropsType = {
     updateTodoMode: boolean
@@ -12,8 +13,10 @@ type TaskTitleBlockPropsType = {
     todoName: string
     error: string
     updateTodoName: () => void
+    dispatch: (action: actionType) => void
 }
 export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
+                                                                      dispatch,
                                                                       updateTodoMode,
                                                                       onUpdateTodoMode,
                                                                       task,
@@ -23,14 +26,19 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
                                                                       error,
                                                                       updateTodoName
                                                                   }) => {
+
+    const removeTodo = () => {
+        dispatch(removeTodoAC(task.id))
+    }
     return (
         <>
             {
                 !updateTodoMode
                     ?
                     <Stack direction='row' spacing={1}>
-                    <div >{task.titleName}</div>
-                    <IconButton onClick={onUpdateTodoMode}><Edit/></IconButton>
+                        <div>{task.titleName}</div>
+                        <IconButton onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
+                        <IconButton onClick={removeTodo}><Delete/></IconButton>
                     </Stack>
                     :
                     <Stack direction='row' spacing={1}>
@@ -47,7 +55,7 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
                             // helperText={updateTodoMode?"Press Enter.":'New task name'}
                             variant="filled"
                         />
-                        <IconButton  onClick={updateTodoName} size={'small'}><EditOff/></IconButton>
+                        <IconButton onClick={updateTodoName} size={'small'}><EditOff color={"secondary"}/></IconButton>
                     </Stack>
 
             }

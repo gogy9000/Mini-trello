@@ -21,13 +21,7 @@ export type StateType={
     }
 }
 
-export type TaskBlockType = {
-    tasks: Array<Task1Type>
-    callBack: (id: string,idTitle:string)=>void
-    dispatch:(action:any)=>void
-    idTitle:string
 
-}
 
 export type InputPropsType = {
     idTitle:string
