@@ -118,11 +118,9 @@ export type TaskPropsType = {
 
 
         const updateTask = (idTask: string, idTitle: string) => {
-            if(!taskValue.trim()){
-                setError('task is empty')
-                return
-            }
-            dispatch(updateTaskAC(idTitle, idTask, taskValue))
+
+            dispatch(updateTaskAC(idTitle, idTask, taskValue.trim()))
+            setError('')
         }
         const clearError = () => {
             setError('')
@@ -142,8 +140,9 @@ export type TaskPropsType = {
                     }}
                 />
                 <CustomEditSpan value={taskValue}
-                                onClick={clearError}
+                                onClick={()=>{updateTask(taskElem.id,idTitle)}}
                                 error={error}
+                                setError={setError}
                                 onBlur={() => {
                                     updateTask(taskElem.id, idTitle)
                                     setTaskValue('')

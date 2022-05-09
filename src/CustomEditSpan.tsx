@@ -1,4 +1,4 @@
-import React, {DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, useState} from "react";
+import React, {ChangeEvent, DetailedHTMLProps, HTMLAttributes, InputHTMLAttributes, useState} from "react";
 import {CustomInput} from "./CustomInput";
 import {Create} from "@mui/icons-material";
 import {IconButton, TextField} from "@mui/material";
@@ -11,12 +11,22 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     error?: string
     spanClassName?: string
     spanProps?: DefaultSpanPropsType
-    onClick?:()=>void
+    onClick?: () => void
+    setError:  React.Dispatch<React.SetStateAction<string>>
+    value:string
 }
 export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
-      value, error,  autoFocus, onBlur, onEnter, onClick,
-        spanProps,onChangeText, ...restProps
-    }) => {
+                                                                      onChange,
+                                                                      value,
+                                                                      error,
+                                                                      setError,
+                                                                      autoFocus,
+                                                                      onBlur,
+                                                                      onEnter,
+                                                                      onClick,
+                                                                      spanProps,
+                                                                      onChangeText, ...restProps
+                                                                  }) => {
 
     const [editMode, setEditMode] = useState<boolean>(false)
     const {children, onDoubleClick, className, ...restSpanProps} = spanProps || {}
@@ -38,8 +48,24 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
 
     }
     const onClickCallback = () => {
-        setEditMode(true)
+
+
+        if (!value.trim()) {
+            setEditMode(true)
+            setError('task empty')
+            return
+        }
+        setEditMode(false)
         onClick && onClick()
+    }
+
+    const onChangeCallBack = (e: ChangeEvent<HTMLInputElement>) => {
+        onChange && onChange(e)
+        onChangeText && onChangeText(e.currentTarget.value)
+    }
+
+    const onEditMod = () => {
+        setEditMode(true)
     }
     const finalClassName = `${className}`
 
@@ -49,22 +75,18 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
                 editMode
                     ? <span>
                     <TextField
-                               error={!!error}
-                               id="outlined-error"
-                               label="Error"
-                               value={value}/>
-                    {/*<CustomInput onClick={onClick}*/}
-                    {/*    autoFocus*/}
-                    {/*    onBlur={onBlurCallBack}*/}
-                    {/*    onEnter={onEnterCallBack}*/}
-                    {/*    onChangeText={onChangeText}*/}
-                    {/*    {...restProps}/>*/}
-                    <IconButton onClick={onClickCallback}><Create color={'secondary'}/></IconButton>
+                        error={!!error}
+                        onChange={onChangeCallBack}
+                        helperText={!!error?error:false}
+                        id="outlined-error"
+                        label="update task"
+                        value={value}/>
+                        <IconButton onClick={onClickCallback}><Create color={'primary'}/></IconButton>
                     </span>
                     : <span onDoubleClick={onDoubleClickCallBack}
                             className={finalClassName}
                             {...restSpanProps}>
-                        {  children|| value} <IconButton onClick={onClickCallback}><Create/></IconButton></span>
+                        {children || value} <IconButton onClick={onEditMod}><Create/></IconButton></span>
 
             }
         </>

@@ -5,7 +5,6 @@ import {ToDo} from "./ToDo";
 import {
     createNewTodoAC,
     initialState,
-    removeTodoAC,
     ToDoReducer
 } from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Button, Grid, Paper, TextField} from "@mui/material";
@@ -35,7 +34,7 @@ export const ToDos = () => {
 
     const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => {
             return (
-                <Grid item m={1} p={2}>
+                <Grid item m={1} p={2} key={task.id}>
                     <ToDo lastItem={arr.length - index}
                           createMode={createMode}
                           key={task.id}
