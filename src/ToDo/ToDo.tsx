@@ -1,11 +1,11 @@
-import {StateType, taskTitle} from "./Types";
+import {StateType, taskTitle} from "../Types";
 import React, {ChangeEvent, useState} from "react";
 
-import {actionType, checkTaskAC, updateTodoNameAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
-import {InputBlock} from "./InputBlock";
-import {ButtonsBlock} from "./ButtonsBlock";
-import {TaskBlockWrapper} from "./TaskBlockWrapper";
-import {TaskTitleBlock} from "./TaskTitleBlock";
+import {actionType, checkTaskAC, updateTodoNameAC} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {InputBlock} from "./InputAddTask/InputBlock";
+import {ButtonsBlock} from "../ButtonsAllActiveCommplitedTask/ButtonsBlock";
+import {TasksWrapper} from "./Tasks/TasksWrapper";
+import {TitleToDoWrapper} from "./TitleTodo/TitleToDoWrapper";
 import {Divider, Grid, Paper, Typography} from "@mui/material";
 
 
@@ -25,7 +25,9 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
 
     const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
 
-    const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
+    const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => {
+        setTodoName(e.currentTarget.value)
+    }
 
 
     const useSetFilterHandler = (filter: string) => setFilter(filter)
@@ -33,6 +35,10 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
     const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
     const updateTodoName = () => {
+        if(!todoName.trim()){
+            setError('Title must not be empty')
+            return
+        }
         dispatch(updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
         setUpdateTodoMode(false)
     }
@@ -48,15 +54,15 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
 
                     <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
                         <Typography variant={"h5"}>
-                            <TaskTitleBlock task={task}
-                                            error={error}
-                                            setError={setError}
-                                            onUpdateTodoMode={onUpdateTodoMode}
-                                            updateTodoMode={updateTodoMode}
-                                            todoName={todoName}
-                                            todoNameChanger={todoNameChanger}
-                                            updateTodoName={updateTodoName}
-                                            dispatch={dispatch}/>
+                            <TitleToDoWrapper task={task}
+                                              error={error}
+                                              setError={setError}
+                                              onUpdateTodoMode={onUpdateTodoMode}
+                                              updateTodoMode={updateTodoMode}
+                                              todoName={todoName}
+                                              todoNameChanger={todoNameChanger}
+                                              updateTodoName={updateTodoName}
+                                              dispatch={dispatch}/>
                             <Divider />
                         </Typography>
                     </Grid>
@@ -69,11 +75,11 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
 
                     <Grid container item justifyContent='center'>
                         <Typography>
-                            <TaskBlockWrapper state={state}
-                                              task={task}
-                                              filter={filter}
-                                              onCheckHandler={onCheckHandler}
-                                              dispatch={dispatch}/>
+                            <TasksWrapper state={state}
+                                          task={task}
+                                          filter={filter}
+                                          onCheckHandler={onCheckHandler}
+                                          dispatch={dispatch}/>
                         </Typography>
                     </Grid>
 

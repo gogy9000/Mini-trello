@@ -1,7 +1,7 @@
 import React from "react";
-import {TaskBlock} from "./TaskBlock";
-import {StateType, taskTitle} from "./Types";
-import {actionType} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {Tasks} from "./Tasks";
+import {StateType, taskTitle} from "../../Types";
+import {actionType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Divider, Stack} from "@mui/material";
 
 type TaskBlockWrapperPropsType = {
@@ -11,7 +11,7 @@ type TaskBlockWrapperPropsType = {
     onCheckHandler: (d: string, idTitle: string) => void
     dispatch: (type: actionType) => void
 }
-export const TaskBlockWrapper: React.FC<TaskBlockWrapperPropsType> = ({
+export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = ({
                                                                           state,
                                                                           task,
                                                                           filter,
@@ -31,16 +31,16 @@ export const TaskBlockWrapper: React.FC<TaskBlockWrapperPropsType> = ({
             <div>
                 {
                     filter === 'Completed' || 'All'
-                    && <TaskBlock idTitle={task.id} tasks={state.taskBody[task.id].activeTasks}
-                                  callBack={onCheckHandler} dispatch={dispatch}/>
+                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].activeTasks}
+                              callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
 
             <div className={'CompletedTasks'}>
                 {
                     filter === 'Active' || 'All'
-                    && <TaskBlock idTitle={task.id} tasks={state.taskBody[task.id].completedTasks}
-                                  callBack={onCheckHandler} dispatch={dispatch}/>
+                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].completedTasks}
+                              callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
         </Stack>

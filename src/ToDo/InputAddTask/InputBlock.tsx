@@ -1,7 +1,7 @@
 import React, {useState} from "react";
-import './App.css';
-import {InputPropsType} from "./Types";
-import {addTaskAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import '../../App.css';
+import {InputPropsType} from "../../Types";
+import {addTaskAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 
