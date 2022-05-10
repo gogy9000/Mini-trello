@@ -1,8 +1,8 @@
-import {taskTitle} from "./Types";
+import {taskTitle} from "../../Types";
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {actionType, removeTodoAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actionType, removeTodoAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 type TaskTitleBlockPropsType = {
     updateTodoMode: boolean
@@ -15,7 +15,7 @@ type TaskTitleBlockPropsType = {
     updateTodoName: () => void
     dispatch: (action: actionType) => void
 }
-export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
+export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = ({
                                                                       dispatch,
                                                                       updateTodoMode,
                                                                       onUpdateTodoMode,
@@ -52,7 +52,7 @@ export const TaskTitleBlock: React.FC<TaskTitleBlockPropsType> = ({
                             error={!!error}
                             id="filled-error-helper-text"
                             label={'New task name'}
-                            // helperText={updateTodoMode?"Press Enter.":'New task name'}
+                            helperText={!!error?error:false}
                             variant="filled"
                         />
                         <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>

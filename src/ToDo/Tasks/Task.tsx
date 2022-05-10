@@ -1,12 +1,12 @@
-import {Task1Type} from "./Types";
+import {Task1Type} from "../../Types";
 import React, {useState} from "react";
-import {deleteTaskAC, updateTaskAC} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {deleteTaskAC, updateTaskAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Checkbox, IconButton} from "@mui/material";
 import {
     CheckCircleOutline,
     Clear, RadioButtonUnchecked
 } from "@mui/icons-material";
-import {CustomEditSpan} from "./CustomEditSpan";
+import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 
 export type TaskPropsType = {
     callBack: (id: string, idTitle: string) => void

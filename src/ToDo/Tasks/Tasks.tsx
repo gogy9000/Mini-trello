@@ -1,5 +1,5 @@
 import React from "react";
-import {Task1Type} from "./Types";
+import {Task1Type} from "../../Types";
 import {Task} from "./Task";
 
 export type TaskBlockType = {
@@ -11,7 +11,7 @@ export type TaskBlockType = {
 }
 
 
-export const TaskBlock: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTitle}) => {
+export const Tasks: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTitle}) => {
 
 
     const mapTasks = tasks.map((taskElem: Task1Type) => <Task taskElem={taskElem}
