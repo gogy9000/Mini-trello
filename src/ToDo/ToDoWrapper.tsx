@@ -5,6 +5,7 @@ import {ToDo} from "./ToDo";
 import {createNewTodoAC, initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Grid} from "@mui/material";
 import {CreateToDoInputWrapper} from "../CreateTodo/CreateToDoInputWrapper";
+import {AccordionWrapper} from "../App";
 
 
 export const ToDoWrapper = () => {
@@ -15,10 +16,7 @@ export const ToDoWrapper = () => {
     let [error, setError] = useState<string>('')
 
     const createTask = () => {
-        // if (!todoName.trim() && createMode) {
-        //     setError('To do title must not be empty')
-        //     return
-        // }
+
         if (!todoName.trim()||!todoName.trim() && createMode) {
             setError('To do title must not be empty')
             return
@@ -33,7 +31,7 @@ export const ToDoWrapper = () => {
         setTodoName('')
         setCreateMode(true)
     }
-    const SetToDoTitle = (newToDoTitle: string) => {
+    const setToDoTitle = (newToDoTitle: string) => {
         setError('')
         setTodoName(newToDoTitle)
     }
@@ -56,11 +54,11 @@ export const ToDoWrapper = () => {
 
     return (
         <>
-            <CreateToDoInputWrapper createTask={createTask}
-                                    moveCreateTask={moveCreateTask}
-                                    todoName={todoName}
-                                    setTodoTitle={SetToDoTitle}
-                                    error={error}/>
+            <AccordionWrapper error={error}
+                              todoName={todoName}
+                              moveCreateTask={moveCreateTask}
+                              createTask={createTask} SetToDoTitle={setToDoTitle}/>
+
 
             <Grid container
                   direction="row"

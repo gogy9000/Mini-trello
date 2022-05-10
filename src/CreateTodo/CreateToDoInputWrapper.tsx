@@ -1,6 +1,7 @@
 import React from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
 
+
 type CreateToDoWrapperPropsType = {
     todoName: string
     setTodoTitle: (newToDoTitle: string) => void
@@ -20,16 +21,18 @@ export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
     return (
         <Paper elevation={12}>
             <Grid container
-                  m={2}
-                  p={2}
-                  columnSpacing={2}
+                  // m={2}
+                  p={1}
+
+                  columnSpacing={1}
                   direction="row"
-                  justifyContent="center"
+                  justifyContent="space-between"
                   alignItems="center">
-                <Grid item>
+                <Grid item  justifyContent='flex-start' xs={10} >
                     <TextField id="standard-error-helper-text" label="Create new todo" variant="standard"
                                value={todoName}
                                error={!!error}
+                               fullWidth={true}
                                helperText={!!error?error:false}
                                // onBlur={() => {
                                //     setTodoTitle('')
@@ -38,7 +41,7 @@ export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
                                    setTodoTitle(e.currentTarget.value)
                                }}/>
                 </Grid>
-                <Grid item>
+                <Grid item  justifyContent='right'>
                     <Button variant="outlined" onMouseUp={moveCreateTask}
                             onMouseDown={createTask}
                     >Create</Button>
