@@ -1,13 +1,6 @@
 import {StateType, Task1Type} from "../Types";
 
-import {
-    addTaskAC, checkTaskAC,
-    createNewTodoAC, deleteTaskAC,
-    removeTodoAC,
-    ToDoReducer,
-    updateTaskAC,
-    updateTodoNameAC
-} from "./ToDoReducerForUseReducer";
+import {actions, ToDoReducer} from "./ToDoReducerForUseReducer";
 
 
 let stateToDo: StateType
@@ -37,47 +30,47 @@ beforeEach(() => {
 )
 
 test('Todo should be add', ()=>{
-    let action=createNewTodoAC('bla-bla')
+    let action=actions.createNewTodoAC('bla-bla')
     let newState= ToDoReducer(stateToDo,action)
-    expect(newState.tasksTitle.length).toBe(1)
+    expect(newState.tasksTitle.length).toBe(2)
 })
 test('Task should be added',()=>{
 
-    let action=addTaskAC('v1(12345)', 'inputText')
+    let action=actions.addTaskAC('v1(12345)', 'inputText')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(2)
 })
 test('task to be updated',()=>{
-    let action=updateTaskAC('v1(12345)', 'stringTest0123', 'task updated')
+    let action=actions.updateTaskAC('v1(12345)', 'stringTest0123', 'task updated')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)'].activeTasks[0].title).toBe('task updated')
 })
 test('to-do name should be updated',()=>{
-    let action=updateTodoNameAC('title updated', 'v1(12345)')
+    let action=actions.updateTodoNameAC('title updated', 'v1(12345)')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.tasksTitle[0].titleName).toBe('title updated')
 })
 test('ToDo should be removed',()=>{
-    let action=removeTodoAC('v1(12345)')
+    let action=actions.removeTodoAC('v1(12345)')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)']).toBe(undefined)
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted',()=>{
-    let action=deleteTaskAC('stringTest0123', 'v1(12345)')
+    let action=actions.deleteTaskAC('stringTest0123', 'v1(12345)')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(0)
     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(1)
 })
 test('task to be checked',()=>{
-    let action =checkTaskAC('stringTest0123', 'v1(12345)')
+    let action =actions.checkTaskAC('stringTest0123', 'v1(12345)')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(0)
     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(2)
     expect(newState.taskBody['v1(12345)'].completedTasks[1].isDone).toBe(true)
 })
 test('task to be unchecked',()=>{
-    let action =checkTaskAC('stringTest', 'v1(12345)')
+    let action =actions.checkTaskAC('stringTest', 'v1(12345)')
     let newState= ToDoReducer(stateToDo,action)
     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(2)
     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(0)

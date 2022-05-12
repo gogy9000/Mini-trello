@@ -1,7 +1,10 @@
 import {StateType, taskTitle} from "../Types";
 import React, {ChangeEvent, useState} from "react";
 
-import {actionType, checkTaskAC, updateTodoNameAC} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {
+    ActionsType,
+    actions
+} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {InputBlock} from "./InputAddTask/InputBlock";
 import {ButtonsBlock} from "../ButtonsAllActiveCommplitedTask/ButtonsBlock";
 import {TasksWrapper} from "./Tasks/TasksWrapper";
@@ -14,7 +17,7 @@ type ToDoType = {
     state: StateType
     createMode?: boolean
     lastItem: number
-    dispatch:(type:actionType)=>void
+    dispatch:(type:ActionsType)=>void
 }
 export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, lastItem}) => {
 
@@ -23,7 +26,7 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
     const [todoName, setTodoName] = useState<string>('')
     const [error, setError] = useState<string>('')
 
-    const onCheckHandler = (id: string, idTitle: string) => dispatch(checkTaskAC(id, idTitle))
+    const onCheckHandler = (id: string, idTitle: string) => dispatch(actions.checkTaskAC(id, idTitle))
 
     const todoNameChanger = (e: ChangeEvent<HTMLInputElement>) => {
         setTodoName(e.currentTarget.value)
@@ -39,7 +42,7 @@ export const ToDo: React.FC<ToDoType> = ({dispatch, task, state, createMode, las
             setError('Title must not be empty')
             return
         }
-        dispatch(updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
+        dispatch(actions.updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
         setUpdateTodoMode(false)
     }
 

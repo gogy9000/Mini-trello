@@ -1,6 +1,6 @@
 import {Task1Type} from "../../Types";
 import React, {useState} from "react";
-import {deleteTaskAC, updateTaskAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Checkbox, IconButton} from "@mui/material";
 import {
     CheckCircleOutline,
@@ -25,12 +25,12 @@ export const Task: React.FC<TaskPropsType> = ({callBack, dispatch, taskElem, idT
     }
 
     const deleteTask = (id: string, idTitle: string) => {
-        dispatch(deleteTaskAC(id, idTitle))
+        dispatch(actions.deleteTaskAC(id, idTitle))
     }
 
     const updateTask = (idTask: string, idTitle: string) => {
 
-        dispatch(updateTaskAC(idTitle, idTask, taskValue.trim()))
+        dispatch(actions.updateTaskAC(idTitle, idTask, taskValue.trim()))
         setError('')
     }
 

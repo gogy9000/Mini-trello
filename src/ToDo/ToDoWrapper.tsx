@@ -2,7 +2,7 @@ import React, {useReducer, useState} from "react";
 import '../App.css';
 import {taskTitle} from "../Types";
 import {ToDo} from "./ToDo";
-import {createNewTodoAC, initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions, initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Grid} from "@mui/material";
 import {CreateToDoInputWrapper} from "../CreateTodo/CreateToDoInputWrapper";
 import {AccordionWrapper} from "../App";
@@ -21,7 +21,7 @@ export const ToDoWrapper = () => {
             setError('To do title must not be empty')
             return
         }
-        dispatch(createNewTodoAC(todoName.trim()))
+        dispatch(actions.createNewTodoAC(todoName.trim()))
         setTodoName('')
         setCreateMode(false)
         setError('')

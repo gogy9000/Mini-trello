@@ -2,7 +2,7 @@ import {taskTitle} from "../../Types";
 import React, {ChangeEvent, Dispatch, SetStateAction} from "react";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {actionType, removeTodoAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions, ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 type TaskTitleBlockPropsType = {
     updateTodoMode: boolean
@@ -13,7 +13,7 @@ type TaskTitleBlockPropsType = {
     todoName: string
     error: string
     updateTodoName: () => void
-    dispatch: (action: actionType) => void
+    dispatch: (action: ActionsType) => void
 }
 export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = ({
                                                                       dispatch,
@@ -28,7 +28,7 @@ export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = ({
                                                                   }) => {
 
     const removeTodo = () => {
-        dispatch(removeTodoAC(task.id))
+        dispatch(actions.removeTodoAC(task.id))
     }
     return (
         <>

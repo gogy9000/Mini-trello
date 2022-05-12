@@ -18,7 +18,10 @@ export const initialState: StateType = {
     },
 }
 
-export let ToDoReducer = (state: StateType = initialState, action: actionType) => {
+export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type ActionsType = InferActionsType<typeof actions>
+
+export let ToDoReducer = (state: StateType = initialState, action: ActionsType) => {
 
     switch (action.type) {
 
@@ -167,54 +170,25 @@ export let ToDoReducer = (state: StateType = initialState, action: actionType) =
     }
 }
 
-export type actionType=updateTaskACType|removeTodoACType|
-    updateTodoNameACType|createNewTodoACType|
-    deleteTaskACType|addTaskACType|checkTaskACType
-
-
-type updateTaskACType={type:typeof UPDATE_TASK, idTitle: string, taskId: string, taskValue: string }
-const UPDATE_TASK = 'UPDATE-TASK'
-export const updateTaskAC = (idTitle: string, taskId: string, taskValue: string):updateTaskACType => ({
-    type: UPDATE_TASK,
-    idTitle,
-    taskId,
-    taskValue
-})
-
-
-type removeTodoACType = { type: typeof REMOVE_TODO, idTitle: string }
-const REMOVE_TODO = 'REMOVE-TODO'
-export const removeTodoAC = (idTitle: string): removeTodoACType => ({type: REMOVE_TODO, idTitle})
-
-
-type updateTodoNameACType = { type: typeof UPDATE_TODO_NAME, titleName: string, idTitle: string }
-const UPDATE_TODO_NAME = 'UPDATE-TODO-NAME'
-export const updateTodoNameAC = (titleName: string, idTitle: string): updateTodoNameACType =>
-    ({type: UPDATE_TODO_NAME, idTitle, titleName})
-
-
-type createNewTodoACType = { type: typeof CREATE_NEW_TODO, todoName: string }
-const CREATE_NEW_TODO = 'CREATE-NEW-TODO'
-export const createNewTodoAC = (todoName: string): createNewTodoACType => ({type: CREATE_NEW_TODO, todoName})
-
-
-type deleteTaskACType = { type: typeof DELETE_TASK, id: string, idTitle: string }
-const DELETE_TASK = 'DELETE-TASK'
-export const deleteTaskAC = (id: string, idTitle: string): deleteTaskACType => ({type: DELETE_TASK, id, idTitle})
-
-
-type  addTaskACType = { type: typeof ADD_TASK, idTitle: string, inputText: string }
-const ADD_TASK = 'ADD-TASK'
-export const addTaskAC = (idTitle: string, inputText: string): addTaskACType => ({
-    type: ADD_TASK,
-    idTitle,
-    inputText
-})
-
-
-export type checkTaskACType = { type: typeof CHECK_TASK, id: string, idTitle: string }
-const CHECK_TASK = 'CHECK-TASK'
-export const checkTaskAC = (id: string, idTitle: string): checkTaskACType => ({type: CHECK_TASK, id, idTitle})
+export const actions = {
+    updateTaskAC: (idTitle: string, taskId: string, taskValue: string) => ({
+        type: 'UPDATE-TASK',
+        idTitle,
+        taskId,
+        taskValue
+    } as const),
+    removeTodoAC: (idTitle: string) => ({type: 'REMOVE-TODO', idTitle} as const),
+    updateTodoNameAC: (titleName: string, idTitle: string) =>
+        ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
+    createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName} as const),
+    deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
+    addTaskAC: (idTitle: string, inputText: string) => ({
+        type: 'ADD-TASK',
+        idTitle,
+        inputText
+    } as const),
+    checkTaskAC: (id: string, idTitle: string) => ({type: 'CHECK-TASK', id, idTitle} as const)
+}
 
 
 

@@ -1,7 +1,7 @@
 import React, {useState} from "react";
 import '../../App.css';
 import {InputPropsType} from "../../Types";
-import {addTaskAC} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 
@@ -16,7 +16,7 @@ export const InputBlock = (props: InputPropsType) => {
             setErrorInput(true)
             return
         }
-        props.dispatch(addTaskAC(props.idTitle, inputText))
+        props.dispatch(actions.addTaskAC(props.idTitle, inputText))
         setInputText('')
     }
 
