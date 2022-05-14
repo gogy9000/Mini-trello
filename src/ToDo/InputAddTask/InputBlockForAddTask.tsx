@@ -1,12 +1,16 @@
 import React, {useState} from "react";
 import '../../App.css';
-import {InputPropsType} from "../../Types";
-import {actions} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {InputPropsType, StateType} from "../../Types";
+import {actions, ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 
+type InputBlockForAddTaskPropsType={
+    idTitle:string
+    dispatch: (action:ActionsType) => void
 
-export const InputBlock = (props: InputPropsType) => {
+}
+ const InputBlockForAddTaskMemo:React.FC<InputBlockForAddTaskPropsType> = ({idTitle,dispatch}) => {
 
     const [inputText, setInputText] = useState<string>('')
     const [errorInput, setErrorInput] = useState<boolean>(false)
@@ -16,7 +20,7 @@ export const InputBlock = (props: InputPropsType) => {
             setErrorInput(true)
             return
         }
-        props.dispatch(actions.addTaskAC(props.idTitle, inputText))
+        dispatch(actions.addTaskAC(idTitle, inputText))
         setInputText('')
     }
 
@@ -47,3 +51,4 @@ export const InputBlock = (props: InputPropsType) => {
         </Stack>
     )
 }
+export const InputBlockForAddTask=React.memo(InputBlockForAddTaskMemo)

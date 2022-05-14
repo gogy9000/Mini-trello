@@ -11,7 +11,7 @@ export type TaskBlockType = {
 }
 
 
-export const Tasks: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTitle}) => {
+ const TasksMemo: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTitle}) => {
 
 
     const mapTasks = tasks.map((taskElem: Task1Type) => <Task taskElem={taskElem}
@@ -33,3 +33,4 @@ export const Tasks: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTit
     )
 }
 
+export const Tasks=React.memo(TasksMemo)

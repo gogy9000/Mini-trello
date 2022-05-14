@@ -103,6 +103,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType) 
 
         case 'CHECK-TASK':
 
+
             let copyState: StateType = {
                 ...state,
                 tasksTitle: state.tasksTitle,

@@ -1,37 +1,43 @@
-import React from "react";
+import React, {useReducer} from "react";
 import {Tasks} from "./Tasks";
-import {StateType, taskTitle} from "../../Types";
-import {ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {StateType, Task1Type, taskBodyType, taskTitle} from "../../Types";
+import {ActionsType, initialState, ToDoReducer} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Divider, Stack} from "@mui/material";
 
 type TaskBlockWrapperPropsType = {
     task: taskTitle
-    state: StateType
+    completedTasks: Task1Type[]
+    activeTasks: Task1Type[]
     filter: string
     onCheckHandler: (id: string, idTitle: string) => void
     dispatch: (action: ActionsType) => void
 }
-export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = ({
-                                                                          state,
-                                                                          task,
-                                                                          filter,
-                                                                          onCheckHandler,
-                                                                          dispatch
-                                                                      }) => {
+const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
+                                                                   completedTasks,
+                                                                   activeTasks,
+                                                                   task,
+                                                                   filter,
+                                                                   onCheckHandler,
+                                                                   dispatch
+
+                                                               }) => {
+
+    console.log('render TasksWrapperMemo')
     return (
+
         <Stack direction="column"
-               divider={<Divider orientation="horizontal" flexItem />}
+               divider={<Divider orientation="horizontal" flexItem/>}
                spacing={1}>
             {
-                state.taskBody[task.id].activeTasks.length === 0
-                && state.taskBody[task.id].completedTasks.length === 0
+                activeTasks.length === 0
+                && completedTasks.length === 0
                 && <div>no active and completed tasks</div>
             }
 
             <div>
                 {
                     filter === 'Completed' || 'All'
-                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].activeTasks}
+                    && <Tasks idTitle={task.id} tasks={activeTasks}
                               callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
@@ -39,10 +45,11 @@ export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = ({
             <div className={'CompletedTasks'}>
                 {
                     filter === 'Active' || 'All'
-                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].completedTasks}
+                    && <Tasks idTitle={task.id} tasks={completedTasks}
                               callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
         </Stack>
     )
 }
+export const TasksWrapper = React.memo(TasksWrapperMemo)

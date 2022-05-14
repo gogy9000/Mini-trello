@@ -2,62 +2,36 @@ import React, {useReducer, useState} from "react";
 import '../App.css';
 import {taskTitle} from "../Types";
 import {ToDo} from "./ToDo";
-import {actions, initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import { initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Grid} from "@mui/material";
-import {CreateToDoInputWrapper} from "../CreateTodo/CreateToDoInputWrapper";
-import {AccordionWrapper} from "../App";
+import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 
 
-export const ToDoWrapper = () => {
+const ToDoWrapperMemo = () => {
+
+
+
     const [state, dispatch] = useReducer(ToDoReducer, initialState)
 
-    let [todoName, setTodoName] = useState<string>('')
-    const [createMode, setCreateMode] = useState<boolean>(false)
-    let [error, setError] = useState<string>('')
 
-    const createTask = () => {
+    const todos = state.tasksTitle.map((task: taskTitle,) => {
 
-        if (!todoName.trim()||!todoName.trim() && createMode) {
-            setError('To do title must not be empty')
-            return
-        }
-        dispatch(actions.createNewTodoAC(todoName.trim()))
-        setTodoName('')
-        setCreateMode(false)
-        setError('')
-    }
-
-    const moveCreateTask = () => {
-        setTodoName('')
-        setCreateMode(true)
-    }
-    const setToDoTitle = (newToDoTitle: string) => {
-        setError('')
-        setTodoName(newToDoTitle)
-    }
-
-
-    const todos = state.tasksTitle.map((task: taskTitle, index: number, arr: Array<taskTitle>) => {
             return (
                 <Grid item m={1} p={2} key={task.id}>
-                    <ToDo lastItem={arr.length - index}
-                          createMode={createMode}
-                          key={task.id}
+                    <ToDo
                           task={task}
-                          state={state}
+                          taskBody={state.taskBody}
                           dispatch={dispatch}/>
                 </Grid>
             )
         }
     )
 
-
+    console.log('render ToDoWRaper')
     return (
         <>
-            <AccordionWrapper error={error}
-                              todoName={todoName}
-                              moveCreateTask={moveCreateTask}
-                              createTask={createTask} SetToDoTitle={setToDoTitle}/>
+            <AccordionWrapper dispatch={dispatch}
+                              />
 
 
             <Grid container
@@ -72,5 +46,6 @@ export const ToDoWrapper = () => {
 
 
 }
+export const ToDoWrapper=React.memo(ToDoWrapperMemo)
 
 

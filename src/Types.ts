@@ -1,3 +1,4 @@
+import {ActionsType} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 export type Task1Type = {
     id: string
@@ -13,12 +14,8 @@ export type taskTitle={
 export type StateType={
     tasksTitle:Array<taskTitle>
 
-    taskBody:{
-        [id:string]:{
-            activeTasks: Array<Task1Type>
-            completedTasks:Array<Task1Type>
-        }
-    }
+    taskBody:taskBodyType
+
 }
 
 
@@ -26,6 +23,12 @@ export type StateType={
 export type InputPropsType = {
     idTitle:string
     state: StateType
-    dispatch: (action:any) => void
+    dispatch: (action:ActionsType) => void
 
+}
+export type taskBodyType={
+    [x:string]:{
+        activeTasks: Array<Task1Type>
+        completedTasks:Array<Task1Type>
+    }
 }

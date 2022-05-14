@@ -15,7 +15,7 @@ export type TaskPropsType = {
     taskElem: Task1Type
 
 }
-export const Task: React.FC<TaskPropsType> = ({callBack, dispatch, taskElem, idTitle}) => {
+ const TaskMemo: React.FC<TaskPropsType> = ({callBack, dispatch, taskElem, idTitle}) => {
 
     const [taskValue, setTaskValue] = useState<string>('')
     const [error, setError] = useState<string>('')
@@ -62,3 +62,4 @@ export const Task: React.FC<TaskPropsType> = ({callBack, dispatch, taskElem, idT
         </div>
     )
 }
+export const Task=React.memo(TaskMemo)

@@ -8,7 +8,7 @@ type ButtonsBlockType= {
     filter:string
 }
 
-export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) => {
+ const ButtonsInToDoWrapperMemo:React.FC<ButtonsBlockType> = ({filterHandler,filter}) => {
 
 
     const onClickHandler = (filter:string) => {
@@ -37,5 +37,6 @@ export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) 
 
     )
 }
+export const ButtonsInToDoWrapper=React.memo(ButtonsInToDoWrapperMemo)
 
 

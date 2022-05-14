@@ -1,24 +1,36 @@
-import React from "react";
+import React, {useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
+import {actions, ActionsType} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 
 type CreateToDoWrapperPropsType = {
-    todoName: string
-    setTodoTitle: (newToDoTitle: string) => void
-    moveCreateTask: () => void
-    createTask: () => void
-    error: string
+    dispatch:(type:ActionsType)=>void
 }
-export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
-                                                                                 todoName,
-                                                                                 setTodoTitle,
-                                                                                 error,
-                                                                                 moveCreateTask,
-                                                                                 createTask
-                                                                             }) => {
+ const CreateToDoInputWrapperMemoize: React.FC<CreateToDoWrapperPropsType> = ({dispatch}) => {
+
+     const [todoName, setTodoName] = useState<string>('')
+     const [error, setError] = useState<string>('')
 
 
-    return (
+     const createTask = () => {
+
+         if (!todoName.trim()) {
+             setError('To do title must not be empty')
+             return
+         }
+         dispatch(actions.createNewTodoAC(todoName.trim()))
+         setTodoName('')
+         setError('')
+     }
+
+     const setToDoTitle = (newToDoTitle: string) => {
+         setError('')
+         setTodoName(newToDoTitle)
+     }
+
+
+
+     return (
         <Paper elevation={12}>
             <Grid container
                   // m={2}
@@ -38,11 +50,11 @@ export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
                                //     setTodoTitle('')
                                // }}
                                onChange={(e) => {
-                                   setTodoTitle(e.currentTarget.value)
+                                   setToDoTitle(e.currentTarget.value)
                                }}/>
                 </Grid>
                 <Grid item  justifyContent='right'>
-                    <Button variant="outlined" onMouseUp={moveCreateTask}
+                    <Button variant="outlined"
                             onMouseDown={createTask}
                     >Create</Button>
                 </Grid>
@@ -50,3 +62,4 @@ export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
         </Paper>
     )
 }
+export const CreateToDoInputWrapper=React.memo(CreateToDoInputWrapperMemoize)

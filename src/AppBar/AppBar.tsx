@@ -56,7 +56,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export default function PrimarySearchAppBar() {
+export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
@@ -154,7 +154,7 @@ export default function PrimarySearchAppBar() {
             </MenuItem>
         </Menu>
     );
-
+        console.log('render AppBar')
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -233,3 +233,4 @@ export default function PrimarySearchAppBar() {
         </Box>
     );
 }
+)

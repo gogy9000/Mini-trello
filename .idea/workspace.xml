@@ -4,20 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use Accordion in ToDoWrapper.tsx">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use dynamic types in ToDoReducerForUseReducer.ts">
+      <change afterPath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlock.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlock.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +57,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -67,7 +72,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/CreateTodo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -82,17 +87,18 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDoReducerForReactUseReducer" />
     </key>
     <key name="es6.move.members.recent.items">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\AccordionWrapper.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\CreateToDoWrapper.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\Task.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskTitleBlock.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskBlockWrapper.tsx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo\AccordionForCreateToDoInput" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\TitleTodo" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\InputAddTask" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CustomComponent" />
     </key>
   </component>
   <component name="RunManager" selected="Jest.Todo should be add">
@@ -155,8 +161,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
-        <item itemvalue="Jest.Todo should be add" />
         <item itemvalue="npm.test" />
+        <item itemvalue="Jest.Todo should be add" />
         <item itemvalue="npm.storybook" />
         <item itemvalue="Jest.task to be unchecked" />
       </list>
@@ -178,6 +184,9 @@
       <workItem from="1652071522588" duration="24000" />
       <workItem from="1652073389088" duration="16886000" />
       <workItem from="1652158662593" duration="18473000" />
+      <workItem from="1652318866393" duration="1920000" />
+      <workItem from="1652431777770" duration="634000" />
+      <workItem from="1652509512956" duration="16200000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -235,7 +244,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652178006815</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="use dynamic types in ToDoReducerForUseReducer.ts">
+      <created>1652319035836</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1652319035836</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -261,7 +277,8 @@
     <MESSAGE value="fixed CustomEditSpan.tsx" />
     <MESSAGE value="refactoring" />
     <MESSAGE value="use story book and fixed problem in ToDoWrapper.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="use story book and fixed problem in ToDoWrapper.tsx" />
+    <MESSAGE value="use dynamic types in ToDoReducerForUseReducer.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value="use dynamic types in ToDoReducerForUseReducer.ts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -15,7 +15,7 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     setError:  React.Dispatch<React.SetStateAction<string>>
     value:string
 }
-export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
+const CustomEditSpanMemo: React.FC<CustomEditSpanPropsType> = ({
                                                                       onChange,
                                                                       value,
                                                                       error,
@@ -92,3 +92,5 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = ({
         </>
     )
 }
+
+export const CustomEditSpan=React.memo(CustomEditSpanMemo)
