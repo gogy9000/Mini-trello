@@ -5,7 +5,7 @@ import {ActionsType, initialState, ToDoReducer} from "../../ToDoReducerForReactU
 import {Divider, Stack} from "@mui/material";
 
 type TaskBlockWrapperPropsType = {
-    task: taskTitle
+    idTitle:string
     completedTasks: Task1Type[]
     activeTasks: Task1Type[]
     filter: string
@@ -15,7 +15,7 @@ type TaskBlockWrapperPropsType = {
 const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
                                                                    completedTasks,
                                                                    activeTasks,
-                                                                   task,
+                                                                   idTitle,
                                                                    filter,
                                                                    onCheckHandler,
                                                                    dispatch
@@ -37,7 +37,7 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
             <div>
                 {
                     filter === 'Completed' || 'All'
-                    && <Tasks idTitle={task.id} tasks={activeTasks}
+                    && <Tasks idTitle={idTitle} tasks={activeTasks}
                               callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>
@@ -45,7 +45,7 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
             <div className={'CompletedTasks'}>
                 {
                     filter === 'Active' || 'All'
-                    && <Tasks idTitle={task.id} tasks={completedTasks}
+                    && <Tasks idTitle={idTitle} tasks={completedTasks}
                               callBack={onCheckHandler} dispatch={dispatch}/>
                 }
             </div>

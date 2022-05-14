@@ -1,4 +1,4 @@
-import {StateType, taskBodyType, taskTitle} from "../Types";
+import {StateType, Task1Type, taskBodyType, taskTitle} from "../Types";
 import React, {ChangeEvent, useState} from "react";
 
 import {
@@ -14,10 +14,13 @@ import {Divider, Grid, Paper, Typography} from "@mui/material";
 
 type ToDoType = {
     task: taskTitle
-    taskBody:taskBodyType
+
     dispatch: (type: ActionsType) => void
+    completedTasks:Array<Task1Type>
+    activeTasks:Array<Task1Type>
+
 }
-const ToDoMemoize: React.FC<ToDoType> = ({dispatch, task, taskBody}) => {
+const ToDoMemoize: React.FC<ToDoType> = ({dispatch, task,completedTasks,activeTasks }) => {
 
     const [filter, setFilter] = useState<string>('All')
     const [error, setError] = useState<string>('')
@@ -58,9 +61,9 @@ const ToDoMemoize: React.FC<ToDoType> = ({dispatch, task, taskBody}) => {
                     <Grid container item justifyContent='center'>
                         <Typography component={'div'}>
                             <TasksWrapper
-                                activeTasks={taskBody[task.id].activeTasks}
-                                completedTasks={taskBody[task.id].completedTasks}
-                                task={task}
+                                activeTasks={activeTasks}
+                                completedTasks={completedTasks}
+                                idTitle={task.id}
                                 filter={filter}
                                 onCheckHandler={onCheckHandler}
                                 dispatch={dispatch}

@@ -20,7 +20,8 @@ const ToDoWrapperMemo = () => {
                 <Grid item m={1} p={2} key={task.id}>
                     <ToDo
                           task={task}
-                          taskBody={state.taskBody}
+                          activeTasks={state.taskBody[task.id].activeTasks}
+                          completedTasks={state.taskBody[task.id].completedTasks}
                           dispatch={dispatch}/>
                 </Grid>
             )
