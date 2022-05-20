@@ -6,14 +6,14 @@ export type Task1Type = {
     isDone: boolean
 }
 
-export type TaskTitleType ={
+export type TodoTitleType ={
     id:string
     titleName:string
     filter:string
 }
 
 export type StateType={
-    tasksTitle:Array<TaskTitleType>
+    tasksTitle:Array<TodoTitleType>
     taskBody:taskBodyType
 
 }

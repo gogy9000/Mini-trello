@@ -1,4 +1,4 @@
-import {TaskTitleType} from "../Types";
+import {TodoTitleType} from "../Types";
 import React, {useState} from "react";
 import {InputBlockForAddTask} from "./InputAddTask/InputBlockForAddTask";
 import {ButtonsInToDoWrapper} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper";
@@ -7,11 +7,11 @@ import {TitleToDoWrapper} from "./TitleTodo/TitleToDoWrapper";
 import {Divider, Grid, Paper, Typography} from "@mui/material";
 
 type ToDoPropsType = {
-    todo: TaskTitleType
+    todo: TodoTitleType
 }
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
-        const [error, setError] = useState<string>('')
+
 
         console.log('render ToDo')
         return (
@@ -26,9 +26,7 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
                     <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
                         <Typography variant={"h5"} component={'div'}>
                             <TitleToDoWrapper
-                                task={todo}
-                                error={error}
-                                setError={setError}
+                                todo={todo}
                             />
                             <Divider/>
                         </Typography>

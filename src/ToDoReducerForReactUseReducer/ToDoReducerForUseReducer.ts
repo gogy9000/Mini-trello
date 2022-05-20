@@ -1,10 +1,10 @@
-// import {StateType, Task1Type, TaskTitleType} from "../Types";
+// import {StateType, Task1Type, TodoTitleType} from "../Types";
 //
 // import {v1} from 'uuid';
 //
 //
 // export const initialState: StateType = {
-//     tasksTitle: [] as Array<TaskTitleType>,
+//     tasksTitle: [] as Array<TodoTitleType>,
 //
 //     taskBody: {
 //         // [taskIdWhat]: {
@@ -30,14 +30,14 @@
 //                 ...state,
 //                 taskBody: {
 //                     ...state.taskBody,
-//                     [action.todoId]: {
+//                     [action.todo]: {
 //                         activeTasks:
-//                             state.taskBody[action.todoId].activeTasks.map(
+//                             state.taskBody[action.todo].activeTasks.map(
 //                                 (todo: Task1Type) => todo.id === action.taskId
 //                                     ? {id: todo.id, title: action.taskValue, isDone: todo.isDone}
 //                                     : todo),
 //                         completedTasks:
-//                             state.taskBody[action.todoId].completedTasks.map(
+//                             state.taskBody[action.todo].completedTasks.map(
 //                                 (todo: Task1Type) => todo.id === action.taskId
 //                                     ? {id: todo.id, title: action.taskValue, isDone: todo.isDone}
 //                                     : todo)
@@ -47,32 +47,32 @@
 //
 //
 //         case 'REMOVE-TODO':
-//             delete state.taskBody[action.todoId]
+//             delete state.taskBody[action.todo]
 //             return {
 //                 ...state,
-//                 tasksTitle: state.tasksTitle.filter((title: TaskTitleType) => title.id != action.todoId),
+//                 tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id != action.todo),
 //             }
 //
 //         case 'UPDATE-TODO-NAME':
 //
 //             return {
 //                 ...state,
-//                 tasksTitle: [...state.tasksTitle.map((title: TaskTitleType) =>
-//                     title.id !== action.todoId ?
+//                 tasksTitle: [...state.tasksTitle.map((title: TodoTitleType) =>
+//                     title.id !== action.todo ?
 //                         title
-//                         : {id: action.todoId, titleName: action.titleName})
+//                         : {id: action.todo, titleName: action.titleName})
 //                 ],
 //                 taskBody: {...state.taskBody}
 //             }
 //
 //         case 'CREATE-NEW-TODO':
-//             let todoId = action.toDoId
+//             let todo = action.toDoId
 //             return {
 //                 ...state,
-//                 tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName}],
+//                 tasksTitle: [...state.tasksTitle, {id: todo, titleName: action.todoName}],
 //                 taskBody: {
 //                     ...state.taskBody,
-//                     [todoId]: {
+//                     [todo]: {
 //                         activeTasks: [],
 //                         completedTasks: []
 //                     }
@@ -92,9 +92,9 @@
 //                 tasksTitle: state.tasksTitle,
 //                 taskBody: {
 //                     ...state.taskBody,
-//                     [action.todoId]: {
-//                         activeTasks: [...state.taskBody[action.todoId].activeTasks, newTask],
-//                         completedTasks: [...state.taskBody[action.todoId].completedTasks]
+//                     [action.todo]: {
+//                         activeTasks: [...state.taskBody[action.todo].activeTasks, newTask],
+//                         completedTasks: [...state.taskBody[action.todo].completedTasks]
 //                     }
 //                 },
 //                 //ты должен страдать от вложенности!!!
@@ -110,16 +110,16 @@
 //                 // @ts-ignore
 //                 taskBody: {
 //                     ...state.taskBody,
-//                     [action.todoId]: {
+//                     [action.todo]: {
 //                         activeTasks: [
-//                             ...state.taskBody[action.todoId].activeTasks.map(todo =>
+//                             ...state.taskBody[action.todo].activeTasks.map(todo =>
 //
 //                                 todo.id === action.id ?
 //                                     todo.isDone ?
 //                                         {todo, isDone: false} : {...todo, isDone: true} : todo)
 //                         ],
 //                         completedTasks: [
-//                             ...state.taskBody[action.todoId].completedTasks.map(todo =>
+//                             ...state.taskBody[action.todo].completedTasks.map(todo =>
 //
 //                                 todo.id === action.id ?
 //                                     todo.isDone ?
@@ -135,14 +135,14 @@
 //                 tasksTitle: copyState.tasksTitle,
 //                 taskBody: {
 //                     ...copyState.taskBody,
-//                     [action.todoId]: {
+//                     [action.todo]: {
 //                         activeTasks: [
-//                             ...copyState.taskBody[action.todoId].activeTasks.filter((el: Task1Type) => !el.isDone),
-//                             ...copyState.taskBody[action.todoId].completedTasks.filter((el: Task1Type) => !el.isDone)
+//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: Task1Type) => !el.isDone),
+//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: Task1Type) => !el.isDone)
 //                         ],
 //                         completedTasks: [
-//                             ...copyState.taskBody[action.todoId].completedTasks.filter((el: Task1Type) => el.isDone),
-//                             ...copyState.taskBody[action.todoId].activeTasks.filter((el: Task1Type) => el.isDone)
+//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: Task1Type) => el.isDone),
+//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: Task1Type) => el.isDone)
 //                         ]
 //                         //страдааай!!!
 //                     }
@@ -155,10 +155,10 @@
 //                 ...state,
 //                 taskBody: {
 //                     ...state.taskBody,
-//                     [action.todoId]: {
-//                         activeTasks: [...state.taskBody[action.todoId].activeTasks.filter(todo =>
+//                     [action.todo]: {
+//                         activeTasks: [...state.taskBody[action.todo].activeTasks.filter(todo =>
 //                             todo.id !== action.id)],
-//                         completedTasks: [...state.taskBody[action.todoId].completedTasks.filter(todo =>
+//                         completedTasks: [...state.taskBody[action.todo].completedTasks.filter(todo =>
 //                             todo.id !== action.id)]
 //                     }
 //                     //не так уж и страшно впринципе
@@ -172,24 +172,24 @@
 // }
 //
 // export const actions = {
-//     updateTaskAC: (todoId: string, taskId: string, taskValue: string) => ({
+//     updateTaskAC: (todo: string, taskId: string, taskValue: string) => ({
 //         type: 'UPDATE-TASK',
-//         todoId,
+//         todo,
 //         taskId,
 //         taskValue
 //     } as const),
-//     removeTodoAC: (todoId: string) => ({type: 'REMOVE-TODO', todoId} as const),
-//     updateTodoNameAC: (titleName: string, todoId: string) =>
-//         ({type: 'UPDATE-TODO-NAME', todoId, titleName} as const),
+//     removeTodoAC: (todo: string) => ({type: 'REMOVE-TODO', todo} as const),
+//     updateTodoNameAC: (titleName: string, todo: string) =>
+//         ({type: 'UPDATE-TODO-NAME', todo, titleName} as const),
 //     createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName, toDoId: v1()} as const),
-//     deleteTaskAC: (id: string, todoId: string) => ({type: 'DELETE-TASK', id, todoId} as const),
-//     addTaskAC: (todoId: string, inputText: string) => ({
+//     deleteTaskAC: (id: string, todo: string) => ({type: 'DELETE-TASK', id, todo} as const),
+//     addTaskAC: (todo: string, inputText: string) => ({
 //         type: 'ADD-TASK',
-//         todoId,
+//         todo,
 //         inputText,
 //         taskId:v1()
 //     } as const),
-//     checkTaskAC: (id: string, todoId: string) => ({type: 'CHECK-TASK', id, todoId} as const)
+//     checkTaskAC: (id: string, todo: string) => ({type: 'CHECK-TASK', id, todo} as const)
 // }
 //
 //

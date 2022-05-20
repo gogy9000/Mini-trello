@@ -1,6 +1,6 @@
 import React, {useReducer} from "react";
 import {Tasks} from "./Tasks";
-import {StateType, Task1Type, taskBodyType, TaskTitleType} from "../../Types";
+import {StateType, Task1Type, taskBodyType, TodoTitleType} from "../../Types";
 import {ActionsType, initialState, ToDoReducer} from '../../Redux/ToDoReducer';
 import {Divider, Stack} from "@mui/material";
 import {useSelector} from "react-redux";

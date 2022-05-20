@@ -1,10 +1,10 @@
-import {StateType, Task1Type, TaskTitleType} from "../Types";
+import {StateType, Task1Type, TodoTitleType} from "../Types";
 
 import {v1} from 'uuid';
 
 
 export const initialState: StateType = {
-    tasksTitle: [] as Array<TaskTitleType>,
+    tasksTitle: [] as Array<TodoTitleType>,
 
     taskBody: {
         // [taskIdWhat]: {
@@ -26,7 +26,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
     switch (action.type) {
         case "CHANGE-FILTER":
             return {...state,
-            tasksTitle:state.tasksTitle.map((todo:TaskTitleType)=> action.todoId===todo.id?
+            tasksTitle:state.tasksTitle.map((todo:TodoTitleType)=> action.todoId===todo.id?
                 {id:todo.id, titleName:todo.titleName, filter:action.filter}:todo)
             }
 
@@ -55,14 +55,14 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
-                tasksTitle: state.tasksTitle.filter((title: TaskTitleType) => title.id != action.idTitle),
+                tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id != action.idTitle),
             }
 
         case 'UPDATE-TODO-NAME':
 
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle.map((title: TaskTitleType) =>
+                tasksTitle: [...state.tasksTitle.map((title: TodoTitleType) =>
                     title.id !== action.idTitle ?
                         title
                         : {id: title.id, titleName: action.titleName, filter:title.filter})

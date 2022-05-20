@@ -1,6 +1,6 @@
 import React from "react";
 import '../App.css';
-import {TaskTitleType} from "../Types";
+import {TodoTitleType} from "../Types";
 import {ToDo} from "./ToDo";
 import {Grid} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
@@ -12,7 +12,7 @@ export const ToDoWrapper = React.memo(() => {
 
         const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
 
-        const todos = tasksTitle.map((todo: TaskTitleType,) => {
+        const todos = tasksTitle.map((todo: TodoTitleType,) => {
 
                 return (
                     <Grid item m={1} p={2} key={todo.id}>
