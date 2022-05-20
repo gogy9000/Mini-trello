@@ -1,6 +1,6 @@
 import React, {useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
-import {actions, ActionsType} from '../Redux/ToDoReducer';
+import {actions} from '../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
 
