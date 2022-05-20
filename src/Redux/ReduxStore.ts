@@ -1,10 +1,11 @@
-// import {combineReducers, legacy_createStore} from "redux";
-// import {taskBlockReducer} from "./ToDoReducer";
-//
-//
-// let rootReducer= combineReducers({
-//     stateTaskBlock:taskBlockReducer
-// })
-//
-// export let store= legacy_createStore(rootReducer)
-export const a ={}
+import {combineReducers, legacy_createStore} from "redux";
+import {ToDoReducer} from './ToDoReducer';
+
+type RootReducerType = typeof rootReducer
+export type AppStateType=ReturnType<RootReducerType>
+
+let rootReducer= combineReducers({
+    stateTodo:ToDoReducer
+})
+
+export let store= legacy_createStore(rootReducer)

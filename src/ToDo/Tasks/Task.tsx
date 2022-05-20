@@ -1,27 +1,26 @@
 import {Task1Type} from "../../Types";
 import React, {useState} from "react";
-import {actions} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions} from '../../Redux/ToDoReducer';
 import {Checkbox, IconButton} from "@mui/material";
 import {
     CheckCircleOutline,
     Clear, RadioButtonUnchecked
 } from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
+import {useDispatch} from "react-redux";
 
 export type TaskPropsType = {
-    callBack: (id: string, idTitle: string) => void
-    dispatch: (action: any) => void
     idTitle: string
     taskElem: Task1Type
 
 }
- const TaskMemo: React.FC<TaskPropsType> = ({callBack, dispatch, taskElem, idTitle}) => {
-
+ const TaskMemo: React.FC<TaskPropsType> = ({  taskElem, idTitle}) => {
+    const dispatch= useDispatch()
     const [taskValue, setTaskValue] = useState<string>('')
     const [error, setError] = useState<string>('')
 
     const checkTask = (id: string, idTitle: string) => {
-        callBack(id, idTitle)
+        dispatch(actions.checkTaskAC(id, idTitle))
     }
 
     const deleteTask = (id: string, idTitle: string) => {

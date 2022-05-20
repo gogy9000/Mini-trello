@@ -1,28 +1,31 @@
 import React, {useReducer, useState} from "react";
 import '../App.css';
-import {taskTitle} from "../Types";
+import {TaskTitleType} from "../Types";
 import {ToDo} from "./ToDo";
-import { initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+// import { initialState, ToDoReducer} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Grid} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../Redux/ReduxStore";
 
 
 const ToDoWrapperMemo = () => {
 
+    const tasksTitle= useSelector((state:AppStateType)=>state.stateTodo.tasksTitle)
+
+    // const [state, dispatch] = useReducer(ToDoReducer, initialState)
 
 
-    const [state, dispatch] = useReducer(ToDoReducer, initialState)
-
-
-    const todos = state.tasksTitle.map((task: taskTitle,) => {
+    const todos = tasksTitle.map((task: TaskTitleType,) => {
 
             return (
                 <Grid item m={1} p={2} key={task.id}>
                     <ToDo
                           task={task}
-                          activeTasks={state.taskBody[task.id].activeTasks}
-                          completedTasks={state.taskBody[task.id].completedTasks}
-                          dispatch={dispatch}/>
+                          // activeTasks={state.taskBody[task.id].activeTasks}
+                          // completedTasks={state.taskBody[task.id].completedTasks}
+                          // dispatch={dispatch}
+                    />
                 </Grid>
             )
         }
@@ -31,7 +34,8 @@ const ToDoWrapperMemo = () => {
     console.log('render ToDoWRaper')
     return (
         <>
-            <AccordionWrapper dispatch={dispatch}
+            <AccordionWrapper
+                // dispatch={dispatch}
                               />
 
 

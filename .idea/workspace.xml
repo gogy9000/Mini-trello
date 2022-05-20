@@ -4,11 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use React.memo() , refactoring">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="optimized render App">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -172,7 +185,9 @@
       <workItem from="1652158662593" duration="18473000" />
       <workItem from="1652318866393" duration="1920000" />
       <workItem from="1652431777770" duration="634000" />
-      <workItem from="1652509512956" duration="17865000" />
+      <workItem from="1652509512956" duration="18782000" />
+      <workItem from="1652593767917" duration="1930000" />
+      <workItem from="1653026635701" duration="4053000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -244,7 +259,14 @@
       <option name="project" value="LOCAL" />
       <updated>1652529025334</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="optimized render App">
+      <created>1652530894714</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1652530894714</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -272,7 +294,8 @@
     <MESSAGE value="use story book and fixed problem in ToDoWrapper.tsx" />
     <MESSAGE value="use dynamic types in ToDoReducerForUseReducer.ts" />
     <MESSAGE value="use React.memo() , refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="use React.memo() , refactoring" />
+    <MESSAGE value="optimized render App" />
+    <option name="LAST_COMMIT_MESSAGE" value="optimized render App" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

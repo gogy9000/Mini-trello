@@ -1,4 +1,4 @@
-import {ActionsType} from "./ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {ActionsType} from './Redux/ToDoReducer';
 
 export type Task1Type = {
     id: string
@@ -6,13 +6,13 @@ export type Task1Type = {
     isDone: boolean
 }
 
-export type taskTitle={
+export type TaskTitleType ={
     id:string
     titleName:string
 }
 
 export type StateType={
-    tasksTitle:Array<taskTitle>
+    tasksTitle:Array<TaskTitleType>
 
     taskBody:taskBodyType
 

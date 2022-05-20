@@ -1,26 +1,23 @@
 import React, {useReducer} from "react";
 import {Tasks} from "./Tasks";
-import {StateType, Task1Type, taskBodyType, taskTitle} from "../../Types";
-import {ActionsType, initialState, ToDoReducer} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {StateType, Task1Type, taskBodyType, TaskTitleType} from "../../Types";
+import {ActionsType, initialState, ToDoReducer} from '../../Redux/ToDoReducer';
 import {Divider, Stack} from "@mui/material";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
 type TaskBlockWrapperPropsType = {
-    idTitle:string
-    completedTasks: Task1Type[]
-    activeTasks: Task1Type[]
+    idTitle: string
     filter: string
-    onCheckHandler: (id: string, idTitle: string) => void
-    dispatch: (action: ActionsType) => void
+
+
 }
 const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
-                                                                   completedTasks,
-                                                                   activeTasks,
                                                                    idTitle,
-                                                                   filter,
-                                                                   onCheckHandler,
-                                                                   dispatch
-
+                                                                   filter
                                                                }) => {
+    const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[idTitle].activeTasks)
+    const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[idTitle].completedTasks)
 
     console.log('render TasksWrapperMemo')
     return (
@@ -37,16 +34,20 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
             <div>
                 {
                     filter === 'Completed' || 'All'
-                    && <Tasks idTitle={idTitle} tasks={activeTasks}
-                              callBack={onCheckHandler} dispatch={dispatch}/>
+                    && <Tasks idTitle={idTitle}
+                              tasks={activeTasks}
+                    />
                 }
             </div>
 
             <div className={'CompletedTasks'}>
                 {
                     filter === 'Active' || 'All'
-                    && <Tasks idTitle={idTitle} tasks={completedTasks}
-                              callBack={onCheckHandler} dispatch={dispatch}/>
+                    && <Tasks idTitle={idTitle}
+                              tasks={completedTasks}
+
+
+                    />
                 }
             </div>
         </Stack>

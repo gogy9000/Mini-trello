@@ -5,12 +5,12 @@ import ExpandMoreIcon from "@mui/icons-material/ExpandMore";
 import {Typography} from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {CreateToDoInputWrapper} from "../CreateToDoInputWrapper";
-import {ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+// import {ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 
 type AccordionWrapperPropsType = {
-    dispatch:(type:ActionsType)=>void
+    // dispatch:(type:ActionsType)=>void
 }
- const AccordionWrapperMemo: React.FC<AccordionWrapperPropsType> = ({dispatch}) => {
+ const AccordionWrapperMemo: React.FC<AccordionWrapperPropsType> = () => {
      console.log('render AccordionWrapper')
     return (
         <>
@@ -24,7 +24,9 @@ type AccordionWrapperPropsType = {
                 </AccordionSummary>
                 <AccordionDetails>
                     <Typography component={'div'}>
-                        <CreateToDoInputWrapper dispatch={dispatch}/>
+                        <CreateToDoInputWrapper
+                            // dispatch={dispatch}
+                        />
                     </Typography>
                 </AccordionDetails>
             </Accordion>

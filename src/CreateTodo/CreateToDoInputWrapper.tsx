@@ -1,13 +1,14 @@
 import React, {useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
-import {actions, ActionsType} from "../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions, ActionsType} from '../Redux/ToDoReducer';
+import {useDispatch} from "react-redux";
 
 
 type CreateToDoWrapperPropsType = {
-    dispatch:(type:ActionsType)=>void
+    // dispatch:(type:ActionsType)=>void
 }
- const CreateToDoInputWrapperMemoize: React.FC<CreateToDoWrapperPropsType> = ({dispatch}) => {
-
+ const CreateToDoInputWrapperMemoize: React.FC<CreateToDoWrapperPropsType> = () => {
+        const dispatch=useDispatch()
      const [todoName, setTodoName] = useState<string>('')
      const [error, setError] = useState<string>('')
 

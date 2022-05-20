@@ -1,39 +1,40 @@
-import {taskTitle} from "../../Types";
+import {TaskTitleType} from "../../Types";
 import React, {ChangeEvent, Dispatch, SetStateAction, useState} from "react";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {actions, ActionsType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
+import {actions, ActionsType} from '../../Redux/ToDoReducer';
+import {useDispatch} from "react-redux";
 
 type TaskTitleBlockPropsType = {
-    task: taskTitle
+    task: TaskTitleType
     setError: Dispatch<SetStateAction<string>>
     error: string
-    dispatch: (action: ActionsType) => void
+    // dispatch: (action: ActionsType) => void
 }
- const TitleToDo: React.FC<TaskTitleBlockPropsType> = ({
-                                                                      dispatch,
-                                                                      task,
-                                                                      setError,
-                                                                      error,
-                                                                  }) => {
+const TitleToDo: React.FC<TaskTitleBlockPropsType> = ({
 
-     const [todoName, setTodoName] = useState<string>('')
-     const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
+                                                          task,
+                                                          setError,
+                                                          error,
+                                                      }) => {
+    const dispatch = useDispatch()
+    const [todoName, setTodoName] = useState<string>('')
+    const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
 
-     const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-         setTodoName(e.currentTarget.value)
-     }
+    const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => {
+        setTodoName(e.currentTarget.value)
+    }
 
-     const updateTodoName = () => {
-         if(!todoName.trim()){
-             setError('Title must not be empty')
-             return
-         }
-         dispatch(actions.updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
-         setUpdateTodoMode(!updateTodoMode)
-     }
+    const updateTodoName = () => {
+        if (!todoName.trim()) {
+            setError('Title must not be empty')
+            return
+        }
+        dispatch(actions.updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
+        setUpdateTodoMode(!updateTodoMode)
+    }
 
-     const onUpdateTodoMode = () => setUpdateTodoMode(true)
+    const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
 
     const removeTodo = () => {
@@ -62,7 +63,7 @@ type TaskTitleBlockPropsType = {
                             error={!!error}
                             id="filled-error-helper-text"
                             label={'New task name'}
-                            helperText={!!error?error:false}
+                            helperText={!!error ? error : false}
                             variant="filled"
                         />
                         <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
@@ -73,4 +74,4 @@ type TaskTitleBlockPropsType = {
     )
 
 }
-export const TitleToDoWrapper= React.memo(TitleToDo)
+export const TitleToDoWrapper = React.memo(TitleToDo)
