@@ -1,35 +1,25 @@
 import React from "react";
-import {Task1Type} from "../../Types";
+import {TaskType} from "../../Types";
 import {Task} from "./Task";
 
 export type TaskBlockType = {
-    tasks: Array<Task1Type>
-    callBack: (id: string, idTitle: string) => void
-    dispatch: (action: any) => void
-    idTitle: string
-
+    tasks: Array<TaskType>
+    todoId: string
 }
 
+export const Tasks: React.FC<TaskBlockType> = React.memo(({tasks, todoId}) => {
 
-export const Tasks: React.FC<TaskBlockType> = ({tasks, callBack, dispatch, idTitle}) => {
+        const mapTasks = tasks.map((task: TaskType) => <Task task={task}
+                                                             key={task.id}
+                                                             todoId={todoId}/>
+        )
 
-
-    const mapTasks = tasks.map((taskElem: Task1Type) => <Task taskElem={taskElem}
-                                                              callBack={callBack}
-                                                              dispatch={dispatch}
-                                                              key={taskElem.id}
-                                                              idTitle={idTitle}/>
-    )
-
-    return (
-        <div>
+        return (
             <div>
-                {mapTasks}
+                <div>
+                    {mapTasks}
+                </div>
             </div>
-
-
-        </div>
-
-    )
-}
-
+        )
+    }
+)

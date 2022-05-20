@@ -1,9 +1,9 @@
 // Button.stories.ts|tsx
 
-import React, {useState} from 'react';
+import React from 'react';
 
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {ButtonsBlock} from "./ButtonsBlock";
+import {ButtonsInToDoWrapper} from "./ButtonsInToDoWrapper";
 
 import {Paper} from "@mui/material";
 
@@ -11,24 +11,20 @@ import {Paper} from "@mui/material";
 export default {
 
     title: 'ButtonBlock',
-    component: ButtonsBlock,
-} as ComponentMeta<typeof ButtonsBlock>;
+    component: ButtonsInToDoWrapper,
+} as ComponentMeta<typeof ButtonsInToDoWrapper>;
 
 
-export const ButtonsBlockStories: ComponentStory<typeof ButtonsBlock> = () => {
-    const [filter, useFilter] = useState<string>('all')
+export const ButtonsBlockStories: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
 
-    const useFilterHandler = (filterArg: string) => {
-        useFilter(filterArg)
-    }
-    return <ButtonsBlock filterHandler={useFilterHandler} filter={filter}/>
+
+
+
+    return <ButtonsInToDoWrapper todoId={'123'}  filter={'all'}/>
 }
 
-export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsBlock> = () => {
-    const [filter, useFilter] = useState<string>('all')
+export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
 
-    const useFilterHandler = (filterArg: string) => {
-        useFilter(filterArg)
-    }
-    return <Paper elevation={12}> <ButtonsBlock filterHandler={useFilterHandler} filter={filter}/></Paper>
+
+    return <Paper elevation={12}> <ButtonsInToDoWrapper  todoId={'123'} filter={'all'}/></Paper>
 }

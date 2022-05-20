@@ -1,26 +1,34 @@
-import {StateType, Task1Type, taskTitle} from "../Types";
+import {StateType, TaskType, TodoTitleType} from "../Types";
 
 import {v1} from 'uuid';
 
 
-const initialState: StateType = {
-    tasksTitle: [] as Array<taskTitle>,
+export const initialState: StateType = {
+    tasksTitle: [] as Array<TodoTitleType>,
 
     taskBody: {
         // [taskIdWhat]: {
-        //     activeTasks: [] as Array<Task1Type>,
-        //     completedTasks: [] as Array<Task1Type>
+        //     activeTasks: [] as Array<TaskType>,
+        //     completedTasks: [] as Array<TaskType>
         // },
         // [taskIdWho]: {
-        //     activeTasks: [] as Array<Task1Type>,
-        //     completedTasks: [] as Array<Task1Type>
+        //     activeTasks: [] as Array<TaskType>,
+        //     completedTasks: [] as Array<TaskType>
         // }
     },
 }
 
-export let taskBlockReducer = (state: StateType = initialState, action: actionType) => {
+export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type ActionsType = InferActionsType<typeof actions>
+
+export let ToDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
     switch (action.type) {
+        case "CHANGE-FILTER":
+            return {...state,
+            tasksTitle:state.tasksTitle.map((todo:TodoTitleType)=> action.todoId===todo.id?
+                {id:todo.id, titleName:todo.titleName, filter:action.filter}:todo)
+            }
 
         case 'UPDATE-TASK':
             return {
@@ -30,12 +38,12 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
                     [action.idTitle]: {
                         activeTasks:
                             state.taskBody[action.idTitle].activeTasks.map(
-                                (task: Task1Type) => task.id === action.taskId
+                                (task: TaskType) => task.id === action.taskId
                                     ? {id: task.id, title: action.taskValue, isDone: task.isDone}
                                     : task),
                         completedTasks:
                             state.taskBody[action.idTitle].completedTasks.map(
-                                (task: Task1Type) => task.id === action.taskId
+                                (task: TaskType) => task.id === action.taskId
                                     ? {id: task.id, title: action.taskValue, isDone: task.isDone}
                                     : task)
                     }
@@ -47,26 +55,26 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
-                tasksTitle: state.tasksTitle.filter((title: taskTitle) => title.id != action.idTitle),
+                tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id != action.idTitle),
             }
 
         case 'UPDATE-TODO-NAME':
 
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle.map((title: taskTitle) =>
+                tasksTitle: [...state.tasksTitle.map((title: TodoTitleType) =>
                     title.id !== action.idTitle ?
                         title
-                        : {id: action.idTitle, titleName: action.titleName})
+                        : {id: title.id, titleName: action.titleName, filter:title.filter})
                 ],
                 taskBody: {...state.taskBody}
             }
 
         case 'CREATE-NEW-TODO':
-            let todoId = v1()
+            let todoId = action.toDoId
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName}],
+                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName, filter: 'all'}],
                 taskBody: {
                     ...state.taskBody,
                     [todoId]: {
@@ -79,7 +87,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
         case 'ADD-TASK':
 
             let newTask = {
-                id: v1(),
+                id: action.taskId,
                 title: action.inputText.trim(),
                 isDone: false
             };
@@ -99,6 +107,7 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
 
 
         case 'CHECK-TASK':
+
 
             let copyState: StateType = {
                 ...state,
@@ -133,12 +142,12 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
                     ...copyState.taskBody,
                     [action.idTitle]: {
                         activeTasks: [
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: Task1Type) => !el.isDone),
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: Task1Type) => !el.isDone)
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => !el.isDone),
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => !el.isDone)
                         ],
                         completedTasks: [
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: Task1Type) => el.isDone),
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: Task1Type) => el.isDone)
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => el.isDone),
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => el.isDone)
                         ]
                         //страдааай!!!
                     }
@@ -167,54 +176,25 @@ export let taskBlockReducer = (state: StateType = initialState, action: actionTy
     }
 }
 
-export type actionType=updateTaskACType|removeTodoACType|
-    updateTodoNameACType|createNewTodoACType|
-    deleteTaskACType|addTaskACType|checkTaskACType
-
-
-type updateTaskACType={type:typeof UPDATE_TASK, idTitle: string, taskId: string, taskValue: string }
-const UPDATE_TASK = 'UPDATE-TASK'
-export const updateTaskAC = (idTitle: string, taskId: string, taskValue: string):updateTaskACType => ({
-    type: UPDATE_TASK,
-    idTitle,
-    taskId,
-    taskValue
-})
-
-
-type removeTodoACType = { type: typeof REMOVE_TODO, idTitle: string }
-const REMOVE_TODO = 'REMOVE-TODO'
-export const removeTodoAC = (idTitle: string): removeTodoACType => ({type: REMOVE_TODO, idTitle})
-
-
-type updateTodoNameACType = { type: typeof UPDATE_TODO_NAME, titleName: string, idTitle: string }
-const UPDATE_TODO_NAME = 'UPDATE-TODO-NAME'
-export const updateTodoNameAC = (titleName: string, idTitle: string): updateTodoNameACType =>
-    ({type: UPDATE_TODO_NAME, idTitle, titleName})
-
-
-type createNewTodoACType = { type: typeof CREATE_NEW_TODO, todoName: string }
-const CREATE_NEW_TODO = 'CREATE-NEW-TODO'
-export const createNewTodoAC = (todoName: string): createNewTodoACType => ({type: CREATE_NEW_TODO, todoName})
-
-
-type deleteTaskACType = { type: typeof DELETE_TASK, id: string, idTitle: string }
-const DELETE_TASK = 'DELETE-TASK'
-export const deleteTaskAC = (id: string, idTitle: string): deleteTaskACType => ({type: DELETE_TASK, id, idTitle})
-
-
-type  addTaskACType = { type: typeof ADD_TASK, idTitle: string, inputText: string }
-const ADD_TASK = 'ADD-TASK'
-export const addTaskAC = (idTitle: string, inputText: string): addTaskACType => ({
-    type: ADD_TASK,
-    idTitle,
-    inputText
-})
-
-
-export type checkTaskACType = { type: typeof CHECK_TASK, id: string, idTitle: string }
-const CHECK_TASK = 'CHECK-TASK'
-export const checkTaskAC = (id: string, idTitle: string): checkTaskACType => ({type: CHECK_TASK, id, idTitle})
-
-
+export const actions = {
+    changeFilterAC:(todoId:string, filter:string)=>({type:'CHANGE-FILTER', todoId,filter}as const),
+    updateTaskAC: (idTitle: string, taskId: string, taskValue: string) => ({
+        type: 'UPDATE-TASK',
+        idTitle,
+        taskId,
+        taskValue
+    } as const),
+    removeTodoAC: (idTitle: string) => ({type: 'REMOVE-TODO', idTitle} as const),
+    updateTodoNameAC: (titleName: string, idTitle: string) =>
+        ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
+    createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName, toDoId: v1()} as const),
+    deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
+    addTaskAC: (idTitle: string, inputText: string) => ({
+        type: 'ADD-TASK',
+        idTitle,
+        inputText,
+        taskId:v1()
+    } as const),
+    checkTaskAC: (id: string, idTitle: string) => ({type: 'CHECK-TASK', id, idTitle} as const)
+}
 

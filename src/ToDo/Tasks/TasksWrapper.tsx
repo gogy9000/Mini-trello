@@ -1,48 +1,42 @@
 import React from "react";
 import {Tasks} from "./Tasks";
-import {StateType, taskTitle} from "../../Types";
-import {actionType} from "../../ToDoReducerForReactUseReducer/ToDoReducerForUseReducer";
 import {Divider, Stack} from "@mui/material";
+import {useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
 type TaskBlockWrapperPropsType = {
-    task: taskTitle
-    state: StateType
+    todoId: string
     filter: string
-    onCheckHandler: (d: string, idTitle: string) => void
-    dispatch: (type: actionType) => void
 }
-export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = ({
-                                                                          state,
-                                                                          task,
-                                                                          filter,
-                                                                          onCheckHandler,
-                                                                          dispatch
-                                                                      }) => {
-    return (
-        <Stack direction="column"
-               divider={<Divider orientation="horizontal" flexItem />}
-               spacing={1}>
-            {
-                state.taskBody[task.id].activeTasks.length === 0
-                && state.taskBody[task.id].completedTasks.length === 0
-                && <div>no active and completed tasks</div>
-            }
+export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
+        const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].activeTasks)
+        const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].completedTasks)
 
-            <div>
-                {
-                    filter === 'Completed' || 'All'
-                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].activeTasks}
-                              callBack={onCheckHandler} dispatch={dispatch}/>
-                }
-            </div>
+        console.log('render TasksWrapperMemo')
+        return (
 
-            <div className={'CompletedTasks'}>
+            <Stack direction="column"
+                   divider={<Divider orientation="horizontal" flexItem/>}
+                   spacing={1}>
                 {
-                    filter === 'Active' || 'All'
-                    && <Tasks idTitle={task.id} tasks={state.taskBody[task.id].completedTasks}
-                              callBack={onCheckHandler} dispatch={dispatch}/>
+                    activeTasks.length === 0 && completedTasks.length === 0
+                    && <div>no active and completed tasks</div>
                 }
-            </div>
-        </Stack>
-    )
-}
+
+                <div>
+                    {
+                        filter === 'Completed' || 'All'
+                        && <Tasks todoId={todoId} tasks={activeTasks}/>
+                    }
+                </div>
+
+                <div className={'CompletedTasks'}>
+                    {
+                        filter === 'Active' || 'All'
+                        && <Tasks todoId={todoId} tasks={completedTasks}/>
+                    }
+                </div>
+            </Stack>
+        )
+    }
+)

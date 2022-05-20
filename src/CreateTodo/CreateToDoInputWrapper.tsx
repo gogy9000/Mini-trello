@@ -1,52 +1,58 @@
-import React from "react";
+import React, { useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
+import {actions} from '../Redux/ToDoReducer';
+import {useDispatch} from "react-redux";
 
 
-type CreateToDoWrapperPropsType = {
-    todoName: string
-    setTodoTitle: (newToDoTitle: string) => void
-    moveCreateTask: () => void
-    createTask: () => void
-    error: string
-}
-export const CreateToDoInputWrapper: React.FC<CreateToDoWrapperPropsType> = ({
-                                                                                 todoName,
-                                                                                 setTodoTitle,
-                                                                                 error,
-                                                                                 moveCreateTask,
-                                                                                 createTask
-                                                                             }) => {
+export const CreateToDoInputWrapper = React.memo(() => {
 
+        const dispatch = useDispatch()
+        const [todoName, setTodoName] = useState<string>('')
+        const [error, setError] = useState<string>('')
 
-    return (
-        <Paper elevation={12}>
-            <Grid container
-                  // m={2}
-                  p={1}
+        const createTask = () => {
+            if (!todoName.trim()) {
+                setError('To do title must not be empty')
+                return
+            }
+            dispatch(actions.createNewTodoAC(todoName.trim()))
+            setTodoName('')
+            setError('')
+        }
 
-                  columnSpacing={1}
-                  direction="row"
-                  justifyContent="space-between"
-                  alignItems="center">
-                <Grid item  justifyContent='flex-start' xs={10} >
-                    <TextField id="standard-error-helper-text" label="Create new todo" variant="standard"
-                               value={todoName}
-                               error={!!error}
-                               fullWidth={true}
-                               helperText={!!error?error:false}
-                               // onBlur={() => {
-                               //     setTodoTitle('')
-                               // }}
-                               onChange={(e) => {
-                                   setTodoTitle(e.currentTarget.value)
-                               }}/>
+        const setToDoTitle = (value: string) => {
+            setError('')
+            setTodoName(value)
+        }
+
+        return (
+            <Paper elevation={12}>
+                <Grid container
+                      p={1}
+                      columnSpacing={0}
+                      direction="row"
+                      justifyContent="space-between"
+                      alignItems="center">
+                    <Grid item justifyContent='flex-start' xs={10}>
+                        <TextField id="standard-error-helper-text" label="Create new todo" variant="standard"
+                                   value={todoName}
+                                   error={!!error}
+                                   fullWidth={true}
+                                   helperText={!!error ? error : false}
+                                   onChange={
+                                       (e) => {
+                                           setToDoTitle(e.currentTarget.value)
+                                       }}
+                        />
+                    </Grid>
+                    <Grid item justifyContent='flex-end' xs={"auto"}>
+                        <Button variant="outlined"
+                                size={'small'}
+                                onMouseDown={createTask}
+                        >Create</Button>
+                    </Grid>
                 </Grid>
-                <Grid item  justifyContent='right'>
-                    <Button variant="outlined" onMouseUp={moveCreateTask}
-                            onMouseDown={createTask}
-                    >Create</Button>
-                </Grid>
-            </Grid>
-        </Paper>
-    )
-}
+            </Paper>
+        )
+    }
+)

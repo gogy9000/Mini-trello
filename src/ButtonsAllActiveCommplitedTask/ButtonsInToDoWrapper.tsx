@@ -1,22 +1,22 @@
 import React from "react";
 import '../App.css';
 import {Button} from "@mui/material";
+import {useDispatch} from "react-redux";
+import {actions} from "../Redux/ToDoReducer";
 
 
-type ButtonsBlockType= {
-    filterHandler:(filter:string)=>void
-    filter:string
+type ButtonsInToDoWrapperPropsType = {
+    todoId: string
+    filter: string
 }
 
-export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) => {
+export const ButtonsInToDoWrapper: React.FC<ButtonsInToDoWrapperPropsType> = React.memo(({todoId, filter}) => {
 
+        const dispatch=useDispatch()
 
-    const onClickHandler = (filter:string) => {
-        filterHandler(filter)
-    }
+        const onClickHandler = (filter: string) => dispatch(actions.changeFilterAC(todoId,filter))
 
-
-    return (
+        return (
 
             <div>
                 <Button color={filter === 'All' ? 'secondary' : 'primary'}
@@ -35,7 +35,9 @@ export const ButtonsBlock:React.FC<ButtonsBlockType> = ({filterHandler,filter}) 
                         }}>Completed </Button>
             </div>
 
-    )
-}
+        )
+    }
+)
+
 
 
