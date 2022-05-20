@@ -6,7 +6,6 @@ import {Typography} from "@mui/material";
 import AccordionDetails from "@mui/material/AccordionDetails";
 import {CreateToDoInputWrapper} from "../CreateToDoInputWrapper";
 
-
 export const AccordionWrapper: React.FC = React.memo(() => {
         console.log('render AccordionWrapper')
         return (
@@ -21,7 +20,9 @@ export const AccordionWrapper: React.FC = React.memo(() => {
                     </AccordionSummary>
                     <AccordionDetails>
                         <Typography component={'div'}>
+
                             <CreateToDoInputWrapper/>
+
                         </Typography>
                     </AccordionDetails>
                 </Accordion>

@@ -1,8 +1,7 @@
 import React from "react";
 import '../App.css';
 import {Button} from "@mui/material";
-import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../Redux/ReduxStore";
+import {useDispatch} from "react-redux";
 import {actions} from "../Redux/ToDoReducer";
 
 
@@ -15,10 +14,7 @@ export const ButtonsInToDoWrapper: React.FC<ButtonsInToDoWrapperPropsType> = Rea
 
         const dispatch=useDispatch()
 
-        const onClickHandler = (filter: string) => {
-            dispatch(actions.changeFilterAC(todoId,filter))
-        }
-
+        const onClickHandler = (filter: string) => dispatch(actions.changeFilterAC(todoId,filter))
 
         return (
 

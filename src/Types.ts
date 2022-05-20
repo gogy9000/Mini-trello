@@ -1,6 +1,6 @@
 import {ActionsType} from './Redux/ToDoReducer';
 
-export type Task1Type = {
+export type TaskType = {
     id: string
     title: string
     isDone: boolean
@@ -28,7 +28,7 @@ export type InputPropsType = {
 }
 export type taskBodyType={
     [x:string]:{
-        activeTasks: Array<Task1Type>
-        completedTasks:Array<Task1Type>
+        activeTasks: Array<TaskType>
+        completedTasks:Array<TaskType>
     }
 }

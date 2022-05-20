@@ -7,13 +7,11 @@ import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/Accord
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
 
-
 export const ToDoWrapper = React.memo(() => {
 
         const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
 
-        const todos = tasksTitle.map((todo: TodoTitleType,) => {
-
+        const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (
                     <Grid item m={1} p={2} key={todo.id}>
                         <ToDo todo={todo}/>

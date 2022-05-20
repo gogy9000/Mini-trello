@@ -1,4 +1,4 @@
-import {StateType, Task1Type} from "../Types";
+import {StateType, TaskType} from "../Types";
 
 import {actions, ToDoReducer} from "./ToDoReducer";
 
@@ -19,12 +19,12 @@ beforeEach(() => {
                         id: 'stringTest0123',
                         title: 'new Task',
                         isDone: false,
-                    }] as Array<Task1Type>,
+                    }] as Array<TaskType>,
                     completedTasks: [{
                         id: 'stringTest',
                         title: 'new Task',
                         isDone: true,
-                    }] as Array<Task1Type>
+                    }] as Array<TaskType>
                 },
             }
         }

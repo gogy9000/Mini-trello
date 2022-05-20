@@ -15,9 +15,7 @@ export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => {
-            setTodoName(e.currentTarget.value)
-        }
+        const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
         const updateTodoName = () => {
             if (!todoName.trim()) {
@@ -30,9 +28,7 @@ export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
-
         const removeTodo = () => dispatch(actions.removeTodoAC(todo.id))
-
 
         return (
             <>
@@ -61,10 +57,8 @@ export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({
                             />
                             <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
                         </Stack>
-
                 }
             </>
         )
-
     }
 )

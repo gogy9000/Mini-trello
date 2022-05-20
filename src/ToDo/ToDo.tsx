@@ -1,5 +1,5 @@
 import {TodoTitleType} from "../Types";
-import React, {useState} from "react";
+import React from "react";
 import {InputBlockForAddTask} from "./InputAddTask/InputBlockForAddTask";
 import {ButtonsInToDoWrapper} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper";
 import {TasksWrapper} from "./Tasks/TasksWrapper";
@@ -9,13 +9,12 @@ import {Divider, Grid, Paper, Typography} from "@mui/material";
 type ToDoPropsType = {
     todo: TodoTitleType
 }
+
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
-
-
         console.log('render ToDo')
-        return (
 
+        return (
             <Paper elevation={24}>
                 <Grid container
                       p={2}
@@ -25,9 +24,7 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
                     <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
                         <Typography variant={"h5"} component={'div'}>
-                            <TitleToDoWrapper
-                                todo={todo}
-                            />
+                            <TitleToDoWrapper todo={todo}/>
                             <Divider/>
                         </Typography>
                     </Grid>
@@ -35,17 +32,12 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
                     <Grid item container direction={'column'} rowSpacing={2} justifyContent={'center'}>
 
                         <Grid item>
-                            <InputBlockForAddTask
-                                idTitle={todo.id}
-                            />
+                            <InputBlockForAddTask todoId={todo.id}/>
                         </Grid>
 
                         <Grid container item justifyContent='center'>
                             <Typography component={'div'}>
-                                <TasksWrapper
-                                    todoId={todo.id}
-                                    filter={todo.filter}
-                                />
+                                <TasksWrapper todoId={todo.id} filter={todo.filter}/>
                             </Typography>
                         </Grid>
 
@@ -54,10 +46,7 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
                                 <ButtonsInToDoWrapper todoId={todo.id} filter={todo.filter}/>
                             </Paper>
                         </Grid>
-
                     </Grid>
-
-
                 </Grid>
             </Paper>
 

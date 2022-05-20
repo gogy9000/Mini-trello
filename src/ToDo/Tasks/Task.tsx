@@ -1,64 +1,51 @@
-import {Task1Type} from "../../Types";
+import {TaskType} from "../../Types";
 import React, {useState} from "react";
 import {actions} from '../../Redux/ToDoReducer';
 import {Checkbox, IconButton} from "@mui/material";
-import {
-    CheckCircleOutline,
-    Clear, RadioButtonUnchecked
-} from "@mui/icons-material";
+import {CheckCircleOutline, Clear, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 
 export type TaskPropsType = {
-    idTitle: string
-    taskElem: Task1Type
-
+    todoId: string
+    task: TaskType
 }
- const TaskMemo: React.FC<TaskPropsType> = ({  taskElem, idTitle}) => {
-    const dispatch= useDispatch()
-    const [taskValue, setTaskValue] = useState<string>('')
-    const [error, setError] = useState<string>('')
 
-    const checkTask = (id: string, idTitle: string) => {
-        dispatch(actions.checkTaskAC(id, idTitle))
+export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
+
+        const dispatch = useDispatch()
+        const [taskValue, setTaskValue] = useState<string>('')
+        const [error, setError] = useState<string>('')
+
+        const checkTask = () => dispatch(actions.checkTaskAC(task.id, todoId))
+
+        const deleteTask = () => dispatch(actions.deleteTaskAC(task.id, todoId))
+
+        const updateTask = () => {
+            dispatch(actions.updateTaskAC(todoId, task.id, taskValue.trim()))
+            setError('')
+        }
+
+        return (
+            <div>
+                <Checkbox
+                    checked={task.isDone}
+                    inputProps={{'aria-label': 'controlled'}}
+                    icon={<RadioButtonUnchecked/>}
+                    checkedIcon={<CheckCircleOutline/>}
+                    onChange={checkTask}
+                />
+                <CustomEditSpan value={taskValue}
+                                onClick={updateTask}
+                                error={error}
+                                setError={setError}
+                                onChangeText={setTaskValue}
+                                spanProps={{children: !task.title ? undefined : task.title}}
+                />
+                <IconButton onClick={deleteTask}>
+                    <Clear/>
+                </IconButton>
+            </div>
+        )
     }
-
-    const deleteTask = (id: string, idTitle: string) => {
-        dispatch(actions.deleteTaskAC(id, idTitle))
-    }
-
-    const updateTask = (idTask: string, idTitle: string) => {
-
-        dispatch(actions.updateTaskAC(idTitle, idTask, taskValue.trim()))
-        setError('')
-    }
-
-    return (
-        <div key={taskElem.id}>
-            <Checkbox
-                checked={taskElem.isDone}
-                inputProps={{ 'aria-label': 'controlled' }}
-                icon={<RadioButtonUnchecked/>}
-                checkedIcon={<CheckCircleOutline/>}
-                onChange={() => {
-                    checkTask(taskElem.id, idTitle)
-                }}
-            />
-            <CustomEditSpan value={taskValue}
-                            onClick={() => {
-                                updateTask(taskElem.id, idTitle)
-                            }}
-                            error={error}
-                            setError={setError}
-                            onChangeText={(text) => {
-                                setTaskValue(text)
-                            }}
-                            spanProps={{children: !taskElem.title ? undefined : taskElem.title}}/>
-
-            <IconButton onClick={() => {
-                deleteTask(taskElem.id, idTitle)
-            }}><Clear/></IconButton>
-        </div>
-    )
-}
-export const Task=React.memo(TaskMemo)
+)

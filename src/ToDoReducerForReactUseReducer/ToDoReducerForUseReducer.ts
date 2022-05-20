@@ -1,4 +1,4 @@
-// import {StateType, Task1Type, TodoTitleType} from "../Types";
+// import {StateType, TaskType, TodoTitleType} from "../Types";
 //
 // import {v1} from 'uuid';
 //
@@ -8,12 +8,12 @@
 //
 //     taskBody: {
 //         // [taskIdWhat]: {
-//         //     activeTasks: [] as Array<Task1Type>,
-//         //     completedTasks: [] as Array<Task1Type>
+//         //     activeTasks: [] as Array<TaskType>,
+//         //     completedTasks: [] as Array<TaskType>
 //         // },
 //         // [taskIdWho]: {
-//         //     activeTasks: [] as Array<Task1Type>,
-//         //     completedTasks: [] as Array<Task1Type>
+//         //     activeTasks: [] as Array<TaskType>,
+//         //     completedTasks: [] as Array<TaskType>
 //         // }
 //     },
 // }
@@ -33,12 +33,12 @@
 //                     [action.todo]: {
 //                         activeTasks:
 //                             state.taskBody[action.todo].activeTasks.map(
-//                                 (todo: Task1Type) => todo.id === action.taskId
+//                                 (todo: TaskType) => todo.id === action.taskId
 //                                     ? {id: todo.id, title: action.taskValue, isDone: todo.isDone}
 //                                     : todo),
 //                         completedTasks:
 //                             state.taskBody[action.todo].completedTasks.map(
-//                                 (todo: Task1Type) => todo.id === action.taskId
+//                                 (todo: TaskType) => todo.id === action.taskId
 //                                     ? {id: todo.id, title: action.taskValue, isDone: todo.isDone}
 //                                     : todo)
 //                     }
@@ -137,12 +137,12 @@
 //                     ...copyState.taskBody,
 //                     [action.todo]: {
 //                         activeTasks: [
-//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: Task1Type) => !el.isDone),
-//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: Task1Type) => !el.isDone)
+//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: TaskType) => !el.isDone),
+//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: TaskType) => !el.isDone)
 //                         ],
 //                         completedTasks: [
-//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: Task1Type) => el.isDone),
-//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: Task1Type) => el.isDone)
+//                             ...copyState.taskBody[action.todo].completedTasks.filter((el: TaskType) => el.isDone),
+//                             ...copyState.taskBody[action.todo].activeTasks.filter((el: TaskType) => el.isDone)
 //                         ]
 //                         //страдааай!!!
 //                     }

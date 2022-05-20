@@ -1,4 +1,4 @@
-import {StateType, Task1Type, TodoTitleType} from "../Types";
+import {StateType, TaskType, TodoTitleType} from "../Types";
 
 import {v1} from 'uuid';
 
@@ -8,12 +8,12 @@ export const initialState: StateType = {
 
     taskBody: {
         // [taskIdWhat]: {
-        //     activeTasks: [] as Array<Task1Type>,
-        //     completedTasks: [] as Array<Task1Type>
+        //     activeTasks: [] as Array<TaskType>,
+        //     completedTasks: [] as Array<TaskType>
         // },
         // [taskIdWho]: {
-        //     activeTasks: [] as Array<Task1Type>,
-        //     completedTasks: [] as Array<Task1Type>
+        //     activeTasks: [] as Array<TaskType>,
+        //     completedTasks: [] as Array<TaskType>
         // }
     },
 }
@@ -38,12 +38,12 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     [action.idTitle]: {
                         activeTasks:
                             state.taskBody[action.idTitle].activeTasks.map(
-                                (task: Task1Type) => task.id === action.taskId
+                                (task: TaskType) => task.id === action.taskId
                                     ? {id: task.id, title: action.taskValue, isDone: task.isDone}
                                     : task),
                         completedTasks:
                             state.taskBody[action.idTitle].completedTasks.map(
-                                (task: Task1Type) => task.id === action.taskId
+                                (task: TaskType) => task.id === action.taskId
                                     ? {id: task.id, title: action.taskValue, isDone: task.isDone}
                                     : task)
                     }
@@ -142,12 +142,12 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     ...copyState.taskBody,
                     [action.idTitle]: {
                         activeTasks: [
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: Task1Type) => !el.isDone),
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: Task1Type) => !el.isDone)
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => !el.isDone),
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => !el.isDone)
                         ],
                         completedTasks: [
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: Task1Type) => el.isDone),
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: Task1Type) => el.isDone)
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => el.isDone),
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => el.isDone)
                         ]
                         //страдааай!!!
                     }
