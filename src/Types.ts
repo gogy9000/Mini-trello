@@ -9,11 +9,11 @@ export type Task1Type = {
 export type TaskTitleType ={
     id:string
     titleName:string
+    filter:string
 }
 
 export type StateType={
     tasksTitle:Array<TaskTitleType>
-
     taskBody:taskBodyType
 
 }

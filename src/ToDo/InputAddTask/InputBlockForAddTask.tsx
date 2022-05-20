@@ -3,14 +3,14 @@ import '../../App.css';
 import {actions, ActionsType} from '../../Redux/ToDoReducer';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
+import {useDispatch} from "react-redux";
 
 type InputBlockForAddTaskPropsType={
     idTitle:string
-    dispatch: (action:ActionsType) => void
 
 }
- const InputBlockForAddTaskMemo:React.FC<InputBlockForAddTaskPropsType> = ({idTitle,dispatch}) => {
-
+ const InputBlockForAddTaskMemo:React.FC<InputBlockForAddTaskPropsType> = ({idTitle}) => {
+    const dispatch=useDispatch()
     const [inputText, setInputText] = useState<string>('')
     const [errorInput, setErrorInput] = useState<boolean>(false)
 
@@ -41,7 +41,7 @@ type InputBlockForAddTaskPropsType={
                 value={inputText}
                 error={errorInput}
                 id="filled-error-helper-text"
-                label={errorInput ? "field is empty." : 'New task'}
+                label={errorInput ? "field is empty." : 'New todo'}
                 helperText={errorInput ? "field is empty." : ""}
                 variant="filled"
             />

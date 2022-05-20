@@ -7,17 +7,17 @@ import {useSelector} from "react-redux";
 import {AppStateType} from "../../Redux/ReduxStore";
 
 type TaskBlockWrapperPropsType = {
-    idTitle: string
+    todoId: string
     filter: string
 
 
 }
-const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
-                                                                   idTitle,
+export const TasksWrapper:React.FC<TaskBlockWrapperPropsType> = React.memo( ({
+                                                                   todoId,
                                                                    filter
                                                                }) => {
-    const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[idTitle].activeTasks)
-    const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[idTitle].completedTasks)
+    const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].activeTasks)
+    const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].completedTasks)
 
     console.log('render TasksWrapperMemo')
     return (
@@ -34,7 +34,7 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
             <div>
                 {
                     filter === 'Completed' || 'All'
-                    && <Tasks idTitle={idTitle}
+                    && <Tasks todoId={todoId}
                               tasks={activeTasks}
                     />
                 }
@@ -43,7 +43,7 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
             <div className={'CompletedTasks'}>
                 {
                     filter === 'Active' || 'All'
-                    && <Tasks idTitle={idTitle}
+                    && <Tasks todoId={todoId}
                               tasks={completedTasks}
 
 
@@ -53,4 +53,4 @@ const TasksWrapperMemo: React.FC<TaskBlockWrapperPropsType> = ({
         </Stack>
     )
 }
-export const TasksWrapper = React.memo(TasksWrapperMemo)
+)

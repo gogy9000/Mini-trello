@@ -30,7 +30,7 @@ const TitleToDo: React.FC<TaskTitleBlockPropsType> = ({
             setError('Title must not be empty')
             return
         }
-        dispatch(actions.updateTodoNameAC(todoName ? todoName.trim() : 'unnamed task', task.id))
+        dispatch(actions.updateTodoNameAC(todoName ? todoName.trim() : 'unnamed todo', task.id))
         setUpdateTodoMode(!updateTodoMode)
     }
 
@@ -62,7 +62,7 @@ const TitleToDo: React.FC<TaskTitleBlockPropsType> = ({
                             value={todoName}
                             error={!!error}
                             id="filled-error-helper-text"
-                            label={'New task name'}
+                            label={'New todo name'}
                             helperText={!!error ? error : false}
                             variant="filled"
                         />

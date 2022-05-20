@@ -5,20 +5,13 @@ import {ButtonsInToDoWrapper} from "../ButtonsAllActiveCommplitedTask/ButtonsInT
 import {TasksWrapper} from "./Tasks/TasksWrapper";
 import {TitleToDoWrapper} from "./TitleTodo/TitleToDoWrapper";
 import {Divider, Grid, Paper, Typography} from "@mui/material";
-import {useDispatch} from "react-redux";
-
 
 type ToDoPropsType = {
-    task: TaskTitleType
+    todo: TaskTitleType
 }
-export const ToDo: React.FC<ToDoPropsType> = React.memo(({task}) => {
-        const dispatch = useDispatch()
-        const [filter, setFilter] = useState<string>('All')
+export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
+
         const [error, setError] = useState<string>('')
-
-
-        const useSetFilterHandler = (filter: string) => setFilter(filter)
-
 
         console.log('render ToDo')
         return (
@@ -33,7 +26,7 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({task}) => {
                     <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
                         <Typography variant={"h5"} component={'div'}>
                             <TitleToDoWrapper
-                                task={task}
+                                task={todo}
                                 error={error}
                                 setError={setError}
                             />
@@ -45,26 +38,22 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({task}) => {
 
                         <Grid item>
                             <InputBlockForAddTask
-                                dispatch={dispatch}
-                                idTitle={task.id}
+                                idTitle={todo.id}
                             />
                         </Grid>
 
                         <Grid container item justifyContent='center'>
                             <Typography component={'div'}>
                                 <TasksWrapper
-                                    idTitle={task.id}
-                                    filter={filter}
+                                    todoId={todo.id}
+                                    filter={todo.filter}
                                 />
                             </Typography>
                         </Grid>
 
                         <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
                             <Paper elevation={6}>
-                                <ButtonsInToDoWrapper
-                                    filterHandler={useSetFilterHandler}
-                                    filter={filter}
-                                />
+                                <ButtonsInToDoWrapper todoId={todo.id} filter={todo.filter}/>
                             </Paper>
                         </Grid>
 

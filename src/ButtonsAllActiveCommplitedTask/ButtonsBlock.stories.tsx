@@ -1,6 +1,6 @@
 // Button.stories.ts|tsx
 
-import React, {useState} from 'react';
+import React from 'react';
 
 import {ComponentStory, ComponentMeta} from '@storybook/react';
 import {ButtonsInToDoWrapper} from "./ButtonsInToDoWrapper";
@@ -16,19 +16,15 @@ export default {
 
 
 export const ButtonsBlockStories: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
-    const [filter, useFilter] = useState<string>('all')
 
-    const useFilterHandler = (filterArg: string) => {
-        useFilter(filterArg)
-    }
-    return <ButtonsInToDoWrapper filterHandler={useFilterHandler} filter={filter}/>
+
+
+
+    return <ButtonsInToDoWrapper todoId={'123'}  filter={'all'}/>
 }
 
 export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
-    const [filter, useFilter] = useState<string>('all')
 
-    const useFilterHandler = (filterArg: string) => {
-        useFilter(filterArg)
-    }
-    return <Paper elevation={12}> <ButtonsInToDoWrapper filterHandler={useFilterHandler} filter={filter}/></Paper>
+
+    return <Paper elevation={12}> <ButtonsInToDoWrapper  todoId={'123'} filter={'all'}/></Paper>
 }

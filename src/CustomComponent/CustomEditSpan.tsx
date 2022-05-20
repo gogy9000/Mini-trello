@@ -52,7 +52,7 @@ const CustomEditSpanMemo: React.FC<CustomEditSpanPropsType> = ({
 
         if (!value.trim()) {
             setEditMode(true)
-            setError('task empty')
+            setError('todo empty')
             return
         }
         setEditMode(false)
@@ -79,7 +79,7 @@ const CustomEditSpanMemo: React.FC<CustomEditSpanPropsType> = ({
                         onChange={onChangeCallBack}
                         helperText={!!error?error:false}
                         id="outlined-error"
-                        label="update task"
+                        label="update todo"
                         value={value}/>
                         <IconButton onClick={onClickCallback}><Create color={'primary'}/></IconButton>
                     </span>

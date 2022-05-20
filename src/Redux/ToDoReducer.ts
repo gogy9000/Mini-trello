@@ -24,6 +24,11 @@ export type ActionsType = InferActionsType<typeof actions>
 export let ToDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
     switch (action.type) {
+        case "CHANGE-FILTER":
+            return {...state,
+            tasksTitle:state.tasksTitle.map((todo:TaskTitleType)=> action.todoId===todo.id?
+                {id:todo.id, titleName:todo.titleName, filter:action.filter}:todo)
+            }
 
         case 'UPDATE-TASK':
             return {
@@ -60,7 +65,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 tasksTitle: [...state.tasksTitle.map((title: TaskTitleType) =>
                     title.id !== action.idTitle ?
                         title
-                        : {id: action.idTitle, titleName: action.titleName})
+                        : {id: title.id, titleName: action.titleName, filter:title.filter})
                 ],
                 taskBody: {...state.taskBody}
             }
@@ -69,7 +74,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             let todoId = action.toDoId
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName}],
+                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName, filter: 'all'}],
                 taskBody: {
                     ...state.taskBody,
                     [todoId]: {
@@ -172,6 +177,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 }
 
 export const actions = {
+    changeFilterAC:(todoId:string, filter:string)=>({type:'CHANGE-FILTER', todoId,filter}as const),
     updateTaskAC: (idTitle: string, taskId: string, taskValue: string) => ({
         type: 'UPDATE-TASK',
         idTitle,
