@@ -1,9 +1,10 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {actions} from '../../Redux/ToDoReducer';
+import {actions, ActionsType} from '../../Redux/ToDoReducer';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
+import {Dispatch} from "redux";
 
 type InputBlockForAddTaskPropsType = {
     todoId: string
@@ -13,18 +14,18 @@ export const InputBlockForAddTask: React.FC<InputBlockForAddTaskPropsType> = Rea
 
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)
-        const dispatch = useDispatch()
+        const dispatch:Dispatch<ActionsType> = useDispatch()
 
-        const addTask = () => {
+        const addTask = useCallback( () => {
             if ((/^\s+$/).test(inputText) || inputText === '') {
                 setErrorInput(true)
                 return
             }
             dispatch(actions.addTaskAC(todoId, inputText))
             setInputText('')
-        }
+        },[dispatch,todoId,inputText])
 
-        const ChangeTextTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
+        const ChangeTextTaskTitle =(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
 
 
         const onclickHandler = () => {

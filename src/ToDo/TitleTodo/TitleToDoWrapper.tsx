@@ -1,5 +1,5 @@
 import {TodoTitleType} from "../../Types";
-import React, {ChangeEvent, useState} from "react";
+import React, {ChangeEvent, useCallback, useState} from "react";
 import {IconButton, Stack, TextField} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {actions} from '../../Redux/ToDoReducer';
@@ -10,25 +10,25 @@ type TaskTitleBlockPropsType = {
 }
 export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({todo}) => {
 
-        const dispatch = useDispatch()
         const [todoName, setTodoName] = useState<string>('')
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
+        const dispatch = useDispatch()
 
         const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
-        const updateTodoName = () => {
+        const updateTodoName = useCallback( () => {
             if (!todoName.trim()) {
                 setError('Title must not be empty')
                 return
             }
             dispatch(actions.updateTodoNameAC(todoName.trim(), todo.id))
             setUpdateTodoMode(!updateTodoMode)
-        }
+        },[dispatch,todo.id,todoName])
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
-        const removeTodo = () => dispatch(actions.removeTodoAC(todo.id))
+        const removeTodo = useCallback( () => dispatch(actions.removeTodoAC(todo.id)),[dispatch,todo.id])
 
         return (
             <>
