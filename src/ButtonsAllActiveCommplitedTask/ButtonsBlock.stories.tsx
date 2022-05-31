@@ -3,7 +3,7 @@
 import React from 'react';
 
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {ButtonsInToDoWrapper} from "./ButtonsInToDoWrapper";
+import {ButtonsInToDoContainer} from "./ButtonsInToDoContainer";
 
 import {Paper} from "@mui/material";
 
@@ -11,20 +11,20 @@ import {Paper} from "@mui/material";
 export default {
 
     title: 'ButtonBlock',
-    component: ButtonsInToDoWrapper,
-} as ComponentMeta<typeof ButtonsInToDoWrapper>;
+    component: ButtonsInToDoContainer,
+} as ComponentMeta<typeof ButtonsInToDoContainer>;
 
 
-export const ButtonsBlockStories: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
+export const ButtonsBlockStories: ComponentStory<typeof ButtonsInToDoContainer> = () => {
 
 
 
 
-    return <ButtonsInToDoWrapper todoId={'123'}  filter={'all'}/>
+    return <ButtonsInToDoContainer todoId={'123'} filter={'all'}/>
 }
 
-export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
+export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsInToDoContainer> = () => {
 
 
-    return <Paper elevation={12}> <ButtonsInToDoWrapper  todoId={'123'} filter={'all'}/></Paper>
+    return <Paper elevation={12}> <ButtonsInToDoContainer todoId={'123'} filter={'all'}/></Paper>
 }

@@ -10,7 +10,7 @@ type InputBlockForAddTaskPropsType = {
     todoId: string
 }
 
-export const InputBlockForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todoId}) => {
+export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todoId}) => {
 
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)

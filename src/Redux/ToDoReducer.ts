@@ -74,7 +74,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             let todoId = action.toDoId
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName, filter: 'all'}],
+                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName, filter: 'All'}],
                 taskBody: {
                     ...state.taskBody,
                     [todoId]: {

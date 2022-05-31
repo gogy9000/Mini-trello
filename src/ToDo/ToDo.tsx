@@ -1,9 +1,9 @@
 import {TodoTitleType} from "../Types";
 import React from "react";
-import {InputBlockForAddTask} from "./InputAddTask/InputBlockForAddTask";
-import {ButtonsInToDoWrapper} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper";
-import {TasksWrapper} from "./Tasks/TasksWrapper";
-import {TitleToDoWrapper} from "./TitleTodo/TitleToDoWrapper";
+import {InputForAddTask} from "./InputAddTask/InputForAddTask";
+import {ButtonsInToDoContainer} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer";
+import {TasksContainer} from "./Tasks/TasksContainer";
+import {TodoTitle} from "./TitleTodo/TodoTitle";
 import {Divider, Grid, Paper, Typography} from "@mui/material";
 
 type ToDoPropsType = {
@@ -12,39 +12,36 @@ type ToDoPropsType = {
 
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
-        console.log('render ToDo')
-
         return (
             <Paper elevation={24}>
                 <Grid container
                       p={2}
                       direction={"column"}
                       justifyContent="center"
+                      wrap={"wrap"}
                       alignItems="center">
 
                     <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
                         <Typography variant={"h5"} component={'div'}>
-                            <TitleToDoWrapper todo={todo}/>
-                            <Divider/>
+                            <TodoTitle todo={todo}/>
+                            <Divider variant={'fullWidth'}/>
                         </Typography>
                     </Grid>
 
                     <Grid item container direction={'column'} rowSpacing={2} justifyContent={'center'}>
 
                         <Grid item>
-                            <InputBlockForAddTask todoId={todo.id}/>
+                            <InputForAddTask todoId={todo.id}/>
                         </Grid>
 
                         <Grid container item justifyContent='center'>
                             <Typography component={'div'}>
-                                <TasksWrapper todoId={todo.id} filter={todo.filter}/>
+                                <TasksContainer todoId={todo.id} filter={todo.filter}/>
                             </Typography>
                         </Grid>
 
-                        <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
-                            <Paper elevation={6}>
-                                <ButtonsInToDoWrapper todoId={todo.id} filter={todo.filter}/>
-                            </Paper>
+                        <Grid container item justifyContent="center" alignItems="flex-end" >
+                                <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
                         </Grid>
                     </Grid>
                 </Grid>

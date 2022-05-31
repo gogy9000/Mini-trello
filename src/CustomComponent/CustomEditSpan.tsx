@@ -7,7 +7,7 @@ import React, {
     useState
 } from "react";
 import {Create} from "@mui/icons-material";
-import {IconButton, TextField} from "@mui/material";
+import {Box, Card, CardContent, IconButton, TextField} from "@mui/material";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -95,11 +95,17 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
                         value={value}/>
                         <IconButton onClick={onClickCallback}><Create color={'primary'}/></IconButton>
                     </span>
-                        : <span onDoubleClick={onDoubleClickCallBack}
-                                className={finalClassName}
-                                {...restSpanProps}>
-                        {children || value} <IconButton onClick={onEditMod}><Create/></IconButton>
+                        :
+
+                        <span onDoubleClick={onDoubleClickCallBack}
+                              className={finalClassName}
+                              {...restSpanProps}>
+                                         <span>{children || value}</span>
+                                <IconButton onClick={onEditMod}>
+                                    <Create/>
+                                </IconButton>
                         </span>
+
 
                 }
             </>

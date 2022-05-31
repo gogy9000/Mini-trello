@@ -15,6 +15,9 @@ import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
+import {useSelector} from "react-redux";
+import {AppStateType} from "../Redux/ReduxStore";
+import {Task} from "@mui/icons-material";
 
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
@@ -60,11 +63,13 @@ export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
     const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
     const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
         React.useState<null | HTMLElement>(null);
+    const state=useSelector((state:AppStateType)=>state.stateTodo)
 
     const isMenuOpen = Boolean(anchorEl);
     const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
     const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+
         setAnchorEl(event.currentTarget);
     };
 
@@ -100,6 +105,7 @@ export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
         >
             <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
             <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
         </Menu>
     );
 
@@ -122,7 +128,9 @@ export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
         >
             <MenuItem>
                 <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge badgeContent={4} color="error">
+                    <Badge
+                        badgeContent={50}
+                        color="error">
                         <MailIcon />
                     </Badge>
                 </IconButton>
@@ -154,7 +162,7 @@ export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
             </MenuItem>
         </Menu>
     );
-        console.log('render AppBar')
+
     return (
         <Box sx={{ flexGrow: 1 }}>
             <AppBar position="static">
@@ -176,43 +184,46 @@ export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
                     >
                         Todo
                     </Typography>
-                    <Search >
-                        <SearchIconWrapper>
-                            <SearchIcon />
-                        </SearchIconWrapper>
-                        <StyledInputBase
+                    {/*<Search >*/}
+                    {/*    <SearchIconWrapper>*/}
+                    {/*        <SearchIcon />*/}
+                    {/*    </SearchIconWrapper>*/}
+                    {/*    <StyledInputBase*/}
 
-                            placeholder="Search…"
-                            inputProps={{ 'aria-label': 'search' }}
-                        />
-                    </Search>
+                    {/*        placeholder="Search…"*/}
+                    {/*        inputProps={{ 'aria-label': 'search' }}*/}
+                    {/*    />*/}
+                    {/*</Search>*/}
                     <Box sx={{ flexGrow: 1 }} />
                     <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
                         <IconButton size="large" aria-label="show 5 new mails" color="inherit">
-                            <Badge badgeContent={5} color="error">
-                                <MailIcon />
+                            <Badge
+                                badgeContent={state.tasksTitle.length}
+                                color="error">
+                                <Task />
+
                             </Badge>
                         </IconButton>
-                        <IconButton
-                            size="large"
-                            aria-label="show 17 new notifications"
-                            color="inherit"
-                        >
-                            <Badge badgeContent={17} color="error">
-                                <NotificationsIcon />
-                            </Badge>
-                        </IconButton>
-                        <IconButton
-                            size="large"
-                            edge="end"
-                            aria-label="account of current user"
-                            aria-controls={menuId}
-                            aria-haspopup="true"
-                            onClick={handleProfileMenuOpen}
-                            color="inherit"
-                        >
-                            <AccountCircle />
-                        </IconButton>
+                        {/*<IconButton*/}
+                        {/*    size="large"*/}
+                        {/*    aria-label="show 17 new notifications"*/}
+                        {/*    color="inherit"*/}
+                        {/*>*/}
+                        {/*    <Badge badgeContent={17} color="error">*/}
+                        {/*        <NotificationsIcon />*/}
+                        {/*    </Badge>*/}
+                        {/*</IconButton>*/}
+                        {/*<IconButton*/}
+                        {/*    size="large"*/}
+                        {/*    edge="end"*/}
+                        {/*    aria-label="account of current user"*/}
+                        {/*    aria-controls={menuId}*/}
+                        {/*    aria-haspopup="true"*/}
+                        {/*    onClick={handleProfileMenuOpen}*/}
+                        {/*    color="inherit"*/}
+                        {/*>*/}
+                        {/*    <AccountCircle />*/}
+                        {/*</IconButton>*/}
                     </Box>
                     <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
                         <IconButton

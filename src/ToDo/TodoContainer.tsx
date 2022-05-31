@@ -6,30 +6,31 @@ import {Grid} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
+import {Masonry} from "@mui/lab";
 
-export const ToDoWrapper = React.memo(() => {
+
+export const TodoContainer = React.memo(() => {
 
         const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
 
         const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (
-                    <Grid item m={1} p={2} key={todo.id}>
+                    <Grid key={todo.id} item>
                         <ToDo todo={todo}/>
                     </Grid>
+
                 )
             }
         )
 
-        console.log('render ToDoWRaper')
         return (
             <>
                 <AccordionWrapper/>
 
                 <Grid container
-                      direction="row"
-                      justifyContent="space-around"
-                      alignItems="flex-start"
-                >
+                      spacing={1}
+                      flexWrap={'wrap'}
+                      columns={{xs: 1, sm: 2, md: 3}}>
                     {todos}
                 </Grid>
             </>

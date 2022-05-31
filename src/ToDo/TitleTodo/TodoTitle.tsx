@@ -1,14 +1,14 @@
 import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
-import {IconButton, Stack, TextField} from "@mui/material";
+import {Box, IconButton, Stack, TextField} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {actions} from '../../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
-type TaskTitleBlockPropsType = {
+type TodoTitlePropsType = {
     todo: TodoTitleType
 }
-export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({todo}) => {
+export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
 
         const [todoName, setTodoName] = useState<string>('')
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
@@ -36,7 +36,7 @@ export const TitleToDoWrapper: React.FC<TaskTitleBlockPropsType> = React.memo(({
                     !updateTodoMode
                         ?
                         <Stack direction='row' spacing={1}>
-                            <div>{todo.titleName}</div>
+                            <Box sx={{flexWrap:'wrap'}}>{todo.titleName}</Box>
                             <IconButton onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
                             <IconButton onClick={removeTodo}><Delete/></IconButton>
                         </Stack>
