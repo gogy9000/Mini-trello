@@ -78,37 +78,45 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
         }
         const finalClassName = `${className}`
 
+        function createMarkup() {
+            return {__html: 'First &middot; Second'};
+        }
+
+
         return (
-            <>
+            <Box component={"span"}   maxWidth={320} >
                 {
                     editMode
                         ? <span>
                     <TextField
                         error={!!error}
+                        variant={"standard"}
                         onKeyPress={(e) => {
                             onEnterCallBack(e.key)
                         }}
                         onChange={onChangeCallBack}
                         helperText={!!error ? error : false}
-                        id="outlined-error"
+                        id="standard-error"
                         label="update todo"
+                        multiline
+                        fullWidth
                         value={value}/>
                         <IconButton onClick={onClickCallback}><Create color={'primary'}/></IconButton>
                     </span>
                         :
 
                         <span onDoubleClick={onDoubleClickCallBack}
+
                               className={finalClassName}
                               {...restSpanProps}>
-                                         <span>{children || value}</span>
-                                <IconButton onClick={onEditMod}>
-                                    <Create/>
-                                </IconButton>
+
+                                         {children || value}
+
                         </span>
 
 
                 }
-            </>
+            </Box>
         )
     }
 )

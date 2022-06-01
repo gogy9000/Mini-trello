@@ -44,6 +44,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                     id="filled-error-helper-text"
                     label={errorInput ? "field is empty." : 'New todo'}
                     helperText={errorInput ? "field is empty." : ""}
+                    fullWidth
                     variant="filled"
                 />
                 <IconButton onClick={addTask}><AddTask/></IconButton>

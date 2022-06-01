@@ -4,7 +4,7 @@ import {InputForAddTask} from "./InputAddTask/InputForAddTask";
 import {ButtonsInToDoContainer} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer";
 import {TasksContainer} from "./Tasks/TasksContainer";
 import {TodoTitle} from "./TitleTodo/TodoTitle";
-import {Divider, Grid, Paper, Typography} from "@mui/material";
+import {Box, Card, Divider, Grid, Paper, Typography} from "@mui/material";
 
 type ToDoPropsType = {
     todo: TodoTitleType
@@ -13,39 +13,26 @@ type ToDoPropsType = {
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
         return (
-            <Paper elevation={24}>
-                <Grid container
-                      p={2}
-                      direction={"column"}
-                      justifyContent="center"
-                      wrap={"wrap"}
-                      alignItems="center">
 
-                    <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
-                        <Typography variant={"h5"} component={'div'}>
-                            <TodoTitle todo={todo}/>
-                            <Divider variant={'fullWidth'}/>
-                        </Typography>
-                    </Grid>
+                <Card variant='outlined'
+                      sx={{display: 'flex',
+                          padding:1,
+                          flexDirection: 'column',
+                          justifyContent:'stretch',
+                          rowGap:1,
+                          alignItems:'stretch'}}>
 
-                    <Grid item container direction={'column'} rowSpacing={2} justifyContent={'center'}>
+                    <TodoTitle todo={todo}/>
 
-                        <Grid item>
-                            <InputForAddTask todoId={todo.id}/>
-                        </Grid>
+                    <InputForAddTask todoId={todo.id}/>
 
-                        <Grid container item justifyContent='center'>
-                            <Typography component={'div'}>
-                                <TasksContainer todoId={todo.id} filter={todo.filter}/>
-                            </Typography>
-                        </Grid>
+                    <TasksContainer todoId={todo.id} filter={todo.filter}/>
 
-                        <Grid container item justifyContent="center" alignItems="flex-end" >
-                                <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
+                    <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
+
+                </Card>
+
+
 
         )
     }

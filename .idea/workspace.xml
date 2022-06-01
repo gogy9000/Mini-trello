@@ -4,24 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use useCallback hook">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring in process">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -192,7 +184,8 @@
       <workItem from="1653293945276" duration="1074000" />
       <workItem from="1653735866789" duration="2395000" />
       <workItem from="1653760542945" duration="53000" />
-      <workItem from="1653986164104" duration="18161000" />
+      <workItem from="1653986164104" duration="18423000" />
+      <workItem from="1654056077008" duration="23894000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -320,7 +313,14 @@
       <option name="project" value="LOCAL" />
       <updated>1653738242116</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="refactoring in process">
+      <created>1654023290909</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1654023290909</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -353,7 +353,8 @@
     <MESSAGE value="refactoring" />
     <MESSAGE value="use Local-storage-utils.ts" />
     <MESSAGE value="use useCallback hook" />
-    <option name="LAST_COMMIT_MESSAGE" value="use useCallback hook" />
+    <MESSAGE value="refactoring in process" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring in process" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

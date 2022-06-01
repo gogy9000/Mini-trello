@@ -17,7 +17,7 @@ export const ButtonsInToDoContainer: React.FC<ButtonsInToDoWrapperPropsType> = R
 
         return (
 
-            <ButtonGroup >
+            <ButtonGroup sx={{display:'flex', justifyContent:'center'}} >
                 <Button color={filter === 'All' ? 'secondary' : 'primary'}
                         variant={ filter==='All'?"contained":"outlined"}
                         onClick={() => {
