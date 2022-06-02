@@ -11,7 +11,7 @@ import {
     IconButton, IconButtonProps,
     Typography
 } from "@mui/material";
-import {CheckCircleOutline, Clear, Edit, RadioButtonUnchecked} from "@mui/icons-material";
+import {CheckCircleOutline, Clear, Create, Edit, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 import {styled} from "@mui/material/styles";
@@ -36,28 +36,44 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
 
 
         const dispatch = useDispatch()
-        const [taskValue, setTaskValue] = useState<string>('')
+        const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
+        const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
         const checkTask = useCallback(() => dispatch(actions.checkTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
 
         const deleteTask = useCallback(() => dispatch(actions.deleteTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
 
         const updateTask = useCallback(() => {
+            if (!taskValue.trim()) {
+                    setEditModeControlled(true)
+                setError('todo empty')
+                return
+            }
             dispatch(actions.updateTaskAC(todoId, task.id, taskValue.trim()))
-            setError('')
+            if (error !== '') {setError('')}
+            setEditModeControlled(false)
         }, [dispatch, todoId, task.id, taskValue])
 
+        const createButtonCallBack= ()=>{
+            setEditModeControlled(true)
+            }
+
+
+
+
+    console.log('!!')
         return (
             <Card variant={"outlined"}>
                 <Box sx={{display: 'flex', justifyContent: "flex-end"}}>
                     <CardContent>
                         <Typography component={'div'} variant="body2" color="text.secondary">
                             <CustomEditSpan value={taskValue}
-                                            onClick={updateTask}
                                             error={error}
                                             setError={setError}
                                             onChangeText={setTaskValue}
+                                            editModeControlled={editModeControlled}
+                                            setEditModeControlled={setEditModeControlled}
                                             spanProps={{children: !task.title ? undefined : task.title}}
                             />
                         </Typography>
@@ -85,6 +101,11 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                                 <IconButton onClick={deleteTask}>
                                     <Clear/>
                                 </IconButton>
+                                {!editModeControlled?<IconButton onClick={createButtonCallBack}>
+                                    <Create/>
+                                </IconButton>:<IconButton onClick={updateTask}>
+                                    <Create color='primary'/>
+                                </IconButton>}
 
                                 <Checkbox
                                     checked={task.isDone}
