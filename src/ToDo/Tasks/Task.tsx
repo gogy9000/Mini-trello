@@ -65,9 +65,9 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
     console.log('!!')
         return (
             <Card variant={"outlined"}>
-                <Box sx={{display: 'flex', justifyContent: "flex-end"}}>
+                <Box sx={{display: 'flex', justifyContent: "flex-end", opacity:(task.isDone ? 0.5 : 1)}}>
                     <CardContent>
-                        <Typography component={'div'} variant="body2" color="text.secondary">
+                        <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
                                             error={error}
                                             setError={setError}
