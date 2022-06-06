@@ -16,6 +16,7 @@ import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {fakeAxios} from "../../async-functions/Async-functions";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -55,14 +56,19 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
             setEditModeControlled(false)
         }, [dispatch, todoId, task.id, taskValue])
 
-        const createButtonCallBack= ()=>{
+        const createButtonCallBack=  ()=>{
             setEditModeControlled(true)
             }
 
+            fakeAxios().then((data)=> {
+                console.log(data)
+
+                return 'asd'
+            }).then((data)=>{
+                console.log(data)})
 
 
 
-    console.log('!!')
         return (
             <Card variant={"outlined"}>
                 <Box sx={{display: 'flex', justifyContent: "flex-end", opacity:(task.isDone ? 0.5 : 1)}}>
