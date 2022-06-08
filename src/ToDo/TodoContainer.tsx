@@ -9,16 +9,15 @@ import {AppStateType} from "../Redux/ReduxStore";
 import {Masonry} from "@mui/lab";
 
 
-
 export const TodoContainer = React.memo(() => {
 
         const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
 
         const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (
-                   <Paper elevation={8} key={todo.id}>
+                    <Paper elevation={8} key={todo.id}>
                         <ToDo todo={todo}/>
-                   </Paper>
+                    </Paper>
 
                 )
             }
@@ -27,17 +26,17 @@ export const TodoContainer = React.memo(() => {
         return (
             <>
                 <Grid item>
-                <AccordionWrapper/>
+                    <AccordionWrapper/>
                 </Grid>
                 <Grid item
 
 
                 >
-                <Masonry columns={{xs: 1, sm: 2, md: 3,xl:5,xxl:6}}
-                         sx={{pl:1}}
-                         spacing={2}>
-                    {todos}
-                </Masonry>
+                    <Masonry columns={{xs: 1, sm: 2, md: 3, xl: 5, xxl: 6}}
+                             sx={{pl: 1}}
+                             spacing={2}>
+                        {todos}
+                    </Masonry>
                 </Grid>
             </>
         )

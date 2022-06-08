@@ -3,20 +3,17 @@ import {StateType, TaskType, TodoTitleType} from "../Types";
 import {v1} from 'uuid';
 
 
-export const initialState: StateType = {
-    tasksTitle: [] as Array<TodoTitleType>,
-
-    taskBody: {
-        // [taskIdWhat]: {
-        //     activeTasks: [] as Array<TaskType>,
-        //     completedTasks: [] as Array<TaskType>
-        // },
-        // [taskIdWho]: {
-        //     activeTasks: [] as Array<TaskType>,
-        //     completedTasks: [] as Array<TaskType>
-        // }
-    },
+export const initialState: StateType =
+{
+    tasksTitle: [{id: '123', titleName: 'empty todo', filter: 'All'}] as Array<TodoTitleType> ,
+        taskBody: {
+    ['123']: {
+        activeTasks: [] as Array<TaskType>,
+            completedTasks: [] as Array<TaskType>
+    }
 }
+}
+
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 export type ActionsType = InferActionsType<typeof actions>
