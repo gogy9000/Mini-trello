@@ -60,14 +60,6 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
             setEditModeControlled(true)
             }
 
-            fakeAxios().then((data)=> {
-                console.log(data)
-
-                return 'asd'
-            }).then((data)=>{
-                console.log(data)})
-
-
 
         return (
             <Card variant={"outlined"}>

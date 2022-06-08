@@ -5,8 +5,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring in process">
-      <change afterPath="$PROJECT_DIR$/src/async-functions/Async-functions.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,7 +58,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../CV" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../todo-list-by-incubator" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -143,11 +144,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.storybook" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.deploy" />
         <item itemvalue="npm.test" />
         <item itemvalue="Jest.Todo should be add" />
-        <item itemvalue="npm.storybook" />
       </list>
     </recent_temporary>
   </component>
@@ -184,7 +185,9 @@
       <workItem from="1654228146556" duration="1270000" />
       <workItem from="1654405123637" duration="620000" />
       <workItem from="1654530039276" duration="28000" />
-      <workItem from="1654538785920" duration="2291000" />
+      <workItem from="1654538785920" duration="2550000" />
+      <workItem from="1654586020667" duration="1533000" />
+      <workItem from="1654666684737" duration="6163000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -340,7 +343,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654539492589</updated>
     </task>
-    <option name="localTasksCounter" value="23" />
+    <task id="LOCAL-00023" summary="refactoring in process">
+      <created>1654541479357</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654541479357</updated>
+    </task>
+    <option name="localTasksCounter" value="24" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
