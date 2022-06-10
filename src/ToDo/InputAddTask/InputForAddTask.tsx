@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {actions, ActionsType} from '../../Redux/ToDoReducer';
+import {actions, ActionsType, addTaskTC} from '../../Redux/ToDoReducer';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatch} from "react-redux";
@@ -21,7 +21,8 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                 setErrorInput(true)
                 return
             }
-            dispatch(actions.addTaskAC(todoId, inputText))
+            // @ts-ignore
+            dispatch(addTaskTC(todoId, inputText))
             setInputText('')
         },[dispatch,todoId,inputText])
 

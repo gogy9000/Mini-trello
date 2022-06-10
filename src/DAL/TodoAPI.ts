@@ -30,7 +30,7 @@ type CreateTodoListType = {
     }
 }
 
-type Task={
+export type TaskApi = {
     description: string
     title: string
     completed: boolean
@@ -51,7 +51,31 @@ export const todoListAPI = {
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
         .then((response: AxiosResponse<Data<CreateTodoListType>>) => response.data.data.item),
 
-    getTasks:(todolistId:string)=>instance.get(`todo-lists/${todolistId}/tasks`)
-        .then((res:AxiosResponse)=>res.data.items)
+    getTasks: (todolistId: string) => instance.get(`todo-lists/${todolistId}/tasks`)
+        .then((res: AxiosResponse) => {
+            console.log(res)
+            return res.data.items
+        }),
+
+    createNewTask: (todolistId: string, taskTitle: string) =>
+        instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
+            .then((res: AxiosResponse) => res.data.data.item),
+
+    updateTask: (title: string, description: string,
+                 completed: boolean, status: number,
+                 priority: number, startDate: string,
+                 deadline: string, todolistId: string, taskId: string) => {
+
+        return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
+                title: title,
+                description: description,
+                completed: completed,
+                status: status,
+                priority: priority,
+                startDate: startDate,
+                deadline: deadline
+            }
+        )
+    }
 
 }

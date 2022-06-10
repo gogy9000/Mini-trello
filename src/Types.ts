@@ -11,6 +11,7 @@ export type TodoTitleType ={
     title:string
     addedDate:string
     order:number
+    filter: string
 }
 
 export type StateType={

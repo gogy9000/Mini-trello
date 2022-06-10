@@ -13,8 +13,9 @@ type ButtonsInToDoWrapperPropsType = {
 export const ButtonsInToDoContainer: React.FC<ButtonsInToDoWrapperPropsType> = React.memo(({todoId, filter}) => {
 
         const dispatch=useDispatch()
-        const onClickHandler = (filter: string) =>{}
-            // dispatch(actions.changeFilterAC(todoId,filter))
+        const onClickHandler = (newFilter: string) => {
+            dispatch(actions.changeFilterAC(todoId, newFilter))
+        }
 
         return (
 
