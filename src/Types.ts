@@ -8,8 +8,9 @@ export type TaskType = {
 
 export type TodoTitleType ={
     id:string
-    titleName:string
-    filter:string
+    title:string
+    addedDate:string
+    order:number
 }
 
 export type StateType={

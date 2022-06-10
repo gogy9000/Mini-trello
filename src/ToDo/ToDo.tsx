@@ -1,5 +1,5 @@
 import {TodoTitleType} from "../Types";
-import React from "react";
+import React, {useState} from "react";
 import {InputForAddTask} from "./InputAddTask/InputForAddTask";
 import {ButtonsInToDoContainer} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer";
 import {TasksContainer} from "./Tasks/TasksContainer";
@@ -11,6 +11,7 @@ type ToDoPropsType = {
 }
 
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
+    const [filter, setFilter]=useState('all')
 
         return (
 
@@ -26,9 +27,9 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
                     <InputForAddTask todoId={todo.id}/>
 
-                    <TasksContainer todoId={todo.id} filter={todo.filter}/>
+                    <TasksContainer todoId={todo.id} filter={filter}/>
 
-                    <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
+                    <ButtonsInToDoContainer todoId={todo.id} filter={filter}/>
 
                 </Card>
 

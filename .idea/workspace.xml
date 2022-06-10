@@ -4,15 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix ButtonsBlock.stories.tsx">
-      <change afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use Api todolist">
+      <change afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.storybook/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/.storybook/main.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/Introduction.stories.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/Introduction.stories.mdx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -23,8 +29,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -93,7 +99,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\InputAddTask" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.storybook">
+  <component name="RunManager" selected="npm.start">
     <configuration name="Todo should be add" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -149,8 +155,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.storybook" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.storybook" />
         <item itemvalue="npm.deploy" />
         <item itemvalue="npm.test" />
         <item itemvalue="Jest.Todo should be add" />
@@ -192,7 +198,11 @@
       <workItem from="1654530039276" duration="28000" />
       <workItem from="1654538785920" duration="2550000" />
       <workItem from="1654586020667" duration="1533000" />
-      <workItem from="1654666684737" duration="17257000" />
+      <workItem from="1654666684737" duration="18253000" />
+      <workItem from="1654773102047" duration="2982000" />
+      <workItem from="1654777961309" duration="1096000" />
+      <workItem from="1654779206060" duration="13428000" />
+      <workItem from="1654843375529" duration="6731000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -362,7 +372,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654675314027</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary=" create ToDo.stories.tsx">
+      <created>1654690159291</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1654690159291</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -397,7 +414,9 @@
     <MESSAGE value="use useCallback hook" />
     <MESSAGE value="refactoring in process" />
     <MESSAGE value="fix ButtonsBlock.stories.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix ButtonsBlock.stories.tsx" />
+    <MESSAGE value=" create ToDo.stories.tsx" />
+    <MESSAGE value="use Api todolist" />
+    <option name="LAST_COMMIT_MESSAGE" value="use Api todolist" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

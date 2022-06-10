@@ -13,6 +13,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [todoName, setTodoName] = useState<string>('')
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
+
         const dispatch = useDispatch()
 
         const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
@@ -38,7 +39,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                         <Card variant={'outlined'} sx={{ display: 'flex' ,flexDirection:'row-reverse'}} >
                             <Box sx={{display: 'flex', flexDirection: 'row', alignItems:'center',justifyContent:'flexEnd'}}>
                                 <Typography variant={'h6'} p={1}>
-                                    {todo.titleName}
+                                    {todo.title}
                                 </Typography>
                                 <Box sx={{display: 'flex', flexDirection: 'row' , flexWrap:'wrap',justifyContent:'flex-end' }}>
                                     <IconButton onClick={removeTodo}><Delete/></IconButton>

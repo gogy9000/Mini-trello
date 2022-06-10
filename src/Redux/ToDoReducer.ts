@@ -1,18 +1,20 @@
 import {StateType, TaskType, TodoTitleType} from "../Types";
 
 import {v1} from 'uuid';
+import {todoListAPI, TodoListItem} from "../DAL/TodoAPI";
+import {Dispatch} from "redux";
 
 
 export const initialState: StateType =
-{
-    tasksTitle: [{id: '123', titleName: 'empty todo', filter: 'All'}] as Array<TodoTitleType> ,
+    {
+        tasksTitle: [] as Array<TodoTitleType>,
         taskBody: {
-    ['123']: {
-        activeTasks: [] as Array<TaskType>,
-            completedTasks: [] as Array<TaskType>
+            // ['123']: {
+            //     activeTasks: [] as Array<TaskType>,
+            //         completedTasks: [] as Array<TaskType>
+            // }
+        }
     }
-}
-}
 
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
@@ -21,11 +23,11 @@ export type ActionsType = InferActionsType<typeof actions>
 export let ToDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
     switch (action.type) {
-        case "CHANGE-FILTER":
-            return {...state,
-            tasksTitle:state.tasksTitle.map((todo:TodoTitleType)=> action.todoId===todo.id?
-                {id:todo.id, titleName:todo.titleName, filter:action.filter}:todo)
-            }
+        // case "CHANGE-FILTER":
+        //     return {...state,
+        //     tasksTitle:state.tasksTitle.map((todo:TodoTitleType)=> action.todoId===todo.id?
+        //         {id:todo.id, titleName:todo.title, filter:action.filter}:todo)
+        //     }
 
         case 'UPDATE-TASK':
             return {
@@ -62,19 +64,19 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 tasksTitle: [...state.tasksTitle.map((title: TodoTitleType) =>
                     title.id !== action.idTitle ?
                         title
-                        : {id: title.id, titleName: action.titleName, filter:title.filter})
+                        : {id: title.id, title: action.titleName, addedDate: title.addedDate, order: title.order})
                 ],
                 taskBody: {...state.taskBody}
             }
 
         case 'CREATE-NEW-TODO':
-            let todoId = action.toDoId
+
             return {
                 ...state,
-                tasksTitle: [...state.tasksTitle, {id: todoId, titleName: action.todoName, filter: 'All'}],
+                tasksTitle: [...state.tasksTitle, action.payload],
                 taskBody: {
                     ...state.taskBody,
-                    [todoId]: {
+                    [action.payload.id]: {
                         activeTasks: [],
                         completedTasks: []
                     }
@@ -167,14 +169,33 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 },
             }
 
-        default:
-            return state
+        case "REFRESH-TODOLIST":
 
-    }
+          let newTaskBody =action.payload.reduce((acc:any,todo:TodoListItem)=>{
+              return {...acc,[todo.id]:{activeTasks: [], completedTasks: []}}
+          },{})
+            console.log(newTaskBody)
+            return {tasksTitle: action.payload,taskBody:newTaskBody}
+                // taskBody: {action.payload.map((TodoItem:TodoListItem)=> {
+                //        return {[TodoItem.id]: {activeTasks: [], completedTasks: []}}
+                //     })
+                //
+                //
+                // }
+
+
+
+
+
+
+default:
+    return state
+
+}
 }
 
 export const actions = {
-    changeFilterAC:(todoId:string, filter:string)=>({type:'CHANGE-FILTER', todoId,filter}as const),
+    // changeFilterAC:(todoId:string, filter:string)=>({type:'CHANGE-FILTER', todoId,filter}as const),
     updateTaskAC: (idTitle: string, taskId: string, taskValue: string) => ({
         type: 'UPDATE-TASK',
         idTitle,
@@ -184,14 +205,45 @@ export const actions = {
     removeTodoAC: (idTitle: string) => ({type: 'REMOVE-TODO', idTitle} as const),
     updateTodoNameAC: (titleName: string, idTitle: string) =>
         ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
-    createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName, toDoId: v1()} as const),
+    createNewTodoAC: (payload: TodoListItem) => ({type: 'CREATE-NEW-TODO', payload} as const),
     deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
     addTaskAC: (idTitle: string, inputText: string) => ({
         type: 'ADD-TASK',
         idTitle,
         inputText,
-        taskId:v1()
+        taskId: v1()
     } as const),
-    checkTaskAC: (id: string, idTitle: string) => ({type: 'CHECK-TASK', id, idTitle} as const)
+    checkTaskAC: (id: string, idTitle: string) => ({type: 'CHECK-TASK', id, idTitle} as const),
+    refreshTodoListAC: (payload:TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const)
 }
+
+export const getTodolistTC = () => (dispatch:(action: ActionsType) => void) => {
+    todoListAPI.getTodoList()
+        .then((data) => {
+            dispatch(actions.refreshTodoListAC(data))
+
+            return data
+        })
+        .then((data)=>{
+            data.forEach((dataItem)=>{
+                todoListAPI.getTasks(dataItem.id)
+                    .then((res)=>{
+                        console.log(res)
+                    })
+
+            })
+
+        })
+}
+export const createTodolistTC = (title: string) => (dispatch: (action: ActionsType) => void) => {
+
+    todoListAPI.createTodoList(title)
+        .then((data) => {
+            console.log(data)
+            let {id, order, title, addedDate} = data
+            dispatch(actions.createNewTodoAC(data))
+        })
+}
+
+
 

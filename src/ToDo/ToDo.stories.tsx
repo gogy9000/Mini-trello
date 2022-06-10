@@ -24,5 +24,5 @@ const Template: ComponentStory<typeof ToDo> = (args) => {
 export const EmptyTodo = Template.bind({})
 
 EmptyTodo.args = {
-    todo: {id: '123', titleName: 'empty todo', filter: 'All'}
+    // todo: {id: '123', title: 'empty todo', filter: 'All',}
 }
