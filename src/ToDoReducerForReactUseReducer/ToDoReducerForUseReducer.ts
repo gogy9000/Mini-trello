@@ -189,7 +189,7 @@
 //         inputText,
 //         taskId:v1()
 //     } as const),
-//     checkTaskAC: (id: string, todo: string) => ({type: 'CHECK-TASK', id, todo} as const)
+//     updateTaskAC: (id: string, todo: string) => ({type: 'CHECK-TASK', id, todo} as const)
 // }
 //
 //

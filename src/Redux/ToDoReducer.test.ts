@@ -70,14 +70,14 @@
 //     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(1)
 // })
 // test('todo to be checked',()=>{
-//     let action =actions.checkTaskAC('stringTest0123', 'v1(12345)')
+//     let action =actions.updateTaskAC('stringTest0123', 'v1(12345)')
 //     let newState= ToDoReducer(stateToDo,action)
 //     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(0)
 //     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(2)
 //     expect(newState.taskBody['v1(12345)'].completedTasks[1].isDone).toBe(true)
 // })
 // test('todo to be unchecked',()=>{
-//     let action =actions.checkTaskAC('stringTest', 'v1(12345)')
+//     let action =actions.updateTaskAC('stringTest', 'v1(12345)')
 //     let newState= ToDoReducer(stateToDo,action)
 //     expect(newState.taskBody['v1(12345)'].activeTasks.length).toBe(2)
 //     expect(newState.taskBody['v1(12345)'].completedTasks.length).toBe(0)

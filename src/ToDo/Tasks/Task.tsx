@@ -54,7 +54,8 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                 setError('todo empty')
                 return
             }
-            dispatch(actions.updateTaskAC(todoId, task.id, taskValue.trim()))
+            // @ts-ignore
+            dispatch(thunks.updateTask( {...task, title:taskValue.trim()}))
             if (error !== '') {setError('')}
             setEditModeControlled(false)
         }, [dispatch, todoId, task.id, taskValue])
