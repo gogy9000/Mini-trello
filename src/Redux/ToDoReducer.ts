@@ -80,33 +80,15 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 tasksTitle: state.tasksTitle,
                 taskBody: {
                     ...state.taskBody,
-                    [action.item.todoListId]: {
-                        activeTasks: [...state.taskBody[action.item.todoListId].activeTasks, action.item],
-                        completedTasks: [...state.taskBody[action.item.todoListId].completedTasks]
+                    [action.newTask.todoListId]: {
+                        // ...state.taskBody[action.newTask.todoListId],
+                        activeTasks: [...state.taskBody[action.newTask.todoListId].activeTasks, action.newTask],
+                        completedTasks: [...state.taskBody[action.newTask.todoListId].completedTasks]
                     }
                 },
                 //ты должен страдать от вложенности!!!
             };
 
-        // case 'UPDATE-TASK':
-        //     return {
-        //         ...state,
-        //         taskBody: {
-        //             ...state.taskBody,
-        //             [action.idTitle]: {
-        //                 activeTasks:
-        //                     state.taskBody[action.idTitle].activeTasks.map(
-        //                         (task: TaskType) => task.id === action.taskId
-        //                             ? {...task, title: action.taskValue}
-        //                             : task),
-        //                 completedTasks:
-        //                     state.taskBody[action.idTitle].completedTasks.map(
-        //                         (task: TaskType) => task.id === action.taskId
-        //                             ? {...task, title: action.taskValue}
-        //                             : task)
-        //             }
-        //         }
-        //     }
 
 
         case 'UPDATE-TASK':
@@ -137,12 +119,16 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     ...copyState.taskBody,
                     [action.updatedTask.todoListId]: {
                         activeTasks: [
-                            ...copyState.taskBody[action.updatedTask.todoListId].activeTasks.filter((el: TaskType) => el.status===0),
-                            ...copyState.taskBody[action.updatedTask.todoListId].completedTasks.filter((el: TaskType) => el.status===0)
+                            ...copyState.taskBody[action.updatedTask.todoListId].activeTasks
+                                .filter((el: TaskType) => el.status===0),
+                            ...copyState.taskBody[action.updatedTask.todoListId].completedTasks
+                                .filter((el: TaskType) => el.status===0)
                         ],
                         completedTasks: [
-                            ...copyState.taskBody[action.updatedTask.todoListId].completedTasks.filter((el: TaskType) => el.status===1),
-                            ...copyState.taskBody[action.updatedTask.todoListId].activeTasks.filter((el: TaskType) => el.status===1)
+                            ...copyState.taskBody[action.updatedTask.todoListId].completedTasks
+                                .filter((el: TaskType) => el.status===1),
+                            ...copyState.taskBody[action.updatedTask.todoListId].activeTasks
+                                .filter((el: TaskType) => el.status===1)
                         ]
                         //страдааай!!!
                     }
@@ -182,13 +168,13 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
             return {
                 ...state,
-                taskBody: action.payload.reduce((acc, tasksItem: TaskApi) => {
+                taskBody: action.tasks.reduce((acc:taskBodyType, tasksItem: TaskType) => {
 
-                    if (!tasksItem.completed) {
+                    if (tasksItem.status===0) {
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
-                                activeTasks: [{...tasksItem, isDone: false}, ...acc[tasksItem.todoListId].activeTasks],
+                                activeTasks: [tasksItem, ...acc[tasksItem.todoListId].activeTasks],
                                 completedTasks: [...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
@@ -197,16 +183,13 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                             ...acc,
                             [tasksItem.todoListId]: {
                                 activeTasks: [...acc[tasksItem.todoListId].activeTasks],
-                                completedTasks: [{
-                                    ...tasksItem,
-                                    isDone: false
-                                }, ...acc[tasksItem.todoListId].completedTasks],
+                                completedTasks: [tasksItem, ...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
                     }
 
 
-                }, state.taskBody as taskBodyType)
+                }, state.taskBody)
             }
 
 
@@ -231,11 +214,11 @@ export const actions = {
     deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
     addTaskAC: (item: any) => ({
         type: 'ADD-TASK',
-        item
+        newTask: item
     } as const),
     updateTaskAC: ( updatedTask:TaskType) => ({type: 'UPDATE-TASK',updatedTask} as const),
     refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
-    refreshTasks: (payload: TaskApi[]) => ({type: 'REFRESH-TASKS', payload} as const)
+    refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const)
 }
 
 
@@ -249,18 +232,19 @@ export const thunks = {
     },
     getTodolistTC: () => (dispatch: (action: ActionsType) => void) => {
         APITodo.getTodoList()
-            .then((data) => {
+            .then((data:TodoListItem[]) => {
                 dispatch(actions.refreshTodoListAC(data))
-                return data
-            })
-            .then((data) => {
+
                 data.forEach((dataItem) => {
                     APITodo.getTasks(dataItem.id)
-                        .then((res: TaskApi[]) => {
-                            dispatch(actions.refreshTasks(res))
+                        .then((tasks: TaskType[]) => {
+                            console.log(tasks)
+                            dispatch(actions.refreshTasks(tasks))
                         })
                 })
+
             })
+
     },
     createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
         APITodo.createTodoList(title)
