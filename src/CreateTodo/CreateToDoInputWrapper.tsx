@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
-import {createTodolistTC} from '../Redux/ToDoReducer';
+import {thunks} from '../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
 
@@ -16,7 +16,7 @@ export const CreateToDoInputWrapper = React.memo(() => {
                 return
             }
             // @ts-ignore
-            dispatch(createTodolistTC(todoName.trim()))
+            dispatch(thunks.createTodolistTC(todoName.trim()))
             setTodoName('')
             setError('')
         }

@@ -1,7 +1,7 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
 
 import {v1} from 'uuid';
-import {TaskApi, todoListAPI, TodoListItem} from "../DAL/TodoAPI";
+import {TaskApi, APITodo, TodoListItem} from "../DAL/TodoAPI";
 import {Dispatch} from "redux";
 
 
@@ -47,12 +47,12 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                         activeTasks:
                             state.taskBody[action.idTitle].activeTasks.map(
                                 (task: TaskType) => task.id === action.taskId
-                                    ? {id: task.id, title: action.taskValue, isDone: task.isDone}
+                                    ? {...task, title: action.taskValue}
                                     : task),
                         completedTasks:
                             state.taskBody[action.idTitle].completedTasks.map(
                                 (task: TaskType) => task.id === action.taskId
-                                    ? {id: task.id, title: action.taskValue, isDone: task.isDone}
+                                    ? {...task, title: action.taskValue}
                                     : task)
                     }
                 }
@@ -74,30 +74,23 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     title.id !== action.idTitle ?
                         title
                         : {
-                            id: title.id,
-                            title: action.titleName,
-                            addedDate: title.addedDate,
-                            order: title.order,
-                            filter: 'All'
+                            ...title,
+                            title: action.titleName
                         })
                 ],
                 taskBody: {...state.taskBody}
             }
 
         case 'CREATE-NEW-TODO':
-            const {id, title, addedDate, order} = action.payload
             return {
                 ...state,
                 tasksTitle: [...state.tasksTitle, {
-                    id: id,
-                    title: title,
-                    addedDate: addedDate,
-                    order: order,
+                    ...action.payload,
                     filter: 'All'
                 }],
                 taskBody: {
                     ...state.taskBody,
-                    [id]: {
+                    [action.payload.id]: {
                         activeTasks: [],
                         completedTasks: []
                     }
@@ -105,20 +98,6 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             }
 
         case 'ADD-TASK':
-
-            let newTask = {
-                // description: required(string)
-                // title: required(string)
-                // completed: required(boolean)
-                // status: required(integer)
-                // priority: required(integer)
-                // startDate: required(datetime)
-                // deadline: required(datetime)
-                // id: required(string)
-                // todoListId: required(string)
-                // order: required(integer)
-                // addedDate: required(datetime)
-            };
 
             return {
                 ...state,
@@ -140,23 +119,16 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             let copyState: StateType = {
                 ...state,
                 tasksTitle: state.tasksTitle,
-                // @ts-ignore
                 taskBody: {
                     ...state.taskBody,
                     [action.idTitle]: {
                         activeTasks: [
                             ...state.taskBody[action.idTitle].activeTasks.map(task =>
-
-                                task.id === action.id ?
-                                    task.isDone ?
-                                        {task, isDone: false} : {...task, isDone: true} : task)
+                                task.id === action.id ? { ...task, status:action.status} : task)
                         ],
                         completedTasks: [
                             ...state.taskBody[action.idTitle].completedTasks.map(task =>
-
-                                task.id === action.id ?
-                                    task.isDone ?
-                                        {...task, isDone: false} : {...task, isDone: true} : task)
+                                task.id === action.id ? { ...task, status:action.status} : task)
                         ]
                     }
                 }
@@ -170,12 +142,12 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     ...copyState.taskBody,
                     [action.idTitle]: {
                         activeTasks: [
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => !el.isDone),
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => !el.isDone)
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => el.status===0),
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => el.status===0)
                         ],
                         completedTasks: [
-                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => el.isDone),
-                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => el.isDone)
+                            ...copyState.taskBody[action.idTitle].completedTasks.filter((el: TaskType) => el.status===1),
+                            ...copyState.taskBody[action.idTitle].activeTasks.filter((el: TaskType) => el.status===1)
                         ]
                         //страдааай!!!
                     }
@@ -213,25 +185,27 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
         case "REFRESH-TASKS":
 
-
             return {
                 ...state,
-                taskBody: action.payload.reduce((acc: any, tasksItem: TaskApi) => {
+                taskBody: action.payload.reduce((acc, tasksItem: TaskApi) => {
 
-                    if(!tasksItem.completed){
+                    if (!tasksItem.completed) {
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
-                                activeTasks: [ tasksItem,...acc[tasksItem.todoListId].activeTasks],
+                                activeTasks: [{...tasksItem, isDone: false}, ...acc[tasksItem.todoListId].activeTasks],
                                 completedTasks: [...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
-                    }else{
+                    } else {
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
                                 activeTasks: [...acc[tasksItem.todoListId].activeTasks],
-                                completedTasks: [tasksItem,...acc[tasksItem.todoListId].completedTasks],
+                                completedTasks: [{
+                                    ...tasksItem,
+                                    isDone: false
+                                }, ...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
                     }
@@ -260,43 +234,54 @@ export const actions = {
         ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
     createNewTodoAC: (payload: TodoListItem) => ({type: 'CREATE-NEW-TODO', payload} as const),
     deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
-    addTaskAC: (item:any) => ({
+    addTaskAC: (item: any) => ({
         type: 'ADD-TASK',
         item
     } as const),
-    checkTaskAC: (id: string, idTitle: string) => ({type: 'CHECK-TASK', id, idTitle} as const),
+    checkTaskAC: (id: string, idTitle: string,status:number) => ({type: 'CHECK-TASK', id, idTitle,status} as const),
     refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
     refreshTasks: (payload: TaskApi[]) => ({type: 'REFRESH-TASKS', payload} as const)
 }
 
-export const addTaskTC=(todolistId: string,taskTitle: string)=>(dispatch: (action: ActionsType) => void)=>{
-    todoListAPI.createNewTask(todolistId,taskTitle)
-        .then((item)=>{
-            console.log(item)
-            dispatch(actions.addTaskAC(item))
-        })
-}
 
-export const getTodolistTC = () => (dispatch: (action: ActionsType) => void) => {
-    todoListAPI.getTodoList()
-        .then((data) => {
-            dispatch(actions.refreshTodoListAC(data))
-            return data
-        })
-        .then((data) => {
-            data.forEach((dataItem) => {
-                todoListAPI.getTasks(dataItem.id)
-                    .then((res: TaskApi[]) => {
-                        dispatch(actions.refreshTasks(res))
-                    })
+export const thunks = {
+    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
+        APITodo.createNewTask(todolistId, taskTitle)
+            .then((item) => {
+                console.log(item)
+                dispatch(actions.addTaskAC(item))
             })
-        })
-}
-export const createTodolistTC = (title: string) => (dispatch: (action: ActionsType) => void) => {
-    todoListAPI.createTodoList(title)
-        .then((data) => {
-            dispatch(actions.createNewTodoAC(data))
-        })
+    },
+    getTodolistTC: () => (dispatch: (action: ActionsType) => void) => {
+        APITodo.getTodoList()
+            .then((data) => {
+                dispatch(actions.refreshTodoListAC(data))
+                return data
+            })
+            .then((data) => {
+                data.forEach((dataItem) => {
+                    APITodo.getTasks(dataItem.id)
+                        .then((res: TaskApi[]) => {
+                            dispatch(actions.refreshTasks(res))
+                        })
+                })
+            })
+    },
+    createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
+        APITodo.createTodoList(title)
+            .then((data) => {
+                dispatch(actions.createNewTodoAC(data))
+            })
+    },
+    updateTask: (task:TaskType) => (dispatch: (action: ActionsType)=>void) => {
+
+        APITodo.updateTask(task).then(
+            (newTask) => {
+                console.log(newTask)
+                dispatch(actions.checkTaskAC(task.id,task.todoListId,task.status))
+            })
+    }
+
 }
 
 

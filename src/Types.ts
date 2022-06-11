@@ -1,9 +1,16 @@
 import {ActionsType} from './Redux/ToDoReducer';
 
 export type TaskType = {
-    id: string
+    description: string
     title: string
-    isDone: boolean
+    status: number
+    priority: number
+    startDate: any
+    deadline: any
+    id: string
+    todoListId: string
+    order: number
+    addedDate: string
 }
 
 export type TodoTitleType ={

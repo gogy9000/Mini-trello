@@ -1,6 +1,6 @@
 import {TaskType} from "../../Types";
 import React, {useCallback, useState} from "react";
-import {actions} from '../../Redux/ToDoReducer';
+import {actions, thunks} from '../../Redux/ToDoReducer';
 import {
     Box,
     Card,
@@ -16,7 +16,7 @@ import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {fakeAxios} from "../../async-functions/Async-functions";
+import {APITodo} from "../../DAL/TodoAPI";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -41,7 +41,10 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
-        const checkTask = useCallback(() => dispatch(actions.checkTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
+        const checkTask = useCallback(() => {
+            // @ts-ignore
+            dispatch(thunks.updateTask({...task,status:task.status===0?1:0}))
+        }, [dispatch, task.id, todoId])
 
         const deleteTask = useCallback(() => dispatch(actions.deleteTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
 
@@ -63,7 +66,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
 
         return (
             <Card variant={"outlined"}>
-                <Box sx={{display: 'flex', justifyContent: "flex-end", opacity:(task.isDone ? 0.5 : 1)}}>
+                <Box sx={{display: 'flex', justifyContent: "flex-end", opacity:(task.status===1 ? 0.5 : 1)}}>
                     <CardContent>
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
@@ -106,7 +109,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                                 </IconButton>}
 
                                 <Checkbox
-                                    checked={task.isDone}
+                                    checked={task.status===1}
                                     inputProps={{'aria-label': 'controlled'}}
                                     icon={<RadioButtonUnchecked/>}
                                     checkedIcon={<CheckCircleOutline/>}

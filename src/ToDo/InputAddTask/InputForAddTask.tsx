@@ -1,10 +1,9 @@
 import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {actions, ActionsType, addTaskTC} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/ToDoReducer';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
-import {useDispatch} from "react-redux";
-import {Dispatch} from "redux";
+import {useAppDispatch} from "../../App";
 
 type InputBlockForAddTaskPropsType = {
     todoId: string
@@ -14,7 +13,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
 
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)
-        const dispatch:Dispatch<ActionsType> = useDispatch()
+        const dispatch = useAppDispatch()
 
         const addTask = useCallback( () => {
             if ((/^\s+$/).test(inputText) || inputText === '') {
@@ -22,7 +21,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                 return
             }
             // @ts-ignore
-            dispatch(addTaskTC(todoId, inputText))
+            dispatch(thunks.addTaskTC(todoId, inputText))
             setInputText('')
         },[dispatch,todoId,inputText])
 

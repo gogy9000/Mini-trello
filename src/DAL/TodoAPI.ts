@@ -1,4 +1,5 @@
 import axios, {AxiosResponse} from "axios";
+import {TaskType} from "../Types";
 
 
 const instance = axios.create({
@@ -44,7 +45,7 @@ export type TaskApi = {
     addedDate: string
 }
 
-export const todoListAPI = {
+export const APITodo = {
     getTodoList: () => instance.get(`todo-lists`)
         .then((response: AxiosResponse<TodoListItem[]>) => response.data),
 
@@ -61,21 +62,16 @@ export const todoListAPI = {
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
             .then((res: AxiosResponse) => res.data.data.item),
 
-    updateTask: (title: string, description: string,
-                 completed: boolean, status: number,
-                 priority: number, startDate: string,
-                 deadline: string, todolistId: string, taskId: string) => {
-
-        return instance.put(`todo-lists/${todolistId}/tasks/${taskId}`, {
-                title: title,
-                description: description,
-                completed: completed,
-                status: status,
-                priority: priority,
-                startDate: startDate,
-                deadline: deadline
+    updateTask: (task:TaskType) => {
+        return instance.put(`todo-lists/${task.todoListId}/tasks/${task.id}`, {
+                title: task.title,
+                description: task.description,
+                status: task.status,
+                priority: task.priority,
+                startDate: task.startDate,
+                deadline: task.deadline
             }
-        )
+        ).then((res)=>res.data.data.item)
     }
 
 }

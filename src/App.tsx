@@ -4,8 +4,7 @@ import {TodoContainer} from "./ToDo/TodoContainer";
 import {Button, Container, Grid} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {useDispatch} from "react-redux";
-import {ActionsType, getTodolistTC} from "./Redux/ToDoReducer";
-import {Dispatch} from "redux";
+import { thunks} from "./Redux/ToDoReducer";
 import {AppDispatchType} from "./Redux/ReduxStore";
 
 export const useAppDispatch = () => useDispatch<AppDispatchType>()
@@ -15,13 +14,11 @@ export const App = React.memo(function App() {
         const dispatch = useAppDispatch()
 
 
-        // useEffect(() => { // @ts-ignore
-        //     dispatch(getTodolistTC())
-        // }, [])
+
 
         const load = () => {
             // @ts-ignore
-            dispatch(getTodolistTC())
+            dispatch(thunks.getTodolistTC())
         }
 
         return (
