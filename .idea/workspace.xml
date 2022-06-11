@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring ToDoReducer.ts">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix refreshTask">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/Introduction.stories.mdx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/Introduction.stories.mdx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -191,7 +194,7 @@
       <workItem from="1654777961309" duration="1096000" />
       <workItem from="1654779206060" duration="13428000" />
       <workItem from="1654843375529" duration="22947000" />
-      <workItem from="1654926159901" duration="13337000" />
+      <workItem from="1654926159901" duration="16538000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -396,7 +399,14 @@
       <option name="project" value="LOCAL" />
       <updated>1654937487958</updated>
     </task>
-    <option name="localTasksCounter" value="30" />
+    <task id="LOCAL-00030" summary="fix refreshTask">
+      <created>1654942707910</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1654942707910</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -435,7 +445,8 @@
     <MESSAGE value="use Api todolist" />
     <MESSAGE value="migration on Api-Todo-list" />
     <MESSAGE value="refactoring ToDoReducer.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring ToDoReducer.ts" />
+    <MESSAGE value="fix refreshTask" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix refreshTask" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

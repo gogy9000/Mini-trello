@@ -23,12 +23,7 @@ export type TodoListItem = {
 }
 
 type CreateTodoListType = {
-    item: {
-        "id": string
-        "title": string
-        "addedDate": string
-        "order": number
-    }
+    item: TodoListItem
 }
 
 export type TaskApi = {
@@ -45,25 +40,27 @@ export type TaskApi = {
     addedDate: string
 }
 
-export const APITodo = {
+export const API = {
     getTodoList: () => instance.get(`todo-lists`)
         .then((response: AxiosResponse<TodoListItem[]>) => response.data),
+
+    getTasks: (todolistId: string) => instance.get(`todo-lists/${todolistId}/tasks`)
+        .then((res: AxiosResponse) => res.data.items),
 
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
         .then((response: AxiosResponse<Data<CreateTodoListType>>) => response.data.data.item),
 
-    getTasks: (todolistId: string) => instance.get(`todo-lists/${todolistId}/tasks`)
-        .then((res: AxiosResponse) => {
-            console.log(res)
-            return res.data.items
-        }),
+    updateTodoLis:(todolistId:string,title:string)=>instance.put(`todo-lists/${todolistId}`,{title:title}),
+
+    deleteTodoList:(todolistId:string)=>instance.delete(`todo-lists/${todolistId}`),
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
             .then((res: AxiosResponse) => res.data.data.item),
 
-    updateTask: (task:TaskType) => {
-        return instance.put(`todo-lists/${task.todoListId}/tasks/${task.id}`, {
+    updateTask: (task: TaskType) => {
+        return instance.put(`todo-lists/${task.todoListId}/tasks/${task.id}`,
+            {
                 title: task.title,
                 description: task.description,
                 status: task.status,
@@ -71,7 +68,9 @@ export const APITodo = {
                 startDate: task.startDate,
                 deadline: task.deadline
             }
-        ).then((res)=>res.data.data.item)
-    }
+        )
+            .then((res) => res.data.data.item)
+    },
+    deleteTask:(todolistId:string, taskId:string)=>instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
 
 }

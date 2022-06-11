@@ -16,7 +16,7 @@ import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {APITodo} from "../../DAL/TodoAPI";
+import {API} from "../../DAL/TodoAPI";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;

@@ -18,7 +18,7 @@ export const App = React.memo(function App() {
 
         const load = () => {
             // @ts-ignore
-            dispatch(thunks.getTodolistTC())
+            dispatch(thunks.getTodolistAndTasks())
         }
 
         return (

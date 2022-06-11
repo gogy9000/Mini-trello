@@ -1,5 +1,5 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
-import {TaskApi, APITodo, TodoListItem} from "../DAL/TodoAPI";
+import {TaskApi, API, TodoListItem} from "../DAL/TodoAPI";
 
 export const initialState: StateType =
     {
@@ -201,12 +201,6 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
 export const actions = {
     changeFilterAC: (todoId: string, filter: string) => ({type: 'CHANGE-FILTER', todoId, filter} as const),
-    // updateTaskAC: (idTitle: string, taskId: string, taskValue: string) => ({
-    //     type: 'UPDATE-TASK',
-    //     idTitle,
-    //     taskId,
-    //     taskValue
-    // } as const),
     removeTodoAC: (idTitle: string) => ({type: 'REMOVE-TODO', idTitle} as const),
     updateTodoNameAC: (titleName: string, idTitle: string) =>
         ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
@@ -223,41 +217,38 @@ export const actions = {
 
 
 export const thunks = {
-    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
-        APITodo.createNewTask(todolistId, taskTitle)
-            .then((item) => {
-                console.log(item)
-                dispatch(actions.addTaskAC(item))
-            })
-    },
-    getTodolistTC: () => (dispatch: (action: ActionsType) => void) => {
-        APITodo.getTodoList()
+
+    getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void) => {
+        API.getTodoList()
             .then((data:TodoListItem[]) => {
                 dispatch(actions.refreshTodoListAC(data))
-
                 data.forEach((dataItem) => {
-                    APITodo.getTasks(dataItem.id)
+                    API.getTasks(dataItem.id)
                         .then((tasks: TaskType[]) => {
-                            console.log(tasks)
                             dispatch(actions.refreshTasks(tasks))
                         })
                 })
-
             })
-
     },
+
     createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
-        APITodo.createTodoList(title)
-            .then((data) => {
-                dispatch(actions.createNewTodoAC(data))
-            })
+        API.createTodoList(title)
+            .then((TodoListItem) => dispatch(actions.createNewTodoAC(TodoListItem)))
     },
+
+    updateTodoList:(todolistId:string,title:string)=>(dispatch: (action: ActionsType) => void)=>{
+        API.updateTodoLis(todolistId,title).then((res)=>{
+            console.log(res)
+        })
+    },
+
+    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
+        API.createNewTask(todolistId, taskTitle)
+            .then((item) => dispatch(actions.addTaskAC(item)))
+    },
+
     updateTask: (task:TaskType) => (dispatch: (action: ActionsType)=>void) => {
-        APITodo.updateTask(task).then(
-            (newTask) => {
-                console.log(newTask)
-                dispatch(actions.updateTaskAC(newTask))
-            })
+        API.updateTask(task).then((newTask) => dispatch(actions.updateTaskAC(newTask)))
     }
 
 }

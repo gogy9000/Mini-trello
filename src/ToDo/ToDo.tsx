@@ -5,7 +5,7 @@ import {ButtonsInToDoContainer} from "../ButtonsAllActiveCommplitedTask/ButtonsI
 import {TasksContainer} from "./Tasks/TasksContainer";
 import {TodoTitle} from "./TitleTodo/TodoTitle";
 import {Box, Card, Divider, Grid, Paper, Typography} from "@mui/material";
-import {APITodo} from "../DAL/TodoAPI";
+import {API} from "../DAL/TodoAPI";
 
 type ToDoPropsType = {
     todo: TodoTitleType
@@ -14,7 +14,7 @@ type ToDoPropsType = {
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
     // console.log(todo)
     // useEffect(()=>{
-    //     APITodo.updateTask(todo.title)
+    //     API.updateTask(todo.title)
     // },[])
         //addedDate: "2022-06-09T13:13:44.687"
     // filter: "All"
