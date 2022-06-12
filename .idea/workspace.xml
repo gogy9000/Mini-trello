@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix getTask in Api">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix double render App">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +191,7 @@
       <workItem from="1654779206060" duration="13428000" />
       <workItem from="1654843375529" duration="22947000" />
       <workItem from="1654926159901" duration="16682000" />
-      <workItem from="1655014983896" duration="17486000" />
+      <workItem from="1655014983896" duration="18552000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -426,7 +424,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655029790905</updated>
     </task>
-    <option name="localTasksCounter" value="34" />
+    <task id="LOCAL-00034" summary="fix double render App">
+      <created>1655046880729</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1655046880729</updated>
+    </task>
+    <option name="localTasksCounter" value="35" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -469,7 +474,8 @@
     <MESSAGE value="use updateTodoLisThunk" />
     <MESSAGE value="fix checkTask in Task.tsx" />
     <MESSAGE value="fix getTask in Api" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix getTask in Api" />
+    <MESSAGE value="fix double render App" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix double render App" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
