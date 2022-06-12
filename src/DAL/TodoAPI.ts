@@ -74,6 +74,7 @@ export const API = {
     deleteTodoList: (todolistId: string) => instance.delete(`todo-lists/${todolistId}`),
 
 
+
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
             .then((res: AxiosResponse) => {
@@ -95,8 +96,7 @@ export const API = {
                 startDate: task.startDate,
                 deadline: task.deadline
             }
-        )
-            .then((res) => {
+        ).then((res) => {
                     return {
                         newTask: res.data.data.item,
                         resultCode: res.data.resultCode,
