@@ -47,12 +47,14 @@ export const API = {
     getTasks: (todolistId: string) => instance.get(`todo-lists/${todolistId}/tasks`)
         .then((res: AxiosResponse) => res.data.items),
 
+
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
         .then((response: AxiosResponse<Data<CreateTodoListType>>) => response.data.data.item),
 
     updateTodoLis:(todolistId:string,title:string)=>instance.put(`todo-lists/${todolistId}`,{title:title}),
 
     deleteTodoList:(todolistId:string)=>instance.delete(`todo-lists/${todolistId}`),
+
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
@@ -71,6 +73,7 @@ export const API = {
         )
             .then((res) => res.data.data.item)
     },
+
     deleteTask:(todolistId:string, taskId:string)=>instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)
 
 }

@@ -40,11 +40,10 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
-
         const checkTask = useCallback(() => {
             // @ts-ignore
             dispatch(thunks.updateTask({...task,status:task.status===0?1:0}))
-        }, [dispatch, task.id, todoId])
+        }, [dispatch, task, todoId])
 
         const deleteTask = useCallback(() => dispatch(actions.deleteTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
 
@@ -58,7 +57,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
             dispatch(thunks.updateTask( {...task, title:taskValue.trim()}))
             if (error !== '') {setError('')}
             setEditModeControlled(false)
-        }, [dispatch, todoId, task.id, taskValue])
+        }, [dispatch, todoId, task, taskValue])
 
         const createButtonCallBack=  ()=>{
             setEditModeControlled(true)

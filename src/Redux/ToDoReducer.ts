@@ -227,6 +227,7 @@ export const thunks = {
                         .then((tasks: TaskType[]) => {
                             dispatch(actions.refreshTasks(tasks))
                         })
+                        .catch((err)=>console.log(err.message))
                 })
             })
     },
@@ -234,21 +235,37 @@ export const thunks = {
     createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
         API.createTodoList(title)
             .then((TodoListItem) => dispatch(actions.createNewTodoAC(TodoListItem)))
+            .catch((err)=>console.log(err.message))
     },
 
     updateTodoList:(todolistId:string,title:string)=>(dispatch: (action: ActionsType) => void)=>{
         API.updateTodoLis(todolistId,title).then((res)=>{
-            console.log(res)
-        })
+            console.log(res.data.resultCode)
+            if(res.data.resultCode===0){dispatch(actions.updateTodoNameAC(title,todolistId))}
+        }).catch((err)=>console.log(err.message))
+    },
+
+    deleteTodolist:(todolistId:string)=>(dispatch: (action: ActionsType) => void)=>{
+        API.deleteTodoList(todolistId).then((resp)=>{
+            console.log(resp.data.resultCode)
+            if(resp.data.resultCode===0){dispatch(actions.removeTodoAC(todolistId))
+            }else {
+                console.log(resp.data.messages)}
+        }).catch((err)=>console.log(err.message))
     },
 
     addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
         API.createNewTask(todolistId, taskTitle)
             .then((item) => dispatch(actions.addTaskAC(item)))
+            .catch((err)=>console.log(err.message))
     },
 
     updateTask: (task:TaskType) => (dispatch: (action: ActionsType)=>void) => {
-        API.updateTask(task).then((newTask) => dispatch(actions.updateTaskAC(newTask)))
+        API.updateTask(task).then((newTask) => {
+            console.log(newTask)
+            dispatch(actions.updateTaskAC(newTask))
+        })
+            .catch((err)=>console.log(err.message))
     }
 
 }

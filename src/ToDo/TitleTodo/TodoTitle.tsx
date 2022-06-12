@@ -2,7 +2,7 @@ import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {Box, Card, IconButton, Stack, TextField, Typography} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {actions} from '../../Redux/ToDoReducer';
+import {actions, thunks} from '../../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
 type TodoTitlePropsType = {
@@ -10,7 +10,7 @@ type TodoTitlePropsType = {
 }
 export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
 
-        const [todoName, setTodoName] = useState<string>('')
+        const [todoName, setTodoName] = useState<string>(todo.title)
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
@@ -23,25 +23,37 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                 setError('Title must not be empty')
                 return
             }
-            dispatch(actions.updateTodoNameAC(todoName.trim(), todo.id))
+            // @ts-ignore
+            dispatch(thunks.updateTodoList(todo.id, todoName.trim()))
             setUpdateTodoMode(!updateTodoMode)
         }, [dispatch, todo.id, todoName])
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
-        const removeTodo = useCallback(() => dispatch(actions.removeTodoAC(todo.id)), [dispatch, todo.id])
+        // @ts-ignore
+        const removeTodo = useCallback(() => dispatch(thunks.deleteTodolist(todo.id)), [dispatch, todo.id])
 
         return (
             <>
                 {
                     !updateTodoMode
                         ?
-                        <Card variant={'outlined'} sx={{ display: 'flex' ,flexDirection:'row-reverse'}} >
-                            <Box sx={{display: 'flex', flexDirection: 'row', alignItems:'center',justifyContent:'flexEnd'}}>
+                        <Card variant={'outlined'} sx={{display: 'flex', flexDirection: 'row-reverse'}}>
+                            <Box sx={{
+                                display: 'flex',
+                                flexDirection: 'row',
+                                alignItems: 'center',
+                                justifyContent: 'flexEnd'
+                            }}>
                                 <Typography variant={'h6'} p={1}>
                                     {todo.title}
                                 </Typography>
-                                <Box sx={{display: 'flex', flexDirection: 'row' , flexWrap:'wrap',justifyContent:'flex-end' }}>
+                                <Box sx={{
+                                    display: 'flex',
+                                    flexDirection: 'row',
+                                    flexWrap: 'wrap',
+                                    justifyContent: 'flex-end'
+                                }}>
                                     <IconButton onClick={removeTodo}><Delete/></IconButton>
                                     <IconButton onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
                                 </Box>
