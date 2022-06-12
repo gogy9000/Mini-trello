@@ -1,5 +1,5 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
-import {TaskApi, API, TodoListItem} from "../DAL/TodoAPI";
+import {API, TodoListItem} from "../DAL/TodoAPI";
 
 export const initialState: StateType =
     {
@@ -34,12 +34,11 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             }
 
 
-
         case 'REMOVE-TODO':
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
-                tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id != action.idTitle),
+                tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id !== action.idTitle),
             }
 
         case 'UPDATE-TODO-NAME':
@@ -90,7 +89,6 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             };
 
 
-
         case 'UPDATE-TASK':
 
             let copyState: StateType = {
@@ -120,15 +118,15 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                     [action.updatedTask.todoListId]: {
                         activeTasks: [
                             ...copyState.taskBody[action.updatedTask.todoListId].activeTasks
-                                .filter((el: TaskType) => el.status===0),
+                                .filter((el: TaskType) => el.status === 0),
                             ...copyState.taskBody[action.updatedTask.todoListId].completedTasks
-                                .filter((el: TaskType) => el.status===0)
+                                .filter((el: TaskType) => el.status === 0)
                         ],
                         completedTasks: [
                             ...copyState.taskBody[action.updatedTask.todoListId].completedTasks
-                                .filter((el: TaskType) => el.status===1),
+                                .filter((el: TaskType) => el.status === 1),
                             ...copyState.taskBody[action.updatedTask.todoListId].activeTasks
-                                .filter((el: TaskType) => el.status===1)
+                                .filter((el: TaskType) => el.status === 1)
                         ]
                         //страдааай!!!
                     }
@@ -168,9 +166,9 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
             return {
                 ...state,
-                taskBody: action.tasks.reduce((acc:taskBodyType, tasksItem: TaskType) => {
+                taskBody: action.tasks.reduce((acc: taskBodyType, tasksItem: TaskType) => {
 
-                    if (tasksItem.status===0) {
+                    if (tasksItem.status === 0) {
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
@@ -210,7 +208,7 @@ export const actions = {
         type: 'ADD-TASK',
         newTask: item
     } as const),
-    updateTaskAC: ( updatedTask:TaskType) => ({type: 'UPDATE-TASK',updatedTask} as const),
+    updateTaskAC: (updatedTask: TaskType) => ({type: 'UPDATE-TASK', updatedTask} as const),
     refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
     refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const)
 }
@@ -220,54 +218,94 @@ export const thunks = {
 
     getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void) => {
         API.getTodoList()
-            .then((data:TodoListItem[]) => {
-                dispatch(actions.refreshTodoListAC(data))
-                data.forEach((dataItem) => {
-                    API.getTasks(dataItem.id)
-                        .then((tasks: TaskType[]) => {
-                            dispatch(actions.refreshTasks(tasks))
-                        })
-                        .catch((err)=>console.log(err.message))
-                })
-            })
+            .then((response) => {
+                if (response.status === 200) {
+                    dispatch(actions.refreshTodoListAC(response.data))
+
+                    response.data.forEach((dataItem: TodoListItem) => {
+                        API.getTasks(dataItem.id)
+                            .then((props) => {
+                                if (props.status === 200) {
+                                    dispatch(actions.refreshTasks(props.tasks))
+                                } else {
+                                    console.log(props.statusText)
+                                }
+                            })
+                            .catch((err) => console.log(err.message))
+                    })
+                } else {
+                    console.log(response.statusText)
+                }
+            }).catch((err) => console.log(err.message))
     },
 
     createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
         API.createTodoList(title)
-            .then((TodoListItem) => dispatch(actions.createNewTodoAC(TodoListItem)))
-            .catch((err)=>console.log(err.message))
+            .then((props) => {
+                if (props.resultCode === 0) {
+                    dispatch(actions.createNewTodoAC(props.TodoListItem))
+                } else {
+                    console.log(props.messages)
+                }
+            }).catch((err) => console.log(err.message))
     },
 
-    updateTodoList:(todolistId:string,title:string)=>(dispatch: (action: ActionsType) => void)=>{
-        API.updateTodoLis(todolistId,title).then((res)=>{
-            console.log(res.data.resultCode)
-            if(res.data.resultCode===0){dispatch(actions.updateTodoNameAC(title,todolistId))}
-        }).catch((err)=>console.log(err.message))
+    updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void) => {
+        API.updateTodoLis(todolistId, title).then((resp) => {
+            if (resp.data.resultCode === 0) {
+                dispatch(actions.updateTodoNameAC(title, todolistId))
+            } else {
+                console.log(resp.data.messages)
+            }
+        }).catch((err) => console.log(err.message))
     },
 
-    deleteTodolist:(todolistId:string)=>(dispatch: (action: ActionsType) => void)=>{
-        API.deleteTodoList(todolistId).then((resp)=>{
-            console.log(resp.data.resultCode)
-            if(resp.data.resultCode===0){dispatch(actions.removeTodoAC(todolistId))
-            }else {
-                console.log(resp.data.messages)}
-        }).catch((err)=>console.log(err.message))
+    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void) => {
+        API.deleteTodoList(todolistId).then((resp) => {
+                console.log(resp.data.resultCode)
+                if (resp.data.resultCode === 0) {
+                    dispatch(actions.removeTodoAC(todolistId))
+                } else {
+                    console.log(resp.data.messages)
+                }
+            }
+        ).catch((err) => console.log(err.message))
     },
 
     addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
         API.createNewTask(todolistId, taskTitle)
-            .then((item) => dispatch(actions.addTaskAC(item)))
-            .catch((err)=>console.log(err.message))
+            .then((props) => {
+                    if (props.resultCode === 0) {
+                        dispatch(actions.addTaskAC(props.createdTask))
+                    } else {
+                        console.log(props.messages)
+                    }
+                }
+            ).catch((err) => console.log(err.message))
     },
 
-    updateTask: (task:TaskType) => (dispatch: (action: ActionsType)=>void) => {
-        API.updateTask(task).then((newTask) => {
-            console.log(newTask)
-            dispatch(actions.updateTaskAC(newTask))
-        })
-            .catch((err)=>console.log(err.message))
-    }
+    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void) => {
 
+        API.updateTask(task).then((props) => {
+                if (props.resultCode === 0) {
+                    dispatch(actions.updateTaskAC(props.newTask))
+                } else {
+                    console.log(props.messages)
+                }
+            }
+        ).catch((err) => console.log(err.message))
+    },
+
+    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void) => {
+        API.deleteTask(todolistId, taskId).then((resp) => {
+                if (resp.data.resultCode === 0) {
+                    dispatch(actions.deleteTaskAC(taskId, todolistId))
+                } else {
+                    console.log(resp.data.messages)
+                }
+            }
+        ).catch((err) => console.log(err.message))
+    }
 }
 
 

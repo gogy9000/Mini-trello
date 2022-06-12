@@ -1,22 +1,20 @@
 import {TaskType} from "../../Types";
 import React, {useCallback, useState} from "react";
-import {actions, thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/ToDoReducer';
 import {
     Box,
     Card,
-    CardActions,
     CardContent,
     Checkbox,
     Collapse,
     IconButton, IconButtonProps,
     Typography
 } from "@mui/material";
-import {CheckCircleOutline, Clear, Create, Edit, RadioButtonUnchecked} from "@mui/icons-material";
+import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {API} from "../../DAL/TodoAPI";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -40,33 +38,40 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
+
         const checkTask = useCallback(() => {
             // @ts-ignore
-            dispatch(thunks.updateTask({...task,status:task.status===0?1:0}))
-        }, [dispatch, task, todoId])
+            dispatch(thunks.updateTask({...task, status: task.status === 0 ? 1 : 0}))
+        }, [dispatch, task])
 
-        const deleteTask = useCallback(() => dispatch(actions.deleteTaskAC(task.id, todoId)), [dispatch, task.id, todoId])
 
         const updateTask = useCallback(() => {
             if (!taskValue.trim()) {
-                    setEditModeControlled(true)
+                setEditModeControlled(true)
                 setError('todo empty')
                 return
             }
             // @ts-ignore
-            dispatch(thunks.updateTask( {...task, title:taskValue.trim()}))
-            if (error !== '') {setError('')}
-            setEditModeControlled(false)
-        }, [dispatch, todoId, task, taskValue])
-
-        const createButtonCallBack=  ()=>{
-            setEditModeControlled(true)
+            dispatch(thunks.updateTask({...task, title: taskValue.trim()}))
+            if (error !== '') {
+                setError('')
             }
+            setEditModeControlled(false)
+        }, [dispatch, task, taskValue, error])
+
+        const deleteTask = useCallback(() => {
+            // @ts-ignore
+            dispatch(thunks.deleteTask(todoId, task.id))
+        }, [dispatch, task.id, todoId])
+
+        const onEditMode = () => {
+            setEditModeControlled(true)
+        }
 
 
         return (
             <Card variant={"outlined"}>
-                <Box sx={{display: 'flex', justifyContent: "flex-end", opacity:(task.status===1 ? 0.5 : 1)}}>
+                <Box sx={{display: 'flex', justifyContent: "flex-end", opacity: (task.status === 1 ? 0.5 : 1)}}>
                     <CardContent>
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
@@ -102,14 +107,14 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                                 <IconButton onClick={deleteTask}>
                                     <Clear/>
                                 </IconButton>
-                                {!editModeControlled?<IconButton onClick={createButtonCallBack}>
+                                {!editModeControlled ? <IconButton onClick={onEditMode}>
                                     <Create/>
-                                </IconButton>:<IconButton onClick={updateTask}>
+                                </IconButton> : <IconButton onClick={updateTask}>
                                     <Create color='primary'/>
                                 </IconButton>}
 
                                 <Checkbox
-                                    checked={task.status===1}
+                                    checked={task.status === 1}
                                     inputProps={{'aria-label': 'controlled'}}
                                     icon={<RadioButtonUnchecked/>}
                                     checkedIcon={<CheckCircleOutline/>}

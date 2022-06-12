@@ -2,7 +2,7 @@ import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {Box, Card, IconButton, Stack, TextField, Typography} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {actions, thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
 type TodoTitlePropsType = {
@@ -26,7 +26,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
             // @ts-ignore
             dispatch(thunks.updateTodoList(todo.id, todoName.trim()))
             setUpdateTodoMode(!updateTodoMode)
-        }, [dispatch, todo.id, todoName])
+        }, [dispatch, todo, todoName,updateTodoMode])
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
