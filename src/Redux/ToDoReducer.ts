@@ -97,10 +97,10 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 taskBody: {
                     ...state.taskBody,
                     [action.updatedTask.todoListId]: {
-                        activeTasks: [
-                            ...state.taskBody[action.updatedTask.todoListId].activeTasks.map(task =>
+                        activeTasks:
+                            state.taskBody[action.updatedTask.todoListId].activeTasks.map(task =>
                                 task.id === action.updatedTask.id ? action.updatedTask : task)
-                        ],
+                        ,
                         completedTasks: [
                             ...state.taskBody[action.updatedTask.todoListId].completedTasks.map(task =>
                                 task.id === action.updatedTask.id ? action.updatedTask : task)
@@ -134,7 +134,6 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
             };
 
         case 'DELETE-TASK':
-
             return {
                 ...state,
                 taskBody: {
