@@ -8,11 +8,10 @@ type TaskBlockWrapperPropsType = {
     todoId: string
     filter: string
 }
-export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
+export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
         const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].activeTasks)
         const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].completedTasks)
 
-        console.log('render TasksWrapperMemo')
         return (
 
             <Stack direction="column"
@@ -23,19 +22,23 @@ export const TasksWrapper: React.FC<TaskBlockWrapperPropsType> = React.memo(({to
                     && <div>no active and completed tasks</div>
                 }
 
-                <div>
-                    {
-                        filter === 'Completed' || 'All'
-                        && <Tasks todoId={todoId} tasks={activeTasks}/>
-                    }
-                </div>
+                {
+                    filter === 'All' &&<>
+                        <Tasks todoId={todoId} tasks={activeTasks}/>
+                        <Tasks todoId={todoId} tasks={completedTasks}/>
+                    </>
+                }
 
-                <div className={'CompletedTasks'}>
-                    {
-                        filter === 'Active' || 'All'
-                        && <Tasks todoId={todoId} tasks={completedTasks}/>
-                    }
-                </div>
+                {
+                    filter === 'Completed' &&
+                        <Tasks todoId={todoId} tasks={completedTasks}/>
+                }
+
+                {
+                    filter === 'Active' &&
+                        <Tasks todoId={todoId} tasks={activeTasks}/>
+                }
+
             </Stack>
         )
     }

@@ -2,12 +2,12 @@ import React, {
     ChangeEvent,
     DetailedHTMLProps,
     HTMLAttributes,
-    InputHTMLAttributes,
+    InputHTMLAttributes, useEffect,
 
     useState
 } from "react";
 import {Create} from "@mui/icons-material";
-import {IconButton, TextField} from "@mui/material";
+import {Box, Card, CardContent, IconButton, TextField} from "@mui/material";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -20,6 +20,8 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     onClick?: () => void
     setError: React.Dispatch<React.SetStateAction<string>>
     value: string
+    editModeControlled?: boolean
+    setEditModeControlled?: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
                                                                                  onChange,
@@ -32,40 +34,45 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
                                                                                  onClick,
                                                                                  spanProps,
                                                                                  onChangeText,
+                                                                                 editModeControlled,
+                                                                                 setEditModeControlled,
                                                                                  ...restProps
                                                                              }) => {
 
         const [editMode, setEditMode] = useState<boolean>(false)
         const {children, onDoubleClick, className, ...restSpanProps} = spanProps || {}
 
+
         const onEnterCallBack = (key: string) => {
             if (key !== 'Enter') {
                 return
             }
-            setEditMode(false)
+
+            setEditModeControlled ?
+                setEditModeControlled(false) :
+                setEditMode(false)
             onEnter && onEnter()
         }
 
         const onBlurCallBack = (e: React.FocusEvent<HTMLInputElement>) => {
-            setEditMode(false)
+            setEditModeControlled ?
+                setEditModeControlled(false) :
+                setEditMode(false)
             onBlur && onBlur(e)
         }
 
         const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
-            setEditMode(true)
+            setEditModeControlled ?
+                setEditModeControlled(true) :
+                setEditMode(true)
             onDoubleClick && onDoubleClick(e)
 
         }
-        const onClickCallback = () => {
-
-
-            if (!value.trim()) {
-                setEditMode(true)
-                setError('todo empty')
-                return
-            }
-            setEditMode(false)
-            onClick && onClick()
+        const onClickCallback = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
+            setEditModeControlled ?
+                setEditModeControlled(false) :
+                setEditMode(false)
+            onClick && onClick(e)
         }
 
         const onChangeCallBack = (e: ChangeEvent<HTMLInputElement>) => {
@@ -74,35 +81,41 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
         }
 
         const onEditMod = () => {
-            setEditMode(true)
+            setEditModeControlled ?
+                setEditModeControlled(true) :
+                setEditMode(true)
         }
+
         const finalClassName = `${className}`
 
-        return (
-            <>
-                {
-                    editMode
-                        ? <span>
-                    <TextField
-                        error={!!error}
-                        onKeyPress={(e) => {
-                            onEnterCallBack(e.key)
-                        }}
-                        onChange={onChangeCallBack}
-                        helperText={!!error ? error : false}
-                        id="outlined-error"
-                        label="update todo"
-                        value={value}/>
-                        <IconButton onClick={onClickCallback}><Create color={'primary'}/></IconButton>
-                    </span>
-                        : <span onDoubleClick={onDoubleClickCallBack}
-                                className={finalClassName}
-                                {...restSpanProps}>
-                        {children || value} <IconButton onClick={onEditMod}><Create/></IconButton>
-                        </span>
 
+        return (
+            <Box component={"span"} >
+                {
+                    editMode || editModeControlled ?
+                        <span>
+                            <TextField
+                                error={!!error}
+                                variant={"standard"}
+                                onKeyPress={(e) => {
+                                    onEnterCallBack(e.key)
+                                }}
+                                onChange={onChangeCallBack}
+                                helperText={!!error ? error : false}
+                                id="standard-error"
+                                label="update todo"
+                                multiline
+                                fullWidth
+                                value={value}/>
+                        </span>
+                        :
+                        <span onDoubleClick={onDoubleClickCallBack}
+                              className={finalClassName}
+                              {...restSpanProps}>
+                                         {children || value}
+                        </span>
                 }
-            </>
+            </Box>
         )
     }
 )

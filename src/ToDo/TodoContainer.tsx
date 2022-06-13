@@ -2,35 +2,41 @@ import React from "react";
 import '../App.css';
 import {TodoTitleType} from "../Types";
 import {ToDo} from "./ToDo";
-import {Grid} from "@mui/material";
+import {Grid, Paper} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
+import {Masonry} from "@mui/lab";
 
-export const ToDoWrapper = React.memo(() => {
+
+export const TodoContainer = React.memo(() => {
 
         const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
 
         const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (
-                    <Grid item m={1} p={2} key={todo.id}>
+                    <Paper elevation={8} key={todo.id}>
                         <ToDo todo={todo}/>
-                    </Grid>
+                    </Paper>
+
                 )
             }
         )
 
-        console.log('render ToDoWRaper')
         return (
             <>
-                <AccordionWrapper/>
+                <Grid item>
+                    <AccordionWrapper/>
+                </Grid>
+                <Grid item
 
-                <Grid container
-                      direction="row"
-                      justifyContent="space-around"
-                      alignItems="flex-start"
+
                 >
-                    {todos}
+                    <Masonry columns={{xs: 1, sm: 2, md: 3, xl: 5, xxl: 6}}
+                             sx={{pl: 1}}
+                             spacing={2}>
+                        {todos}
+                    </Masonry>
                 </Grid>
             </>
         )

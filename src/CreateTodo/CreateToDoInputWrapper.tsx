@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
-import {actions} from '../Redux/ToDoReducer';
+import {thunks} from '../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
 
 
@@ -15,13 +15,16 @@ export const CreateToDoInputWrapper = React.memo(() => {
                 setError('To do title must not be empty')
                 return
             }
-            dispatch(actions.createNewTodoAC(todoName.trim()))
+            // @ts-ignore
+            dispatch(thunks.createTodolistTC(todoName.trim()))
             setTodoName('')
             setError('')
         }
 
         const setToDoTitle = (value: string) => {
-            setError('')
+           if(error!=='') {
+               setError('')
+           }
             setTodoName(value)
         }
 

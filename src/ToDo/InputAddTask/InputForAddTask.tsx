@@ -1,30 +1,31 @@
-import React, {useState} from "react";
+import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {actions} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/ToDoReducer';
 import {IconButton, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
-import {useDispatch} from "react-redux";
+import {useAppDispatch} from "../../App";
 
 type InputBlockForAddTaskPropsType = {
     todoId: string
 }
 
-export const InputBlockForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({idTitle}) => {
+export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todoId}) => {
 
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)
-        const dispatch = useDispatch()
+        const dispatch = useAppDispatch()
 
-        const addTask = () => {
+        const addTask = useCallback( () => {
             if ((/^\s+$/).test(inputText) || inputText === '') {
                 setErrorInput(true)
                 return
             }
-            dispatch(actions.addTaskAC(idTitle, inputText))
+            // @ts-ignore
+            dispatch(thunks.addTaskTC(todoId, inputText))
             setInputText('')
-        }
+        },[dispatch,todoId,inputText])
 
-        const ChangeTextTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
+        const ChangeTextTaskTitle =(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
 
 
         const onclickHandler = () => {
@@ -43,6 +44,7 @@ export const InputBlockForAddTask: React.FC<InputBlockForAddTaskPropsType> = Rea
                     id="filled-error-helper-text"
                     label={errorInput ? "field is empty." : 'New todo'}
                     helperText={errorInput ? "field is empty." : ""}
+                    fullWidth
                     variant="filled"
                 />
                 <IconButton onClick={addTask}><AddTask/></IconButton>

@@ -4,22 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use redux-dev-tools Trace">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput/AccordionWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.test.tsx" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputBlockForAddTask.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitleToDoWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDoWrapper.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -30,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -70,7 +59,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/CreateTodo/AccordionForCreateToDoInput" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../todo-list-by-incubator" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -100,17 +89,17 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\InputAddTask" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.Todo should be add">
-    <configuration name="Todo should be add" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="npm.test">
+    <configuration name="task to be checked" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
       <working-dir value="$PROJECT_DIR$" />
       <envs />
       <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.test.ts" />
+      <test-file value="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" />
       <test-names>
-        <test-name value="Todo should be add" />
+        <test-name value="task to be checked" />
       </test-names>
       <method v="2" />
     </configuration>
@@ -157,10 +146,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
-        <item itemvalue="npm.deploy" />
+        <item itemvalue="Jest.task to be checked" />
         <item itemvalue="npm.start" />
-        <item itemvalue="Jest.Todo should be add" />
         <item itemvalue="npm.storybook" />
+        <item itemvalue="npm.deploy" />
       </list>
     </recent_temporary>
   </component>
@@ -184,7 +173,29 @@
       <workItem from="1652431777770" duration="634000" />
       <workItem from="1652509512956" duration="18782000" />
       <workItem from="1652593767917" duration="1930000" />
-      <workItem from="1653026635701" duration="16449000" />
+      <workItem from="1653026635701" duration="16542000" />
+      <workItem from="1653059506379" duration="5000" />
+      <workItem from="1653121599623" duration="1842000" />
+      <workItem from="1653191741695" duration="1237000" />
+      <workItem from="1653293945276" duration="1074000" />
+      <workItem from="1653735866789" duration="2395000" />
+      <workItem from="1653760542945" duration="53000" />
+      <workItem from="1653986164104" duration="18423000" />
+      <workItem from="1654056077008" duration="27451000" />
+      <workItem from="1654163761288" duration="6632000" />
+      <workItem from="1654228146556" duration="1270000" />
+      <workItem from="1654405123637" duration="620000" />
+      <workItem from="1654530039276" duration="28000" />
+      <workItem from="1654538785920" duration="2550000" />
+      <workItem from="1654586020667" duration="1533000" />
+      <workItem from="1654666684737" duration="18253000" />
+      <workItem from="1654773102047" duration="2982000" />
+      <workItem from="1654777961309" duration="1096000" />
+      <workItem from="1654779206060" duration="13428000" />
+      <workItem from="1654843375529" duration="22947000" />
+      <workItem from="1654926159901" duration="16682000" />
+      <workItem from="1655014983896" duration="19775000" />
+      <workItem from="1655102193058" duration="9425000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -291,7 +302,161 @@
       <option name="project" value="LOCAL" />
       <updated>1653043643066</updated>
     </task>
-    <option name="localTasksCounter" value="16" />
+    <task id="LOCAL-00016" summary="refactoring">
+      <created>1653047735630</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1653047735630</updated>
+    </task>
+    <task id="LOCAL-00017" summary="use Local-storage-utils.ts">
+      <created>1653736853842</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1653736853842</updated>
+    </task>
+    <task id="LOCAL-00018" summary="use useCallback hook">
+      <created>1653738242116</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1653738242116</updated>
+    </task>
+    <task id="LOCAL-00019" summary="refactoring in process">
+      <created>1654023290909</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1654023290909</updated>
+    </task>
+    <task id="LOCAL-00020" summary="refactoring in process">
+      <created>1654083477533</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1654083477533</updated>
+    </task>
+    <task id="LOCAL-00021" summary="refactoring in process">
+      <created>1654178399219</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1654178399219</updated>
+    </task>
+    <task id="LOCAL-00022" summary="refactoring in process">
+      <created>1654539492589</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1654539492589</updated>
+    </task>
+    <task id="LOCAL-00023" summary="refactoring in process">
+      <created>1654541479357</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1654541479357</updated>
+    </task>
+    <task id="LOCAL-00024" summary="fix ButtonsBlock.stories.tsx">
+      <created>1654675314027</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1654675314027</updated>
+    </task>
+    <task id="LOCAL-00025" summary=" create ToDo.stories.tsx">
+      <created>1654690159291</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1654690159291</updated>
+    </task>
+    <task id="LOCAL-00026" summary="use Api todolist">
+      <created>1654851145834</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1654851145835</updated>
+    </task>
+    <task id="LOCAL-00027" summary="use Api todolist">
+      <created>1654871667038</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1654871667038</updated>
+    </task>
+    <task id="LOCAL-00028" summary="migration on Api-Todo-list">
+      <created>1654934697083</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1654934697083</updated>
+    </task>
+    <task id="LOCAL-00029" summary="refactoring ToDoReducer.ts">
+      <created>1654937487958</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1654937487958</updated>
+    </task>
+    <task id="LOCAL-00030" summary="fix refreshTask">
+      <created>1654942707910</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1654942707910</updated>
+    </task>
+    <task id="LOCAL-00031" summary="use updateTodoLisThunk">
+      <created>1654972107240</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1654972107240</updated>
+    </task>
+    <task id="LOCAL-00032" summary="fix checkTask in Task.tsx">
+      <created>1655020388956</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1655020388956</updated>
+    </task>
+    <task id="LOCAL-00033" summary="fix getTask in Api">
+      <created>1655029790905</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1655029790905</updated>
+    </task>
+    <task id="LOCAL-00034" summary="fix double render App">
+      <created>1655046880729</created>
+      <option name="number" value="00034" />
+      <option name="presentableId" value="LOCAL-00034" />
+      <option name="project" value="LOCAL" />
+      <updated>1655046880729</updated>
+    </task>
+    <task id="LOCAL-00035" summary="fix double render App">
+      <created>1655049896750</created>
+      <option name="number" value="00035" />
+      <option name="presentableId" value="LOCAL-00035" />
+      <option name="project" value="LOCAL" />
+      <updated>1655049896750</updated>
+    </task>
+    <task id="LOCAL-00036" summary="use redux-dev-tools">
+      <created>1655051082522</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1655051082522</updated>
+    </task>
+    <task id="LOCAL-00037" summary="use redux-dev-tools Trace">
+      <created>1655107213596</created>
+      <option name="number" value="00037" />
+      <option name="presentableId" value="LOCAL-00037" />
+      <option name="project" value="LOCAL" />
+      <updated>1655107213596</updated>
+    </task>
+    <option name="localTasksCounter" value="38" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -310,8 +475,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Refactoring" />
-    <MESSAGE value="create unit tests for ToDoReducer.ts" />
     <MESSAGE value="Use useReducer" />
     <MESSAGE value="fix TaskTitleBlock.tsx" />
     <MESSAGE value="fixed CustomEditSpan.tsx" />
@@ -322,7 +485,22 @@
     <MESSAGE value="backStep on redux" />
     <MESSAGE value="use filter state in redux" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="use Local-storage-utils.ts" />
+    <MESSAGE value="use useCallback hook" />
+    <MESSAGE value="refactoring in process" />
+    <MESSAGE value="fix ButtonsBlock.stories.tsx" />
+    <MESSAGE value=" create ToDo.stories.tsx" />
+    <MESSAGE value="use Api todolist" />
+    <MESSAGE value="migration on Api-Todo-list" />
+    <MESSAGE value="refactoring ToDoReducer.ts" />
+    <MESSAGE value="fix refreshTask" />
+    <MESSAGE value="use updateTodoLisThunk" />
+    <MESSAGE value="fix checkTask in Task.tsx" />
+    <MESSAGE value="fix getTask in Api" />
+    <MESSAGE value="fix double render App" />
+    <MESSAGE value="use redux-dev-tools" />
+    <MESSAGE value="use redux-dev-tools Trace" />
+    <option name="LAST_COMMIT_MESSAGE" value="use redux-dev-tools Trace" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

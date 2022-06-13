@@ -1,30 +1,34 @@
 // Button.stories.ts|tsx
 
 import React from 'react';
-
 import {ComponentStory, ComponentMeta} from '@storybook/react';
-import {ButtonsInToDoWrapper} from "./ButtonsInToDoWrapper";
-
-import {Paper} from "@mui/material";
-
+import {ButtonsInToDoContainer} from "./ButtonsInToDoContainer";
+import {ProviderDecorators} from "../stories/ProviderDecorators";
 
 export default {
-
     title: 'ButtonBlock',
-    component: ButtonsInToDoWrapper,
-} as ComponentMeta<typeof ButtonsInToDoWrapper>;
+    component: ButtonsInToDoContainer,
+    decorators: [ProviderDecorators]
+} as ComponentMeta<typeof ButtonsInToDoContainer>;
 
+const Template: ComponentStory<typeof ButtonsInToDoContainer> = (args) => <ButtonsInToDoContainer  {...args}/>
 
-export const ButtonsBlockStories: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
-
-
-
-
-    return <ButtonsInToDoWrapper todoId={'123'}  filter={'all'}/>
+export const All = Template.bind({})
+All.args = {
+    todoId: '123',
+    filter: 'All'
 }
 
-export const ButtonsBlockPaperWrapper: ComponentStory<typeof ButtonsInToDoWrapper> = () => {
-
-
-    return <Paper elevation={12}> <ButtonsInToDoWrapper  todoId={'123'} filter={'all'}/></Paper>
+export const Active = Template.bind({})
+Active.args = {
+    todoId: '123',
+    filter: 'Active'
 }
+
+export const Completed = Template.bind({})
+Completed.args = {
+    todoId: '123',
+    filter: 'Completed'
+}
+
+

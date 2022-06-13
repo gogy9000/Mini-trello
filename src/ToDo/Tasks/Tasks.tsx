@@ -15,11 +15,11 @@ export const Tasks: React.FC<TaskBlockType> = React.memo(({tasks, todoId}) => {
         )
 
         return (
-            <div>
-                <div>
+
+                <>
                     {mapTasks}
-                </div>
-            </div>
+                </>
+
         )
     }
 )

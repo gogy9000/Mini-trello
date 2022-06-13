@@ -7,7 +7,7 @@ import AccordionDetails from "@mui/material/AccordionDetails";
 import {CreateToDoInputWrapper} from "../CreateToDoInputWrapper";
 
 export const AccordionWrapper: React.FC = React.memo(() => {
-        console.log('render AccordionWrapper')
+
         return (
             <>
                 <Accordion>

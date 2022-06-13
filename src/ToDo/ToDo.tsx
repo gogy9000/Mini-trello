@@ -1,54 +1,47 @@
 import {TodoTitleType} from "../Types";
-import React from "react";
-import {InputBlockForAddTask} from "./InputAddTask/InputBlockForAddTask";
-import {ButtonsInToDoWrapper} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoWrapper";
-import {TasksWrapper} from "./Tasks/TasksWrapper";
-import {TitleToDoWrapper} from "./TitleTodo/TitleToDoWrapper";
-import {Divider, Grid, Paper, Typography} from "@mui/material";
+import React, {useEffect, useState} from "react";
+import {InputForAddTask} from "./InputAddTask/InputForAddTask";
+import {ButtonsInToDoContainer} from "../ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer";
+import {TasksContainer} from "./Tasks/TasksContainer";
+import {TodoTitle} from "./TitleTodo/TodoTitle";
+import {Box, Card, Divider, Grid, Paper, Typography} from "@mui/material";
+import {API} from "../DAL/TodoAPI";
 
 type ToDoPropsType = {
     todo: TodoTitleType
 }
 
 export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
-
-        console.log('render ToDo')
-
+    // console.log(todo)
+    // useEffect(()=>{
+    //     API.updateTask(todo.title)
+    // },[])
+        //addedDate: "2022-06-09T13:13:44.687"
+    // filter: "All"
+    // id: "17f341ab-fb90-4021-b11f-b58425cbe71d"
+    // order: 0
+    // title: "s"
         return (
-            <Paper elevation={24}>
-                <Grid container
-                      p={2}
-                      direction={"column"}
-                      justifyContent="center"
-                      alignItems="center">
 
-                    <Grid item container justifyContent="right" alignItems='flex-end' p={3}>
-                        <Typography variant={"h5"} component={'div'}>
-                            <TitleToDoWrapper todo={todo}/>
-                            <Divider/>
-                        </Typography>
-                    </Grid>
+                <Card variant='outlined'
+                      sx={{display: 'flex',
+                          padding:1,
+                          flexDirection: 'column',
+                          justifyContent:'stretch',
+                          rowGap:1,
+                          alignItems:'stretch'}}>
 
-                    <Grid item container direction={'column'} rowSpacing={2} justifyContent={'center'}>
+                    <TodoTitle todo={todo}/>
 
-                        <Grid item>
-                            <InputBlockForAddTask todoId={todo.id}/>
-                        </Grid>
+                    <InputForAddTask todoId={todo.id}/>
 
-                        <Grid container item justifyContent='center'>
-                            <Typography component={'div'}>
-                                <TasksWrapper todoId={todo.id} filter={todo.filter}/>
-                            </Typography>
-                        </Grid>
+                    <TasksContainer todoId={todo.id} filter={todo.filter}/>
 
-                        <Grid container item justifyContent="center" alignItems="flex-end" m={1}>
-                            <Paper elevation={6}>
-                                <ButtonsInToDoWrapper todoId={todo.id} filter={todo.filter}/>
-                            </Paper>
-                        </Grid>
-                    </Grid>
-                </Grid>
-            </Paper>
+                    <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
+
+                </Card>
+
+
 
         )
     }
