@@ -11,12 +11,17 @@ export type AppDispatchType = typeof store.dispatch
 
 const persistState = loadState()
 
+const composeEnhancers = composeWithDevTools({
+    trace:true,
+    traceLimit:10
+});
+
 
 let rootReducer = combineReducers({
     stateTodo: ToDoReducer
 })
 
-export let store = legacy_createStore(rootReducer, composeWithDevTools(applyMiddleware(thunk)))
+export let store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
 
 store.subscribe(() => {
     saveState(store.getState())

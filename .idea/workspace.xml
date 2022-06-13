@@ -4,11 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix double render App">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use redux-dev-tools">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -193,7 +191,8 @@
       <workItem from="1654779206060" duration="13428000" />
       <workItem from="1654843375529" duration="22947000" />
       <workItem from="1654926159901" duration="16682000" />
-      <workItem from="1655014983896" duration="19529000" />
+      <workItem from="1655014983896" duration="19775000" />
+      <workItem from="1655102193058" duration="1398000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -440,7 +439,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655049896750</updated>
     </task>
-    <option name="localTasksCounter" value="36" />
+    <task id="LOCAL-00036" summary="use redux-dev-tools">
+      <created>1655051082522</created>
+      <option name="number" value="00036" />
+      <option name="presentableId" value="LOCAL-00036" />
+      <option name="project" value="LOCAL" />
+      <updated>1655051082522</updated>
+    </task>
+    <option name="localTasksCounter" value="37" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -459,7 +465,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="Refactoring" />
     <MESSAGE value="create unit tests for ToDoReducer.ts" />
     <MESSAGE value="Use useReducer" />
     <MESSAGE value="fix TaskTitleBlock.tsx" />
@@ -484,7 +489,8 @@
     <MESSAGE value="fix checkTask in Task.tsx" />
     <MESSAGE value="fix getTask in Api" />
     <MESSAGE value="fix double render App" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix double render App" />
+    <MESSAGE value="use redux-dev-tools" />
+    <option name="LAST_COMMIT_MESSAGE" value="use redux-dev-tools" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
