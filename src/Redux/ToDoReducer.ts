@@ -1,5 +1,6 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
 import {API, TodoListItem} from "../DAL/TodoAPI";
+import {AppThunk} from "./ReduxStore";
 
 export const initialState: StateType =
     {
@@ -215,7 +216,7 @@ export const actions = {
 
 export const thunks = {
 
-    getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void) => {
+    getTodolistAndTasks: ():AppThunk => (dispatch) => {
         API.getTodoList()
             .then((response) => {
                 if (response.status === 200) {

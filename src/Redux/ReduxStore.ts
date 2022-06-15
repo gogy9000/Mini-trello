@@ -1,15 +1,20 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import {ToDoReducer} from './ToDoReducer';
+import {ActionsType, ToDoReducer} from './ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
-import thunk from "redux-thunk";
+import thunk, {ThunkAction} from "redux-thunk";
 import {composeWithDevTools} from "@redux-devtools/extension";
 
 
 type RootReducerType = typeof rootReducer
+
 export type AppStateType = ReturnType<RootReducerType>
+
 export type AppDispatchType = typeof store.dispatch
 
+export type AppThunk<ReturnType=void>=ThunkAction<ReturnType,RootReducerType,unknown,ActionsType>
+
 const persistState = loadState()
+
 
 const composeEnhancers = composeWithDevTools({
     trace:true,
@@ -21,7 +26,7 @@ let rootReducer = combineReducers({
     stateTodo: ToDoReducer
 })
 
-export let store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+export let store = legacy_createStore(rootReducer,persistState, composeEnhancers(applyMiddleware(thunk)))
 
 store.subscribe(() => {
     saveState(store.getState())
