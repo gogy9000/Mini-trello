@@ -1,27 +1,37 @@
 import {Provider} from "react-redux";
 import {AppStateType, store} from "../Redux/ReduxStore";
-import {AnyAction, applyMiddleware, combineReducers, createStore, EmptyObject, Store} from "redux";
+import {
+    AnyAction,
+    applyMiddleware,
+    combineReducers,
+    createStore,
+    EmptyObject,
+    legacy_createStore,
+    PreloadedState,
+    Store
+} from "redux";
 import {ToDoReducer} from "../Redux/ToDoReducer";
 import {StateType, TaskType, TodoTitleType} from "../Types";
 import thunk from "redux-thunk";
 
-type RootReducerType = typeof ToDoReducer
+type RootReducerType = typeof rootReducer
 export type AppRootStateType=ReturnType<RootReducerType>
+let rootReducer = combineReducers({
+    stateTodo: ToDoReducer
+})
 
-
-let id = '123'
-let state={
-    tasksTitle: [{id: id, title: 'todo azaza', addedDate: 'string', order: 0, filter: 'All'}] ,
+ let stateStories={
+    tasksTitle: [{id: '123321', title: 'todo azaza', addedDate: 'string', order: 0, filter: 'All'}] as TodoTitleType[] ,
     taskBody: {
-        [id]: {
-            activeTasks: [] ,
-            completedTasks: []
+        ['123321']: {
+            activeTasks: [{description: 'string | null', title: 'Active Task', status: 0, priority: 1, startDate: 'string | null', deadline: 'string | null', id: '321', todoListId: '123', order: 0, addedDate: '123'}] as TaskType[] ,
+            completedTasks: [{description: 'string | null', title: 'Completed Task', status: 1, priority: 1, startDate: 'string | null', deadline: 'string | null', id: '21', todoListId: '123', order: 0, addedDate: '123'}] as TaskType[]
         }
     }
 }
 
 
 
-let storeForStoryBook = createStore(ToDoReducer, state as AppRootStateType);
+ let storeForStoryBook = legacy_createStore(rootReducer, {stateTodo:stateStories} )
 
 export const ProviderDecorators = (storiesFn: any) => <Provider store={storeForStoryBook}>{storiesFn()}</Provider>

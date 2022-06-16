@@ -10,6 +10,7 @@ export const initialState: StateType =
             //     activeTasks: [] as Array<TaskType>,
             //         completedTasks: [] as Array<TaskType>
             // }
+
         }
     }
 

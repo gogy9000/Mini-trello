@@ -80,6 +80,10 @@
     "@storybook/testing-library": "^0.0.13",
     "@types/uuid": "^8.3.4",
     "gh-pages": "^3.2.3",
+    "jest-image-snapshot": "^5.1.0",
+    "jest-puppeteer": "^6.1.0",
+    "puppeteer": "^14.4.0",
+    "start-server-and-test": "^1.14.0",
     "webpack": "^5.72.0"
   }
 }
