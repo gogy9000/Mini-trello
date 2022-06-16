@@ -4,15 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create InputForAddTask.stories.tsx">
-      <change afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.stories.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="install  snapshot tes by storybook">
+      <change afterPath="$PROJECT_DIR$/integration/setupTests.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/integration/​jest.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,6 +20,7 @@
       <list>
         <option value="TypeScript File" />
         <option value="TypeScript JSX File" />
+        <option value="JavaScript File" />
       </list>
     </option>
   </component>
@@ -70,7 +67,7 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="ts.external.directory.path" value="G:\incubator-to-do-list\incubator-to-do-list\node_modules\typescript\lib" />
+    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -204,7 +201,7 @@
       <workItem from="1655276029753" duration="8623000" />
       <workItem from="1655356617105" duration="5177000" />
       <workItem from="1655363098865" duration="521000" />
-      <workItem from="1655363645522" duration="10864000" />
+      <workItem from="1655363645522" duration="11496000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -493,7 +490,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655367200616</updated>
     </task>
-    <option name="localTasksCounter" value="42" />
+    <task id="LOCAL-00042" summary="install  snapshot tes by storybook">
+      <created>1655377504976</created>
+      <option name="number" value="00042" />
+      <option name="presentableId" value="LOCAL-00042" />
+      <option name="project" value="LOCAL" />
+      <updated>1655377504976</updated>
+    </task>
+    <option name="localTasksCounter" value="43" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -512,7 +516,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use dynamic types in ToDoReducerForUseReducer.ts" />
     <MESSAGE value="use React.memo() , refactoring" />
     <MESSAGE value="optimized render App" />
     <MESSAGE value="backStep on redux" />
@@ -537,7 +540,8 @@
     <MESSAGE value="fix TodoAPI.ts types" />
     <MESSAGE value="create TitlTodo.stories.tsx" />
     <MESSAGE value="create InputForAddTask.stories.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="create InputForAddTask.stories.tsx" />
+    <MESSAGE value="install  snapshot tes by storybook" />
+    <option name="LAST_COMMIT_MESSAGE" value="install  snapshot tes by storybook" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
