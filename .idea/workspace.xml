@@ -4,15 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix TodoAPI.ts types">
-      <change afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitlTodo.stories.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create TitlTodo.stories.tsx">
+      <change afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.storybook/main.js" beforeDir="false" afterPath="$PROJECT_DIR$/.storybook/main.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -22,8 +19,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -202,7 +199,9 @@
       <workItem from="1655119829221" duration="1310000" />
       <workItem from="1655187713027" duration="662000" />
       <workItem from="1655276029753" duration="8623000" />
-      <workItem from="1655356617105" duration="3175000" />
+      <workItem from="1655356617105" duration="5177000" />
+      <workItem from="1655363098865" duration="521000" />
+      <workItem from="1655363645522" duration="3274000" />
     </task>
     <task id="LOCAL-00001" summary="Refactoring">
       <created>1651773775312</created>
@@ -477,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655309128593</updated>
     </task>
-    <option name="localTasksCounter" value="40" />
+    <task id="LOCAL-00040" summary="create TitlTodo.stories.tsx">
+      <created>1655360250195</created>
+      <option name="number" value="00040" />
+      <option name="presentableId" value="LOCAL-00040" />
+      <option name="project" value="LOCAL" />
+      <updated>1655360250195</updated>
+    </task>
+    <option name="localTasksCounter" value="41" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -496,7 +502,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fixed CustomEditSpan.tsx" />
     <MESSAGE value="use story book and fixed problem in ToDoWrapper.tsx" />
     <MESSAGE value="use dynamic types in ToDoReducerForUseReducer.ts" />
     <MESSAGE value="use React.memo() , refactoring" />
@@ -521,7 +526,8 @@
     <MESSAGE value="use redux-dev-tools Trace" />
     <MESSAGE value="fix ToDoReducer.test.ts" />
     <MESSAGE value="fix TodoAPI.ts types" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix TodoAPI.ts types" />
+    <MESSAGE value="create TitlTodo.stories.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="create TitlTodo.stories.tsx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
