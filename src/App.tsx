@@ -3,15 +3,16 @@ import './App.css';
 import {TodoContainer} from "./ToDo/TodoContainer";
 import {Grid} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import { thunks} from "./Redux/ToDoReducer";
-import {AppDispatchType} from "./Redux/ReduxStore";
+import {AppDispatchType, AppStateType, AppThunk,} from "./Redux/ReduxStore";
+import {Dispatch} from "redux";
 
-export const useAppDispatch = () => useDispatch<AppDispatchType>()
+export const useAppDispatch = () => useDispatch()
 
 export const App = React.memo( () =>{
 
-        const dispatch = useAppDispatch()
+        const dispatch = useDispatch()
 
         useEffect(()=>{
             // @ts-ignore
