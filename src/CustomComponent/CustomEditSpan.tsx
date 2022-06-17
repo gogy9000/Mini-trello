@@ -18,7 +18,7 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     spanClassName?: string
     spanProps?: DefaultSpanPropsType
     onClick?: () => void
-    setError: React.Dispatch<React.SetStateAction<string>>
+    setError?: React.Dispatch<React.SetStateAction<string>>
     value: string
     editModeControlled?: boolean
     setEditModeControlled?: React.Dispatch<React.SetStateAction<boolean>>
@@ -90,12 +90,14 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
 
 
         return (
-            <Box component={"span"} >
+
+            <Box component={"span"} data-testId='Box' >
                 {
                     editMode || editModeControlled ?
                         <span>
                             <TextField
                                 error={!!error}
+                                data-testId='TextField'
                                 variant={"standard"}
                                 onKeyPress={(e) => {
                                     onEnterCallBack(e.key)
@@ -110,11 +112,14 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
                         </span>
                         :
                         <span onDoubleClick={onDoubleClickCallBack}
+                              data-testId='span'
                               className={finalClassName}
+                              defaultValue='123'
                               {...restSpanProps}>
                                          {children || value}
                         </span>
                 }
+
             </Box>
         )
     }
