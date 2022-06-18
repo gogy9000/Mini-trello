@@ -24,6 +24,7 @@ export type TodoTitleType ={
 export type StateType={
     tasksTitle:Array<TodoTitleType>
     taskBody:taskBodyType
+    unauthorizedMode:boolean
 
 }
 
