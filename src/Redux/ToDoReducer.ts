@@ -1,5 +1,5 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
-import {API, TodoListItem} from "../DAL/TodoAPI";
+import {API, TaskItem, TodoListItem} from "../DAL/TodoAPI";
 import {AppStateType, AppThunk, store} from "./ReduxStore";
 import {v1} from "uuid";
 
@@ -194,7 +194,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 }, state.taskBody)
             }
         case "CHANGE-UNAUTHORIZED-MODE":
-            return {...state,unauthorizedMode:action.isUnauthorizedMode}
+            return {...state, unauthorizedMode: action.isUnauthorizedMode}
 
 
         default:
@@ -210,23 +210,79 @@ export const actions = {
         ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
     createNewTodoAC: (payload: TodoListItem) => ({type: 'CREATE-NEW-TODO', payload} as const),
     deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
-    addTaskAC: (item: any) => ({
+    addTaskAC: (item: TaskType) => ({
         type: 'ADD-TASK',
         newTask: item
     } as const),
     updateTaskAC: (updatedTask: TaskType) => ({type: 'UPDATE-TASK', updatedTask} as const),
     refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
     refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const),
-    changeUnauthorizedMode:(isUnauthorizedMode:boolean)=>({type:'CHANGE-UNAUTHORIZED-MODE',isUnauthorizedMode}as const)
+    changeUnauthorizedMode: (isUnauthorizedMode: boolean) => ({
+        type: 'CHANGE-UNAUTHORIZED-MODE',
+        isUnauthorizedMode
+    } as const)
 }
 
 
 export const thunks = {
+    synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
 
-    getTodolistAndTasks: () => (dispatch:(action: ActionsType) => void,getState:()=> AppStateType) => {
+        getState().stateTodo.tasksTitle.forEach((todo) => {
+                if (todo.isASynchronizedTodo) {
+                   const p1= new Promise((resolve, reject) => {
+
+                        API.createTodoList(todo.title)
+                            .then((props) => {
+                                    if (props.resultCode === 0) {
+                                        dispatch(actions.createNewTodoAC(props.TodoListItem))
+                                    } else {
+                                        console.log(props.messages)
+                                    }
+                                    return props.TodoListItem
+                                }
+                            ).then((TodoListItem) => {
+
+                            getState().stateTodo.taskBody[todo.id].activeTasks.forEach((task) => {
+                                    if (task.isASynchronizedTask) {
+                                        API.createNewTask(TodoListItem.id, task.title)
+                                            .then((props) => {
+                                                dispatch(actions.addTaskAC(props.createdTask))
+                                            }).catch((err) => console.log(err.message))
+                                    }
+                                }
+                            )
+                            getState().stateTodo.taskBody[todo.id].completedTasks.forEach((task) => {
+                                    if (task.isASynchronizedTask) {
+                                        API.createNewTask(TodoListItem.id, task.title)
+                                            .then((props) => {
+                                                dispatch(actions.addTaskAC(props.createdTask))
+                                            }).catch((err) => console.log(err.message))
+                                    }
+                                }
+                            )
+                        }).catch((err) => console.log(err.message))
+
+                        return resolve(todo.id)
+                    })
+                    Promise.all([p1]).then((id)=>{
+
+
+                                // @ts-ignore
+                        dispatch(actions.removeTodoAC(id[0]))
+
+
+                        console.log(id)})
+                }
+
+            }
+        )
+
+    },
+
+    getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             return
-        }else {
+        } else {
             API.getTodoList()
                 .then((response) => {
                     if (response.status === 200) {
@@ -251,26 +307,32 @@ export const thunks = {
     },
 
     createTodolistTC: (title: string) =>
-        (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
-            dispatch(
-                actions.createNewTodoAC(
-                    {id: v1(), title: title, addedDate: JSON.stringify(new Date()), order: 0}
+        (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+            if (getState().stateTodo.unauthorizedMode) {
+                dispatch(
+                    actions.createNewTodoAC(
+                        {
+                            id: v1(),
+                            title: title,
+                            addedDate: JSON.stringify(new Date()),
+                            order: 0,
+                            isASynchronizedTodo: true
+                        }
+                    )
                 )
-            )
-        } else {
-            API.createTodoList(title)
-                .then((props) => {
-                    if (props.resultCode === 0) {
-                        dispatch(actions.createNewTodoAC(props.TodoListItem))
-                    } else {
-                        console.log(props.messages)
-                    }
-                }).catch((err) => console.log(err.message))
-        }
-    },
+            } else {
+                API.createTodoList(title)
+                    .then((props) => {
+                        if (props.resultCode === 0) {
+                            dispatch(actions.createNewTodoAC(props.TodoListItem))
+                        } else {
+                            console.log(props.messages)
+                        }
+                    }).catch((err) => console.log(err.message))
+            }
+        },
 
-    updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
+    updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             dispatch(actions.updateTodoNameAC(title, todolistId))
         } else {
@@ -284,7 +346,7 @@ export const thunks = {
         }
     },
 
-    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
+    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
@@ -300,25 +362,27 @@ export const thunks = {
         }
     },
 
-    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
+    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             dispatch(actions.addTaskAC({
-                        description: null,
-                        title: taskTitle,
-                        status: 0,
-                        priority: 0,
-                        startDate: null,
-                        deadline: null,
-                        id: v1(),
-                        todoListId: todolistId,
-                        order: 0,
-                        addedDate: JSON.stringify(new Date())
-                    }
-                )
+                    description: null,
+                    title: taskTitle,
+                    status: 0,
+                    priority: 0,
+                    startDate: null,
+                    deadline: null,
+                    id: v1(),
+                    todoListId: todolistId,
+                    order: 0,
+                    addedDate: JSON.stringify(new Date()),
+                    isASynchronizedTask: true
+                })
             )
         } else {
             API.createNewTask(todolistId, taskTitle)
+
                 .then((props) => {
+                        console.log(props.createdTask)
                         if (props.resultCode === 0) {
                             dispatch(actions.addTaskAC(props.createdTask))
                         } else {
@@ -329,7 +393,7 @@ export const thunks = {
         }
     },
 
-    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
+    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             dispatch(actions.updateTaskAC(task))
         } else {
@@ -344,7 +408,7 @@ export const thunks = {
         }
     },
 
-    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void,getState:()=> AppStateType) => {
+    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().stateTodo.unauthorizedMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {

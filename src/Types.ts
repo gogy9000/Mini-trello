@@ -11,6 +11,7 @@ export type TaskType = {
     todoListId: string
     order: number
     addedDate: string
+    isASynchronizedTask?:boolean
 }
 
 export type TodoTitleType ={
@@ -19,6 +20,7 @@ export type TodoTitleType ={
     addedDate:string
     order:number
     filter: string
+    isASynchronizedTodo?:boolean
 }
 
 export type StateType={

@@ -204,7 +204,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
                                     checked={state.unauthorizedMode}
                                     onChange={onUnauthorizedMode}
                                     inputProps={{'aria-label': 'controlled'}}
-                                    color="default"
+                                    color="error"
                                 />
                                 <Typography>un authorized mode</Typography>
                             </Stack>
