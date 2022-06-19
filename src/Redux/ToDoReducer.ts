@@ -226,54 +226,56 @@ export const actions = {
 
 export const thunks = {
     synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-
         getState().stateTodo.tasksTitle.forEach((todo) => {
+
                 if (todo.isASynchronizedTodo) {
-                   const p1= new Promise((resolve, reject) => {
+                    API.createTodoList(todo.title).then((props) => {
 
-                        API.createTodoList(todo.title)
-                            .then((props) => {
-                                    if (props.resultCode === 0) {
-                                        dispatch(actions.createNewTodoAC(props.TodoListItem))
-                                    } else {
-                                        console.log(props.messages)
-                                    }
-                                    return props.TodoListItem
+                                if (props.resultCode === 0) {dispatch(actions.createNewTodoAC(props.TodoListItem))
+
+                                    let activeTasksPromise = new Promise((resolve, reject) => {
+                                        if (getState().stateTodo.taskBody[todo.id].activeTasks.length === 0) {
+                                            reject('activeTasks-empty')
+                                        }
+                                        getState().stateTodo.taskBody[todo.id].activeTasks.forEach(
+                                            (task, i, arr) => {
+                                                if (task.isASynchronizedTask) {
+                                                    API.createNewTask(props.TodoListItem.id, task.title)
+                                                        .then((props) => {
+                                                            dispatch(actions.addTaskAC(props.createdTask))
+                                                            if (i === arr.length - 1) {resolve('success')}
+                                                        }).catch((err) => console.log(err.message))
+                                                }
+                                            }
+                                        )
+                                    })
+
+                                    let completedTasksPromise = new Promise((resolve, reject) => {
+                                        if (getState().stateTodo.taskBody[todo.id].completedTasks.length === 0) {
+                                            reject('completedTasks-empty')
+                                        }
+                                        getState().stateTodo.taskBody[todo.id].completedTasks.forEach(
+                                            (task, index, array) => {
+                                                if (task.isASynchronizedTask) {
+                                                    API.createNewTask(props.TodoListItem.id, task.title)
+                                                        .then((props) => {
+                                                            dispatch(actions.addTaskAC(props.createdTask))
+                                                            if (index === array.length - 1) {resolve('success')}
+                                                        }).catch((err) => console.log(err.message))
+                                                }
+                                            }
+                                        )
+                                    })
+                                    Promise.allSettled([activeTasksPromise, completedTasksPromise])
+                                        .then((value) => {
+                                        dispatch(actions.removeTodoAC(todo.id))
+                                    })
+                                } else {
+                                    console.log(props.messages)
                                 }
-                            ).then((TodoListItem) => {
-
-                            getState().stateTodo.taskBody[todo.id].activeTasks.forEach((task) => {
-                                    if (task.isASynchronizedTask) {
-                                        API.createNewTask(TodoListItem.id, task.title)
-                                            .then((props) => {
-                                                dispatch(actions.addTaskAC(props.createdTask))
-                                            }).catch((err) => console.log(err.message))
-                                    }
-                                }
-                            )
-                            getState().stateTodo.taskBody[todo.id].completedTasks.forEach((task) => {
-                                    if (task.isASynchronizedTask) {
-                                        API.createNewTask(TodoListItem.id, task.title)
-                                            .then((props) => {
-                                                dispatch(actions.addTaskAC(props.createdTask))
-                                            }).catch((err) => console.log(err.message))
-                                    }
-                                }
-                            )
-                        }).catch((err) => console.log(err.message))
-
-                        return resolve(todo.id)
-                    })
-                    Promise.all([p1]).then((id)=>{
-
-
-                                // @ts-ignore
-                        dispatch(actions.removeTodoAC(id[0]))
-
-
-                        console.log(id)})
+                            }
+                        ).catch((err) => console.log(err.message))
                 }
-
             }
         )
 
