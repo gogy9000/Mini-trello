@@ -228,7 +228,6 @@ export const thunks = {
     //воот такенная санка!
     synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         getState().stateTodo.tasksTitle.forEach((todo) => {
-
                 if (todo.isASynchronizedTodo) {
                     API.createTodoList(todo.title).then((props) => {
 
@@ -301,6 +300,52 @@ export const thunks = {
                             }
                         }
                     ).catch((err) => console.log(err.message))
+                }
+                if (!todo.isASynchronizedTodo) {
+                    console.log(!todo.isASynchronizedTodo)
+                    getState().stateTodo.taskBody[todo.id].activeTasks.forEach((task)=>{
+                       if(task.isASynchronizedTask){
+                           API.createNewTask(todo.id,task.title).then((props) => {
+                                   console.log(props.createdTask)
+                                   if (props.resultCode === 0) {
+                                       dispatch(actions.addTaskAC(props.createdTask))
+                                       dispatch(actions.deleteTaskAC(task.id,todo.id))
+                                   } else {
+                                       console.log(props.messages)
+                                   }
+                               }
+                           ).catch((err) => console.log(err.message))
+                       }
+                    })
+
+                    getState().stateTodo.taskBody[todo.id].completedTasks.forEach((task)=>{
+                        if(task.isASynchronizedTask){
+                            API.createNewTask(todo.id,task.title).then((props) => {
+                                    console.log(props.createdTask)
+                                    if (props.resultCode === 0) {
+                                        dispatch(actions.addTaskAC(props.createdTask))
+                                        dispatch(actions.deleteTaskAC(task.id,todo.id))
+
+                                    } else {
+                                        console.log(props.messages)
+                                    }
+                                    return props.createdTask
+                                }
+                            ).then((createdTask) => {
+                                API.updateTask({...createdTask, status: 1})
+                                    .then((props) => {
+                                            if (props.resultCode === 0) {
+
+                                                dispatch(actions.updateTaskAC(props.newTask))
+                                            } else {
+                                                console.log(props.messages)
+                                            }
+                                        }
+                                    ).catch((err) => console.log(err.message))
+
+                            }).catch((err) => console.log(err.message))
+                        }
+                    })
                 }
             }
         )
