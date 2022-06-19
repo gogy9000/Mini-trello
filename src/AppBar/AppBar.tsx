@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { styled, alpha } from '@mui/material/styles';
+import {styled, alpha} from '@mui/material/styles';
 import AppBar from '@mui/material/AppBar';
 import Box from '@mui/material/Box';
 import Toolbar from '@mui/material/Toolbar';
@@ -18,8 +18,11 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import {useSelector} from "react-redux";
 import {AppStateType} from "../Redux/ReduxStore";
 import {Task} from "@mui/icons-material";
+import {Stack, Switch, Tooltip} from "@mui/material";
+import {useAppDispatch} from "../App";
+import {actions} from "../Redux/ToDoReducer";
 
-const Search = styled('div')(({ theme }) => ({
+const Search = styled('div')(({theme}) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
     backgroundColor: alpha(theme.palette.common.white, 0.15),
@@ -35,7 +38,7 @@ const Search = styled('div')(({ theme }) => ({
     },
 }));
 
-const SearchIconWrapper = styled('div')(({ theme }) => ({
+const SearchIconWrapper = styled('div')(({theme}) => ({
     padding: theme.spacing(0, 2),
     height: '100%',
     position: 'absolute',
@@ -45,7 +48,7 @@ const SearchIconWrapper = styled('div')(({ theme }) => ({
     justifyContent: 'center',
 }));
 
-const StyledInputBase = styled(InputBase)(({ theme }) => ({
+const StyledInputBase = styled(InputBase)(({theme}) => ({
     color: 'inherit',
     '& .MuiInputBase-input': {
         padding: theme.spacing(1, 1, 1, 0),
@@ -59,189 +62,211 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
     },
 }));
 
-export  const PrimarySearchAppBar=React.memo(  function PrimarySearchAppBar() {
-    const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-    const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
-        React.useState<null | HTMLElement>(null);
-    const state=useSelector((state:AppStateType)=>state.stateTodo)
+export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
 
-    const isMenuOpen = Boolean(anchorEl);
-    const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
+        const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
-    const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+        const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
+            React.useState<null | HTMLElement>(null);
 
-        setAnchorEl(event.currentTarget);
-    };
+        const state = useSelector((state: AppStateType) => state.stateTodo)
+        const dispatch = useAppDispatch()
 
-    const handleMobileMenuClose = () => {
-        setMobileMoreAnchorEl(null);
-    };
+        const isMenuOpen = Boolean(anchorEl);
+        const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);
 
-    const handleMenuClose = () => {
-        setAnchorEl(null);
-        handleMobileMenuClose();
-    };
+        const handleProfileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
 
-    const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
-        setMobileMoreAnchorEl(event.currentTarget);
-    };
+            setAnchorEl(event.currentTarget);
+        };
 
-    const menuId = 'primary-search-account-menu';
-    const renderMenu = (
-        <Menu
-            anchorEl={anchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={menuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMenuOpen}
-            onClose={handleMenuClose}
-        >
-            <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-            <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+        const handleMobileMenuClose = () => {
+            setMobileMoreAnchorEl(null);
+        };
 
-        </Menu>
-    );
+        const handleMenuClose = () => {
+            setAnchorEl(null);
+            handleMobileMenuClose();
+        };
 
-    const mobileMenuId = 'primary-search-account-menu-mobile';
-    const renderMobileMenu = (
-        <Menu
-            anchorEl={mobileMoreAnchorEl}
-            anchorOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            id={mobileMenuId}
-            keepMounted
-            transformOrigin={{
-                vertical: 'top',
-                horizontal: 'right',
-            }}
-            open={isMobileMenuOpen}
-            onClose={handleMobileMenuClose}
-        >
-            <MenuItem>
-                <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-                    <Badge
-                        badgeContent={50}
-                        color="error">
-                        <MailIcon />
-                    </Badge>
-                </IconButton>
-                <p>Messages</p>
-            </MenuItem>
-            <MenuItem>
-                <IconButton
-                    size="large"
-                    aria-label="show 17 new notifications"
-                    color="inherit"
-                >
-                    <Badge badgeContent={17} color="error">
-                        <NotificationsIcon />
-                    </Badge>
-                </IconButton>
-                <p>Notifications</p>
-            </MenuItem>
-            <MenuItem onClick={handleProfileMenuOpen}>
-                <IconButton
-                    size="large"
-                    aria-label="account of current user"
-                    aria-controls="primary-search-account-menu"
-                    aria-haspopup="true"
-                    color="inherit"
-                >
-                    <AccountCircle />
-                </IconButton>
-                <p>Profile</p>
-            </MenuItem>
-        </Menu>
-    );
+        const handleMobileMenuOpen = (event: React.MouseEvent<HTMLElement>) => {
+            setMobileMoreAnchorEl(event.currentTarget);
+        };
 
-    return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
+        const onUnauthorizedMode = () => {
+            dispatch(actions.changeUnauthorizedMode(!state.unauthorizedMode))
+        }
+
+        const menuId = 'primary-search-account-menu';
+        const renderMenu = (
+            <Menu
+                anchorEl={anchorEl}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                id={menuId}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={isMenuOpen}
+                onClose={handleMenuClose}
+            >
+                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
+                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+
+            </Menu>
+        );
+
+        const mobileMenuId = 'primary-search-account-menu-mobile';
+        const renderMobileMenu = (
+            <Menu
+                anchorEl={mobileMoreAnchorEl}
+                anchorOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                id={mobileMenuId}
+                keepMounted
+                transformOrigin={{
+                    vertical: 'top',
+                    horizontal: 'right',
+                }}
+                open={isMobileMenuOpen}
+                onClose={handleMobileMenuClose}
+            >
+                <MenuItem>
+                    <IconButton size="large" aria-label="show 4 new mails" color="inherit">
+                        <Badge
+                            badgeContent={50}
+                            color="error">
+                            <MailIcon/>
+                        </Badge>
+                    </IconButton>
+                    <p>Messages</p>
+                </MenuItem>
+                <MenuItem>
                     <IconButton
                         size="large"
-                        edge="start"
+                        aria-label="show 17 new notifications"
                         color="inherit"
-                        aria-label="open drawer"
-                        sx={{ mr: 2 }}
                     >
-                        <MenuIcon />
+                        <Badge badgeContent={17} color="error">
+                            <NotificationsIcon/>
+                        </Badge>
                     </IconButton>
-                    <Typography
-                        variant="h6"
-                        noWrap
-                        component="div"
-                        sx={{ display: { xs: 'none', sm: 'block' } }}
+                    <p>Notifications</p>
+                </MenuItem>
+                <MenuItem onClick={handleProfileMenuOpen}>
+                    <IconButton
+                        size="large"
+                        aria-label="account of current user"
+                        aria-controls="primary-search-account-menu"
+                        aria-haspopup="true"
+                        color="inherit"
                     >
-                        Todo
-                    </Typography>
-                    {/*<Search >*/}
-                    {/*    <SearchIconWrapper>*/}
-                    {/*        <SearchIcon />*/}
-                    {/*    </SearchIconWrapper>*/}
-                    {/*    <StyledInputBase*/}
+                        <AccountCircle/>
+                    </IconButton>
+                    <p>Profile</p>
+                </MenuItem>
+            </Menu>
+        );
 
-                    {/*        placeholder="Search…"*/}
-                    {/*        inputProps={{ 'aria-label': 'search' }}*/}
-                    {/*    />*/}
-                    {/*</Search>*/}
-                    <Box sx={{ flexGrow: 1 }} />
-                    <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-                        <IconButton size="large" aria-label="show 5 new mails" color="inherit">
-                            <Badge
-                                badgeContent={state.tasksTitle.length}
-                                color="error">
-                                <Task />
-
-                            </Badge>
-                        </IconButton>
-                        {/*<IconButton*/}
-                        {/*    size="large"*/}
-                        {/*    aria-label="show 17 new notifications"*/}
-                        {/*    color="inherit"*/}
-                        {/*>*/}
-                        {/*    <Badge badgeContent={17} color="error">*/}
-                        {/*        <NotificationsIcon />*/}
-                        {/*    </Badge>*/}
-                        {/*</IconButton>*/}
-                        {/*<IconButton*/}
-                        {/*    size="large"*/}
-                        {/*    edge="end"*/}
-                        {/*    aria-label="account of current user"*/}
-                        {/*    aria-controls={menuId}*/}
-                        {/*    aria-haspopup="true"*/}
-                        {/*    onClick={handleProfileMenuOpen}*/}
-                        {/*    color="inherit"*/}
-                        {/*>*/}
-                        {/*    <AccountCircle />*/}
-                        {/*</IconButton>*/}
-                    </Box>
-                    <Box sx={{ display: { xs: 'flex', md: 'none' } }}>
+        return (
+            <Box sx={{flexGrow: 1}}>
+                <AppBar position="static">
+                    <Toolbar>
                         <IconButton
                             size="large"
-                            aria-label="show more"
-                            aria-controls={mobileMenuId}
-                            aria-haspopup="true"
-                            onClick={handleMobileMenuOpen}
+                            edge="start"
                             color="inherit"
+                            aria-label="open drawer"
+                            sx={{mr: 2}}
                         >
-                            <MoreIcon />
+                            <MenuIcon/>
                         </IconButton>
-                    </Box>
-                </Toolbar>
-            </AppBar>
-            {renderMobileMenu}
-            {renderMenu}
-        </Box>
-    );
-}
+                        <Typography
+                            variant="h6"
+                            noWrap
+                            component="div"
+                            sx={{display: {xs: 'none', sm: 'block'}}}
+                        >
+                            Todo
+                        </Typography>
+                        <Tooltip title={"Режим использования без авторизации." +
+                            " Ваши данные будут сохранены в локальном хранилище," +
+                            " но не синхронизированы с сервером"}
+                                 placement='right' arrow>
+                            <Stack direction={'row'} alignItems={'center'}>
+                                <Switch
+                                    checked={state.unauthorizedMode}
+                                    onChange={onUnauthorizedMode}
+                                    inputProps={{'aria-label': 'controlled'}}
+                                    color="error"
+                                />
+                                <Typography>un authorized mode</Typography>
+                            </Stack>
+                        </Tooltip>
+                        {/*<Search >*/}
+                        {/*    <SearchIconWrapper>*/}
+                        {/*        <SearchIcon />*/}
+                        {/*    </SearchIconWrapper>*/}
+                        {/*    <StyledInputBase*/}
+
+                        {/*        placeholder="Search…"*/}
+                        {/*        inputProps={{ 'aria-label': 'search' }}*/}
+                        {/*    />*/}
+                        {/*</Search>*/}
+                        <Box sx={{flexGrow: 1}}/>
+                        <Box sx={{display: {xs: 'none', md: 'flex'}}}>
+                            <IconButton size="large" aria-label="show 5 new mails" color="inherit">
+                                <Badge
+                                    badgeContent={state.tasksTitle.length}
+                                    color="error">
+                                    <Task/>
+
+                                </Badge>
+                            </IconButton>
+                            {/*<IconButton*/}
+                            {/*    size="large"*/}
+                            {/*    aria-label="show 17 new notifications"*/}
+                            {/*    color="inherit"*/}
+                            {/*>*/}
+                            {/*    <Badge badgeContent={17} color="error">*/}
+                            {/*        <NotificationsIcon />*/}
+                            {/*    </Badge>*/}
+                            {/*</IconButton>*/}
+                            {/*<IconButton*/}
+                            {/*    size="large"*/}
+                            {/*    edge="end"*/}
+                            {/*    aria-label="account of current user"*/}
+                            {/*    aria-controls={menuId}*/}
+                            {/*    aria-haspopup="true"*/}
+                            {/*    onClick={handleProfileMenuOpen}*/}
+                            {/*    color="inherit"*/}
+                            {/*>*/}
+                            {/*    <AccountCircle />*/}
+                            {/*</IconButton>*/}
+                        </Box>
+                        <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+                            <IconButton
+                                size="large"
+                                aria-label="show more"
+                                aria-controls={mobileMenuId}
+                                aria-haspopup="true"
+                                onClick={handleMobileMenuOpen}
+                                color="inherit"
+                            >
+                                <MoreIcon/>
+                            </IconButton>
+                        </Box>
+                    </Toolbar>
+                </AppBar>
+                {renderMobileMenu}
+                {renderMenu}
+            </Box>
+        );
+    }
 )

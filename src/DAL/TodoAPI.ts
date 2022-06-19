@@ -23,6 +23,7 @@ export type TodoListItem = {
     "title": string
     "addedDate": string
     "order": number
+    isASynchronizedTodo?:boolean
 }
 
 type GetTaskType = {
@@ -42,6 +43,7 @@ export type TaskItem = {
     todoListId: string
     order: number
     addedDate: string
+    isASynchronizedTask:boolean
 }
 
 export const API = {
@@ -88,7 +90,7 @@ export const API = {
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
-            .then((response: AxiosResponse<Data<Item<TaskItem>>>) => {
+            .then((response: AxiosResponse<Data<TaskItem>>) => {
                     return {
                         createdTask: response.data.data.item,
                         resultCode: response.data.resultCode,

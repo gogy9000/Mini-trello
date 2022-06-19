@@ -60,7 +60,8 @@ beforeEach(() => {
                         addedDate: "2022-06-13T06:39:57.153",
                     }] as Array<TaskType>
                 },
-            }
+            },
+            unauthorizedMode: true
         }
     }
 )
@@ -88,7 +89,7 @@ test('Task should be added', () => {
     expect(newState.taskBody[newTask.todoListId].activeTasks.length).toBe(2)
 })
 test('task to be updated', () => {
-    let updatedTask={...stateToDo.taskBody[todoId].activeTasks[0],title:'new task'}
+    let updatedTask = {...stateToDo.taskBody[todoId].activeTasks[0], title: 'new task'}
     let action = actions.updateTaskAC(updatedTask)
     let newState = ToDoReducer(stateToDo, action)
     expect(newState.taskBody[updatedTask.todoListId].activeTasks[0].title).toBe(updatedTask.title)
@@ -111,7 +112,7 @@ test('task should be deleted', () => {
     expect(newState.taskBody[todoId].completedTasks.length).toBe(1)
 })
 test('task to be checked', () => {
-    let checkedTask={...stateToDo.taskBody[todoId].activeTasks[0],status:1}
+    let checkedTask = {...stateToDo.taskBody[todoId].activeTasks[0], status: 1}
     let action = actions.updateTaskAC(checkedTask)
     let newState = ToDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks.length).toBe(0)
@@ -119,7 +120,7 @@ test('task to be checked', () => {
     expect(newState.taskBody[todoId].completedTasks[1].status).toBe(1)
 })
 test('todo to be unchecked', () => {
-    let checkedTask={...stateToDo.taskBody[todoId].completedTasks[0],status:0}
+    let checkedTask = {...stateToDo.taskBody[todoId].completedTasks[0], status: 0}
     let action = actions.updateTaskAC(checkedTask)
     let newState = ToDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks.length).toBe(2)

@@ -1,6 +1,7 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
-import {API, TodoListItem} from "../DAL/TodoAPI";
-import {AppThunk} from "./ReduxStore";
+import {API, TaskItem, TodoListItem} from "../DAL/TodoAPI";
+import {AppStateType, AppThunk, store} from "./ReduxStore";
+import {v1} from "uuid";
 
 export const initialState: StateType =
     {
@@ -11,7 +12,8 @@ export const initialState: StateType =
             //         completedTasks: [] as Array<TaskType>
             // }
 
-        }
+        },
+        unauthorizedMode: false
     }
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
@@ -153,6 +155,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
         case "REFRESH-TODOLIST":
 
             return {
+                ...state,
                 tasksTitle: action.payload.reduce((acc, todo: TodoListItem) => {
                     return [...acc,
                         {id: todo.id, title: todo.title, addedDate: todo.addedDate, order: todo.order, filter: "All"}]
@@ -190,6 +193,8 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
                 }, state.taskBody)
             }
+        case "CHANGE-UNAUTHORIZED-MODE":
+            return {...state, unauthorizedMode: action.isUnauthorizedMode}
 
 
         default:
@@ -205,107 +210,291 @@ export const actions = {
         ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
     createNewTodoAC: (payload: TodoListItem) => ({type: 'CREATE-NEW-TODO', payload} as const),
     deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
-    addTaskAC: (item: any) => ({
+    addTaskAC: (item: TaskType) => ({
         type: 'ADD-TASK',
         newTask: item
     } as const),
     updateTaskAC: (updatedTask: TaskType) => ({type: 'UPDATE-TASK', updatedTask} as const),
     refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
-    refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const)
+    refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const),
+    changeUnauthorizedMode: (isUnauthorizedMode: boolean) => ({
+        type: 'CHANGE-UNAUTHORIZED-MODE',
+        isUnauthorizedMode
+    } as const)
 }
 
 
 export const thunks = {
+    //воот такенная санка!
+    synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        getState().stateTodo.tasksTitle.forEach((todo) => {
+                if (todo.isASynchronizedTodo) {
+                    API.createTodoList(todo.title).then((props) => {
 
-    getTodolistAndTasks: ():AppThunk => (dispatch) => {
-        API.getTodoList()
-            .then((response) => {
-                if (response.status === 200) {
-                    dispatch(actions.refreshTodoListAC(response.data))
+                            if (props.resultCode === 0) {
+                                dispatch(actions.createNewTodoAC(props.TodoListItem))
 
-                    response.data.forEach((dataItem: TodoListItem) => {
-                        API.getTasks(dataItem.id)
-                            .then((props) => {
-                                if (props.status === 200) {
-                                    dispatch(actions.refreshTasks(props.tasks))
-                                } else {
-                                    console.log(props.statusText)
-                                }
-                            })
-                            .catch((err) => console.log(err.message))
+                                let activeTasksPromise = new Promise((resolve, reject) => {
+
+                                    if (getState().stateTodo.taskBody[todo.id].activeTasks.length === 0) {
+                                        reject('activeTasks-empty')
+                                    }
+
+                                    getState().stateTodo.taskBody[todo.id].activeTasks.forEach(
+                                        (task, i, arr) => {
+
+                                            if (task.isASynchronizedTask) {
+                                                API.createNewTask(props.TodoListItem.id, task.title)
+                                                    .then((props) => {
+                                                        dispatch(actions.addTaskAC(props.createdTask))
+                                                        if (i === arr.length - 1) {
+                                                            resolve('success')
+                                                        }
+                                                    }).catch((err) => console.log(err.message))
+                                            }
+                                        }
+                                    )
+                                })
+
+                                let completedTasksPromise = new Promise((resolve, reject) => {
+
+                                    if (getState().stateTodo.taskBody[todo.id].completedTasks.length === 0) {
+                                        reject('completedTasks-empty')
+                                    }
+
+                                    getState().stateTodo.taskBody[todo.id].completedTasks.forEach(
+                                        (task, index, array) => {
+
+                                            if (task.isASynchronizedTask) {
+                                                API.createNewTask(props.TodoListItem.id, task.title)
+                                                    .then((props) => {
+                                                        dispatch(actions.addTaskAC(props.createdTask))
+
+                                                        return props.createdTask
+                                                    }).then((createdTask) => {
+                                                    API.updateTask({...createdTask, status: 1})
+                                                        .then((props) => {
+                                                                if (props.resultCode === 0) {
+
+                                                                    dispatch(actions.updateTaskAC(props.newTask))
+                                                                } else {
+                                                                    console.log(props.messages)
+                                                                }
+                                                            }
+                                                        ).catch((err) => console.log(err.message))
+                                                    if (index === array.length - 1) {
+                                                        resolve('success')
+                                                    }
+                                                }).catch((err) => console.log(err.message))
+                                            }
+                                        }
+                                    )
+                                })
+                                Promise.allSettled([activeTasksPromise, completedTasksPromise])
+                                    .then((value) => {
+                                        console.log(value)
+                                        dispatch(actions.removeTodoAC(todo.id))
+                                    })
+                            } else {
+                                console.log(props.messages)
+                            }
+                        }
+                    ).catch((err) => console.log(err.message))
+                }
+                if (!todo.isASynchronizedTodo) {
+                    console.log(!todo.isASynchronizedTodo)
+                    getState().stateTodo.taskBody[todo.id].activeTasks.forEach((task)=>{
+                       if(task.isASynchronizedTask){
+                           API.createNewTask(todo.id,task.title).then((props) => {
+                                   console.log(props.createdTask)
+                                   if (props.resultCode === 0) {
+                                       dispatch(actions.addTaskAC(props.createdTask))
+                                       dispatch(actions.deleteTaskAC(task.id,todo.id))
+                                   } else {
+                                       console.log(props.messages)
+                                   }
+                               }
+                           ).catch((err) => console.log(err.message))
+                       }
                     })
-                } else {
-                    console.log(response.statusText)
-                }
-            }).catch((err) => console.log(err.message))
-    },
 
-    createTodolistTC: (title: string) => (dispatch: (action: ActionsType) => void) => {
-        API.createTodoList(title)
-            .then((props) => {
-                if (props.resultCode === 0) {
-                    dispatch(actions.createNewTodoAC(props.TodoListItem))
-                } else {
-                    console.log(props.messages)
-                }
-            }).catch((err) => console.log(err.message))
-    },
+                    getState().stateTodo.taskBody[todo.id].completedTasks.forEach((task)=>{
+                        if(task.isASynchronizedTask){
+                            API.createNewTask(todo.id,task.title).then((props) => {
+                                    console.log(props.createdTask)
+                                    if (props.resultCode === 0) {
+                                        dispatch(actions.addTaskAC(props.createdTask))
+                                        dispatch(actions.deleteTaskAC(task.id,todo.id))
 
-    updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void) => {
-        API.updateTodoLis(todolistId, title).then((resp) => {
-            if (resp.data.resultCode === 0) {
-                dispatch(actions.updateTodoNameAC(title, todolistId))
-            } else {
-                console.log(resp.data.messages)
+                                    } else {
+                                        console.log(props.messages)
+                                    }
+                                    return props.createdTask
+                                }
+                            ).then((createdTask) => {
+                                API.updateTask({...createdTask, status: 1})
+                                    .then((props) => {
+                                            if (props.resultCode === 0) {
+
+                                                dispatch(actions.updateTaskAC(props.newTask))
+                                            } else {
+                                                console.log(props.messages)
+                                            }
+                                        }
+                                    ).catch((err) => console.log(err.message))
+
+                            }).catch((err) => console.log(err.message))
+                        }
+                    })
+                }
             }
-        }).catch((err) => console.log(err.message))
+        )
+
     },
 
-    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void) => {
-        API.deleteTodoList(todolistId).then((resp) => {
-                console.log(resp.data.resultCode)
+    getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            return
+        } else {
+            API.getTodoList()
+                .then((response) => {
+                    if (response.status === 200) {
+                        dispatch(actions.refreshTodoListAC(response.data))
+
+                        response.data.forEach((dataItem: TodoListItem) => {
+                            API.getTasks(dataItem.id)
+                                .then((props) => {
+                                    if (props.status === 200) {
+                                        dispatch(actions.refreshTasks(props.tasks))
+                                    } else {
+                                        console.log(props.statusText)
+                                    }
+                                })
+                                .catch((err) => console.log(err.message))
+                        })
+                    } else {
+                        console.log(response.statusText)
+                    }
+                }).catch((err) => console.log(err.message))
+        }
+    },
+
+    createTodolistTC: (title: string) =>
+        (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+            if (getState().stateTodo.unauthorizedMode) {
+                dispatch(
+                    actions.createNewTodoAC(
+                        {
+                            id: v1(),
+                            title: title,
+                            addedDate: JSON.stringify(new Date()),
+                            order: 0,
+                            isASynchronizedTodo: true
+                        }
+                    )
+                )
+            } else {
+                API.createTodoList(title)
+                    .then((props) => {
+                        if (props.resultCode === 0) {
+                            dispatch(actions.createNewTodoAC(props.TodoListItem))
+                        } else {
+                            console.log(props.messages)
+                        }
+                    }).catch((err) => console.log(err.message))
+            }
+        },
+
+    updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            dispatch(actions.updateTodoNameAC(title, todolistId))
+        } else {
+            API.updateTodoLis(todolistId, title).then((resp) => {
                 if (resp.data.resultCode === 0) {
-                    dispatch(actions.removeTodoAC(todolistId))
+                    dispatch(actions.updateTodoNameAC(title, todolistId))
                 } else {
                     console.log(resp.data.messages)
                 }
-            }
-        ).catch((err) => console.log(err.message))
+            }).catch((err) => console.log(err.message))
+        }
     },
 
-    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void) => {
-        API.createNewTask(todolistId, taskTitle)
-            .then((props) => {
+    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            dispatch(actions.removeTodoAC(todolistId))
+        } else {
+            API.deleteTodoList(todolistId).then((resp) => {
+                    console.log(resp.data.resultCode)
+                    if (resp.data.resultCode === 0) {
+                        dispatch(actions.removeTodoAC(todolistId))
+                    } else {
+                        console.log(resp.data.messages)
+                    }
+                }
+            ).catch((err) => console.log(err.message))
+        }
+    },
+
+    addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            dispatch(actions.addTaskAC({
+                    description: null,
+                    title: taskTitle,
+                    status: 0,
+                    priority: 0,
+                    startDate: null,
+                    deadline: null,
+                    id: v1(),
+                    todoListId: todolistId,
+                    order: 0,
+                    addedDate: JSON.stringify(new Date()),
+                    isASynchronizedTask: true
+                })
+            )
+        } else {
+            API.createNewTask(todolistId, taskTitle)
+
+                .then((props) => {
+                        console.log(props.createdTask)
+                        if (props.resultCode === 0) {
+                            dispatch(actions.addTaskAC(props.createdTask))
+                        } else {
+                            console.log(props.messages)
+                        }
+                    }
+                ).catch((err) => console.log(err.message))
+        }
+    },
+
+    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            dispatch(actions.updateTaskAC(task))
+        } else {
+            API.updateTask(task).then((props) => {
                     if (props.resultCode === 0) {
-                        dispatch(actions.addTaskAC(props.createdTask))
+
+                        dispatch(actions.updateTaskAC(props.newTask))
                     } else {
                         console.log(props.messages)
                     }
                 }
             ).catch((err) => console.log(err.message))
+        }
     },
 
-    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void) => {
-
-        API.updateTask(task).then((props) => {
-                if (props.resultCode === 0) {
-                    dispatch(actions.updateTaskAC(props.newTask))
-                } else {
-                    console.log(props.messages)
+    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        if (getState().stateTodo.unauthorizedMode) {
+            dispatch(actions.deleteTaskAC(taskId, todolistId))
+        } else {
+            API.deleteTask(todolistId, taskId).then((resp) => {
+                    if (resp.data.resultCode === 0) {
+                        dispatch(actions.deleteTaskAC(taskId, todolistId))
+                    } else {
+                        console.log(resp.data.messages)
+                    }
                 }
-            }
-        ).catch((err) => console.log(err.message))
-    },
-
-    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void) => {
-        API.deleteTask(todolistId, taskId).then((resp) => {
-                if (resp.data.resultCode === 0) {
-                    dispatch(actions.deleteTaskAC(taskId, todolistId))
-                } else {
-                    console.log(resp.data.messages)
-                }
-            }
-        ).catch((err) => console.log(err.message))
+            ).catch((err) => console.log(err.message))
+        }
     }
 }
 

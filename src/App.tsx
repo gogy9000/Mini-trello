@@ -4,20 +4,27 @@ import {TodoContainer} from "./ToDo/TodoContainer";
 import {Grid} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {useDispatch, useSelector} from "react-redux";
-import { thunks} from "./Redux/ToDoReducer";
+import {thunks} from "./Redux/ToDoReducer";
 import {AppDispatchType, AppStateType, AppThunk,} from "./Redux/ReduxStore";
 import {Dispatch} from "redux";
 
 export const useAppDispatch = () => useDispatch()
 
-export const App = React.memo( () =>{
-
+export const App = React.memo(() => {
+        const state = useSelector((state: AppStateType) => state.stateTodo)
         const dispatch = useDispatch()
 
-        useEffect(()=>{
+        useEffect(() => {
             // @ts-ignore
             dispatch(thunks.getTodolistAndTasks())
-        },[])
+        }, [])
+        useEffect(() => {
+
+           if (!state.unauthorizedMode){
+               // @ts-ignore
+            dispatch(thunks.synchronizeTodo())
+           }
+        }, [state.unauthorizedMode])
 
 
         return (
