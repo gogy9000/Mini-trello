@@ -4,7 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create synchronizeTodo (80%)">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create synchronizeTodo (90%)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
     </list>
@@ -202,14 +202,7 @@
       <workItem from="1655363645522" duration="20443000" />
       <workItem from="1655445116618" duration="18990000" />
       <workItem from="1655546305455" duration="21936000" />
-      <workItem from="1655619023770" duration="8205000" />
-    </task>
-    <task id="LOCAL-00001" summary="Refactoring">
-      <created>1651773775312</created>
-      <option name="number" value="00001" />
-      <option name="presentableId" value="LOCAL-00001" />
-      <option name="project" value="LOCAL" />
-      <updated>1651773775312</updated>
+      <workItem from="1655619023770" duration="11863000" />
     </task>
     <task id="LOCAL-00002" summary="Refactoring">
       <created>1651836579572</created>
@@ -547,7 +540,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655578760363</updated>
     </task>
-    <option name="localTasksCounter" value="50" />
+    <task id="LOCAL-00050" summary="create synchronizeTodo (90%)">
+      <created>1655627786704</created>
+      <option name="number" value="00050" />
+      <option name="presentableId" value="LOCAL-00050" />
+      <option name="project" value="LOCAL" />
+      <updated>1655627786704</updated>
+    </task>
+    <option name="localTasksCounter" value="51" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +566,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use Local-storage-utils.ts" />
     <MESSAGE value="use useCallback hook" />
     <MESSAGE value="refactoring in process" />
     <MESSAGE value="fix ButtonsBlock.stories.tsx" />
@@ -591,7 +590,8 @@
     <MESSAGE value="CustomEditSpan.test.tsx create" />
     <MESSAGE value="create unauthorizedMode" />
     <MESSAGE value="create synchronizeTodo (80%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="create synchronizeTodo (80%)" />
+    <MESSAGE value="create synchronizeTodo (90%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="create synchronizeTodo (90%)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
