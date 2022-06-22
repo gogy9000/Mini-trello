@@ -20,11 +20,11 @@ export const App = React.memo(() => {
         }, [])
         useEffect(() => {
 
-           if (!state.unauthorizedMode){
+           if (!state.offlineMode){
                // @ts-ignore
             dispatch(thunks.synchronizeTodo())
            }
-        }, [state.unauthorizedMode])
+        }, [state.offlineMode])
 
 
         return (

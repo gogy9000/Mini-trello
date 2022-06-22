@@ -93,9 +93,12 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
             setMobileMoreAnchorEl(event.currentTarget);
         };
 
-        const onUnauthorizedMode = () => {
-            dispatch(actions.changeUnauthorizedMode(!state.unauthorizedMode))
+        const onOfflineMode = () => {
+            dispatch(actions.changeOfflineMode(!state.offlineMode))
         }
+
+        const offlineTitle = "B Offline режиме ваши данные будут сохранены в локальном хранилище, но не синхронизированы с сервером"
+        const onlineTitle = 'В Online режиме ваши данные будут синхронизированы с сервером'
 
         const menuId = 'primary-search-account-menu';
         const renderMenu = (
@@ -195,18 +198,16 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
                         >
                             Todo
                         </Typography>
-                        <Tooltip title={"Режим использования без авторизации." +
-                            " Ваши данные будут сохранены в локальном хранилище," +
-                            " но не синхронизированы с сервером"}
-                                 placement='right' arrow>
+                        <Tooltip title={state.offlineMode?offlineTitle:onlineTitle}
+                                 placement='bottom' arrow>
                             <Stack direction={'row'} alignItems={'center'}>
                                 <Switch
-                                    checked={state.unauthorizedMode}
-                                    onChange={onUnauthorizedMode}
+                                    checked={state.offlineMode}
+                                    onChange={onOfflineMode}
                                     inputProps={{'aria-label': 'controlled'}}
                                     color="error"
                                 />
-                                <Typography>un authorized mode</Typography>
+                                <Typography>{state.offlineMode ? 'Offline mode' : 'Online mode'}</Typography>
                             </Stack>
                         </Tooltip>
                         {/*<Search >*/}

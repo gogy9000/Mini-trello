@@ -13,7 +13,7 @@ export const initialState: StateType =
             // }
 
         },
-        unauthorizedMode: false
+        offlineMode: false
     }
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
@@ -22,30 +22,27 @@ export type ActionsType = InferActionsType<typeof actions>
 export let ToDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
     switch (action.type) {
-        case "CHANGE-FILTER":
+        case TodoTypes.changeFilter:
             return {
                 ...state,
                 tasksTitle: state.tasksTitle.map(
                     (todo: TodoTitleType) => action.todoId === todo.id
                         ?
-                        {
-                            id: todo.id, title: todo.title, addedDate: todo.addedDate,
-                            order: todo.order, filter: action.filter
-                        }
+                        {...todo, filter: action.filter}
                         :
                         todo
                 )
             }
 
 
-        case 'REMOVE-TODO':
+        case TodoTypes.removeTodo:
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
                 tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id !== action.idTitle),
             }
 
-        case 'UPDATE-TODO-NAME':
+        case TodoTypes.updateTodoName:
 
             return {
                 ...state,
@@ -60,7 +57,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 taskBody: {...state.taskBody}
             }
 
-        case 'CREATE-NEW-TODO':
+        case TodoTypes.createNewTodo:
             return {
                 ...state,
                 tasksTitle: [...state.tasksTitle, {
@@ -76,7 +73,7 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 }
             }
 
-        case 'ADD-TASK':
+        case TodoTypes.addTask:
 
             return {
                 ...state,
@@ -84,16 +81,15 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 taskBody: {
                     ...state.taskBody,
                     [action.newTask.todoListId]: {
-                        // ...state.taskBody[action.newTask.todoListId],
+                        ...state.taskBody[action.newTask.todoListId],
                         activeTasks: [...state.taskBody[action.newTask.todoListId].activeTasks, action.newTask],
-                        completedTasks: [...state.taskBody[action.newTask.todoListId].completedTasks]
                     }
                 },
                 //ты должен страдать от вложенности!!!
             };
 
 
-        case 'UPDATE-TASK':
+        case TodoTypes.updateTask:
 
             let copyState: StateType = {
                 ...state,
@@ -105,10 +101,10 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                             state.taskBody[action.updatedTask.todoListId].activeTasks.map(task =>
                                 task.id === action.updatedTask.id ? action.updatedTask : task)
                         ,
-                        completedTasks: [
-                            ...state.taskBody[action.updatedTask.todoListId].completedTasks.map(task =>
+                        completedTasks:
+                            state.taskBody[action.updatedTask.todoListId].completedTasks.map(task =>
                                 task.id === action.updatedTask.id ? action.updatedTask : task)
-                        ]
+
                     }
                 }
                 ,
@@ -137,36 +133,34 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                 },
             };
 
-        case 'DELETE-TASK':
+        case TodoTypes.deleteTask:
             return {
                 ...state,
                 taskBody: {
                     ...state.taskBody,
                     [action.idTitle]: {
-                        activeTasks: [...state.taskBody[action.idTitle].activeTasks.filter(task =>
-                            task.id !== action.id)],
-                        completedTasks: [...state.taskBody[action.idTitle].completedTasks.filter(task =>
-                            task.id !== action.id)]
+                        activeTasks: state.taskBody[action.idTitle].activeTasks.filter(task =>
+                            task.id !== action.id),
+                        completedTasks: state.taskBody[action.idTitle].completedTasks.filter(task =>
+                            task.id !== action.id)
                     }
                     //не так уж и страшно впринципе
                 },
             }
 
-        case "REFRESH-TODOLIST":
+        case TodoTypes.refreshTodolist:
 
             return {
                 ...state,
                 tasksTitle: action.payload.reduce((acc, todo: TodoListItem) => {
-                    return [...acc,
-                        {id: todo.id, title: todo.title, addedDate: todo.addedDate, order: todo.order, filter: "All"}]
-                }, [] as TodoTitleType[]),
+                    return [...acc, {...todo, filter: "All"}]}, [] as TodoTitleType[]),
 
                 taskBody: action.payload.reduce((acc, todo: TodoListItem) => {
                     return {...acc, [todo.id]: {activeTasks: [], completedTasks: []}}
                 }, {})
             }
 
-        case "REFRESH-TASKS":
+        case TodoTypes.refreshTask:
 
             return {
                 ...state,
@@ -176,15 +170,17 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
+                                ...acc[tasksItem.todoListId],
                                 activeTasks: [tasksItem, ...acc[tasksItem.todoListId].activeTasks],
-                                completedTasks: [...acc[tasksItem.todoListId].completedTasks],
+                                // completedTasks: [...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
                     } else {
                         return {
                             ...acc,
                             [tasksItem.todoListId]: {
-                                activeTasks: [...acc[tasksItem.todoListId].activeTasks],
+                                ...acc[tasksItem.todoListId],
+                                // activeTasks: [...acc[tasksItem.todoListId].activeTasks],
                                 completedTasks: [tasksItem, ...acc[tasksItem.todoListId].completedTasks],
                             }
                         }
@@ -193,8 +189,8 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
                 }, state.taskBody)
             }
-        case "CHANGE-UNAUTHORIZED-MODE":
-            return {...state, unauthorizedMode: action.isUnauthorizedMode}
+        case TodoTypes.changeUnauthorizedMode:
+            return {...state, offlineMode: action.offlineMode}
 
 
         default:
@@ -202,36 +198,45 @@ export let ToDoReducer = (state: StateType = initialState, action: ActionsType):
 
     }
 }
+ export enum TodoTypes {
+    changeFilter= 'CHANGE-FILTER',
+    removeTodo='REMOVE-TODO',
+    updateTodoName='UPDATE-TODO-NAME',
+    createNewTodo='CREATE-NEW-TODO',
+    deleteTask='DELETE-TASK',
+    addTask='ADD-TASK',
+    updateTask='UPDATE-TASK',
+    refreshTodolist='REFRESH-TODOLIST',
+    refreshTask='REFRESH-TASKS',
+    changeUnauthorizedMode='CHANGE-UNAUTHORIZED-MODE'
+}
 
 export const actions = {
-    changeFilterAC: (todoId: string, filter: string) => ({type: 'CHANGE-FILTER', todoId, filter} as const),
-    removeTodoAC: (idTitle: string) => ({type: 'REMOVE-TODO', idTitle} as const),
+    changeFilterAC: (todoId: string, filter: string) => ({type: TodoTypes.changeFilter, todoId, filter} as const),
+    removeTodoAC: (idTitle: string) => ({type: TodoTypes.removeTodo, idTitle} as const),
     updateTodoNameAC: (titleName: string, idTitle: string) =>
-        ({type: 'UPDATE-TODO-NAME', idTitle, titleName} as const),
-    createNewTodoAC: (payload: TodoListItem) => ({type: 'CREATE-NEW-TODO', payload} as const),
-    deleteTaskAC: (id: string, idTitle: string) => ({type: 'DELETE-TASK', id, idTitle} as const),
-    addTaskAC: (item: TaskType) => ({
-        type: 'ADD-TASK',
-        newTask: item
-    } as const),
-    updateTaskAC: (updatedTask: TaskType) => ({type: 'UPDATE-TASK', updatedTask} as const),
-    refreshTodoListAC: (payload: TodoListItem[]) => ({type: 'REFRESH-TODOLIST', payload} as const),
-    refreshTasks: (tasks: TaskType[]) => ({type: 'REFRESH-TASKS', tasks} as const),
-    changeUnauthorizedMode: (isUnauthorizedMode: boolean) => ({
-        type: 'CHANGE-UNAUTHORIZED-MODE',
-        isUnauthorizedMode
+        ({type: TodoTypes.updateTodoName, idTitle, titleName} as const),
+    createNewTodoAC: (payload: TodoListItem) => ({type: TodoTypes.createNewTodo, payload} as const),
+    deleteTaskAC: (id: string, idTitle: string) => ({type: TodoTypes.deleteTask, id, idTitle} as const),
+    addTaskAC: (item: TaskType) => ({type: TodoTypes.addTask, newTask: item} as const),
+    updateTaskAC: (updatedTask: TaskType) => ({type: TodoTypes.updateTask, updatedTask} as const),
+    refreshTodoListAC: (payload: TodoListItem[]) => ({type: TodoTypes.refreshTodolist, payload} as const),
+    refreshTasks: (tasks: TaskType[]) => ({type: TodoTypes.refreshTask, tasks} as const),
+    changeOfflineMode: (offlineMode: boolean) => ({
+        type: TodoTypes.changeUnauthorizedMode,
+        offlineMode
     } as const)
 }
 
 
 export const thunks = {
     //воот такенная санка!
-    //нужна для отправки на сервер тех задач которые были созданы в неавторизованном режиме(в неавторизованном режиме
-    //задачи сохраняются только в локальном хранилище)
-    //при переключении с неавторизованного режима на авторизованный запускается санка которая создает на сервере новые
-    // тудулисты переносит в них таски которые были созданы в неавторизованном режиме, дожидается когда все тудулисты
+    //нужна для отправки на сервер тех задач которые были созданы в offline режиме(в offline режиме
+    //задачи сохраняются только в локальном хранилище,в локальном хранилище данные сохраняются всегда по умолчанию)
+    //при переключении с offline режима на не offline запускается санка которая создает на сервере новые
+    // тудулисты переносит в них таски которые были созданы в offline режиме, дожидается когда все тудулисты
     // и таски будут перенесены на сервер, после чего удаляет все, что было перенесено на сервер для того что бы не было
-    // дублирования. Если в существующий на сервере тудулист были записаны задачи в неавторизованном режиме, переносит
+    // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
     synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         getState().stateTodo.tasksTitle.forEach((todo) => {
@@ -360,7 +365,7 @@ export const thunks = {
     },
 
     getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             return
         } else {
             API.getTodoList()
@@ -388,7 +393,7 @@ export const thunks = {
 
     createTodolistTC: (title: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-            if (getState().stateTodo.unauthorizedMode) {
+            if (getState().stateTodo.offlineMode) {
                 dispatch(
                     actions.createNewTodoAC(
                         {
@@ -413,7 +418,7 @@ export const thunks = {
         },
 
     updateTodoList: (todolistId: string, title: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             dispatch(actions.updateTodoNameAC(title, todolistId))
         } else {
             API.updateTodoLis(todolistId, title).then((resp) => {
@@ -427,7 +432,7 @@ export const thunks = {
     },
 
     deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
             API.deleteTodoList(todolistId).then((resp) => {
@@ -443,7 +448,7 @@ export const thunks = {
     },
 
     addTaskTC: (todolistId: string, taskTitle: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             dispatch(actions.addTaskAC({
                     description: null,
                     title: taskTitle,
@@ -474,7 +479,7 @@ export const thunks = {
     },
 
     updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             dispatch(actions.updateTaskAC(task))
         } else {
             API.updateTask(task).then((props) => {
@@ -490,7 +495,7 @@ export const thunks = {
     },
 
     deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().stateTodo.unauthorizedMode) {
+        if (getState().stateTodo.offlineMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {
             API.deleteTask(todolistId, taskId).then((resp) => {

@@ -12,6 +12,7 @@ beforeEach(() => {
         todoId = "b072220d-fb22-419f-9e90-27fb715cf285"
         taskId1 = "729d6408-9bcb-4f03-8b51-547c2fae376f"
         taskId2 = "13df920d-7a38-42b2-a5b9-ca2bc9fa333e"
+
         newTask = {
             id: "8ab714ca-d983-499b-b74e-22dd4e578d37",
             title: "adasdasd",
@@ -61,7 +62,7 @@ beforeEach(() => {
                     }] as Array<TaskType>
                 },
             },
-            unauthorizedMode: true
+            offlineMode: true
         }
     }
 )
@@ -127,5 +128,49 @@ test('todo to be unchecked', () => {
     expect(newState.taskBody[todoId].completedTasks.length).toBe(0)
     expect(newState.taskBody[todoId].activeTasks[1].status).toBe(0)
 })
+test('todolist should be refreshed', () => {
+    let refreshedTodolist = [
+        {
+            id: 'testId',
+            addedDate: "123",
+            order: 1,
+            title: 'string'
+        }]
+    let action = actions.refreshTodoListAC(refreshedTodolist)
+    let newState = ToDoReducer(stateToDo, action)
+    expect(newState.tasksTitle[0].id).toBe('testId')
 
+})
+test('tasks should be refreshed', () => {
+    let refreshedTasks = [
+        {
+            id: taskId1,
+            title: "dfd",
+            description: 'ololo',
+            todoListId: todoId,
+            order: -1,
+            status: 0,
+            priority: 1,
+            startDate: null,
+            deadline: null,
+            addedDate: "2022-06-13T06:38:58.827",
+        },
+        {
+            id: taskId2,
+            title: "dfd",
+            description: 'azaza',
+            todoListId: todoId,
+            order: -1,
+            status: 1,
+            priority: 1,
+            startDate: null,
+            deadline: null,
+            addedDate: "2022-06-13T06:38:58.827",
+        }
+    ]
+    let action = actions.refreshTasks(refreshedTasks)
+    let newState = ToDoReducer(stateToDo, action)
+    expect(newState.taskBody[todoId].activeTasks[0].description).toBe('ololo')
+    expect(newState.taskBody[todoId].completedTasks[0].description).toBe('azaza')
+})
 

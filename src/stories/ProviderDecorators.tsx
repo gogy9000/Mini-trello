@@ -28,7 +28,7 @@ let rootReducer = combineReducers({
             completedTasks: [{description: 'string | null', title: 'Completed Task', status: 1, priority: 1, startDate: 'string | null', deadline: 'string | null', id: '21', todoListId: '123', order: 0, addedDate: '123'}] as TaskType[]
         }
     },
-     unauthorizedMode:true
+     offlineMode:true
 }
 
 

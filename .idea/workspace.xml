@@ -4,9 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create synchronizeTodo (101%)">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring (10%)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -88,19 +93,6 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
-    <configuration name="TextField should be active" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/CustomComponent/custom-component-tests/CustomEditSpan.test.tsx" />
-      <test-names>
-        <test-name value="TextField should be active" />
-      </test-names>
-      <method v="2" />
-    </configuration>
     <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -131,6 +123,16 @@
       <envs />
       <method v="2" />
     </configuration>
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="test:integration" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -143,11 +145,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.deploy" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.deploy" />
         <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.storybook" />
-        <item itemvalue="Jest.TextField should be active" />
       </list>
     </recent_temporary>
   </component>
@@ -203,14 +205,8 @@
       <workItem from="1655445116618" duration="18990000" />
       <workItem from="1655546305455" duration="21936000" />
       <workItem from="1655619023770" duration="15425000" />
-      <workItem from="1655721456678" duration="1112000" />
-    </task>
-    <task id="LOCAL-00004" summary="Use useReducer">
-      <created>1652011895029</created>
-      <option name="number" value="00004" />
-      <option name="presentableId" value="LOCAL-00004" />
-      <option name="project" value="LOCAL" />
-      <updated>1652011895029</updated>
+      <workItem from="1655721456678" duration="1276000" />
+      <workItem from="1655901789331" duration="7368000" />
     </task>
     <task id="LOCAL-00005" summary="fix TaskTitleBlock.tsx">
       <created>1652085223343</created>
@@ -548,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655639424780</updated>
     </task>
-    <option name="localTasksCounter" value="53" />
+    <task id="LOCAL-00053" summary="refactoring (10%)">
+      <created>1655722647440</created>
+      <option name="number" value="00053" />
+      <option name="presentableId" value="LOCAL-00053" />
+      <option name="project" value="LOCAL" />
+      <updated>1655722647441</updated>
+    </task>
+    <option name="localTasksCounter" value="54" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -567,7 +570,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix ButtonsBlock.stories.tsx" />
     <MESSAGE value=" create ToDo.stories.tsx" />
     <MESSAGE value="use Api todolist" />
     <MESSAGE value="migration on Api-Todo-list" />
@@ -592,7 +594,8 @@
     <MESSAGE value="create synchronizeTodo (90%)" />
     <MESSAGE value="create synchronizeTodo (100%)" />
     <MESSAGE value="create synchronizeTodo (101%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="create synchronizeTodo (101%)" />
+    <MESSAGE value="refactoring (10%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring (10%)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
