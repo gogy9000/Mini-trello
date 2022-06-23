@@ -3,6 +3,7 @@ import {API, TaskItem, TodoListItem} from "../DAL/TodoAPI";
 import {AppStateType, AppThunk, store} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
+import {handleClientsError} from "../utils/HadleErrorUtils";
 
 export const initialState: StateType =
     {
@@ -18,7 +19,7 @@ export const initialState: StateType =
     }
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
-export type ActionsType = InferActionsType<typeof actions| typeof actionsApp>
+export type ActionsType = InferActionsType<typeof actions | typeof actionsApp>
 
 export let toDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
@@ -154,7 +155,8 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
             return {
                 ...state,
                 tasksTitle: action.payload.reduce((acc, todo: TodoListItem) => {
-                    return [...acc, {...todo, filter: "All"}]}, [] as TodoTitleType[]),
+                    return [...acc, {...todo, filter: "All"}]
+                }, [] as TodoTitleType[]),
 
                 taskBody: action.payload.reduce((acc, todo: TodoListItem) => {
                     return {...acc, [todo.id]: {activeTasks: [], completedTasks: []}}
@@ -199,17 +201,18 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
 
     }
 }
- export enum TodoTypes {
-    changeFilter= 'CHANGE-FILTER',
-    removeTodo='REMOVE-TODO',
-    updateTodoName='UPDATE-TODO-NAME',
-    createNewTodo='CREATE-NEW-TODO',
-    deleteTask='DELETE-TASK',
-    addTask='ADD-TASK',
-    updateTask='UPDATE-TASK',
-    refreshTodolist='REFRESH-TODOLIST',
-    refreshTask='REFRESH-TASKS',
-    changeUnauthorizedMode='CHANGE-UNAUTHORIZED-MODE'
+
+export enum TodoTypes {
+    changeFilter = 'CHANGE-FILTER',
+    removeTodo = 'REMOVE-TODO',
+    updateTodoName = 'UPDATE-TODO-NAME',
+    createNewTodo = 'CREATE-NEW-TODO',
+    deleteTask = 'DELETE-TASK',
+    addTask = 'ADD-TASK',
+    updateTask = 'UPDATE-TASK',
+    refreshTodolist = 'REFRESH-TODOLIST',
+    refreshTask = 'REFRESH-TASKS',
+    changeUnauthorizedMode = 'CHANGE-UNAUTHORIZED-MODE'
 }
 
 export const actions = {
@@ -258,7 +261,11 @@ export const thunks = {
                                             if (task.isASynchronizedTask) {
                                                 API.createNewTask(props.TodoListItem.id, task.title)
                                                     .then((props) => {
-                                                        dispatch(actions.addTaskAC(props.createdTask))
+                                                        if (props.resultCode === 0) {
+                                                            dispatch(actions.addTaskAC(props.createdTask))
+                                                        } else {
+                                                            handleClientsError(dispatch, props.messages)
+                                                        }
                                                         if (i === arr.length - 1) {
                                                             resolve('success')
                                                         }
@@ -287,7 +294,7 @@ export const thunks = {
                                                         if (props.resultCode === 0) {
                                                             dispatch(actions.addTaskAC(props.createdTask))
                                                         } else {
-                                                            dispatch(actionsApp.changeHandleClientsError(props.messages))
+                                                            handleClientsError(dispatch, props.messages)
                                                         }
                                                         return props.createdTask
                                                     }).then((createdTask) => {
@@ -296,7 +303,7 @@ export const thunks = {
                                                                 if (props.resultCode === 0) {
                                                                     dispatch(actions.updateTaskAC(props.newTask))
                                                                 } else {
-                                                                    dispatch(actionsApp.changeHandleClientsError(props.messages))
+                                                                    handleClientsError(dispatch, props.messages)
                                                                 }
                                                             }
                                                         ).catch((err) => {
@@ -317,36 +324,36 @@ export const thunks = {
                                         dispatch(actions.removeTodoAC(todo.id))
                                     })
                             } else {
-                                dispatch(actionsApp.changeHandleClientsError(props.messages))
+                                handleClientsError(dispatch, props.messages)
                             }
                         }
                     ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
                 }
                 if (!todo.isASynchronizedTodo) {
-                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach((task)=>{
-                       if(task.isASynchronizedTask){
-                           API.createNewTask(todo.id,task.title).then((props) => {
-                                   if (props.resultCode === 0) {
-                                       dispatch(actions.addTaskAC(props.createdTask))
-                                       dispatch(actions.deleteTaskAC(task.id,todo.id))
-                                   } else {
-                                       dispatch(actionsApp.changeHandleClientsError(props.messages))
-                                   }
-                               }
-                           ).catch((err) =>dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                       }
+                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
+                        if (task.isASynchronizedTask) {
+                            API.createNewTask(todo.id, task.title).then((props) => {
+                                    if (props.resultCode === 0) {
+                                        dispatch(actions.addTaskAC(props.createdTask))
+                                        dispatch(actions.deleteTaskAC(task.id, todo.id))
+                                    } else {
+                                        handleClientsError(dispatch, props.messages)
+                                    }
+                                }
+                            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                        }
                     })
 
-                    getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach((task)=>{
-                        if(task.isASynchronizedTask){
-                            API.createNewTask(todo.id,task.title).then((props) => {
+                    getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach((task) => {
+                        if (task.isASynchronizedTask) {
+                            API.createNewTask(todo.id, task.title).then((props) => {
                                     console.log(props.createdTask)
                                     if (props.resultCode === 0) {
                                         dispatch(actions.addTaskAC(props.createdTask))
-                                        dispatch(actions.deleteTaskAC(task.id,todo.id))
+                                        dispatch(actions.deleteTaskAC(task.id, todo.id))
 
                                     } else {
-                                        dispatch(actionsApp.changeHandleClientsError(props.messages))
+                                        handleClientsError(dispatch, props.messages)
                                     }
                                     return props.createdTask
                                 }
@@ -356,7 +363,7 @@ export const thunks = {
                                             if (props.resultCode === 0) {
                                                 dispatch(actions.updateTaskAC(props.newTask))
                                             } else {
-                                                dispatch(actionsApp.changeHandleClientsError(props.messages))
+                                                handleClientsError(dispatch, props.messages)
                                             }
                                         }
                                     ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
@@ -385,13 +392,13 @@ export const thunks = {
                                     if (props.status === 200) {
                                         dispatch(actions.refreshTasks(props.tasks))
                                     } else {
-                                        dispatch(actionsApp.changeHandleClientsError([props.statusText]))
+                                        handleClientsError(dispatch, [response.statusText])
                                     }
                                 })
                                 .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
                         })
                     } else {
-                        dispatch(actionsApp.changeHandleClientsError([response.statusText]))
+                        handleClientsError(dispatch, [response.statusText])
                     }
                 }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
         }
@@ -400,24 +407,32 @@ export const thunks = {
     createTodolistTC: (title: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
             if (getState().ToDoReducer.offlineMode) {
-                dispatch(
-                    actions.createNewTodoAC(
-                        {
-                            id: v1(),
-                            title: title,
-                            addedDate: JSON.stringify(new Date()),
-                            order: 0,
-                            isASynchronizedTodo: true
-                        }
+                if (title.length > 100) {
+                    handleClientsError(
+                        dispatch,
+                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
                     )
-                )
+
+                } else {
+                    dispatch(
+                        actions.createNewTodoAC(
+                            {
+                                id: v1(),
+                                title: title,
+                                addedDate: JSON.stringify(new Date()),
+                                order: 0,
+                                isASynchronizedTodo: true
+                            }
+                        )
+                    )
+                }
             } else {
                 API.createTodoList(title)
                     .then((props) => {
                         if (props.resultCode === 0) {
                             dispatch(actions.createNewTodoAC(props.TodoListItem))
                         } else {
-                            dispatch(actionsApp.changeHandleClientsError(props.messages))
+                            handleClientsError(dispatch, props.messages)
                         }
                     }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
             }
@@ -425,18 +440,31 @@ export const thunks = {
 
     updateTodoList: (todolistId: string, title: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().ToDoReducer.offlineMode) {
-            dispatch(actions.updateTodoNameAC(title, todolistId))
-        } else {
-            API.updateTodoLis(todolistId, title).then((resp) => {
-                if (resp.data.resultCode === 0) {
-                    dispatch(actions.updateTodoNameAC(title, todolistId))
+            if (getState().ToDoReducer.offlineMode) {
+                if (title.length > 100) {
+                    handleClientsError(
+                        dispatch,
+                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                    )
                 } else {
-                    dispatch(actionsApp.changeHandleClientsError(resp.data.messages))
+                    dispatch(actions.updateTodoNameAC(title, todolistId))
                 }
-            }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-        }
-    },
+            } else {
+                dispatch(actionsApp.addWaitingList(todolistId))
+                API.updateTodoLis(todolistId, title)
+                    .then((resp) => {
+                        if (resp.data.resultCode === 0) {
+                            dispatch(actions.updateTodoNameAC(title, todolistId))
+                        } else {
+                            handleClientsError(dispatch, resp.data.messages)
+                        }
+                    })
+                    .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                    .finally(() => {
+                        dispatch(actionsApp.removeWaitingList(todolistId))
+                    })
+            }
+        },
 
     deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().ToDoReducer.offlineMode) {
@@ -447,7 +475,7 @@ export const thunks = {
                     if (resp.data.resultCode === 0) {
                         dispatch(actions.removeTodoAC(todolistId))
                     } else {
-                        dispatch(actionsApp.changeHandleClientsError(resp.data.messages))
+                        handleClientsError(dispatch, resp.data.messages)
                     }
                 }
             ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
@@ -456,46 +484,61 @@ export const thunks = {
 
     addTaskTC: (todolistId: string, taskTitle: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-        if (getState().ToDoReducer.offlineMode) {
-            dispatch(actions.addTaskAC({
-                    description: null,
-                    title: taskTitle,
-                    status: 0,
-                    priority: 0,
-                    startDate: null,
-                    deadline: null,
-                    id: v1(),
-                    todoListId: todolistId,
-                    order: 0,
-                    addedDate: JSON.stringify(new Date()),
-                    isASynchronizedTask: true
-                })
-            )
-        } else {
-            API.createNewTask(todolistId, taskTitle)
+            if (getState().ToDoReducer.offlineMode) {
+                if (taskTitle.length > 100) {
+                    handleClientsError(
+                        dispatch,
+                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                    )
+                } else {
+                    dispatch(actions.addTaskAC({
+                            description: null,
+                            title: taskTitle,
+                            status: 0,
+                            priority: 0,
+                            startDate: null,
+                            deadline: null,
+                            id: v1(),
+                            todoListId: todolistId,
+                            order: 0,
+                            addedDate: JSON.stringify(new Date()),
+                            isASynchronizedTask: true
+                        })
+                    )
+                }
 
-                .then((props) => {
-                        console.log(props.createdTask)
-                        if (props.resultCode === 0) {
-                            dispatch(actions.addTaskAC(props.createdTask))
-                        } else {
-                            dispatch(actionsApp.changeHandleClientsError(props.messages))
+
+            } else {
+                API.createNewTask(todolistId, taskTitle)
+                    .then((props) => {
+                            console.log(props.createdTask)
+                            if (props.resultCode === 0) {
+                                dispatch(actions.addTaskAC(props.createdTask))
+                            } else {
+                                handleClientsError(dispatch, props.messages)
+                            }
                         }
-                    }
-                ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-        }
-    },
+                    ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+            }
+        },
 
     updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().ToDoReducer.offlineMode) {
-            dispatch(actions.updateTaskAC(task))
+// если длинна названия таски длиннее 100 символов, диспатчит ошибку
+            if (task.title.length > 100) {
+                handleClientsError(
+                    dispatch,
+                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                )
+            } else {
+                dispatch(actions.updateTaskAC(task))
+            }
         } else {
             API.updateTask(task).then((props) => {
                     if (props.resultCode === 0) {
-
                         dispatch(actions.updateTaskAC(props.newTask))
                     } else {
-                        dispatch(actionsApp.changeHandleClientsError(props.messages))
+                        handleClientsError(dispatch, props.messages)
                     }
                 }
             ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
@@ -510,7 +553,7 @@ export const thunks = {
                     if (resp.data.resultCode === 0) {
                         dispatch(actions.deleteTaskAC(taskId, todolistId))
                     } else {
-                        dispatch(actionsApp.changeHandleClientsError(resp.data.messages))
+                        handleClientsError(dispatch, resp.data.messages)
                     }
                 }
             ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))

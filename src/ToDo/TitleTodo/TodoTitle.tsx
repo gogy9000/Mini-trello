@@ -1,9 +1,10 @@
 import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
-import {Box, Card, IconButton, Stack, TextField, Typography} from "@mui/material";
+import {Box, Card, IconButton, LinearProgress, Stack, TextField, Typography} from "@mui/material";
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {thunks} from '../../Redux/ToDoReducer';
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
+import {AppStateType} from "../../Redux/ReduxStore";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType
@@ -13,6 +14,8 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [todoName, setTodoName] = useState<string>(todo.title)
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
+
+        const waitingList=useSelector((store:AppStateType)=>store.appReducer.waitingList[todo.id])
 
         const dispatch = useDispatch()
 
@@ -47,6 +50,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                             }}>
                                 <Typography variant={'h6'} p={1}>
                                     {todo.title}
+                                    {waitingList&&<LinearProgress/>}
                                 </Typography>
                                 <Box sx={{
                                     display: 'flex',
@@ -77,6 +81,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                             <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
                         </Stack>
                 }
+
             </>
         )
     }
