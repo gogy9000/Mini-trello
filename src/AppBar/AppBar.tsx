@@ -69,7 +69,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
             React.useState<null | HTMLElement>(null);
 
-        const state = useSelector((state: AppStateType) => state.stateTodo)
+        const state = useSelector((state: AppStateType) => state.ToDoReducer)
         const dispatch = useAppDispatch()
 
         const isMenuOpen = Boolean(anchorEl);

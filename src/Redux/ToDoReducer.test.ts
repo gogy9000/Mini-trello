@@ -1,6 +1,6 @@
 import {StateType, TaskType} from "../Types";
 
-import {actions, ToDoReducer} from "./ToDoReducer";
+import {actions, toDoReducer} from "./ToDoReducer";
 
 
 let stateToDo: StateType
@@ -69,7 +69,7 @@ beforeEach(() => {
 test('filter should be changed', () => {
 
     let action = actions.changeFilterAC("b072220d-fb22-419f-9e90-27fb715cf285", 'Active')
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].filter).toBe('Active')
 })
 
@@ -81,41 +81,41 @@ test('Todo should be add', () => {
         order: -2
     }
     let action = actions.createNewTodoAC(TodoItem)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle.length).toBe(2)
 })
 test('Task should be added', () => {
     let action = actions.addTaskAC(newTask)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[newTask.todoListId].activeTasks.length).toBe(2)
 })
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId].activeTasks[0], title: 'new task'}
     let action = actions.updateTaskAC(updatedTask)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[updatedTask.todoListId].activeTasks[0].title).toBe(updatedTask.title)
 })
 test('to-do name should be updated', () => {
     let action = actions.updateTodoNameAC('title updated', todoId)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].title).toBe('title updated')
 })
 test('ToDo should be removed', () => {
     let action = actions.removeTodoAC(todoId)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId]).toBe(undefined)
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
     let action = actions.deleteTaskAC(taskId1, todoId)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks.length).toBe(0)
     expect(newState.taskBody[todoId].completedTasks.length).toBe(1)
 })
 test('task to be checked', () => {
     let checkedTask = {...stateToDo.taskBody[todoId].activeTasks[0], status: 1}
     let action = actions.updateTaskAC(checkedTask)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks.length).toBe(0)
     expect(newState.taskBody[todoId].completedTasks.length).toBe(2)
     expect(newState.taskBody[todoId].completedTasks[1].status).toBe(1)
@@ -123,7 +123,7 @@ test('task to be checked', () => {
 test('todo to be unchecked', () => {
     let checkedTask = {...stateToDo.taskBody[todoId].completedTasks[0], status: 0}
     let action = actions.updateTaskAC(checkedTask)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks.length).toBe(2)
     expect(newState.taskBody[todoId].completedTasks.length).toBe(0)
     expect(newState.taskBody[todoId].activeTasks[1].status).toBe(0)
@@ -137,7 +137,7 @@ test('todolist should be refreshed', () => {
             title: 'string'
         }]
     let action = actions.refreshTodoListAC(refreshedTodolist)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].id).toBe('testId')
 
 })
@@ -169,7 +169,7 @@ test('tasks should be refreshed', () => {
         }
     ]
     let action = actions.refreshTasks(refreshedTasks)
-    let newState = ToDoReducer(stateToDo, action)
+    let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].activeTasks[0].description).toBe('ololo')
     expect(newState.taskBody[todoId].completedTasks[0].description).toBe('azaza')
 })

@@ -4,13 +4,18 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring (10%)">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring (15%), create unit-tests">
+      <change afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -21,9 +26,9 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="TypeScript File" />
         <option value="JavaScript File" />
         <option value="TypeScript JSX File" />
+        <option value="TypeScript File" />
       </list>
     </option>
   </component>
@@ -206,14 +211,8 @@
       <workItem from="1655546305455" duration="21936000" />
       <workItem from="1655619023770" duration="15425000" />
       <workItem from="1655721456678" duration="1276000" />
-      <workItem from="1655901789331" duration="7368000" />
-    </task>
-    <task id="LOCAL-00005" summary="fix TaskTitleBlock.tsx">
-      <created>1652085223343</created>
-      <option name="number" value="00005" />
-      <option name="presentableId" value="LOCAL-00005" />
-      <option name="project" value="LOCAL" />
-      <updated>1652085223343</updated>
+      <workItem from="1655901789331" duration="7630000" />
+      <workItem from="1655966941594" duration="8694000" />
     </task>
     <task id="LOCAL-00006" summary="fixed CustomEditSpan.tsx">
       <created>1652109483751</created>
@@ -551,7 +550,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655722647441</updated>
     </task>
-    <option name="localTasksCounter" value="54" />
+    <task id="LOCAL-00054" summary="refactoring (15%), create unit-tests">
+      <created>1655919547286</created>
+      <option name="number" value="00054" />
+      <option name="presentableId" value="LOCAL-00054" />
+      <option name="project" value="LOCAL" />
+      <updated>1655919547286</updated>
+    </task>
+    <option name="localTasksCounter" value="55" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +576,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value=" create ToDo.stories.tsx" />
     <MESSAGE value="use Api todolist" />
     <MESSAGE value="migration on Api-Todo-list" />
     <MESSAGE value="refactoring ToDoReducer.ts" />
@@ -595,7 +600,8 @@
     <MESSAGE value="create synchronizeTodo (100%)" />
     <MESSAGE value="create synchronizeTodo (101%)" />
     <MESSAGE value="refactoring (10%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring (10%)" />
+    <MESSAGE value="refactoring (15%), create unit-tests" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring (15%), create unit-tests" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

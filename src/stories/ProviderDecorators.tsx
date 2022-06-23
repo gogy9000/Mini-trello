@@ -10,14 +10,14 @@ import {
     PreloadedState,
     Store
 } from "redux";
-import {ToDoReducer} from "../Redux/ToDoReducer";
+import {toDoReducer} from "../Redux/ToDoReducer";
 import {StateType, TaskType, TodoTitleType} from "../Types";
 import thunk from "redux-thunk";
 
 type RootReducerType = typeof rootReducer
 export type AppRootStateType=ReturnType<RootReducerType>
 let rootReducer = combineReducers({
-    stateTodo: ToDoReducer
+    stateTodo: toDoReducer
 })
 
  let stateStories={

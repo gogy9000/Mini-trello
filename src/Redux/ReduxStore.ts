@@ -1,9 +1,10 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import {ActionsType, ToDoReducer} from './ToDoReducer';
+import {ActionsType, toDoReducer} from './ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
 import thunk, {ThunkAction} from "redux-thunk";
 import {composeWithDevTools} from "@redux-devtools/extension";
 import {StateType, TaskType, TodoTitleType} from "../Types";
+import {appReducer} from "./AppReducer";
 
 
 type RootReducerType = typeof rootReducer
@@ -23,7 +24,8 @@ const composeEnhancers = composeWithDevTools({
 
 
 let rootReducer = combineReducers({
-    stateTodo: ToDoReducer
+    ToDoReducer: toDoReducer,
+    appReducer
 })
 
 

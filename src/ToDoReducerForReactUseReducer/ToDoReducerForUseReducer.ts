@@ -21,7 +21,7 @@
 // export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 // export type ActionsType = InferActionsType<typeof actions>
 //
-// export let ToDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
+// export let toDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 //
 //     switch (action.type) {
 //

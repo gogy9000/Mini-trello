@@ -11,7 +11,7 @@ import {Masonry} from "@mui/lab";
 
 export const TodoContainer = React.memo(() => {
 
-        const tasksTitle = useSelector((state: AppStateType) => state.stateTodo.tasksTitle)
+        const tasksTitle = useSelector((state: AppStateType) => state.ToDoReducer.tasksTitle)
 
         const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (

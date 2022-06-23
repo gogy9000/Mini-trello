@@ -11,7 +11,7 @@ import {Dispatch} from "redux";
 export const useAppDispatch = () => useDispatch()
 
 export const App = React.memo(() => {
-        const state = useSelector((state: AppStateType) => state.stateTodo)
+        const state = useSelector((state: AppStateType) => state.ToDoReducer)
         const dispatch = useDispatch()
 
         useEffect(() => {
