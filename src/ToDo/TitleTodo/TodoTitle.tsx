@@ -15,7 +15,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const waitingList=useSelector((store:AppStateType)=>store.appReducer.waitingList[todo.id])
+        const isWaitingTodo=useSelector((store:AppStateType)=>store.appReducer.waitingList[todo.id])
 
         const dispatch = useDispatch()
 
@@ -50,7 +50,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                             }}>
                                 <Typography variant={'h6'} p={1}>
                                     {todo.title}
-                                    {waitingList&&<LinearProgress/>}
+
                                 </Typography>
                                 <Box sx={{
                                     display: 'flex',
@@ -81,7 +81,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                             <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
                         </Stack>
                 }
-
+                {isWaitingTodo&&<LinearProgress/>}
             </>
         )
     }

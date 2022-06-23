@@ -509,6 +509,7 @@ export const thunks = {
 
 
             } else {
+                dispatch(actionsApp.addWaitingList(todolistId))
                 API.createNewTask(todolistId, taskTitle)
                     .then((props) => {
                             console.log(props.createdTask)
@@ -518,7 +519,9 @@ export const thunks = {
                                 handleClientsError(dispatch, props.messages)
                             }
                         }
-                    ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                    )
+                    .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                    .finally(()=>{dispatch(actionsApp.removeWaitingList(todolistId))})
             }
         },
 
