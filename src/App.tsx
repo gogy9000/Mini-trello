@@ -30,8 +30,10 @@ export const App = React.memo(() => {
             }
         }, [state.offlineMode])
 
-    const clearErrorCallback = useCallback( (emptyString:string) => {
-        dispatch(actionsApp.changeHandleNetworkError(emptyString))
+    const clearErrorCallback = useCallback( () => {
+        dispatch(actionsApp.changeHandleNetworkError(''))
+        dispatch(actionsApp.changeHandleClientsError([]))
+
     },[stateApp])
 
 
@@ -43,13 +45,15 @@ export const App = React.memo(() => {
                     <TodoContainer/>
                 </Grid>
                 <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
+
             </>
         )
             ;
     }
 )
 type TransitionAlertsType = {
-    clearErrorCallback: (emptyString: string) => void
+    clearErrorCallback: () => void
     error: string
 }
 export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({clearErrorCallback, error}) => {
@@ -60,8 +64,8 @@ export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({cle
                 setOpen(true)
                 setTimeout(() => {
                     setOpen(false)
-                    clearErrorCallback('')
-                }, 3000)
+                    clearErrorCallback()
+                }, 10000)
             }
         }, [error])
 
@@ -71,7 +75,7 @@ export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({cle
                 return
             }
             setOpen(false)
-            clearErrorCallback('')
+            clearErrorCallback()
         };
         return (
             <Snackbar open={open} onClose={handleClose}>
@@ -79,7 +83,6 @@ export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({cle
                     {error}
                 </Alert>
             </Snackbar>
-
         )
     }
 )

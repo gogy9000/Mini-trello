@@ -18,6 +18,7 @@ export const appReducer = (state: StateAppType = initState, action: AppActionsTy
             return {...state, networkError: action.networkError}
 
         case EnumAppType.changeHandleClientsError:
+            console.log(action.clientsError)
             return {...state, clientsError: action.clientsError}
         default:
             return state

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create AppReducer.ts">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create TransitionAlerts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -202,14 +203,7 @@
       <workItem from="1655619023770" duration="15425000" />
       <workItem from="1655721456678" duration="1276000" />
       <workItem from="1655901789331" duration="7630000" />
-      <workItem from="1655966941594" duration="16784000" />
-    </task>
-    <task id="LOCAL-00007" summary="refactoring">
-      <created>1652110976911</created>
-      <option name="number" value="00007" />
-      <option name="presentableId" value="LOCAL-00007" />
-      <option name="project" value="LOCAL" />
-      <updated>1652110976911</updated>
+      <workItem from="1655966941594" duration="17822000" />
     </task>
     <task id="LOCAL-00008" summary="use story book and fixed problem in ToDoWrapper.tsx">
       <created>1652178006815</created>
@@ -547,7 +541,14 @@
       <option name="project" value="LOCAL" />
       <updated>1655976091567</updated>
     </task>
-    <option name="localTasksCounter" value="56" />
+    <task id="LOCAL-00056" summary="create TransitionAlerts">
+      <created>1655985880101</created>
+      <option name="number" value="00056" />
+      <option name="presentableId" value="LOCAL-00056" />
+      <option name="project" value="LOCAL" />
+      <updated>1655985880101</updated>
+    </task>
+    <option name="localTasksCounter" value="57" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -566,7 +567,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="migration on Api-Todo-list" />
     <MESSAGE value="refactoring ToDoReducer.ts" />
     <MESSAGE value="fix refreshTask" />
     <MESSAGE value="use updateTodoLisThunk" />
@@ -591,7 +591,8 @@
     <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
     <MESSAGE value="create AppReducer.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value="create AppReducer.ts" />
+    <MESSAGE value="create TransitionAlerts" />
+    <option name="LAST_COMMIT_MESSAGE" value="create TransitionAlerts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
