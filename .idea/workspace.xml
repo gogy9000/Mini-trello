@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" create waitingList">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use waitingList">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -204,14 +203,8 @@
       <workItem from="1655619023770" duration="15425000" />
       <workItem from="1655721456678" duration="1276000" />
       <workItem from="1655901789331" duration="7630000" />
-      <workItem from="1655966941594" duration="28791000" />
-    </task>
-    <task id="LOCAL-00010" summary="use React.memo() , refactoring">
-      <created>1652529025334</created>
-      <option name="number" value="00010" />
-      <option name="presentableId" value="LOCAL-00010" />
-      <option name="project" value="LOCAL" />
-      <updated>1652529025334</updated>
+      <workItem from="1655966941594" duration="29750000" />
+      <workItem from="1656048831586" duration="5120000" />
     </task>
     <task id="LOCAL-00011" summary="optimized render App">
       <created>1652530894714</created>
@@ -549,7 +542,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656002530030</updated>
     </task>
-    <option name="localTasksCounter" value="59" />
+    <task id="LOCAL-00059" summary="use waitingList">
+      <created>1656004018707</created>
+      <option name="number" value="00059" />
+      <option name="presentableId" value="LOCAL-00059" />
+      <option name="project" value="LOCAL" />
+      <updated>1656004018708</updated>
+    </task>
+    <option name="localTasksCounter" value="60" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +568,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use updateTodoLisThunk" />
     <MESSAGE value="fix checkTask in Task.tsx" />
     <MESSAGE value="fix getTask in Api" />
     <MESSAGE value="fix double render App" />
@@ -593,7 +592,8 @@
     <MESSAGE value="create TransitionAlerts" />
     <MESSAGE value="use TransitionAlerts" />
     <MESSAGE value=" create waitingList" />
-    <option name="LAST_COMMIT_MESSAGE" value=" create waitingList" />
+    <MESSAGE value="use waitingList" />
+    <option name="LAST_COMMIT_MESSAGE" value="use waitingList" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

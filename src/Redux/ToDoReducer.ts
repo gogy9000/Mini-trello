@@ -5,6 +5,19 @@ import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
 import {handleClientsError} from "../utils/HadleErrorUtils";
 
+export enum EnumTodo {
+    changeFilter = 'CHANGE-FILTER',
+    removeTodo = 'REMOVE-TODO',
+    updateTodoName = 'UPDATE-TODO-NAME',
+    createNewTodo = 'CREATE-NEW-TODO',
+    deleteTask = 'DELETE-TASK',
+    addTask = 'ADD-TASK',
+    updateTask = 'UPDATE-TASK',
+    refreshTodolist = 'REFRESH-TODOLIST',
+    refreshTask = 'REFRESH-TASKS',
+    changeUnauthorizedMode = 'CHANGE-UNAUTHORIZED-MODE'
+}
+
 export const initialState: StateType =
     {
         tasksTitle: [] as Array<TodoTitleType>,
@@ -24,7 +37,7 @@ export type ActionsType = InferActionsType<typeof actions | typeof actionsApp>
 export let toDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
     switch (action.type) {
-        case TodoTypes.changeFilter:
+        case EnumTodo.changeFilter:
             return {
                 ...state,
                 tasksTitle: state.tasksTitle.map(
@@ -37,14 +50,14 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
             }
 
 
-        case TodoTypes.removeTodo:
+        case EnumTodo.removeTodo:
             delete state.taskBody[action.idTitle]
             return {
                 ...state,
                 tasksTitle: state.tasksTitle.filter((title: TodoTitleType) => title.id !== action.idTitle),
             }
 
-        case TodoTypes.updateTodoName:
+        case EnumTodo.updateTodoName:
 
             return {
                 ...state,
@@ -59,7 +72,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
                 taskBody: {...state.taskBody}
             }
 
-        case TodoTypes.createNewTodo:
+        case EnumTodo.createNewTodo:
             return {
                 ...state,
                 tasksTitle: [...state.tasksTitle, {
@@ -75,7 +88,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
                 }
             }
 
-        case TodoTypes.addTask:
+        case EnumTodo.addTask:
 
             return {
                 ...state,
@@ -91,7 +104,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
             };
 
 
-        case TodoTypes.updateTask:
+        case EnumTodo.updateTask:
 
             let copyState: StateType = {
                 ...state,
@@ -135,7 +148,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
                 },
             };
 
-        case TodoTypes.deleteTask:
+        case EnumTodo.deleteTask:
             return {
                 ...state,
                 taskBody: {
@@ -150,7 +163,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
                 },
             }
 
-        case TodoTypes.refreshTodolist:
+        case EnumTodo.refreshTodolist:
 
             return {
                 ...state,
@@ -163,7 +176,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
                 }, {})
             }
 
-        case TodoTypes.refreshTask:
+        case EnumTodo.refreshTask:
 
             return {
                 ...state,
@@ -192,7 +205,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
 
                 }, state.taskBody)
             }
-        case TodoTypes.changeUnauthorizedMode:
+        case EnumTodo.changeUnauthorizedMode:
             return {...state, offlineMode: action.offlineMode}
 
 
@@ -202,32 +215,21 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
     }
 }
 
-export enum TodoTypes {
-    changeFilter = 'CHANGE-FILTER',
-    removeTodo = 'REMOVE-TODO',
-    updateTodoName = 'UPDATE-TODO-NAME',
-    createNewTodo = 'CREATE-NEW-TODO',
-    deleteTask = 'DELETE-TASK',
-    addTask = 'ADD-TASK',
-    updateTask = 'UPDATE-TASK',
-    refreshTodolist = 'REFRESH-TODOLIST',
-    refreshTask = 'REFRESH-TASKS',
-    changeUnauthorizedMode = 'CHANGE-UNAUTHORIZED-MODE'
-}
+
 
 export const actions = {
-    changeFilterAC: (todoId: string, filter: string) => ({type: TodoTypes.changeFilter, todoId, filter} as const),
-    removeTodoAC: (idTitle: string) => ({type: TodoTypes.removeTodo, idTitle} as const),
+    changeFilterAC: (todoId: string, filter: string) => ({type: EnumTodo.changeFilter, todoId, filter} as const),
+    removeTodoAC: (idTitle: string) => ({type: EnumTodo.removeTodo, idTitle} as const),
     updateTodoNameAC: (titleName: string, idTitle: string) =>
-        ({type: TodoTypes.updateTodoName, idTitle, titleName} as const),
-    createNewTodoAC: (payload: TodoListItem) => ({type: TodoTypes.createNewTodo, payload} as const),
-    deleteTaskAC: (id: string, idTitle: string) => ({type: TodoTypes.deleteTask, id, idTitle} as const),
-    addTaskAC: (item: TaskType) => ({type: TodoTypes.addTask, newTask: item} as const),
-    updateTaskAC: (updatedTask: TaskType) => ({type: TodoTypes.updateTask, updatedTask} as const),
-    refreshTodoListAC: (payload: TodoListItem[]) => ({type: TodoTypes.refreshTodolist, payload} as const),
-    refreshTasks: (tasks: TaskType[]) => ({type: TodoTypes.refreshTask, tasks} as const),
+        ({type: EnumTodo.updateTodoName, idTitle, titleName} as const),
+    createNewTodoAC: (payload: TodoListItem) => ({type: EnumTodo.createNewTodo, payload} as const),
+    deleteTaskAC: (id: string, idTitle: string) => ({type: EnumTodo.deleteTask, id, idTitle} as const),
+    addTaskAC: (item: TaskType) => ({type: EnumTodo.addTask, newTask: item} as const),
+    updateTaskAC: (updatedTask: TaskType) => ({type: EnumTodo.updateTask, updatedTask} as const),
+    refreshTodoListAC: (payload: TodoListItem[]) => ({type: EnumTodo.refreshTodolist, payload} as const),
+    refreshTasks: (tasks: TaskType[]) => ({type: EnumTodo.refreshTask, tasks} as const),
     changeOfflineMode: (offlineMode: boolean) => ({
-        type: TodoTypes.changeUnauthorizedMode,
+        type: EnumTodo.changeUnauthorizedMode,
         offlineMode
     } as const)
 }
@@ -243,132 +245,177 @@ export const thunks = {
     // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
     synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+
+        actionsApp.toggleIsWaitingApp(true)
+
+
         getState().ToDoReducer.tasksTitle.forEach((todo) => {
                 if (todo.isASynchronizedTodo) {
-                    API.createTodoList(todo.title).then((props) => {
-                            if (props.resultCode === 0) {
-                                dispatch(actions.createNewTodoAC(props.TodoListItem))
 
-                                let activeTasksPromise = new Promise((resolve, reject) => {
+                    API.createTodoList(todo.title)
+                        .then((props) => {
+                                if (props.resultCode === 0) {
+                                    dispatch(actions.createNewTodoAC(props.TodoListItem))
 
-                                    if (getState().ToDoReducer.taskBody[todo.id].activeTasks.length === 0) {
-                                        reject('activeTasks-empty')
-                                    }
-
-                                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach(
-                                        (task, i, arr) => {
-
-                                            if (task.isASynchronizedTask) {
-                                                API.createNewTask(props.TodoListItem.id, task.title)
-                                                    .then((props) => {
-                                                        if (props.resultCode === 0) {
-                                                            dispatch(actions.addTaskAC(props.createdTask))
-                                                        } else {
-                                                            handleClientsError(dispatch, props.messages)
-                                                        }
-                                                        if (i === arr.length - 1) {
-                                                            resolve('success')
-                                                        }
-                                                    }).catch((err) => {
-                                                        console.log(err.message)
-                                                        dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                    }
-                                                )
-                                            }
+                                    let activeTasksPromise = new Promise((resolve, reject) => {
+                                        if (getState().ToDoReducer.taskBody[todo.id].activeTasks.length === 0) {
+                                            reject('activeTasks-empty')
+                                            return
                                         }
-                                    )
-                                })
+                                        getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach(
+                                            (task, i, arr) => {
 
-                                let completedTasksPromise = new Promise((resolve, reject) => {
+                                                if (task.isASynchronizedTask) {
 
-                                    if (getState().ToDoReducer.taskBody[todo.id].completedTasks.length === 0) {
-                                        reject('completedTasks-empty')
-                                    }
-
-                                    getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach(
-                                        (task, index, array) => {
-
-                                            if (task.isASynchronizedTask) {
-                                                API.createNewTask(props.TodoListItem.id, task.title)
-                                                    .then((props) => {
-                                                        if (props.resultCode === 0) {
-                                                            dispatch(actions.addTaskAC(props.createdTask))
-                                                        } else {
-                                                            handleClientsError(dispatch, props.messages)
-                                                        }
-                                                        return props.createdTask
-                                                    }).then((createdTask) => {
-                                                    API.updateTask({...createdTask, status: 1})
+                                                    API.createNewTask(props.TodoListItem.id, task.title)
                                                         .then((props) => {
+
                                                                 if (props.resultCode === 0) {
-                                                                    dispatch(actions.updateTaskAC(props.newTask))
+                                                                    dispatch(actions.addTaskAC(props.createdTask))
                                                                 } else {
                                                                     handleClientsError(dispatch, props.messages)
                                                                 }
+
+                                                                if (i === arr.length - 1) {
+                                                                    resolve('success')
+                                                                }
                                                             }
-                                                        ).catch((err) => {
-                                                        dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                    })
-                                                    if (index === array.length - 1) {
-                                                        resolve('success')
-                                                    }
-                                                }).catch((err) => {
-                                                    dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                })
+                                                        )
+                                                        .catch((err) => {
+                                                                dispatch(actionsApp.changeHandleNetworkError(err.message))
+                                                            }
+                                                        )
+                                                }
                                             }
-                                        }
-                                    )
-                                })
-                                Promise.allSettled([activeTasksPromise, completedTasksPromise])
-                                    .then((value) => {
-                                        dispatch(actions.removeTodoAC(todo.id))
+                                        )
                                     })
-                            } else {
-                                handleClientsError(dispatch, props.messages)
-                            }
-                        }
-                    ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                }
-                if (!todo.isASynchronizedTodo) {
-                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
-                        if (task.isASynchronizedTask) {
-                            API.createNewTask(todo.id, task.title).then((props) => {
-                                    if (props.resultCode === 0) {
-                                        dispatch(actions.addTaskAC(props.createdTask))
-                                        dispatch(actions.deleteTaskAC(task.id, todo.id))
-                                    } else {
-                                        handleClientsError(dispatch, props.messages)
-                                    }
+
+                                    let completedTasksPromise = new Promise((resolve, reject) => {
+
+                                        if (getState().ToDoReducer.taskBody[todo.id].completedTasks.length === 0) {
+                                            reject('completedTasks-empty')
+                                            return
+                                        }
+                                        getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach(
+                                            (task, index, array) => {
+
+                                                if (task.isASynchronizedTask) {
+
+                                                    API.createNewTask(props.TodoListItem.id, task.title)
+                                                        .then((props) => {
+                                                                if (props.resultCode === 0) {
+                                                                    dispatch(actions.addTaskAC(props.createdTask))
+                                                                } else {
+                                                                    handleClientsError(dispatch, props.messages)
+                                                                }
+                                                                return props.createdTask
+                                                            }
+                                                        )
+                                                        .then((createdTask) => {
+                                                                API.updateTask({...createdTask, status: 1})
+                                                                    .then((props) => {
+                                                                            if (props.resultCode === 0) {
+                                                                                dispatch(actions.updateTaskAC(props.newTask))
+                                                                            } else {
+                                                                                handleClientsError(dispatch, props.messages)
+                                                                            }
+                                                                        }
+                                                                    )
+                                                                    .catch((err) => {
+                                                                            dispatch(actionsApp.changeHandleNetworkError(err.message))
+                                                                        }
+                                                                    )
+
+                                                                if (index === array.length - 1) {
+                                                                    resolve('success')
+                                                                }
+                                                            }
+                                                        )
+                                                        .catch((err) => {
+                                                                dispatch(actionsApp.changeHandleNetworkError(err.message))
+                                                            }
+                                                        )
+                                                }
+                                            }
+                                        )
+                                    })
+
+                                    Promise.allSettled([activeTasksPromise, completedTasksPromise])
+                                        .then((value) => {
+                                            dispatch(actions.removeTodoAC(todo.id))
+
+                                        })
+
+                                } else {
+                                    handleClientsError(dispatch, props.messages)
                                 }
-                            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                            }
+                        )
+                        .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                }
+
+                if (!todo.isASynchronizedTodo) {
+
+                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
+
+                        if (task.isASynchronizedTask) {
+
+                            API.createNewTask(todo.id, task.title)
+                                .then((props) => {
+                                        if (props.resultCode === 0) {
+
+                                            dispatch(actions.addTaskAC(props.createdTask))
+                                            dispatch(actions.deleteTaskAC(task.id, todo.id))
+
+                                        } else {
+
+                                            handleClientsError(dispatch, props.messages)
+
+                                        }
+                                    }
+                                )
+                                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
                         }
                     })
 
                     getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach((task) => {
+
                         if (task.isASynchronizedTask) {
-                            API.createNewTask(todo.id, task.title).then((props) => {
-                                    console.log(props.createdTask)
-                                    if (props.resultCode === 0) {
-                                        dispatch(actions.addTaskAC(props.createdTask))
-                                        dispatch(actions.deleteTaskAC(task.id, todo.id))
 
-                                    } else {
-                                        handleClientsError(dispatch, props.messages)
-                                    }
-                                    return props.createdTask
-                                }
-                            ).then((createdTask) => {
-                                API.updateTask({...createdTask, status: 1})
-                                    .then((props) => {
-                                            if (props.resultCode === 0) {
-                                                dispatch(actions.updateTaskAC(props.newTask))
-                                            } else {
-                                                handleClientsError(dispatch, props.messages)
-                                            }
+                            API.createNewTask(todo.id, task.title)
+                                .then((props) => {
+
+                                        if (props.resultCode === 0) {
+
+                                            dispatch(actions.addTaskAC(props.createdTask))
+                                            dispatch(actions.deleteTaskAC(task.id, todo.id))
+
+                                        } else {
+
+                                            handleClientsError(dispatch, props.messages)
+
                                         }
-                                    ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                                        return props.createdTask
+                                    }
+                                )
+                                .then((createdTask) => {
+                                        API.updateTask({...createdTask, status: 1})
+                                            .then((props) => {
+                                                    if (props.resultCode === 0) {
 
-                            }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                                                        dispatch(actions.updateTaskAC(props.newTask))
+
+                                                    } else {
+
+                                                        handleClientsError(dispatch, props.messages)
+
+                                                    }
+                                                }
+                                            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+
+                                    }
+                                )
+                                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
                         }
                     })
                 }
@@ -383,36 +430,42 @@ export const thunks = {
         } else {
             API.getTodoList()
                 .then((response) => {
-                    if (response.status === 200) {
-                        dispatch(actions.refreshTodoListAC(response.data))
+                        if (response.status === 200) {
 
-                        response.data.forEach((dataItem: TodoListItem) => {
-                            API.getTasks(dataItem.id)
-                                .then((props) => {
-                                    if (props.status === 200) {
-                                        dispatch(actions.refreshTasks(props.tasks))
-                                    } else {
-                                        handleClientsError(dispatch, [response.statusText])
-                                    }
-                                })
-                                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                        })
-                    } else {
-                        handleClientsError(dispatch, [response.statusText])
+                            dispatch(actions.refreshTodoListAC(response.data))
+                            response.data.forEach(
+                                (dataItem: TodoListItem) => {
+                                    API.getTasks(dataItem.id)
+                                        .then((props) => {
+                                                if (props.status === 200) {
+                                                    dispatch(actions.refreshTasks(props.tasks))
+                                                } else {
+                                                    handleClientsError(dispatch, [response.statusText])
+                                                }
+                                            }
+                                        )
+                                        .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                                }
+                            )
+
+                        } else {
+                            handleClientsError(dispatch, [response.statusText])
+                        }
                     }
-                }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                )
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
         }
     },
 
     createTodolistTC: (title: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
             if (getState().ToDoReducer.offlineMode) {
+
                 if (title.length > 100) {
                     handleClientsError(
                         dispatch,
                         ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
                     )
-
                 } else {
                     dispatch(
                         actions.createNewTodoAC(
@@ -426,6 +479,7 @@ export const thunks = {
                         )
                     )
                 }
+
             } else {
                 API.createTodoList(title)
                     .then((props) => {
@@ -441,6 +495,7 @@ export const thunks = {
     updateTodoList: (todolistId: string, title: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
             if (getState().ToDoReducer.offlineMode) {
+
                 if (title.length > 100) {
                     handleClientsError(
                         dispatch,
@@ -449,6 +504,7 @@ export const thunks = {
                 } else {
                     dispatch(actions.updateTodoNameAC(title, todolistId))
                 }
+
             } else {
                 dispatch(actionsApp.addWaitingList(todolistId))
                 API.updateTodoLis(todolistId, title)
@@ -470,21 +526,28 @@ export const thunks = {
         if (getState().ToDoReducer.offlineMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
-            API.deleteTodoList(todolistId).then((resp) => {
-                    console.log(resp.data.resultCode)
-                    if (resp.data.resultCode === 0) {
-                        dispatch(actions.removeTodoAC(todolistId))
-                    } else {
-                        handleClientsError(dispatch, resp.data.messages)
+            dispatch(actionsApp.addWaitingList(todolistId))
+            API.deleteTodoList(todolistId)
+                .then((resp) => {
+                        console.log(resp.data.resultCode)
+                        if (resp.data.resultCode === 0) {
+                            dispatch(actions.removeTodoAC(todolistId))
+                        } else {
+                            handleClientsError(dispatch, resp.data.messages)
+                        }
                     }
-                }
-            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                )
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                    dispatch(actionsApp.removeWaitingList(todolistId))
+                })
         }
     },
 
     addTaskTC: (todolistId: string, taskTitle: string) =>
         (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
             if (getState().ToDoReducer.offlineMode) {
+
                 if (taskTitle.length > 100) {
                     handleClientsError(
                         dispatch,
@@ -507,7 +570,6 @@ export const thunks = {
                     )
                 }
 
-
             } else {
                 dispatch(actionsApp.addWaitingList(todolistId))
                 API.createNewTask(todolistId, taskTitle)
@@ -521,14 +583,16 @@ export const thunks = {
                         }
                     )
                     .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                    .finally(()=>{dispatch(actionsApp.removeWaitingList(todolistId))})
+                    .finally(() => {
+                        dispatch(actionsApp.removeWaitingList(todolistId))
+                    })
             }
         },
 
     updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
         if (getState().ToDoReducer.offlineMode) {
-// если длинна названия таски длиннее 100 символов, диспатчит ошибку
-            if (task.title.length > 100) {
+
+            if (task.title.length > 100) {// если длинна названия таски длиннее 100 символов, диспатчит ошибку
                 handleClientsError(
                     dispatch,
                     ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
@@ -536,15 +600,22 @@ export const thunks = {
             } else {
                 dispatch(actions.updateTaskAC(task))
             }
+
         } else {
-            API.updateTask(task).then((props) => {
-                    if (props.resultCode === 0) {
-                        dispatch(actions.updateTaskAC(props.newTask))
-                    } else {
-                        handleClientsError(dispatch, props.messages)
+            dispatch(actionsApp.addWaitingList(task.id))
+            API.updateTask(task)
+                .then((props) => {
+                        if (props.resultCode === 0) {
+                            dispatch(actions.updateTaskAC(props.newTask))
+                        } else {
+                            handleClientsError(dispatch, props.messages)
+                        }
                     }
-                }
-            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                )
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                    dispatch(actionsApp.removeWaitingList(task.id))
+                })
         }
     },
 
@@ -552,14 +623,20 @@ export const thunks = {
         if (getState().ToDoReducer.offlineMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {
-            API.deleteTask(todolistId, taskId).then((resp) => {
-                    if (resp.data.resultCode === 0) {
-                        dispatch(actions.deleteTaskAC(taskId, todolistId))
-                    } else {
-                        handleClientsError(dispatch, resp.data.messages)
+            dispatch(actionsApp.addWaitingList(taskId))
+            API.deleteTask(todolistId, taskId)
+                .then((resp) => {
+                        if (resp.data.resultCode === 0) {
+                            dispatch(actions.deleteTaskAC(taskId, todolistId))
+                        } else {
+                            handleClientsError(dispatch, resp.data.messages)
+                        }
                     }
-                }
-            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                )
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                    dispatch(actionsApp.removeWaitingList(taskId))
+                })
         }
     }
 }
