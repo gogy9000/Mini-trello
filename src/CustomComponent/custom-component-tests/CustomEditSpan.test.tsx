@@ -26,7 +26,7 @@ it('CustomEditSpan renders with a AZAZA', () => {
 
 
     // @ts-ignore
-    expect(container.querySelector("[data-testId='span']").textContent)
+    expect(container.querySelector("[data-testid='span']").textContent)
         .toEqual('AZAZA')
 })
 it('TextField should be active', () => {
@@ -35,7 +35,7 @@ it('TextField should be active', () => {
     act(() => {
         render(<CustomEditSpan data-testId='CustomEditSpan' value={'AZAZA'} onDoubleClick={onDoubleClick}/>, container)
     })
-    const span = document.querySelector("[data-testId='span']")
+    const span = document.querySelector("[data-testid='span']")
     act(() => {
         // for (let i = 0; i < 5; i++) {
         // @ts-ignore
@@ -43,7 +43,7 @@ it('TextField should be active', () => {
         // }
     })
     // @ts-ignore
-    expect(document.querySelector("[data-testId='TextField']").getAttribute('data-testId'))
+    expect(document.querySelector("[data-testid='TextField']").getAttribute('data-testId'))
         .toBe("TextField")
 
 });

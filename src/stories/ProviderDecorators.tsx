@@ -10,14 +10,14 @@ import {
     PreloadedState,
     Store
 } from "redux";
-import {ToDoReducer} from "../Redux/ToDoReducer";
+import {toDoReducer} from "../Redux/ToDoReducer";
 import {StateType, TaskType, TodoTitleType} from "../Types";
 import thunk from "redux-thunk";
 
 type RootReducerType = typeof rootReducer
 export type AppRootStateType=ReturnType<RootReducerType>
 let rootReducer = combineReducers({
-    stateTodo: ToDoReducer
+    stateTodo: toDoReducer
 })
 
  let stateStories={
@@ -28,7 +28,7 @@ let rootReducer = combineReducers({
             completedTasks: [{description: 'string | null', title: 'Completed Task', status: 1, priority: 1, startDate: 'string | null', deadline: 'string | null', id: '21', todoListId: '123', order: 0, addedDate: '123'}] as TaskType[]
         }
     },
-     unauthorizedMode:true
+     offlineMode:true
 }
 
 

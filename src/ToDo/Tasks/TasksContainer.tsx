@@ -9,8 +9,8 @@ type TaskBlockWrapperPropsType = {
     filter: string
 }
 export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
-        const activeTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].activeTasks)
-        const completedTasks = useSelector((state: AppStateType) => state.stateTodo.taskBody[todoId].completedTasks)
+        const activeTasks = useSelector((state: AppStateType) => state.ToDoReducer.taskBody[todoId].activeTasks)
+        const completedTasks = useSelector((state: AppStateType) => state.ToDoReducer.taskBody[todoId].completedTasks)
 
         return (
 

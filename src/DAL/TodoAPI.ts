@@ -4,7 +4,7 @@ import {TaskType} from "../Types";
 
 const instance = axios.create({
     withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    baseURL: 'https://cors-anywhere.herokuapp.com/https://social-network.samuraijs.com/api/1.1/',
     headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
 })
 
