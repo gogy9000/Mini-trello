@@ -462,6 +462,9 @@ export const thunks = {
                     }
                 )
                 .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(()=>{
+                   dispatch(actionsApp.toggleIsWaitingApp(false))
+                })
 
         }
     },

@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create toggleIsWaitingApp">
-      <change afterPath="$PROJECT_DIR$/src/TransitionAlerts.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use toggleIsWaitingApp">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/TransitionAlerts.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/TransitionAlerts.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -143,8 +142,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.deploy" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.storybook" />
@@ -206,14 +205,8 @@
       <workItem from="1655721456678" duration="1276000" />
       <workItem from="1655901789331" duration="7630000" />
       <workItem from="1655966941594" duration="29750000" />
-      <workItem from="1656048831586" duration="10576000" />
-    </task>
-    <task id="LOCAL-00012" summary="backStep on redux">
-      <created>1653030809494</created>
-      <option name="number" value="00012" />
-      <option name="presentableId" value="LOCAL-00012" />
-      <option name="project" value="LOCAL" />
-      <updated>1653030809494</updated>
+      <workItem from="1656048831586" duration="11099000" />
+      <workItem from="1656060477851" duration="2857000" />
     </task>
     <task id="LOCAL-00013" summary="use filter state in redux">
       <created>1653038755001</created>
@@ -551,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656054048008</updated>
     </task>
-    <option name="localTasksCounter" value="61" />
+    <task id="LOCAL-00061" summary="use toggleIsWaitingApp">
+      <created>1656059924038</created>
+      <option name="number" value="00061" />
+      <option name="presentableId" value="LOCAL-00061" />
+      <option name="project" value="LOCAL" />
+      <updated>1656059924039</updated>
+    </task>
+    <option name="localTasksCounter" value="62" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -570,7 +570,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix getTask in Api" />
     <MESSAGE value="fix double render App" />
     <MESSAGE value="use redux-dev-tools" />
     <MESSAGE value="use redux-dev-tools Trace" />
@@ -595,7 +594,8 @@
     <MESSAGE value=" create waitingList" />
     <MESSAGE value="use waitingList" />
     <MESSAGE value="create toggleIsWaitingApp" />
-    <option name="LAST_COMMIT_MESSAGE" value="create toggleIsWaitingApp" />
+    <MESSAGE value="use toggleIsWaitingApp" />
+    <option name="LAST_COMMIT_MESSAGE" value="use toggleIsWaitingApp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

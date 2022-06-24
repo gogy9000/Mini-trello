@@ -27,8 +27,8 @@ export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({cle
             clearErrorCallback()
         };
         return (
-            <Snackbar open={open} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
+            <Snackbar  open={open} onClose={handleClose}>
+                <Alert variant='filled' onClose={handleClose} severity="error" sx={{width: '100%'}}>
                     {error}
                 </Alert>
             </Snackbar>
