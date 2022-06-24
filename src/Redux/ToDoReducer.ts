@@ -216,7 +216,6 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
 }
 
 
-
 export const actions = {
     changeFilterAC: (todoId: string, filter: string) => ({type: EnumTodo.changeFilter, todoId, filter} as const),
     removeTodoAC: (idTitle: string) => ({type: EnumTodo.removeTodo, idTitle} as const),
@@ -245,9 +244,6 @@ export const thunks = {
     // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
     synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-
-        actionsApp.toggleIsWaitingApp(true)
-
 
         getState().ToDoReducer.tasksTitle.forEach((todo) => {
                 if (todo.isASynchronizedTodo) {
@@ -344,14 +340,19 @@ export const thunks = {
                                         .then((value) => {
                                             dispatch(actions.removeTodoAC(todo.id))
 
+
                                         })
 
                                 } else {
                                     handleClientsError(dispatch, props.messages)
+
                                 }
                             }
                         )
-                        .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                        .catch((err) => {
+                            dispatch(actionsApp.changeHandleNetworkError(err.message))
+
+                        })
                 }
 
                 if (!todo.isASynchronizedTodo) {
@@ -428,13 +429,14 @@ export const thunks = {
         if (getState().ToDoReducer.offlineMode) {
             return
         } else {
+            dispatch(actionsApp.toggleIsWaitingApp(true))
             API.getTodoList()
                 .then((response) => {
                         if (response.status === 200) {
 
                             dispatch(actions.refreshTodoListAC(response.data))
                             response.data.forEach(
-                                (dataItem: TodoListItem) => {
+                                (dataItem: TodoListItem, index, array) => {
                                     API.getTasks(dataItem.id)
                                         .then((props) => {
                                                 if (props.status === 200) {
@@ -445,6 +447,12 @@ export const thunks = {
                                             }
                                         )
                                         .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                                        .finally(() => {
+                                                if (index === array.length - 1) {
+                                                    dispatch(actionsApp.toggleIsWaitingApp(false))
+                                                }
+                                            }
+                                        )
                                 }
                             )
 
@@ -454,6 +462,7 @@ export const thunks = {
                     }
                 )
                 .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+
         }
     },
 
@@ -481,6 +490,7 @@ export const thunks = {
                 }
 
             } else {
+                dispatch(actionsApp.toggleIsWaitingApp(true))
                 API.createTodoList(title)
                     .then((props) => {
                         if (props.resultCode === 0) {
@@ -489,6 +499,10 @@ export const thunks = {
                             handleClientsError(dispatch, props.messages)
                         }
                     }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                    .finally(() => {
+                            dispatch(actionsApp.toggleIsWaitingApp(false))
+                        }
+                    )
             }
         },
 

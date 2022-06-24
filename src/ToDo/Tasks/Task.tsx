@@ -7,14 +7,15 @@ import {
     CardContent,
     Checkbox,
     Collapse,
-    IconButton, IconButtonProps,
+    IconButton, IconButtonProps, LinearProgress,
     Typography
 } from "@mui/material";
 import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import {AppStateType} from "../../Redux/ReduxStore";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -34,14 +35,17 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         };
 
 
-        const dispatch = useDispatch()
         const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
+        const dispatch = useDispatch()
+        const isWaitingId = useSelector((store: AppStateType) => store.appReducer.waitingList[task.id])
+
         const checkTask = useCallback(() => {
             // @ts-ignore
             dispatch(thunks.updateTask({...task, status: task.status === 0 ? 1 : 0}))
+            setExpanded(false)
         }, [dispatch, task])
 
 
@@ -57,11 +61,13 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                 setError('')
             }
             setEditModeControlled(false)
+            setExpanded(false)
         }, [dispatch, task, taskValue, error])
 
         const deleteTask = useCallback(() => {
             // @ts-ignore
             dispatch(thunks.deleteTask(todoId, task.id))
+            setExpanded(false)
         }, [dispatch, task.id, todoId])
 
         const onEditMode = () => {
@@ -123,7 +129,9 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                             </Box>
                         </Collapse>
                     </Box>
+
                 </Box>
+                {isWaitingId&&<LinearProgress/>}
             </Card>
         )
     }

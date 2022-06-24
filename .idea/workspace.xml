@@ -4,10 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use waitingList">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create toggleIsWaitingApp">
+      <change afterPath="$PROJECT_DIR$/src/TransitionAlerts.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -74,11 +76,11 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDoReducerForReactUseReducer" />
     </key>
     <key name="es6.move.members.recent.items">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TransitionAlerts.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\AccordionWrapper.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\CreateToDoWrapper.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\Task.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskTitleBlock.tsx" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskBlockWrapper.tsx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo\AccordionForCreateToDoInput" />
@@ -204,14 +206,7 @@
       <workItem from="1655721456678" duration="1276000" />
       <workItem from="1655901789331" duration="7630000" />
       <workItem from="1655966941594" duration="29750000" />
-      <workItem from="1656048831586" duration="5120000" />
-    </task>
-    <task id="LOCAL-00011" summary="optimized render App">
-      <created>1652530894714</created>
-      <option name="number" value="00011" />
-      <option name="presentableId" value="LOCAL-00011" />
-      <option name="project" value="LOCAL" />
-      <updated>1652530894714</updated>
+      <workItem from="1656048831586" duration="10576000" />
     </task>
     <task id="LOCAL-00012" summary="backStep on redux">
       <created>1653030809494</created>
@@ -549,7 +544,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656004018708</updated>
     </task>
-    <option name="localTasksCounter" value="60" />
+    <task id="LOCAL-00060" summary="create toggleIsWaitingApp">
+      <created>1656054048008</created>
+      <option name="number" value="00060" />
+      <option name="presentableId" value="LOCAL-00060" />
+      <option name="project" value="LOCAL" />
+      <updated>1656054048008</updated>
+    </task>
+    <option name="localTasksCounter" value="61" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -568,7 +570,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix checkTask in Task.tsx" />
     <MESSAGE value="fix getTask in Api" />
     <MESSAGE value="fix double render App" />
     <MESSAGE value="use redux-dev-tools" />
@@ -593,7 +594,8 @@
     <MESSAGE value="use TransitionAlerts" />
     <MESSAGE value=" create waitingList" />
     <MESSAGE value="use waitingList" />
-    <option name="LAST_COMMIT_MESSAGE" value="use waitingList" />
+    <MESSAGE value="create toggleIsWaitingApp" />
+    <option name="LAST_COMMIT_MESSAGE" value="create toggleIsWaitingApp" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

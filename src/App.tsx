@@ -1,14 +1,13 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TodoContainer} from "./ToDo/TodoContainer";
-import {Alert, Box, Button, Collapse, Grid, IconButton, Snackbar, Stack} from "@mui/material";
+import {Grid, LinearProgress} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
-import {AppDispatchType, AppStateType, AppThunk,} from "./Redux/ReduxStore";
-import {Dispatch} from "redux";
-import {Close} from "@mui/icons-material";
+import {AppStateType,} from "./Redux/ReduxStore";
 import {actionsApp} from "./Redux/AppReducer";
+import {TransitionAlerts} from "./TransitionAlerts";
 
 export const useAppDispatch = () => useDispatch()
 
@@ -41,6 +40,7 @@ export const App = React.memo(() => {
 
             <>
                 <PrimarySearchAppBar/>
+                {stateApp.isWaitingApp&&<LinearProgress/>}
                 <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
                     <TodoContainer/>
                 </Grid>
@@ -50,40 +50,6 @@ export const App = React.memo(() => {
             </>
         )
             ;
-    }
-)
-type TransitionAlertsType = {
-    clearErrorCallback: () => void
-    error: string
-}
-export const TransitionAlerts: React.FC<TransitionAlertsType> = React.memo(({clearErrorCallback, error}) => {
-        const [open, setOpen] = React.useState(false);
-
-        useEffect(() => {
-            if (error) {
-                setOpen(true)
-                setTimeout(() => {
-                    setOpen(false)
-                    clearErrorCallback()
-                }, 10000)
-            }
-        }, [error])
-
-
-        const handleClose = (event?: React.SyntheticEvent | Event, reason?: string) => {
-            if (reason === 'clickaway') {
-                return
-            }
-            setOpen(false)
-            clearErrorCallback()
-        };
-        return (
-            <Snackbar open={open} onClose={handleClose}>
-                <Alert onClose={handleClose} severity="error" sx={{width: '100%'}}>
-                    {error}
-                </Alert>
-            </Snackbar>
-        )
     }
 )
 
