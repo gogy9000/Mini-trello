@@ -1,19 +1,15 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
 import {ActionsType, toDoReducer} from './ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {composeWithDevTools} from "@redux-devtools/extension";
-import {StateType, TaskType, TodoTitleType} from "../Types";
 import {appReducer} from "./AppReducer";
 
 
-type RootReducerType = typeof rootReducer
+export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, ActionsType>
 
-export type AppStateType = ReturnType<RootReducerType>
-
-export type AppDispatchType = typeof store.dispatch
-
-export type AppThunk<ReturnType=void>=ThunkAction<ReturnType,RootReducerType,unknown,ActionsType>
+export type AppThunk<ReturnType=void>=ThunkAction<ReturnType,AppRootStateType,unknown,ActionsType>
 
 const persistState = loadState()
 

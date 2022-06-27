@@ -3,9 +3,9 @@ import '../../App.css';
 import {thunks} from '../../Redux/ToDoReducer';
 import {IconButton, LinearProgress, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
-import {useAppDispatch} from "../../App";
+import {useDispatchApp} from "../../App";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/ReduxStore";
+import {AppRootStateType} from "../../Redux/ReduxStore";
 
 type InputBlockForAddTaskPropsType = {
     todoId: string
@@ -16,8 +16,8 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
-        const dispatch = useAppDispatch()
-        const isWaitingTodo=useSelector((store:AppStateType)=>store.appReducer.waitingList[todoId])
+        const dispatch = useDispatchApp()
+        const isWaitingTodo=useSelector((store:AppRootStateType)=>store.appReducer.waitingList[todoId])
 
         const addTask = useCallback( () => {
             if ((/^\s+$/).test(inputText) || inputText === '') {

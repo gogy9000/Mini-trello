@@ -1,6 +1,6 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
 import {API, TaskItem, TodoListItem} from "../DAL/TodoAPI";
-import {AppStateType, AppThunk, store} from "./ReduxStore";
+import {AppRootStateType, AppThunk, store} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
 import {handleClientsError} from "../utils/HadleErrorUtils";
@@ -243,7 +243,9 @@ export const thunks = {
     // и таски будут перенесены на сервер, после чего удаляет все, что было перенесено на сервер для того что бы не было
     // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
-    synchronizeTodo: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+    synchronizeTodo: (): AppThunk => (
+        dispatch, getState
+    ) => {
 
         getState().ToDoReducer.tasksTitle.forEach((todo) => {
                 if (todo.isASynchronizedTodo) {
@@ -422,10 +424,11 @@ export const thunks = {
                 }
             }
         )
-
     },
 
-    getTodolistAndTasks: () => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+    getTodolistAndTasks: (): AppThunk => (
+        dispatch, getState
+    ) => {
         if (getState().ToDoReducer.offlineMode) {
             return
         } else {
@@ -462,84 +465,88 @@ export const thunks = {
                     }
                 )
                 .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(()=>{
-                   dispatch(actionsApp.toggleIsWaitingApp(false))
+                .finally(() => {
+                    dispatch(actionsApp.toggleIsWaitingApp(false))
                 })
 
         }
     },
 
-    createTodolistTC: (title: string) =>
-        (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-            if (getState().ToDoReducer.offlineMode) {
+    createTodolistTC: (title: string): AppThunk => (
+        dispatch, getState
+    ) => {
+        if (getState().ToDoReducer.offlineMode) {
 
-                if (title.length > 100) {
-                    handleClientsError(
-                        dispatch,
-                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                    )
-                } else {
-                    dispatch(
-                        actions.createNewTodoAC(
-                            {
-                                id: v1(),
-                                title: title,
-                                addedDate: JSON.stringify(new Date()),
-                                order: 0,
-                                isASynchronizedTodo: true
-                            }
-                        )
-                    )
-                }
-
+            if (title.length > 100) {
+                handleClientsError(
+                    dispatch,
+                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                )
             } else {
-                dispatch(actionsApp.toggleIsWaitingApp(true))
-                API.createTodoList(title)
-                    .then((props) => {
-                        if (props.resultCode === 0) {
-                            dispatch(actions.createNewTodoAC(props.TodoListItem))
-                        } else {
-                            handleClientsError(dispatch, props.messages)
-                        }
-                    }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                    .finally(() => {
-                            dispatch(actionsApp.toggleIsWaitingApp(false))
+                dispatch(
+                    actions.createNewTodoAC(
+                        {
+                            id: v1(),
+                            title: title,
+                            addedDate: JSON.stringify(new Date()),
+                            order: 0,
+                            isASynchronizedTodo: true
                         }
                     )
+                )
             }
-        },
 
-    updateTodoList: (todolistId: string, title: string) =>
-        (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-            if (getState().ToDoReducer.offlineMode) {
+        } else {
+            dispatch(actionsApp.toggleIsWaitingApp(true))
+            API.createTodoList(title)
+                .then((props) => {
+                    if (props.resultCode === 0) {
+                        dispatch(actions.createNewTodoAC(props.TodoListItem))
+                    } else {
+                        handleClientsError(dispatch, props.messages)
+                    }
+                }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                        dispatch(actionsApp.toggleIsWaitingApp(false))
+                    }
+                )
+        }
+    },
 
-                if (title.length > 100) {
-                    handleClientsError(
-                        dispatch,
-                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                    )
-                } else {
-                    dispatch(actions.updateTodoNameAC(title, todolistId))
-                }
+    updateTodoList: (todolistId: string, title: string): AppThunk => (
+        dispatch, getState
+    ) => {
+        if (getState().ToDoReducer.offlineMode) {
 
+            if (title.length > 100) {
+                handleClientsError(
+                    dispatch,
+                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                )
             } else {
-                dispatch(actionsApp.addWaitingList(todolistId))
-                API.updateTodoLis(todolistId, title)
-                    .then((resp) => {
-                        if (resp.data.resultCode === 0) {
-                            dispatch(actions.updateTodoNameAC(title, todolistId))
-                        } else {
-                            handleClientsError(dispatch, resp.data.messages)
-                        }
-                    })
-                    .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                    .finally(() => {
-                        dispatch(actionsApp.removeWaitingList(todolistId))
-                    })
+                dispatch(actions.updateTodoNameAC(title, todolistId))
             }
-        },
 
-    deleteTodolist: (todolistId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        } else {
+            dispatch(actionsApp.addWaitingList(todolistId))
+            API.updateTodoLis(todolistId, title)
+                .then((resp) => {
+                    if (resp.data.resultCode === 0) {
+                        dispatch(actions.updateTodoNameAC(title, todolistId))
+                    } else {
+                        handleClientsError(dispatch, resp.data.messages)
+                    }
+                })
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                    dispatch(actionsApp.removeWaitingList(todolistId))
+                })
+        }
+    },
+
+    deleteTodolist: (todolistId: string): AppThunk => (
+        dispatch, getState
+    ) => {
         if (getState().ToDoReducer.offlineMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
@@ -561,52 +568,55 @@ export const thunks = {
         }
     },
 
-    addTaskTC: (todolistId: string, taskTitle: string) =>
-        (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
-            if (getState().ToDoReducer.offlineMode) {
+    addTaskTC: (todolistId: string, taskTitle: string): AppThunk => (
+        dispatch, getState
+    ) => {
+        if (getState().ToDoReducer.offlineMode) {
 
-                if (taskTitle.length > 100) {
-                    handleClientsError(
-                        dispatch,
-                        ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                    )
-                } else {
-                    dispatch(actions.addTaskAC({
-                            description: null,
-                            title: taskTitle,
-                            status: 0,
-                            priority: 0,
-                            startDate: null,
-                            deadline: null,
-                            id: v1(),
-                            todoListId: todolistId,
-                            order: 0,
-                            addedDate: JSON.stringify(new Date()),
-                            isASynchronizedTask: true
-                        })
-                    )
-                }
-
+            if (taskTitle.length > 100) {
+                handleClientsError(
+                    dispatch,
+                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
+                )
             } else {
-                dispatch(actionsApp.addWaitingList(todolistId))
-                API.createNewTask(todolistId, taskTitle)
-                    .then((props) => {
-                            console.log(props.createdTask)
-                            if (props.resultCode === 0) {
-                                dispatch(actions.addTaskAC(props.createdTask))
-                            } else {
-                                handleClientsError(dispatch, props.messages)
-                            }
-                        }
-                    )
-                    .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                    .finally(() => {
-                        dispatch(actionsApp.removeWaitingList(todolistId))
+                dispatch(actions.addTaskAC({
+                        description: null,
+                        title: taskTitle,
+                        status: 0,
+                        priority: 0,
+                        startDate: null,
+                        deadline: null,
+                        id: v1(),
+                        todoListId: todolistId,
+                        order: 0,
+                        addedDate: JSON.stringify(new Date()),
+                        isASynchronizedTask: true
                     })
+                )
             }
-        },
 
-    updateTask: (task: TaskType) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+        } else {
+            dispatch(actionsApp.addWaitingList(todolistId))
+            API.createNewTask(todolistId, taskTitle)
+                .then((props) => {
+                        console.log(props.createdTask)
+                        if (props.resultCode === 0) {
+                            dispatch(actions.addTaskAC(props.createdTask))
+                        } else {
+                            handleClientsError(dispatch, props.messages)
+                        }
+                    }
+                )
+                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                .finally(() => {
+                    dispatch(actionsApp.removeWaitingList(todolistId))
+                })
+        }
+    },
+
+    updateTask: (task: TaskType): AppThunk => (
+        dispatch, getState
+    ) => {
         if (getState().ToDoReducer.offlineMode) {
 
             if (task.title.length > 100) {// если длинна названия таски длиннее 100 символов, диспатчит ошибку
@@ -636,7 +646,9 @@ export const thunks = {
         }
     },
 
-    deleteTask: (todolistId: string, taskId: string) => (dispatch: (action: ActionsType) => void, getState: () => AppStateType) => {
+    deleteTask: (todolistId: string, taskId: string): AppThunk => (
+        dispatch, getState
+    ) => {
         if (getState().ToDoReducer.offlineMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {

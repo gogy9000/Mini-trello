@@ -15,7 +15,7 @@ import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {useDispatch, useSelector} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {AppStateType} from "../../Redux/ReduxStore";
+import {AppRootStateType} from "../../Redux/ReduxStore";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -40,7 +40,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
         const dispatch = useDispatch()
-        const isWaitingId = useSelector((store: AppStateType) => store.appReducer.waitingList[task.id])
+        const isWaitingId = useSelector((store: AppRootStateType) => store.appReducer.waitingList[task.id])
 
         const checkTask = useCallback(() => {
             // @ts-ignore

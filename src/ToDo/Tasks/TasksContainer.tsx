@@ -2,15 +2,15 @@ import React from "react";
 import {Tasks} from "./Tasks";
 import {Divider, Stack} from "@mui/material";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/ReduxStore";
+import {AppRootStateType} from "../../Redux/ReduxStore";
 
 type TaskBlockWrapperPropsType = {
     todoId: string
     filter: string
 }
 export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
-        const activeTasks = useSelector((state: AppStateType) => state.ToDoReducer.taskBody[todoId].activeTasks)
-        const completedTasks = useSelector((state: AppStateType) => state.ToDoReducer.taskBody[todoId].completedTasks)
+        const activeTasks = useSelector((state: AppRootStateType) => state.ToDoReducer.taskBody[todoId].activeTasks)
+        const completedTasks = useSelector((state: AppRootStateType) => state.ToDoReducer.taskBody[todoId].completedTasks)
 
         return (
 

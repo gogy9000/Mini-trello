@@ -3,7 +3,7 @@ import {ComponentMeta, ComponentStory} from "@storybook/react";
 import { ProviderDecorators} from "../stories/ProviderDecorators";
 import {Provider, useDispatch, useSelector} from "react-redux";
 
-import {AppStateType, store} from "../Redux/ReduxStore";
+import {AppRootStateType, store} from "../Redux/ReduxStore";
 
 
 export default {

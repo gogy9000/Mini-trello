@@ -4,7 +4,7 @@ import {Box, Card, IconButton, LinearProgress, Stack, TextField, Typography} fro
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/ReduxStore";
+import {AppRootStateType} from "../../Redux/ReduxStore";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType
@@ -15,7 +15,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const isWaitingTodo=useSelector((store:AppStateType)=>store.appReducer.waitingList[todo.id])
+        const isWaitingTodo=useSelector((store:AppRootStateType)=>store.appReducer.waitingList[todo.id])
 
         const dispatch = useDispatch()
 

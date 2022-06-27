@@ -5,13 +5,13 @@ import {ToDo} from "./ToDo";
 import {Grid, Paper} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 import {useSelector} from "react-redux";
-import {AppStateType} from "../Redux/ReduxStore";
+import {AppRootStateType} from "../Redux/ReduxStore";
 import {Masonry} from "@mui/lab";
 
 
 export const TodoContainer = React.memo(() => {
 
-        const tasksTitle = useSelector((state: AppStateType) => state.ToDoReducer.tasksTitle)
+        const tasksTitle = useSelector((state: AppRootStateType) => state.ToDoReducer.tasksTitle)
 
         const todos = tasksTitle.map((todo: TodoTitleType) => {
                 return (
