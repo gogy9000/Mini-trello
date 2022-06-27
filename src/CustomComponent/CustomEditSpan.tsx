@@ -23,13 +23,14 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     setEditModeControlled?: React.Dispatch<React.SetStateAction<boolean>>
 }
 export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((props) => {
+
         const {
-            onChange, value, error, onBlur, onEnter, onClick, spanProps, onChangeText,
+            onChange, value, error,  onEnter,  spanProps, onChangeText,
             editModeControlled, setEditModeControlled
         } = props
+
         const [editMode, setEditMode] = useState<boolean>(false)
         const {children, onDoubleClick, className, ...restSpanProps} = spanProps || {}
-
 
         const onEnterCallBack = (key: string) => {
             if (key !== 'Enter') {
@@ -42,13 +43,6 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
             onEnter && onEnter()
         }
 
-        const onBlurCallBack = (e: React.FocusEvent<HTMLInputElement>) => {
-            setEditModeControlled ?
-                setEditModeControlled(false) :
-                setEditMode(false)
-            onBlur && onBlur(e)
-        }
-
         const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             setEditModeControlled ?
                 setEditModeControlled(true) :
@@ -56,26 +50,13 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
             onDoubleClick && onDoubleClick(e)
 
         }
-        const onClickCallback = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-            setEditModeControlled ?
-                setEditModeControlled(false) :
-                setEditMode(false)
-            onClick && onClick(e)
-        }
 
         const onChangeCallBack = (e: ChangeEvent<HTMLInputElement>) => {
             onChange && onChange(e)
             onChangeText && onChangeText(e.currentTarget.value)
         }
 
-        const onEditMod = () => {
-            setEditModeControlled ?
-                setEditModeControlled(true) :
-                setEditMode(true)
-        }
-
         const finalClassName = `${className}`
-
 
         return (
 

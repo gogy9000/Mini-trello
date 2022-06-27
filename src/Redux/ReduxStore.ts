@@ -7,20 +7,20 @@ import {actionsApp, appReducer} from "./AppReducer";
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 export type UnionActionsType = InferActionsType<typeof actions | typeof actionsApp>
-export type AppRootStateType = ReturnType<typeof store.getState>
+export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, UnionActionsType>
-export type AppThunk<ReturnType=void>=ThunkAction<ReturnType,AppRootStateType,unknown,UnionActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, UnionActionsType>
 
 const persistState = loadState()
 
 const composeEnhancers = composeWithDevTools({
-    trace:true,
-    traceLimit:10
+    trace: true,
+    traceLimit: 10
 });
 
 
 let rootReducer = combineReducers({
-    toDoReducer: toDoReducer,
+    toDoReducer,
     appReducer
 })
 

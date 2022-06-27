@@ -4,20 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix Thunk types">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix refactoring">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -217,14 +209,7 @@
       <workItem from="1655966941594" duration="29750000" />
       <workItem from="1656048831586" duration="11099000" />
       <workItem from="1656060477851" duration="2983000" />
-      <workItem from="1656324288389" duration="8487000" />
-    </task>
-    <task id="LOCAL-00015" summary="refactoring">
-      <created>1653043643066</created>
-      <option name="number" value="00015" />
-      <option name="presentableId" value="LOCAL-00015" />
-      <option name="project" value="LOCAL" />
-      <updated>1653043643066</updated>
+      <workItem from="1656324288389" duration="21428000" />
     </task>
     <task id="LOCAL-00016" summary="refactoring">
       <created>1653047735630</created>
@@ -562,7 +547,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656334133669</updated>
     </task>
-    <option name="localTasksCounter" value="64" />
+    <task id="LOCAL-00064" summary="fix refactoring">
+      <created>1656336945799</created>
+      <option name="number" value="00064" />
+      <option name="presentableId" value="LOCAL-00064" />
+      <option name="project" value="LOCAL" />
+      <updated>1656336945799</updated>
+    </task>
+    <option name="localTasksCounter" value="65" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -581,7 +573,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use redux-dev-tools Trace" />
     <MESSAGE value="fix ToDoReducer.test.ts" />
     <MESSAGE value="fix TodoAPI.ts types" />
     <MESSAGE value="create TitlTodo.stories.tsx" />
@@ -606,7 +597,8 @@
     <MESSAGE value="use toggleIsWaitingApp" />
     <MESSAGE value="fix CORS problem" />
     <MESSAGE value="fix Thunk types" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix Thunk types" />
+    <MESSAGE value="fix refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -12,10 +12,8 @@ import {
 } from "@mui/material";
 import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
-import {useDispatch, useSelector} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {AppRootStateType} from "../../Redux/ReduxStore";
 import {useDispatchApp, useSelectorApp} from "../../App";
 
 interface ExpandMoreProps extends IconButtonProps {
@@ -112,11 +110,16 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                                 <IconButton onClick={deleteTask}>
                                     <Clear/>
                                 </IconButton>
-                                {!editModeControlled ? <IconButton onClick={onEditMode}>
-                                    <Create/>
-                                </IconButton> : <IconButton onClick={updateTask}>
-                                    <Create color='primary'/>
-                                </IconButton>}
+                                {!editModeControlled
+                                    ?
+                                    <IconButton onClick={onEditMode}>
+                                        <Create/>
+                                    </IconButton>
+                                    :
+                                    <IconButton onClick={updateTask}>
+                                        <Create color='primary'/>
+                                    </IconButton>
+                                }
 
                                 <Checkbox
                                     checked={task.status === 1}
@@ -128,7 +131,6 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                             </Box>
                         </Collapse>
                     </Box>
-
                 </Box>
                 {isWaitingId && <LinearProgress/>}
             </Card>

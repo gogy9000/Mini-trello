@@ -1,9 +1,10 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
 import {API, TodoListItem} from "../DAL/TodoAPI";
-import {AppThunk, InferActionsType} from "./ReduxStore";
+import {AppDispatchType, AppThunk, InferActionsType} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
-import {handleClientsError} from "../utils/HadleErrorUtils";
+import {handleClientsError, handlerNetworkError} from "../utils/HadleErrorUtils";
+
 
 export enum EnumTodo {
     changeFilter = 'CHANGE-FILTER',
@@ -243,9 +244,7 @@ export const thunks = {
     // и таски будут перенесены на сервер, после чего удаляет все, что было перенесено на сервер для того что бы не было
     // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
-    synchronizeTodo: (): AppThunk => (
-        dispatch, getState
-    ) => {
+    synchronizeTodo: (): AppThunk => (dispatch: AppDispatchType, getState) => {
 
         getState().toDoReducer.tasksTitle.forEach((todo) => {
                 if (todo.isASynchronizedTodo) {
@@ -424,247 +423,278 @@ export const thunks = {
         )
     },
 
-    getTodolistAndTasks: (): AppThunk => (
-        dispatch, getState
-    ) => {
+    getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
             return
         } else {
-            dispatch(actionsApp.toggleIsWaitingApp(true))
-            API.getTodoList()
-                .then((response) => {
-                        if (response.status === 200) {
+            try {
+                dispatch(actionsApp.toggleIsWaitingApp(true))
+                const response = await API.getTodoList()
+                if (response.status === 200) {
+                    dispatch(actions.refreshTodoListAC(response.data))
 
-                            dispatch(actions.refreshTodoListAC(response.data))
-                            response.data.forEach(
-                                (dataItem: TodoListItem, index, array) => {
-                                    API.getTasks(dataItem.id)
-                                        .then((props) => {
-                                                if (props.status === 200) {
-                                                    dispatch(actions.refreshTasks(props.tasks))
-                                                } else {
-                                                    handleClientsError(dispatch, [response.statusText])
-                                                }
-                                            }
-                                        )
-                                        .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                                        .finally(() => {
-                                                if (index === array.length - 1) {
-                                                    dispatch(actionsApp.toggleIsWaitingApp(false))
-                                                }
-                                            }
-                                        )
-                                }
-                            )
+                    response.data.forEach((todo, index, array) => {
 
-                        } else {
-                            handleClientsError(dispatch, [response.statusText])
+                        getTasks(todo.id)
+                        if (index === array.length - 1) {
+                            dispatch(actionsApp.toggleIsWaitingApp(false))
                         }
-                    }
-                )
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.toggleIsWaitingApp(false))
-                })
+                    })
+
+                    // const p1 = async (dataItem: TodoListItem, index: number, array: TodoListItem[]) => {
+                    //     try {
+                    //         const props = await API.getTasks(dataItem.id)
+                    //         if (props.status === 200) {
+                    //             dispatch(actions.refreshTasks(props.tasks))
+                    //         } else {
+                    //             handleClientsError(dispatch, [response.statusText])
+                    //         }
+                    //     } catch (error) {
+                    //         handlerNetworkError(dispatch, error)
+                    //     } finally {
+
+                    //     }
+                    // }
+
+                } else {
+                    handleClientsError(dispatch, [response.statusText])
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.toggleIsWaitingApp(false))
+            }
+        }
+    },
+
+    getTasks(todolistId: string): AppThunk {
+        debugger
+        return async (dispatch: AppDispatchType) => {
+
+            try {
+                const props = await API.getTasks(todolistId)
+                if (props.status === 200) {
+                    dispatch(actions.refreshTasks(props.tasks))
+                } else {
+                    handleClientsError(dispatch, [props.statusText])
+                }
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            }
 
         }
     },
 
-    createTodolistTC: (title: string): AppThunk => (
-        dispatch, getState
-    ) => {
+    createTodolistTC: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
 
             if (title.length > 100) {
-                handleClientsError(
-                    dispatch,
-                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                )
+
+                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
+                handleClientsError(dispatch, [error])
+
             } else {
-                dispatch(
-                    actions.createNewTodoAC(
-                        {
-                            id: v1(),
-                            title: title,
-                            addedDate: JSON.stringify(new Date()),
-                            order: 0,
-                            isASynchronizedTodo: true
-                        }
-                    )
-                )
+
+                const newASynchronizedTodo = {
+                    id: v1(),
+                    title: title,
+                    addedDate: JSON.stringify(new Date()),
+                    order: 0,
+                    isASynchronizedTodo: true
+                }
+                dispatch(actions.createNewTodoAC(newASynchronizedTodo))
+
             }
 
         } else {
-            dispatch(actionsApp.toggleIsWaitingApp(true))
-            API.createTodoList(title)
-                .then((props) => {
-                    if (props.resultCode === 0) {
-                        dispatch(actions.createNewTodoAC(props.TodoListItem))
-                    } else {
-                        handleClientsError(dispatch, props.messages)
-                    }
-                }).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                        dispatch(actionsApp.toggleIsWaitingApp(false))
-                    }
-                )
+
+            try {
+                dispatch(actionsApp.toggleIsWaitingApp(true))
+                let props = await API.createTodoList(title)
+                if (props.resultCode === 0) {
+                    dispatch(actions.createNewTodoAC(props.TodoListItem))
+                } else {
+                    handleClientsError(dispatch, props.messages)
+                }
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.toggleIsWaitingApp(false))
+            }
         }
     },
 
-    updateTodoList: (todolistId: string, title: string): AppThunk => (
-        dispatch, getState
-    ) => {
+    updateTodoList: (todolistId: string, title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
+
         if (getState().toDoReducer.offlineMode) {
 
             if (title.length > 100) {
-                handleClientsError(
-                    dispatch,
-                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                )
+
+                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
+                handleClientsError(dispatch, [error])
+
             } else {
                 dispatch(actions.updateTodoNameAC(title, todolistId))
             }
 
         } else {
-            dispatch(actionsApp.addWaitingList(todolistId))
-            API.updateTodoLis(todolistId, title)
-                .then((resp) => {
-                    if (resp.data.resultCode === 0) {
-                        dispatch(actions.updateTodoNameAC(title, todolistId))
-                    } else {
-                        handleClientsError(dispatch, resp.data.messages)
-                    }
-                })
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.removeWaitingList(todolistId))
-                })
+            try {
+                dispatch(actionsApp.addWaitingList(todolistId))
+
+                const response = await API.updateTodoLis(todolistId, title)
+
+                if (response.data.resultCode === 0) {
+                    dispatch(actions.updateTodoNameAC(title, todolistId))
+                } else {
+                    handleClientsError(dispatch, response.data.messages)
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.removeWaitingList(todolistId))
+            }
         }
     },
 
-    deleteTodolist: (todolistId: string): AppThunk => (
-        dispatch, getState
-    ) => {
+    deleteTodolist: (todolistId: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
-            dispatch(actionsApp.addWaitingList(todolistId))
-            API.deleteTodoList(todolistId)
-                .then((resp) => {
-                        console.log(resp.data.resultCode)
-                        if (resp.data.resultCode === 0) {
-                            dispatch(actions.removeTodoAC(todolistId))
-                        } else {
-                            handleClientsError(dispatch, resp.data.messages)
-                        }
-                    }
-                )
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.removeWaitingList(todolistId))
-                })
+            try {
+                dispatch(actionsApp.addWaitingList(todolistId))
+
+                const response = await API.deleteTodoList(todolistId)
+                if (response.data.resultCode === 0) {
+                    dispatch(actions.removeTodoAC(todolistId))
+                } else {
+                    handleClientsError(dispatch, response.data.messages)
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.removeWaitingList(todolistId))
+            }
         }
+
     },
 
-    addTaskTC: (todolistId: string, taskTitle: string): AppThunk => (
-        dispatch, getState
-    ) => {
+    addTaskTC: (todolistId: string, taskTitle: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
 
             if (taskTitle.length > 100) {
-                handleClientsError(
-                    dispatch,
-                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                )
+
+                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
+                handleClientsError(dispatch, [error])
+
             } else {
-                dispatch(actions.addTaskAC({
-                        description: null,
-                        title: taskTitle,
-                        status: 0,
-                        priority: 0,
-                        startDate: null,
-                        deadline: null,
-                        id: v1(),
-                        todoListId: todolistId,
-                        order: 0,
-                        addedDate: JSON.stringify(new Date()),
-                        isASynchronizedTask: true
-                    })
-                )
+
+                const newASynchronizedTask = {
+                    description: null,
+                    title: taskTitle,
+                    status: 0,
+                    priority: 0,
+                    startDate: null,
+                    deadline: null,
+                    id: v1(),
+                    todoListId: todolistId,
+                    order: 0,
+                    addedDate: JSON.stringify(new Date()),
+                    isASynchronizedTask: true
+                }
+
+                dispatch(actions.addTaskAC(newASynchronizedTask))
             }
 
         } else {
-            dispatch(actionsApp.addWaitingList(todolistId))
-            API.createNewTask(todolistId, taskTitle)
-                .then((props) => {
-                        console.log(props.createdTask)
-                        if (props.resultCode === 0) {
-                            dispatch(actions.addTaskAC(props.createdTask))
-                        } else {
-                            handleClientsError(dispatch, props.messages)
-                        }
-                    }
-                )
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.removeWaitingList(todolistId))
-                })
+            try {
+
+                dispatch(actionsApp.addWaitingList(todolistId))
+                const props = await API.createNewTask(todolistId, taskTitle)
+                if (props.resultCode === 0) {
+                    dispatch(actions.addTaskAC(props.createdTask))
+                } else {
+                    handleClientsError(dispatch, props.messages)
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.removeWaitingList(todolistId))
+            }
         }
     },
 
-    updateTask: (task: TaskType): AppThunk => (
-        dispatch, getState
-    ) => {
+    updateTask: (task: TaskType): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
 
-            if (task.title.length > 100) {// если длинна названия таски длиннее 100 символов, диспатчит ошибку
-                handleClientsError(
-                    dispatch,
-                    ["The field Title must be a string or array type with a maximum length of '100'. (Title)"]
-                )
+            if (task.title.length > 100) {
+
+                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
+                handleClientsError(dispatch, [error])
+
             } else {
                 dispatch(actions.updateTaskAC(task))
             }
 
         } else {
-            dispatch(actionsApp.addWaitingList(task.id))
-            API.updateTask(task)
-                .then((props) => {
-                        if (props.resultCode === 0) {
-                            dispatch(actions.updateTaskAC(props.newTask))
-                        } else {
-                            handleClientsError(dispatch, props.messages)
-                        }
-                    }
-                )
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.removeWaitingList(task.id))
-                })
+            try {
+
+                dispatch(actionsApp.addWaitingList(task.id))
+                const props = await API.updateTask(task)
+                if (props.resultCode === 0) {
+                    dispatch(actions.updateTaskAC(props.newTask))
+                } else {
+                    handleClientsError(dispatch, props.messages)
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.removeWaitingList(task.id))
+            }
         }
     },
 
-    deleteTask: (todolistId: string, taskId: string): AppThunk => (
-        dispatch, getState
-    ) => {
+    deleteTask: (todolistId: string, taskId: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {
-            dispatch(actionsApp.addWaitingList(taskId))
-            API.deleteTask(todolistId, taskId)
-                .then((resp) => {
-                        if (resp.data.resultCode === 0) {
-                            dispatch(actions.deleteTaskAC(taskId, todolistId))
-                        } else {
-                            handleClientsError(dispatch, resp.data.messages)
-                        }
-                    }
-                )
-                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-                .finally(() => {
-                    dispatch(actionsApp.removeWaitingList(taskId))
-                })
+            try {
+
+                const resp = await API.deleteTask(todolistId, taskId)
+                if (resp.data.resultCode === 0) {
+                    dispatch(actions.deleteTaskAC(taskId, todolistId))
+                } else {
+                    handleClientsError(dispatch, resp.data.messages)
+                }
+
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.removeWaitingList(taskId))
+            }
         }
+    }
+}
+
+ function getTasks(todolistId: string): AppThunk {
+    debugger
+    return async (dispatch: AppDispatchType) => {
+
+        try {
+            const props = await API.getTasks(todolistId)
+            if (props.status === 200) {
+                dispatch(actions.refreshTasks(props.tasks))
+            } else {
+                handleClientsError(dispatch, [props.statusText])
+            }
+        } catch (error) {
+            handlerNetworkError(dispatch, error)
+        }
+
     }
 }
 
