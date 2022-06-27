@@ -1,30 +1,26 @@
 import {applyMiddleware, combineReducers, legacy_createStore} from "redux";
-import {ActionsType, toDoReducer} from './ToDoReducer';
+import {actions, toDoReducer} from './ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
-import thunk, {ThunkAction} from "redux-thunk";
+import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
 import {composeWithDevTools} from "@redux-devtools/extension";
-import {StateType, TaskType, TodoTitleType} from "../Types";
-import {appReducer} from "./AppReducer";
+import {actionsApp, appReducer} from "./AppReducer";
 
-
-type RootReducerType = typeof rootReducer
-
-export type AppStateType = ReturnType<RootReducerType>
-
-export type AppDispatchType = typeof store.dispatch
-
-export type AppThunk<ReturnType=void>=ThunkAction<ReturnType,RootReducerType,unknown,ActionsType>
+export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
+export type UnionActionsType = InferActionsType<typeof actions | typeof actionsApp>
+export type AppRootStateType = ReturnType<typeof rootReducer>
+export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, UnionActionsType>
+export type AppThunk<ReturnType = void> = ThunkAction<ReturnType, AppRootStateType, unknown, UnionActionsType>
 
 const persistState = loadState()
 
 const composeEnhancers = composeWithDevTools({
-    trace:true,
-    traceLimit:10
+    trace: true,
+    traceLimit: 10
 });
 
 
 let rootReducer = combineReducers({
-    ToDoReducer: toDoReducer,
+    toDoReducer,
     appReducer
 })
 

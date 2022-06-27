@@ -2,11 +2,7 @@ import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
 
 
-const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://cors-anywhere.herokuapp.com/https://social-network.samuraijs.com/api/1.1/',
-    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
-})
+
 
 type Data<T = any> = {
     data:  Item<T>
@@ -45,6 +41,12 @@ export type TaskItem = {
     addedDate: string
     isASynchronizedTask:boolean
 }
+
+const instance = axios.create({
+    withCredentials: true,
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
+})
 
 export const API = {
     getTodoList: () => instance.get(`todo-lists`).then((response:AxiosResponse<TodoListItem[]>)=> response),

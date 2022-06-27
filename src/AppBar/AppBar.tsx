@@ -16,10 +16,10 @@ import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {useSelector} from "react-redux";
-import {AppStateType} from "../Redux/ReduxStore";
+import {AppRootStateType} from "../Redux/ReduxStore";
 import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
-import {useAppDispatch} from "../App";
+import {useDispatchApp, useSelectorApp} from "../App";
 import {actions} from "../Redux/ToDoReducer";
 
 const Search = styled('div')(({theme}) => ({
@@ -69,8 +69,8 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
             React.useState<null | HTMLElement>(null);
 
-        const state = useSelector((state: AppStateType) => state.ToDoReducer)
-        const dispatch = useAppDispatch()
+        const state = useSelectorApp(state => state.toDoReducer)
+        const dispatch = useDispatchApp()
 
         const isMenuOpen = Boolean(anchorEl);
         const isMobileMenuOpen = Boolean(mobileMoreAnchorEl);

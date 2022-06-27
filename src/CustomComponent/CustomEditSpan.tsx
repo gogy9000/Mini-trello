@@ -2,12 +2,11 @@ import React, {
     ChangeEvent,
     DetailedHTMLProps,
     HTMLAttributes,
-    InputHTMLAttributes, useEffect,
-
+    InputHTMLAttributes,
     useState
 } from "react";
-import {Create} from "@mui/icons-material";
-import {Box, Card, CardContent, IconButton, TextField} from "@mui/material";
+
+import {Box, TextField} from "@mui/material";
 
 type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
 type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
@@ -23,25 +22,15 @@ type CustomEditSpanPropsType = DefaultInputPropsType & {
     editModeControlled?: boolean
     setEditModeControlled?: React.Dispatch<React.SetStateAction<boolean>>
 }
-export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
-                                                                                 onChange,
-                                                                                 value,
-                                                                                 error,
-                                                                                 setError,
-                                                                                 autoFocus,
-                                                                                 onBlur,
-                                                                                 onEnter,
-                                                                                 onClick,
-                                                                                 spanProps,
-                                                                                 onChangeText,
-                                                                                 editModeControlled,
-                                                                                 setEditModeControlled,
-                                                                                 ...restProps
-                                                                             }) => {
+export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((props) => {
+
+        const {
+            onChange, value, error,  onEnter,  spanProps, onChangeText,
+            editModeControlled, setEditModeControlled
+        } = props
 
         const [editMode, setEditMode] = useState<boolean>(false)
         const {children, onDoubleClick, className, ...restSpanProps} = spanProps || {}
-
 
         const onEnterCallBack = (key: string) => {
             if (key !== 'Enter') {
@@ -54,13 +43,6 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
             onEnter && onEnter()
         }
 
-        const onBlurCallBack = (e: React.FocusEvent<HTMLInputElement>) => {
-            setEditModeControlled ?
-                setEditModeControlled(false) :
-                setEditMode(false)
-            onBlur && onBlur(e)
-        }
-
         const onDoubleClickCallBack = (e: React.MouseEvent<HTMLSpanElement, MouseEvent>) => {
             setEditModeControlled ?
                 setEditModeControlled(true) :
@@ -68,30 +50,17 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
             onDoubleClick && onDoubleClick(e)
 
         }
-        const onClickCallback = (e: React.MouseEvent<HTMLInputElement, MouseEvent>) => {
-            setEditModeControlled ?
-                setEditModeControlled(false) :
-                setEditMode(false)
-            onClick && onClick(e)
-        }
 
         const onChangeCallBack = (e: ChangeEvent<HTMLInputElement>) => {
             onChange && onChange(e)
             onChangeText && onChangeText(e.currentTarget.value)
         }
 
-        const onEditMod = () => {
-            setEditModeControlled ?
-                setEditModeControlled(true) :
-                setEditMode(true)
-        }
-
         const finalClassName = `${className}`
-
 
         return (
 
-            <Box component={"span"} data-testid='Box' >
+            <Box component={"span"} data-testid='Box'>
                 {
                     editMode || editModeControlled ?
                         <span>
@@ -103,6 +72,7 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo(({
                                     onEnterCallBack(e.key)
                                 }}
                                 onChange={onChangeCallBack}
+
                                 helperText={!!error ? error : false}
                                 id="standard-error"
                                 label="update todo"

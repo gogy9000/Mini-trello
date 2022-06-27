@@ -4,7 +4,8 @@ import {Box, Card, IconButton, LinearProgress, Stack, TextField, Typography} fro
 import {Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
-import {AppStateType} from "../../Redux/ReduxStore";
+import {AppRootStateType} from "../../Redux/ReduxStore";
+import {useDispatchApp, useSelectorApp} from "../../App";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType
@@ -15,9 +16,8 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const isWaitingTodo=useSelector((store:AppStateType)=>store.appReducer.waitingList[todo.id])
-
-        const dispatch = useDispatch()
+        const isWaitingTodo=useSelectorApp(store=>store.appReducer.waitingList[todo.id])
+        const dispatch = useDispatchApp()
 
         const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
@@ -26,15 +26,16 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                 setError('Title must not be empty')
                 return
             }
-            // @ts-ignore
             dispatch(thunks.updateTodoList(todo.id, todoName.trim()))
             setUpdateTodoMode(!updateTodoMode)
         }, [dispatch, todo, todoName,updateTodoMode])
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
-        // @ts-ignore
-        const removeTodo = useCallback(() => dispatch(thunks.deleteTodolist(todo.id)), [dispatch, todo.id])
+
+        const removeTodo = useCallback(() => {
+            dispatch(thunks.deleteTodolist(todo.id))
+        }, [dispatch, todo.id])
 
         return (
             <>

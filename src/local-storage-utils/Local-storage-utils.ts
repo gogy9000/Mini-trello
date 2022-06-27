@@ -1,4 +1,4 @@
-import {AppStateType} from "../Redux/ReduxStore";
+import {AppRootStateType} from "../Redux/ReduxStore";
 
 export const loadState = () => {
   try{
@@ -10,7 +10,7 @@ export const loadState = () => {
   }
 }
 
-export const saveState = (state:AppStateType) => {
+export const saveState = (state:AppRootStateType) => {
     try {
         const serializedState=JSON.stringify(state)
         localStorage.setItem('state',serializedState)
