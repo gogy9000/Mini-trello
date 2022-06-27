@@ -1,16 +1,16 @@
 import React from "react";
 import {Tasks} from "./Tasks";
 import {Divider, Stack} from "@mui/material";
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../../Redux/ReduxStore";
+import {useSelectorApp} from "../../App";
 
 type TaskBlockWrapperPropsType = {
     todoId: string
     filter: string
 }
 export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
-        const activeTasks = useSelector((state: AppRootStateType) => state.ToDoReducer.taskBody[todoId].activeTasks)
-        const completedTasks = useSelector((state: AppRootStateType) => state.ToDoReducer.taskBody[todoId].completedTasks)
+
+        const activeTasks = useSelectorApp(state => state.toDoReducer.taskBody[todoId].activeTasks)
+        const completedTasks = useSelectorApp(state => state.toDoReducer.taskBody[todoId].completedTasks)
 
         return (
 
@@ -23,7 +23,7 @@ export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({
                 }
 
                 {
-                    filter === 'All' &&<>
+                    filter === 'All' && <>
                         <Tasks todoId={todoId} tasks={activeTasks}/>
                         <Tasks todoId={todoId} tasks={completedTasks}/>
                     </>
@@ -31,12 +31,12 @@ export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({
 
                 {
                     filter === 'Completed' &&
-                        <Tasks todoId={todoId} tasks={completedTasks}/>
+                    <Tasks todoId={todoId} tasks={completedTasks}/>
                 }
 
                 {
                     filter === 'Active' &&
-                        <Tasks todoId={todoId} tasks={activeTasks}/>
+                    <Tasks todoId={todoId} tasks={activeTasks}/>
                 }
 
             </Stack>

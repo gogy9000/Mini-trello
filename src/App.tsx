@@ -14,7 +14,8 @@ export const useDispatchApp: ()=>AppDispatchType = useDispatch
 export const useSelectorApp: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export const App = React.memo(() => {
-        const state = useSelectorApp(state => state.ToDoReducer)
+
+        const state = useSelectorApp(state => state.toDoReducer)
         const stateApp = useSelectorApp(state => state.appReducer)
 
         const dispatch = useDispatchApp()
@@ -26,7 +27,6 @@ export const App = React.memo(() => {
         useEffect(() => {
 
             if (!state.offlineMode) {
-                // @ts-ignore
                 dispatch(thunks.synchronizeTodo())
             }
         }, [state.offlineMode])

@@ -19,7 +19,7 @@ import {useSelector} from "react-redux";
 import {AppRootStateType} from "../Redux/ReduxStore";
 import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
-import {useDispatchApp} from "../App";
+import {useDispatchApp, useSelectorApp} from "../App";
 import {actions} from "../Redux/ToDoReducer";
 
 const Search = styled('div')(({theme}) => ({
@@ -69,7 +69,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         const [mobileMoreAnchorEl, setMobileMoreAnchorEl] =
             React.useState<null | HTMLElement>(null);
 
-        const state = useSelector((state: AppRootStateType) => state.ToDoReducer)
+        const state = useSelectorApp(state => state.toDoReducer)
         const dispatch = useDispatchApp()
 
         const isMenuOpen = Boolean(anchorEl);

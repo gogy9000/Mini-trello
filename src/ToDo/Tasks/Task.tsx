@@ -16,6 +16,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import {AppRootStateType} from "../../Redux/ReduxStore";
+import {useDispatchApp, useSelectorApp} from "../../App";
 
 interface ExpandMoreProps extends IconButtonProps {
     expand: boolean;
@@ -29,33 +30,31 @@ export type TaskPropsType = {
 export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
 
         const [expanded, setExpanded] = React.useState(false);
-
-        const handleExpandClick = () => {
-            setExpanded(!expanded);
-        };
-
-
         const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
-        const dispatch = useDispatch()
-        const isWaitingId = useSelector((store: AppRootStateType) => store.appReducer.waitingList[task.id])
+        const dispatch = useDispatchApp()
+        const isWaitingId = useSelectorApp(store => store.appReducer.waitingList[task.id])
+
+        const handleExpandClick = () => {
+            setExpanded(!expanded);
+        }
 
         const checkTask = useCallback(() => {
-            // @ts-ignore
             dispatch(thunks.updateTask({...task, status: task.status === 0 ? 1 : 0}))
             setExpanded(false)
         }, [dispatch, task])
 
 
         const updateTask = useCallback(() => {
+
             if (!taskValue.trim()) {
                 setEditModeControlled(true)
                 setError('todo empty')
                 return
             }
-            // @ts-ignore
+
             dispatch(thunks.updateTask({...task, title: taskValue.trim()}))
             if (error !== '') {
                 setError('')
@@ -65,7 +64,6 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         }, [dispatch, task, taskValue, error])
 
         const deleteTask = useCallback(() => {
-            // @ts-ignore
             dispatch(thunks.deleteTask(todoId, task.id))
             setExpanded(false)
         }, [dispatch, task.id, todoId])
@@ -82,6 +80,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
                                             error={error}
+                                            onEnter={updateTask}
                                             setError={setError}
                                             onChangeText={setTaskValue}
                                             editModeControlled={editModeControlled}
@@ -131,7 +130,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                     </Box>
 
                 </Box>
-                {isWaitingId&&<LinearProgress/>}
+                {isWaitingId && <LinearProgress/>}
             </Card>
         )
     }

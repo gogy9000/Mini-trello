@@ -1,7 +1,7 @@
-import {Dispatch} from "redux";
-import {actionsApp} from "../Redux/AppReducer";
-import {ActionsType} from "../Redux/ToDoReducer";
 
-export const handleClientsError=(dispatch:(action: ActionsType) => void, error:string[])=>{
+import {actionsApp} from "../Redux/AppReducer";
+import {AppDispatchType} from "../Redux/ReduxStore";
+
+export const handleClientsError=(dispatch:AppDispatchType, error:string[])=>{
     dispatch(actionsApp.changeHandleClientsError(error))
 }

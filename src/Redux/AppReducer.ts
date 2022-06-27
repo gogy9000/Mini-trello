@@ -1,4 +1,5 @@
-import {InferActionsType} from "./ToDoReducer";
+import {InferActionsType} from "./ReduxStore";
+
 
 export enum EnumAppType {
     changeHandleNetworkError = 'CHANGE-HANDLE-NETWORK-ERROR',

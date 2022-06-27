@@ -1,6 +1,6 @@
 import {StateType, taskBodyType, TaskType, TodoTitleType} from "../Types";
-import {API, TaskItem, TodoListItem} from "../DAL/TodoAPI";
-import {AppRootStateType, AppThunk, store} from "./ReduxStore";
+import {API, TodoListItem} from "../DAL/TodoAPI";
+import {AppThunk, InferActionsType} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
 import {handleClientsError} from "../utils/HadleErrorUtils";
@@ -31,8 +31,8 @@ export const initialState: StateType =
         offlineMode: false
     }
 
-export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
-export type ActionsType = InferActionsType<typeof actions | typeof actionsApp>
+
+export type ActionsType = InferActionsType<typeof actions>
 
 export let toDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
 
@@ -247,7 +247,7 @@ export const thunks = {
         dispatch, getState
     ) => {
 
-        getState().ToDoReducer.tasksTitle.forEach((todo) => {
+        getState().toDoReducer.tasksTitle.forEach((todo) => {
                 if (todo.isASynchronizedTodo) {
 
                     API.createTodoList(todo.title)
@@ -256,11 +256,11 @@ export const thunks = {
                                     dispatch(actions.createNewTodoAC(props.TodoListItem))
 
                                     let activeTasksPromise = new Promise((resolve, reject) => {
-                                        if (getState().ToDoReducer.taskBody[todo.id].activeTasks.length === 0) {
+                                        if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
                                             reject('activeTasks-empty')
                                             return
                                         }
-                                        getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach(
+                                        getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
                                             (task, i, arr) => {
 
                                                 if (task.isASynchronizedTask) {
@@ -290,11 +290,11 @@ export const thunks = {
 
                                     let completedTasksPromise = new Promise((resolve, reject) => {
 
-                                        if (getState().ToDoReducer.taskBody[todo.id].completedTasks.length === 0) {
+                                        if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
                                             reject('completedTasks-empty')
                                             return
                                         }
-                                        getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach(
+                                        getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
                                             (task, index, array) => {
 
                                                 if (task.isASynchronizedTask) {
@@ -339,10 +339,8 @@ export const thunks = {
                                     })
 
                                     Promise.allSettled([activeTasksPromise, completedTasksPromise])
-                                        .then((value) => {
+                                        .then(() => {
                                             dispatch(actions.removeTodoAC(todo.id))
-
-
                                         })
 
                                 } else {
@@ -359,7 +357,7 @@ export const thunks = {
 
                 if (!todo.isASynchronizedTodo) {
 
-                    getState().ToDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
+                    getState().toDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
 
                         if (task.isASynchronizedTask) {
 
@@ -381,7 +379,7 @@ export const thunks = {
                         }
                     })
 
-                    getState().ToDoReducer.taskBody[todo.id].completedTasks.forEach((task) => {
+                    getState().toDoReducer.taskBody[todo.id].completedTasks.forEach((task) => {
 
                         if (task.isASynchronizedTask) {
 
@@ -429,7 +427,7 @@ export const thunks = {
     getTodolistAndTasks: (): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
             return
         } else {
             dispatch(actionsApp.toggleIsWaitingApp(true))
@@ -475,7 +473,7 @@ export const thunks = {
     createTodolistTC: (title: string): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
 
             if (title.length > 100) {
                 handleClientsError(
@@ -516,7 +514,7 @@ export const thunks = {
     updateTodoList: (todolistId: string, title: string): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
 
             if (title.length > 100) {
                 handleClientsError(
@@ -547,7 +545,7 @@ export const thunks = {
     deleteTodolist: (todolistId: string): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
             dispatch(actions.removeTodoAC(todolistId))
         } else {
             dispatch(actionsApp.addWaitingList(todolistId))
@@ -571,7 +569,7 @@ export const thunks = {
     addTaskTC: (todolistId: string, taskTitle: string): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
 
             if (taskTitle.length > 100) {
                 handleClientsError(
@@ -617,7 +615,7 @@ export const thunks = {
     updateTask: (task: TaskType): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
 
             if (task.title.length > 100) {// если длинна названия таски длиннее 100 символов, диспатчит ошибку
                 handleClientsError(
@@ -649,7 +647,7 @@ export const thunks = {
     deleteTask: (todolistId: string, taskId: string): AppThunk => (
         dispatch, getState
     ) => {
-        if (getState().ToDoReducer.offlineMode) {
+        if (getState().toDoReducer.offlineMode) {
             dispatch(actions.deleteTaskAC(taskId, todolistId))
         } else {
             dispatch(actionsApp.addWaitingList(taskId))
