@@ -54,7 +54,6 @@ export const API = {
     getTasks: (todolistId: string, count: number = 100, page: number = 1) => {
         return instance.get(`todo-lists/${todolistId}/tasks?count=${count}&page=${page}`)
             .then((response: AxiosResponse<GetTaskType>) => {
-                console.log(response)
                     return {
                         tasks: response.data.items,
                         totalCount: response.data.totalCount,

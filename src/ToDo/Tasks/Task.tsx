@@ -10,7 +10,7 @@ import {
     IconButton, IconButtonProps, LinearProgress,
     Typography
 } from "@mui/material";
-import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
+import {CheckCircleOutline, Clear, CloudUpload, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import {styled} from "@mui/material/styles";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
@@ -69,12 +69,18 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const onEditMode = () => {
             setEditModeControlled(true)
         }
+        const uploadTask = () => {
+          dispatch(thunks.synchronizeTask(todoId,task))
+        }
 
-
+    console.log(task.isASynchronizedTask)
         return (
-            <Card variant={"outlined"}>
+            <Card variant={"outlined"} >
                 <Box sx={{display: 'flex', justifyContent: "flex-end", opacity: (task.status === 1 ? 0.5 : 1)}}>
-                    <CardContent>
+                    <IconButton onClick={uploadTask}>
+                        <CloudUpload color={task.isASynchronizedTask?'inherit':'success'}/>
+                    </IconButton>
+                    <CardContent >
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
                                             error={error}

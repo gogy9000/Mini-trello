@@ -4,13 +4,12 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix refactoring">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring thunks">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -209,28 +208,8 @@
       <workItem from="1655966941594" duration="29750000" />
       <workItem from="1656048831586" duration="11099000" />
       <workItem from="1656060477851" duration="2983000" />
-      <workItem from="1656324288389" duration="21428000" />
-    </task>
-    <task id="LOCAL-00016" summary="refactoring">
-      <created>1653047735630</created>
-      <option name="number" value="00016" />
-      <option name="presentableId" value="LOCAL-00016" />
-      <option name="project" value="LOCAL" />
-      <updated>1653047735630</updated>
-    </task>
-    <task id="LOCAL-00017" summary="use Local-storage-utils.ts">
-      <created>1653736853842</created>
-      <option name="number" value="00017" />
-      <option name="presentableId" value="LOCAL-00017" />
-      <option name="project" value="LOCAL" />
-      <updated>1653736853842</updated>
-    </task>
-    <task id="LOCAL-00018" summary="use useCallback hook">
-      <created>1653738242116</created>
-      <option name="number" value="00018" />
-      <option name="presentableId" value="LOCAL-00018" />
-      <option name="project" value="LOCAL" />
-      <updated>1653738242116</updated>
+      <workItem from="1656324288389" duration="21940000" />
+      <workItem from="1656397069833" duration="28511000" />
     </task>
     <task id="LOCAL-00019" summary="refactoring in process">
       <created>1654023290909</created>
@@ -554,7 +533,28 @@
       <option name="project" value="LOCAL" />
       <updated>1656336945799</updated>
     </task>
-    <option name="localTasksCounter" value="65" />
+    <task id="LOCAL-00065" summary="refactoring thunks">
+      <created>1656354185489</created>
+      <option name="number" value="00065" />
+      <option name="presentableId" value="LOCAL-00065" />
+      <option name="project" value="LOCAL" />
+      <updated>1656354185489</updated>
+    </task>
+    <task id="LOCAL-00066" summary="refactoring thunks">
+      <created>1656408198407</created>
+      <option name="number" value="00066" />
+      <option name="presentableId" value="LOCAL-00066" />
+      <option name="project" value="LOCAL" />
+      <updated>1656408198408</updated>
+    </task>
+    <task id="LOCAL-00067" summary="refactoring thunks">
+      <created>1656416279527</created>
+      <option name="number" value="00067" />
+      <option name="presentableId" value="LOCAL-00067" />
+      <option name="project" value="LOCAL" />
+      <updated>1656416279528</updated>
+    </task>
+    <option name="localTasksCounter" value="68" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -573,7 +573,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix ToDoReducer.test.ts" />
     <MESSAGE value="fix TodoAPI.ts types" />
     <MESSAGE value="create TitlTodo.stories.tsx" />
     <MESSAGE value="create InputForAddTask.stories.tsx" />
@@ -598,7 +597,8 @@
     <MESSAGE value="fix CORS problem" />
     <MESSAGE value="fix Thunk types" />
     <MESSAGE value="fix refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="fix refactoring" />
+    <MESSAGE value="refactoring thunks" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring thunks" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
