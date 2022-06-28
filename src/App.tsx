@@ -27,7 +27,7 @@ export const App = React.memo(() => {
         useEffect(() => {
 
             if (!state.offlineMode) {
-                dispatch(thunks.synchronizeTodo())
+                dispatch(thunks.synchronizeTodoAll())
             }
         }, [state.offlineMode])
 

@@ -1,7 +1,7 @@
 import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {Box, Card, IconButton, LinearProgress, Stack, TextField, Typography} from "@mui/material";
-import {Delete, Edit, ModeEdit} from "@mui/icons-material";
+import {CloudUpload, Delete, Edit, ModeEdit} from "@mui/icons-material";
 import {thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/ReduxStore";
@@ -37,6 +37,10 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
             dispatch(thunks.deleteTodolist(todo.id))
         }, [dispatch, todo.id])
 
+    const uploadTodo = () => {
+        dispatch(thunks.synchronizeTodo(todo))
+    }
+
         return (
             <>
                 {
@@ -61,6 +65,10 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                                 }}>
                                     <IconButton onClick={removeTodo}><Delete/></IconButton>
                                     <IconButton onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
+                                    <IconButton onClick={uploadTodo}>
+                                        <CloudUpload color={todo.isASynchronizedTodo?'inherit':'success'}/>
+                                    </IconButton>
+
                                 </Box>
                             </Box>
                         </Card>

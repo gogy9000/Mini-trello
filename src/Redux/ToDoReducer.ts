@@ -244,118 +244,121 @@ export const thunks = {
     // и таски будут перенесены на сервер, после чего удаляет все, что было перенесено на сервер для того что бы не было
     // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
     // их также на сервер
-    synchronizeTodo: (): AppThunk => (dispatch: AppDispatchType, getState) => {
+    synchronizeTodoAll: (): AppThunk =>  (dispatch: AppDispatchType, getState) => {
 
-        getState().toDoReducer.tasksTitle.forEach(
-            async (todo) => {
-                if (todo.isASynchronizedTodo) {
-                    try {
-                        const props = await API.createTodoList(todo.title)
+        getState().toDoReducer.tasksTitle.forEach((todo) => {
+                dispatch(thunks.synchronizeTodo(todo))
 
-                        if (props.resultCode === 0) {
-                            dispatch(actions.createNewTodoAC(props.TodoListItem))
-
-                            let activeTasksPromise = new Promise((resolve, reject) => {
-                                if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
-                                    reject('activeTasks-empty')
-                                    return
-                                }
-                                getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
-                                    (task, i, arr) => {
-
-                                        if (task.isASynchronizedTask) {
-
-                                            dispatch(thunks.addTaskTC(props.TodoListItem.id, task.title))
-                                        }
-                                        if (i === arr.length - 1) {
-                                            resolve('success')
-                                        }
-                                    }
-                                )
-                            })
-
-                            let completedTasksPromise = new Promise((resolve, reject) => {
-
-                                if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
-                                    reject('completedTasks-empty')
-                                    return
-                                }
-
-                                getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
-                                    async (task, index, array) => {
-
-                                        if (task.isASynchronizedTask) {
-                                            try {
-                                                const res = await API.createNewTask(props.TodoListItem.id, task.title)
-
-                                                if (props.resultCode === 0) {
-                                                    dispatch(actions.addTaskAC(res.createdTask))
-                                                    dispatch(thunks.updateTask({...res.createdTask, status: 1}))
-                                                } else {
-                                                    handleClientsError(dispatch, props.messages)
-                                                }
-                                            } catch (error) {
-                                                handlerNetworkError(dispatch, error)
-                                            }
-
-                                        }
-                                        if (index === array.length - 1) {
-                                            resolve('success')
-                                        }
-                                    }
-                                )
-                            })
-
-                            Promise.allSettled([activeTasksPromise, completedTasksPromise])
-                                .then(() => {
-                                    dispatch(actions.removeTodoAC(todo.id))
-                                })
-
-                        } else {
-                            handleClientsError(dispatch, props.messages)
-
-                        }
-                    } catch (error) {
-                        handlerNetworkError(dispatch, error)
-                    }
-                }
-
-                if (!todo.isASynchronizedTodo) {
-
-                    for (const task of getState().toDoReducer.taskBody[todo.id].activeTasks) {
-
-                        if (task.isASynchronizedTask) {
-
-                            dispatch(thunks.addTaskTC(todo.id, task.title))
-                            dispatch(actions.deleteTaskAC(task.id, todo.id))
-
-                        }
-                    }
-
-                    for (const task of getState().toDoReducer.taskBody[todo.id].completedTasks) {
-
-                        if (task.isASynchronizedTask) {
-                            try {
-                                const props = await API.createNewTask(todo.id, task.title)
-
-                                if (props.resultCode === 0) {
-
-                                    dispatch(actions.addTaskAC(props.createdTask))
-                                    dispatch(thunks.updateTask({...props.createdTask, status: 1}))
-                                    dispatch(actions.deleteTaskAC(task.id, todo.id))
-
-                                } else {
-                                    handleClientsError(dispatch, props.messages)
-                                }
-                            }catch (e) {
-                                handlerNetworkError(dispatch,e)
-                            }
-                        }
-                    }
-                }
             }
         )
     },
+
+    synchronizeTodo:(todo:TodoListItem):AppThunk=>async (dispatch: AppDispatchType, getState)=>{
+        if (todo.isASynchronizedTodo) {
+            try {
+                const props = await API.createTodoList(todo.title)
+
+                if (props.resultCode === 0) {
+                    dispatch(actions.createNewTodoAC(props.TodoListItem))
+
+                    let activeTasksPromise = new Promise((resolve, reject) => {
+                        if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
+                            reject('activeTasks-empty')
+                            return
+                        }
+                        getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
+                          async  (task, i, arr) => {
+
+                                if (task.isASynchronizedTask) {
+                                    dispatch(thunks.synchronizeTask(props.TodoListItem.id,task))
+
+                                }
+                                if (i === arr.length - 1) {
+                                    resolve('success')
+                                }
+                            }
+                        )
+                    })
+
+                    let completedTasksPromise = new Promise((resolve, reject) => {
+
+                        if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
+                            reject('completedTasks-empty')
+                            return
+                        }
+
+                        getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
+                            async (task, index, array) => {
+
+                                if (task.isASynchronizedTask) {
+                                    dispatch(thunks.synchronizeTask(props.TodoListItem.id,task))
+                                }
+                                if (index === array.length - 1) {
+                                    resolve('success')
+                                }
+                            }
+                        )
+                    })
+
+                    Promise.allSettled([activeTasksPromise, completedTasksPromise])
+                        .then(() => {
+                            dispatch(actions.removeTodoAC(todo.id))
+                        })
+
+                } else {
+                    handleClientsError(dispatch, props.messages)
+
+                }
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            }
+        }
+
+        dispatch(thunks.synchronizeTasks(todo))
+
+    },
+
+    synchronizeTasks:(todo:TodoListItem):AppThunk=>async (dispatch: AppDispatchType, getState)=>{
+        console.log(!todo.isASynchronizedTodo)
+        if (!todo.isASynchronizedTodo) {
+
+            for (const task of getState().toDoReducer.taskBody[todo.id].activeTasks) {
+                if (task.isASynchronizedTask) {
+                    dispatch(thunks.synchronizeTask(todo.id,task))
+                }
+            }
+
+            for (const task of getState().toDoReducer.taskBody[todo.id].completedTasks) {
+                if (task.isASynchronizedTask) {
+                    dispatch(thunks.synchronizeTask(todo.id,task))
+
+                }
+            }
+        }
+
+    },
+    synchronizeTask:(todoId:string, task:TaskType): AppThunk => async (dispatch: AppDispatchType) =>{
+
+        try {
+
+            dispatch(actionsApp.addWaitingList(todoId))
+            const props = await API.createNewTask(todoId, task.title)
+            if (props.resultCode === 0) {
+                dispatch(actions.addTaskAC(props.createdTask))
+                dispatch(thunks.updateTask({...props.createdTask, status: task.status}))
+                dispatch(actions.deleteTaskAC(task.id, todoId))
+            } else {
+                handleClientsError(dispatch, props.messages)
+            }
+
+        } catch (error) {
+            handlerNetworkError(dispatch, error)
+        } finally {
+            dispatch(actionsApp.removeWaitingList(todoId))
+        }
+    },
+
+
 
     // getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
     //     if (getState().toDoReducer.offlineMode) {
