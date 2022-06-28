@@ -246,179 +246,112 @@ export const thunks = {
     // их также на сервер
     synchronizeTodo: (): AppThunk => (dispatch: AppDispatchType, getState) => {
 
-        getState().toDoReducer.tasksTitle.forEach((todo) => {
+        getState().toDoReducer.tasksTitle.forEach(
+            async (todo) => {
                 if (todo.isASynchronizedTodo) {
+                    try {
+                        const props = await API.createTodoList(todo.title)
 
-                    API.createTodoList(todo.title)
-                        .then((props) => {
-                                if (props.resultCode === 0) {
-                                    dispatch(actions.createNewTodoAC(props.TodoListItem))
+                        if (props.resultCode === 0) {
+                            dispatch(actions.createNewTodoAC(props.TodoListItem))
 
-                                    let activeTasksPromise = new Promise((resolve, reject) => {
-                                        if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
-                                            reject('activeTasks-empty')
-                                            return
-                                        }
-
-                                        getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
-                                            (task, i, arr) => {
-
-                                                if (task.isASynchronizedTask) {
-
-                                                    API.createNewTask(props.TodoListItem.id, task.title)
-                                                        .then((props) => {
-
-                                                                if (props.resultCode === 0) {
-                                                                    dispatch(actions.addTaskAC(props.createdTask))
-                                                                } else {
-                                                                    handleClientsError(dispatch, props.messages)
-                                                                }
-
-                                                                if (i === arr.length - 1) {
-                                                                    resolve('success')
-                                                                }
-                                                            }
-                                                        )
-                                                        .catch((err) => {
-                                                                dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                            }
-                                                        )
-                                                }
-                                            }
-                                        )
-                                    })
-
-                                    let completedTasksPromise = new Promise((resolve, reject) => {
-
-                                        if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
-                                            reject('completedTasks-empty')
-                                            return
-                                        }
-                                        getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
-                                            (task, index, array) => {
-
-                                                if (task.isASynchronizedTask) {
-
-                                                    API.createNewTask(props.TodoListItem.id, task.title)
-                                                        .then((props) => {
-                                                                if (props.resultCode === 0) {
-                                                                    dispatch(actions.addTaskAC(props.createdTask))
-                                                                } else {
-                                                                    handleClientsError(dispatch, props.messages)
-                                                                }
-                                                                return props.createdTask
-                                                            }
-                                                        )
-                                                        .then((createdTask) => {
-                                                                API.updateTask({...createdTask, status: 1})
-                                                                    .then((props) => {
-                                                                            if (props.resultCode === 0) {
-                                                                                dispatch(actions.updateTaskAC(props.newTask))
-                                                                            } else {
-                                                                                handleClientsError(dispatch, props.messages)
-                                                                            }
-                                                                        }
-                                                                    )
-                                                                    .catch((err) => {
-                                                                            dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                                        }
-                                                                    )
-
-                                                                if (index === array.length - 1) {
-                                                                    resolve('success')
-                                                                }
-                                                            }
-                                                        )
-                                                        .catch((err) => {
-                                                                dispatch(actionsApp.changeHandleNetworkError(err.message))
-                                                            }
-                                                        )
-                                                }
-                                            }
-                                        )
-                                    })
-
-                                    Promise.allSettled([activeTasksPromise, completedTasksPromise])
-                                        .then(() => {
-                                            dispatch(actions.removeTodoAC(todo.id))
-                                        })
-
-                                } else {
-                                    handleClientsError(dispatch, props.messages)
-
+                            let activeTasksPromise = new Promise((resolve, reject) => {
+                                if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
+                                    reject('activeTasks-empty')
+                                    return
                                 }
-                            }
-                        )
-                        .catch((err) => {
-                            dispatch(actionsApp.changeHandleNetworkError(err.message))
+                                getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
+                                    (task, i, arr) => {
 
-                        })
+                                        if (task.isASynchronizedTask) {
+
+                                            dispatch(thunks.addTaskTC(props.TodoListItem.id, task.title))
+                                        }
+                                        if (i === arr.length - 1) {
+                                            resolve('success')
+                                        }
+                                    }
+                                )
+                            })
+
+                            let completedTasksPromise = new Promise((resolve, reject) => {
+
+                                if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
+                                    reject('completedTasks-empty')
+                                    return
+                                }
+
+                                getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
+                                    async (task, index, array) => {
+
+                                        if (task.isASynchronizedTask) {
+                                            try {
+                                                const res = await API.createNewTask(props.TodoListItem.id, task.title)
+
+                                                if (props.resultCode === 0) {
+                                                    dispatch(actions.addTaskAC(res.createdTask))
+                                                    dispatch(thunks.updateTask({...res.createdTask, status: 1}))
+                                                } else {
+                                                    handleClientsError(dispatch, props.messages)
+                                                }
+                                            } catch (error) {
+                                                handlerNetworkError(dispatch, error)
+                                            }
+
+                                        }
+                                        if (index === array.length - 1) {
+                                            resolve('success')
+                                        }
+                                    }
+                                )
+                            })
+
+                            Promise.allSettled([activeTasksPromise, completedTasksPromise])
+                                .then(() => {
+                                    dispatch(actions.removeTodoAC(todo.id))
+                                })
+
+                        } else {
+                            handleClientsError(dispatch, props.messages)
+
+                        }
+                    } catch (error) {
+                        handlerNetworkError(dispatch, error)
+                    }
                 }
 
                 if (!todo.isASynchronizedTodo) {
 
-                    getState().toDoReducer.taskBody[todo.id].activeTasks.forEach((task) => {
+                    for (const task of getState().toDoReducer.taskBody[todo.id].activeTasks) {
 
                         if (task.isASynchronizedTask) {
 
-                            API.createNewTask(todo.id, task.title)
-                                .then((props) => {
-                                        if (props.resultCode === 0) {
+                            dispatch(thunks.addTaskTC(todo.id, task.title))
+                            dispatch(actions.deleteTaskAC(task.id, todo.id))
 
-                                            dispatch(actions.addTaskAC(props.createdTask))
-                                            dispatch(actions.deleteTaskAC(task.id, todo.id))
-
-                                        } else {
-
-                                            handleClientsError(dispatch, props.messages)
-
-                                        }
-                                    }
-                                )
-                                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
                         }
-                    })
+                    }
 
-                    getState().toDoReducer.taskBody[todo.id].completedTasks.forEach((task) => {
+                    for (const task of getState().toDoReducer.taskBody[todo.id].completedTasks) {
 
                         if (task.isASynchronizedTask) {
+                            try {
+                                const props = await API.createNewTask(todo.id, task.title)
 
-                            API.createNewTask(todo.id, task.title)
-                                .then((props) => {
+                                if (props.resultCode === 0) {
 
-                                        if (props.resultCode === 0) {
+                                    dispatch(actions.addTaskAC(props.createdTask))
+                                    dispatch(thunks.updateTask({...props.createdTask, status: 1}))
+                                    dispatch(actions.deleteTaskAC(task.id, todo.id))
 
-                                            dispatch(actions.addTaskAC(props.createdTask))
-                                            dispatch(actions.deleteTaskAC(task.id, todo.id))
-
-                                        } else {
-
-                                            handleClientsError(dispatch, props.messages)
-
-                                        }
-                                        return props.createdTask
-                                    }
-                                )
-                                .then((createdTask) => {
-                                        API.updateTask({...createdTask, status: 1})
-                                            .then((props) => {
-                                                    if (props.resultCode === 0) {
-
-                                                        dispatch(actions.updateTaskAC(props.newTask))
-
-                                                    } else {
-
-                                                        handleClientsError(dispatch, props.messages)
-
-                                                    }
-                                                }
-                                            ).catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
-
-                                    }
-                                )
-                                .catch((err) => dispatch(actionsApp.changeHandleNetworkError(err.message)))
+                                } else {
+                                    handleClientsError(dispatch, props.messages)
+                                }
+                            }catch (e) {
+                                handlerNetworkError(dispatch,e)
+                            }
                         }
-                    })
+                    }
                 }
             }
         )
@@ -451,7 +384,7 @@ export const thunks = {
     //         }
     //     }
     // },
-
+    //
     // getTodolist: (): AppThunk => async (dispatch: AppDispatchType) => {
     //     try {
     //         const response = await API.getTodoList()
@@ -468,7 +401,7 @@ export const thunks = {
     //
     //
     // },
-
+    //
     // getTasks: (todolistId: string): AppThunk => async (dispatch: AppDispatchType) => {
     //
     //     try {
