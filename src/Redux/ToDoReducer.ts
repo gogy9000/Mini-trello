@@ -174,7 +174,7 @@ export let toDoReducer = (state: StateType = initialState, action: ActionsType):
 
                 taskBody: action.payload.reduce((acc, todo: TodoListItem) => {
                     return {...acc, [todo.id]: {activeTasks: [], completedTasks: []}}
-                }, {})
+                }, state.taskBody)
             }
 
         case EnumTodo.refreshTask:
@@ -259,6 +259,7 @@ export const thunks = {
                                             reject('activeTasks-empty')
                                             return
                                         }
+
                                         getState().toDoReducer.taskBody[todo.id].activeTasks.forEach(
                                             (task, i, arr) => {
 
@@ -423,68 +424,67 @@ export const thunks = {
         )
     },
 
-    getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
-        if (getState().toDoReducer.offlineMode) {
-            return
-        } else {
-            try {
-                dispatch(actionsApp.toggleIsWaitingApp(true))
-                const response = await API.getTodoList()
-                if (response.status === 200) {
-                    dispatch(actions.refreshTodoListAC(response.data))
+    // getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    //     if (getState().toDoReducer.offlineMode) {
+    //         return
+    //     } else {
+    //         try {
+    //             dispatch(actionsApp.toggleIsWaitingApp(true))
+    //             const response = await API.getTodoList()
+    //
+    //             if (response.status === 200) {
+    //
+    //
+    //
+    //                 response.data.forEach((todo) => {
+    //                     dispatch(thunks.getTasks(todo.id))
+    //
+    //                 })
+    //                 dispatch(actions.refreshTodoListAC(response.data))
+    //             } else {
+    //                 handleClientsError(dispatch, [response.statusText])
+    //             }
+    //         } catch (error) {
+    //             handlerNetworkError(dispatch, error)
+    //         } finally {
+    //             dispatch(actionsApp.toggleIsWaitingApp(false))
+    //         }
+    //     }
+    // },
 
-                    response.data.forEach((todo, index, array) => {
+    // getTodolist: (): AppThunk => async (dispatch: AppDispatchType) => {
+    //     try {
+    //         const response = await API.getTodoList()
+    //         if (response.status === 200) {
+    //             dispatch(actions.refreshTodoListAC(response.data))
+    //
+    //         } else {
+    //             handleClientsError(dispatch, [response.statusText])
+    //         }
+    //
+    //     } catch (error) {
+    //         handlerNetworkError(dispatch, error)
+    //     }
+    //
+    //
+    // },
 
-                        getTasks(todo.id)
-                        if (index === array.length - 1) {
-                            dispatch(actionsApp.toggleIsWaitingApp(false))
-                        }
-                    })
-
-                    // const p1 = async (dataItem: TodoListItem, index: number, array: TodoListItem[]) => {
-                    //     try {
-                    //         const props = await API.getTasks(dataItem.id)
-                    //         if (props.status === 200) {
-                    //             dispatch(actions.refreshTasks(props.tasks))
-                    //         } else {
-                    //             handleClientsError(dispatch, [response.statusText])
-                    //         }
-                    //     } catch (error) {
-                    //         handlerNetworkError(dispatch, error)
-                    //     } finally {
-
-                    //     }
-                    // }
-
-                } else {
-                    handleClientsError(dispatch, [response.statusText])
-                }
-
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            } finally {
-                dispatch(actionsApp.toggleIsWaitingApp(false))
-            }
-        }
-    },
-
-    getTasks(todolistId: string): AppThunk {
-        debugger
-        return async (dispatch: AppDispatchType) => {
-
-            try {
-                const props = await API.getTasks(todolistId)
-                if (props.status === 200) {
-                    dispatch(actions.refreshTasks(props.tasks))
-                } else {
-                    handleClientsError(dispatch, [props.statusText])
-                }
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            }
-
-        }
-    },
+    // getTasks: (todolistId: string): AppThunk => async (dispatch: AppDispatchType) => {
+    //
+    //     try {
+    //         dispatch(actionsApp.addWaitingList(todolistId))
+    //         const props = await API.getTasks(todolistId)
+    //         if (props.status === 200) {
+    //             dispatch(actions.refreshTasks(props.tasks))
+    //         } else {
+    //             handleClientsError(dispatch, [props.statusText])
+    //         }
+    //     } catch (error) {
+    //         handlerNetworkError(dispatch, error)
+    //     } finally {
+    //         dispatch(actionsApp.removeWaitingList(todolistId))
+    //     }
+    // },
 
     createTodolistTC: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
@@ -680,23 +680,6 @@ export const thunks = {
     }
 }
 
- function getTasks(todolistId: string): AppThunk {
-    debugger
-    return async (dispatch: AppDispatchType) => {
-
-        try {
-            const props = await API.getTasks(todolistId)
-            if (props.status === 200) {
-                dispatch(actions.refreshTasks(props.tasks))
-            } else {
-                handleClientsError(dispatch, [props.statusText])
-            }
-        } catch (error) {
-            handlerNetworkError(dispatch, error)
-        }
-
-    }
-}
 
 
 
