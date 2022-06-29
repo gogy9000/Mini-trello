@@ -20,10 +20,10 @@ export const App = React.memo(() => {
 
         const dispatch = useDispatchApp()
 
-        // useEffect(() => {
-        //
-        //     dispatch(thunks.getTodolistAndTasks())
-        // }, [])
+        useEffect(() => {
+
+            dispatch(thunks.getTodolistAndTasks())
+        }, [])
         useEffect(() => {
 
             if (!state.offlineMode) {

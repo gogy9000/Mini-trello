@@ -4,18 +4,19 @@ import {thunks} from '../../Redux/ToDoReducer';
 import {IconButton, LinearProgress, Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatchApp, useSelectorApp} from "../../App";
+import {TodoListItem} from "../../DAL/TodoAPI";
 
 type InputBlockForAddTaskPropsType = {
-    todoId: string
+    todo:TodoListItem
 }
 
-export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todoId}) => {
+export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todo}) => {
 
         const [inputText, setInputText] = useState<string>('')
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingTodo=useSelectorApp(store=>store.appReducer.waitingList[todoId])
+        const isWaitingTodo=useSelectorApp(store=>store.appReducer.waitingList[todo.id])
 
         const addTask = useCallback( () => {
 
@@ -24,9 +25,9 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                 return
             }
 
-            dispatch(thunks.addTaskTC(todoId, inputText))
+            dispatch(thunks.addTaskTC(todo, inputText))
             setInputText('')
-        },[dispatch,todoId,inputText])
+        },[dispatch,todo.id,inputText])
 
         const ChangeTextTaskTitle =(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
 
