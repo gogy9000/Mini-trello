@@ -2,7 +2,7 @@ import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {Box, Card, IconButton, LinearProgress, Stack, TextField, Typography} from "@mui/material";
 import {CloudUpload, Delete, Edit, ModeEdit} from "@mui/icons-material";
-import {thunks} from '../../Redux/ToDoReducer';
+import {actions, thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/ReduxStore";
 import {useDispatchApp, useSelectorApp} from "../../App";
@@ -26,16 +26,16 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                 setError('Title must not be empty')
                 return
             }
-            dispatch(thunks.updateTodoList(todo.id, todoName.trim()))
+            dispatch(thunks.updateTodoList({...todo, title: todoName.trim()}))
             setUpdateTodoMode(!updateTodoMode)
-        }, [dispatch, todo, todoName,updateTodoMode])
+        }, [dispatch, todo.id, todoName,updateTodoMode])
 
         const onUpdateTodoMode = () => setUpdateTodoMode(true)
 
 
         const removeTodo = useCallback(() => {
-            dispatch(thunks.deleteTodolist(todo.id))
-        }, [dispatch, todo.id])
+            dispatch(thunks.deleteTodolist(todo))}
+         ,[dispatch, todo.id, todo.isASynchronizedTodo ])
 
     const uploadTodo = () => {
         dispatch(thunks.synchronizeTodo(todo))

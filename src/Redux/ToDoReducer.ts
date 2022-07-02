@@ -29,7 +29,7 @@ export const initialState: StateType =
             // }
 
         },
-        offlineMode: false
+        offlineMode: true
     }
 
 
@@ -236,14 +236,7 @@ export const actions = {
 
 
 export const thunks = {
-    //воот такенная санка!
-    //нужна для отправки на сервер тех задач которые были созданы в offline режиме(в offline режиме
-    //задачи сохраняются только в локальном хранилище,в локальном хранилище данные сохраняются всегда по умолчанию)
-    //при переключении с offline режима на не offline запускается санка которая создает на сервере новые
-    // тудулисты переносит в них таски которые были созданы в offline режиме, дожидается когда все тудулисты
-    // и таски будут перенесены на сервер, после чего удаляет все, что было перенесено на сервер для того что бы не было
-    // дублирования. Если в существующий на сервере тудулист были записаны задачи в offline режиме, переносит
-    // их также на сервер
+
     synchronizeTodoAll: (): AppThunk =>  (dispatch: AppDispatchType, getState) => {
 
         getState().toDoReducer.tasksTitle.forEach((todo) => {
@@ -256,12 +249,14 @@ export const thunks = {
     synchronizeTodo:(todo:TodoListItem):AppThunk=>async (dispatch: AppDispatchType, getState)=>{
         if (todo.isASynchronizedTodo) {
             try {
+                dispatch(actionsApp.addWaitingList(todo.id))
                 const props = await API.createTodoList(todo.title)
 
                 if (props.resultCode === 0) {
                     dispatch(actions.createNewTodoAC(props.TodoListItem))
 
                     let activeTasksPromise = new Promise((resolve, reject) => {
+
                         if (getState().toDoReducer.taskBody[todo.id].activeTasks.length === 0) {
                             reject('activeTasks-empty')
                             return
@@ -303,6 +298,7 @@ export const thunks = {
                     Promise.allSettled([activeTasksPromise, completedTasksPromise])
                         .then(() => {
                             dispatch(actions.removeTodoAC(todo.id))
+                            dispatch(actionsApp.removeWaitingList(todo.id))
                         })
 
                 } else {
@@ -319,9 +315,7 @@ export const thunks = {
     },
 
     synchronizeTasks:(todo:TodoListItem):AppThunk=>async (dispatch: AppDispatchType, getState)=>{
-        console.log(!todo.isASynchronizedTodo)
         if (!todo.isASynchronizedTodo) {
-
             for (const task of getState().toDoReducer.taskBody[todo.id].activeTasks) {
                 if (task.isASynchronizedTask) {
                     dispatch(thunks.synchronizeTask(todo.id,task))
@@ -337,10 +331,10 @@ export const thunks = {
         }
 
     },
+
     synchronizeTask:(todoId:string, task:TaskType): AppThunk => async (dispatch: AppDispatchType) =>{
 
         try {
-
             dispatch(actionsApp.addWaitingList(todoId))
             const props = await API.createNewTask(todoId, task.title)
             if (props.resultCode === 0) {
@@ -360,70 +354,50 @@ export const thunks = {
 
 
 
-    // getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
-    //     if (getState().toDoReducer.offlineMode) {
-    //         return
-    //     } else {
-    //         try {
-    //             dispatch(actionsApp.toggleIsWaitingApp(true))
-    //             const response = await API.getTodoList()
-    //
-    //             if (response.status === 200) {
-    //
-    //
-    //
-    //                 response.data.forEach((todo) => {
-    //                     dispatch(thunks.getTasks(todo.id))
-    //
-    //                 })
-    //                 dispatch(actions.refreshTodoListAC(response.data))
-    //             } else {
-    //                 handleClientsError(dispatch, [response.statusText])
-    //             }
-    //         } catch (error) {
-    //             handlerNetworkError(dispatch, error)
-    //         } finally {
-    //             dispatch(actionsApp.toggleIsWaitingApp(false))
-    //         }
-    //     }
-    // },
-    //
-    // getTodolist: (): AppThunk => async (dispatch: AppDispatchType) => {
-    //     try {
-    //         const response = await API.getTodoList()
-    //         if (response.status === 200) {
-    //             dispatch(actions.refreshTodoListAC(response.data))
-    //
-    //         } else {
-    //             handleClientsError(dispatch, [response.statusText])
-    //         }
-    //
-    //     } catch (error) {
-    //         handlerNetworkError(dispatch, error)
-    //     }
-    //
-    //
-    // },
-    //
-    // getTasks: (todolistId: string): AppThunk => async (dispatch: AppDispatchType) => {
-    //
-    //     try {
-    //         dispatch(actionsApp.addWaitingList(todolistId))
-    //         const props = await API.getTasks(todolistId)
-    //         if (props.status === 200) {
-    //             dispatch(actions.refreshTasks(props.tasks))
-    //         } else {
-    //             handleClientsError(dispatch, [props.statusText])
-    //         }
-    //     } catch (error) {
-    //         handlerNetworkError(dispatch, error)
-    //     } finally {
-    //         dispatch(actionsApp.removeWaitingList(todolistId))
-    //     }
-    // },
-
-    createTodolistTC: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
+            return
+        } else {
+            try {
+                dispatch(actionsApp.toggleIsWaitingApp(true))
+                const response = await API.getTodoList()
+
+                if (response.status === 200) {
+                    dispatch(actions.refreshTodoListAC(response.data))
+                    response.data.forEach((todo) => {
+                        dispatch(thunks.getTasks(todo.id))
+                    })
+
+                } else {
+                    handleClientsError(dispatch, [response.statusText])
+                }
+            } catch (error) {
+                handlerNetworkError(dispatch, error)
+            } finally {
+                dispatch(actionsApp.toggleIsWaitingApp(false))
+            }
+        }
+    },
+
+
+    getTasks: (todolistId: string): AppThunk => async (dispatch: AppDispatchType) => {
+
+        try {
+            dispatch(actionsApp.addWaitingList(todolistId))
+            const props = await API.getTasks(todolistId)
+            if (props.status === 200) {
+                dispatch(actions.refreshTasks(props.tasks))
+            } else {
+                handleClientsError(dispatch, [props.statusText])
+            }
+        } catch (error) {
+            handlerNetworkError(dispatch, error)
+        } finally {
+            dispatch(actionsApp.removeWaitingList(todolistId))
+        }
+    },
+
+    createTodolistTC: (title: string): AppThunk => async (dispatch: AppDispatchType,getState) => {
 
             if (title.length > 100) {
 
@@ -440,30 +414,16 @@ export const thunks = {
                     isASynchronizedTodo: true
                 }
                 dispatch(actions.createNewTodoAC(newASynchronizedTodo))
-
-            }
-
-        } else {
-
-            try {
-                dispatch(actionsApp.toggleIsWaitingApp(true))
-                let props = await API.createTodoList(title)
-                if (props.resultCode === 0) {
-                    dispatch(actions.createNewTodoAC(props.TodoListItem))
-                } else {
-                    handleClientsError(dispatch, props.messages)
+                if(!getState().toDoReducer.offlineMode){
+                  dispatch(thunks.synchronizeTodo(newASynchronizedTodo))
                 }
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            } finally {
-                dispatch(actionsApp.toggleIsWaitingApp(false))
+
             }
-        }
     },
 
-    updateTodoList: (todolistId: string, title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
-
-        if (getState().toDoReducer.offlineMode) {
+    updateTodoList: (todo:TodoListItem): AppThunk => async (dispatch: AppDispatchType) => {
+        const {title,id,isASynchronizedTodo}=todo
+        if (isASynchronizedTodo) {
 
             if (title.length > 100) {
 
@@ -471,17 +431,17 @@ export const thunks = {
                 handleClientsError(dispatch, [error])
 
             } else {
-                dispatch(actions.updateTodoNameAC(title, todolistId))
+                dispatch(actions.updateTodoNameAC(title, id))
             }
 
         } else {
             try {
-                dispatch(actionsApp.addWaitingList(todolistId))
+                dispatch(actionsApp.addWaitingList(id))
 
-                const response = await API.updateTodoLis(todolistId, title)
+                const response = await API.updateTodoLis(id, title)
 
                 if (response.data.resultCode === 0) {
-                    dispatch(actions.updateTodoNameAC(title, todolistId))
+                    dispatch(actions.updateTodoNameAC(title, id))
                 } else {
                     handleClientsError(dispatch, response.data.messages)
                 }
@@ -489,36 +449,39 @@ export const thunks = {
             } catch (error) {
                 handlerNetworkError(dispatch, error)
             } finally {
-                dispatch(actionsApp.removeWaitingList(todolistId))
+                dispatch(actionsApp.removeWaitingList(id))
             }
         }
     },
 
-    deleteTodolist: (todolistId: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
-        if (getState().toDoReducer.offlineMode) {
-            dispatch(actions.removeTodoAC(todolistId))
-        } else {
-            try {
-                dispatch(actionsApp.addWaitingList(todolistId))
+    deleteTodolist: (todo:TodoListItem): AppThunk => async (dispatch: AppDispatchType) => {
+        const {id,isASynchronizedTodo}=todo
+            if(isASynchronizedTodo){
+                dispatch(actions.removeTodoAC(todo.id))
+            }else {
+                try {
+                    dispatch(actionsApp.addWaitingList(id))
 
-                const response = await API.deleteTodoList(todolistId)
-                if (response.data.resultCode === 0) {
-                    dispatch(actions.removeTodoAC(todolistId))
-                } else {
-                    handleClientsError(dispatch, response.data.messages)
+                    const response = await API.deleteTodoList(id)
+                    if (response.data.resultCode === 0) {
+                        dispatch(actions.removeTodoAC(id))
+                    } else {
+                        handleClientsError(dispatch, response.data.messages)
+                    }
+
+                } catch (error) {
+                    handlerNetworkError(dispatch, error)
+                } finally {
+                    dispatch(actionsApp.removeWaitingList(id))
                 }
-
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            } finally {
-                dispatch(actionsApp.removeWaitingList(todolistId))
             }
-        }
+
 
     },
 
-    addTaskTC: (todolistId: string, taskTitle: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
-        if (getState().toDoReducer.offlineMode) {
+    addTaskTC: (todo: TodoListItem, taskTitle: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
+
+        if (todo.isASynchronizedTodo) {
 
             if (taskTitle.length > 100) {
 
@@ -535,7 +498,7 @@ export const thunks = {
                     startDate: null,
                     deadline: null,
                     id: v1(),
-                    todoListId: todolistId,
+                    todoListId: todo.id,
                     order: 0,
                     addedDate: JSON.stringify(new Date()),
                     isASynchronizedTask: true
@@ -547,10 +510,12 @@ export const thunks = {
         } else {
             try {
 
-                dispatch(actionsApp.addWaitingList(todolistId))
-                const props = await API.createNewTask(todolistId, taskTitle)
+                dispatch(actionsApp.addWaitingList(todo.id))
+                const props = await API.createNewTask(todo.id, taskTitle)
                 if (props.resultCode === 0) {
+
                     dispatch(actions.addTaskAC(props.createdTask))
+
                 } else {
                     handleClientsError(dispatch, props.messages)
                 }
@@ -558,13 +523,13 @@ export const thunks = {
             } catch (error) {
                 handlerNetworkError(dispatch, error)
             } finally {
-                dispatch(actionsApp.removeWaitingList(todolistId))
+                dispatch(actionsApp.removeWaitingList(todo.id))
             }
         }
     },
 
-    updateTask: (task: TaskType): AppThunk => async (dispatch: AppDispatchType, getState) => {
-        if (getState().toDoReducer.offlineMode) {
+    updateTask: (task: TaskType): AppThunk => async (dispatch: AppDispatchType) => {
+        if (task.isASynchronizedTask) {
 
             if (task.title.length > 100) {
 
@@ -594,15 +559,15 @@ export const thunks = {
         }
     },
 
-    deleteTask: (todolistId: string, taskId: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
-        if (getState().toDoReducer.offlineMode) {
-            dispatch(actions.deleteTaskAC(taskId, todolistId))
+    deleteTask: (todolistId: string, task:TaskType): AppThunk => async (dispatch: AppDispatchType, getState) => {
+        if (task.isASynchronizedTask) {
+            dispatch(actions.deleteTaskAC(task.id, todolistId))
         } else {
             try {
 
-                const resp = await API.deleteTask(todolistId, taskId)
+                const resp = await API.deleteTask(todolistId, task.id)
                 if (resp.data.resultCode === 0) {
-                    dispatch(actions.deleteTaskAC(taskId, todolistId))
+                    dispatch(actions.deleteTaskAC(task.id, todolistId))
                 } else {
                     handleClientsError(dispatch, resp.data.messages)
                 }
@@ -610,7 +575,7 @@ export const thunks = {
             } catch (error) {
                 handlerNetworkError(dispatch, error)
             } finally {
-                dispatch(actionsApp.removeWaitingList(taskId))
+                dispatch(actionsApp.removeWaitingList(task.id))
             }
         }
     }

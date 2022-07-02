@@ -62,24 +62,18 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         }, [dispatch, task, taskValue, error])
 
         const deleteTask = useCallback(() => {
-            dispatch(thunks.deleteTask(todoId, task.id))
+            dispatch(thunks.deleteTask(todoId, task))
             setExpanded(false)
         }, [dispatch, task.id, todoId])
 
         const onEditMode = () => {
             setEditModeControlled(true)
         }
-        const uploadTask = () => {
-          dispatch(thunks.synchronizeTask(todoId,task))
-        }
 
-    console.log(task.isASynchronizedTask)
         return (
             <Card variant={"outlined"} >
                 <Box sx={{display: 'flex', justifyContent: "flex-end", opacity: (task.status === 1 ? 0.5 : 1)}}>
-                    <IconButton onClick={uploadTask}>
-                        <CloudUpload color={task.isASynchronizedTask?'inherit':'success'}/>
-                    </IconButton>
+
                     <CardContent >
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
