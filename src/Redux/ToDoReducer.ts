@@ -307,6 +307,7 @@ export const thunks = {
                 }
             } catch (error) {
                 handlerNetworkError(dispatch, error)
+                dispatch(actionsApp.removeWaitingList(todo.id))
             }
         }
 
@@ -479,7 +480,22 @@ export const thunks = {
 
     },
 
-    addTaskTC: (todo: TodoListItem, taskTitle: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    addTaskTC: (todo: TodoListItem, taskTitle: string): AppThunk => async (dispatch: AppDispatchType) => {
+
+        const newASynchronizedTask = {
+            description: null,
+            title: taskTitle,
+            status: 0,
+            priority: 0,
+            startDate: null,
+            deadline: null,
+            id: v1(),
+            todoListId: todo.id,
+            order: 0,
+            addedDate: JSON.stringify(new Date()),
+            isASynchronizedTask: true,
+
+        }
 
         if (todo.isASynchronizedTodo) {
 
@@ -490,19 +506,7 @@ export const thunks = {
 
             } else {
 
-                const newASynchronizedTask = {
-                    description: null,
-                    title: taskTitle,
-                    status: 0,
-                    priority: 0,
-                    startDate: null,
-                    deadline: null,
-                    id: v1(),
-                    todoListId: todo.id,
-                    order: 0,
-                    addedDate: JSON.stringify(new Date()),
-                    isASynchronizedTask: true
-                }
+
 
                 dispatch(actions.addTaskAC(newASynchronizedTask))
             }
@@ -522,6 +526,7 @@ export const thunks = {
 
             } catch (error) {
                 handlerNetworkError(dispatch, error)
+                dispatch(actions.addTaskAC(newASynchronizedTask))
             } finally {
                 dispatch(actionsApp.removeWaitingList(todo.id))
             }

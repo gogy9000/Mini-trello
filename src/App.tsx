@@ -5,7 +5,7 @@ import {Grid, LinearProgress} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
-import {AppDispatchType, AppRootStateType, AppThunk,} from "./Redux/ReduxStore";
+import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
 import {actionsApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 

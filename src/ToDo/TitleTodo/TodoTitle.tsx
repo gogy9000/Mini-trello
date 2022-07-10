@@ -6,6 +6,7 @@ import {actions, thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/ReduxStore";
 import {useDispatchApp, useSelectorApp} from "../../App";
+import {FabWithCircularProgress} from "../../common/FabWithCircularProgress";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType
@@ -63,12 +64,12 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                                     flexWrap: 'wrap',
                                     justifyContent: 'flex-end'
                                 }}>
-                                    <IconButton onClick={removeTodo}><Delete/></IconButton>
-                                    <IconButton onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
-                                    <IconButton onClick={uploadTodo}>
-                                        <CloudUpload color={todo.isASynchronizedTodo?'inherit':'success'}/>
-                                    </IconButton>
+                                    <IconButton disabled={isWaitingTodo}  onClick={removeTodo}><Delete/></IconButton>
 
+                                    <IconButton disabled={isWaitingTodo} onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
+                                    <FabWithCircularProgress callback={uploadTodo} isProgress={isWaitingTodo} color={todo.isASynchronizedTodo?'inherit':'success'}>
+                                        <CloudUpload />
+                                    </FabWithCircularProgress>
                                 </Box>
                             </Box>
                         </Card>
@@ -90,7 +91,6 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
                             <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
                         </Stack>
                 }
-                {isWaitingTodo&&<LinearProgress/>}
             </>
         )
     }

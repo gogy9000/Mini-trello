@@ -4,15 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring thunks">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fix offlineMod">
+      <change afterPath="$PROJECT_DIR$/src/common/CollapsedButtons.tsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/common/FabWithCircularProgress.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -63,7 +63,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../todo-list-by-incubator" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/common" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -79,18 +79,18 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDoReducerForReactUseReducer" />
     </key>
     <key name="es6.move.members.recent.items">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\common\CollapsedButtons.tsx" />
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\InputAddTask\CircularIntegration.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TransitionAlerts.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\AccordionWrapper.tsx" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\CreateToDoWrapper.tsx" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\Task.tsx" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\TaskTitleBlock.tsx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\common" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo\AccordionForCreateToDoInput" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\TitleTodo" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\InputAddTask" />
     </key>
   </component>
   <component name="RunManager" selected="npm.start">
@@ -213,14 +213,12 @@
       <workItem from="1656060477851" duration="2983000" />
       <workItem from="1656324288389" duration="21940000" />
       <workItem from="1656397069833" duration="29745000" />
-      <workItem from="1656486073917" duration="6397000" />
-    </task>
-    <task id="LOCAL-00020" summary="refactoring in process">
-      <created>1654083477533</created>
-      <option name="number" value="00020" />
-      <option name="presentableId" value="LOCAL-00020" />
-      <option name="project" value="LOCAL" />
-      <updated>1654083477533</updated>
+      <workItem from="1656486073917" duration="7679000" />
+      <workItem from="1656664113871" duration="32000" />
+      <workItem from="1656762160310" duration="884000" />
+      <workItem from="1656831872458" duration="618000" />
+      <workItem from="1656913205221" duration="616000" />
+      <workItem from="1657434968977" duration="14067000" />
     </task>
     <task id="LOCAL-00021" summary="refactoring in process">
       <created>1654178399219</created>
@@ -558,7 +556,14 @@
       <option name="project" value="LOCAL" />
       <updated>1656433940404</updated>
     </task>
-    <option name="localTasksCounter" value="69" />
+    <task id="LOCAL-00069" summary="fix offlineMod">
+      <created>1656495169019</created>
+      <option name="number" value="00069" />
+      <option name="presentableId" value="LOCAL-00069" />
+      <option name="project" value="LOCAL" />
+      <updated>1656495169019</updated>
+    </task>
+    <option name="localTasksCounter" value="70" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -577,7 +582,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix TodoAPI.ts types" />
     <MESSAGE value="create TitlTodo.stories.tsx" />
     <MESSAGE value="create InputForAddTask.stories.tsx" />
     <MESSAGE value="install  snapshot tes by storybook" />
@@ -602,7 +606,8 @@
     <MESSAGE value="fix Thunk types" />
     <MESSAGE value="fix refactoring" />
     <MESSAGE value="refactoring thunks" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring thunks" />
+    <MESSAGE value="fix offlineMod" />
+    <option name="LAST_COMMIT_MESSAGE" value="fix offlineMod" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
