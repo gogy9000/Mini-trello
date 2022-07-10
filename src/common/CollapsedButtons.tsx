@@ -7,8 +7,8 @@ interface ExpandMoreProps extends IconButtonProps {
 }
 
 const ExpandMore = styled((props: ExpandMoreProps) => {
-    const {expand, ...other} = props;
-    return <IconButton {...other} />;
+    const {expand,children, ...other} = props;
+    return <IconButton {...other} >{children}</IconButton>;
 })(({theme, expand}) => ({
     transform: !expand ? 'rotate(0deg)' : 'rotate(180deg)',
     marginRight: 'auto',
@@ -31,7 +31,7 @@ export const CollapsedButtons: React.FC<CollapsedButtonsProps> = ({children, exp
     }
 
     return (
-        <Box sx={{display: "flex", flexDirection: 'column'}}>
+        <Box sx={{display: "flex", flexDirection: 'column',}}>
             <ExpandMore
                 expand={expanded}
                 onClick={handleExpandClick}
@@ -49,7 +49,8 @@ export const CollapsedButtons: React.FC<CollapsedButtonsProps> = ({children, exp
                     display: 'flex',
                     flexDirection: 'column',
                     justifyContent: 'end',
-                    alignItems: 'end'
+                    alignItems: 'end',
+
                 }}>
                     {children}
 

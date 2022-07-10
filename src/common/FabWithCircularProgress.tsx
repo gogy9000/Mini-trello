@@ -34,12 +34,13 @@ export const FabWithCircularProgress: React.FC<CircularIntegrationPropsType> = R
 
             <Box sx={{m: 1, position: 'relative'}}>
                 <Fab
-                    aria-label="save"
+                    aria-label="circularProgress"
                     size='small'
                     color={color}
                     sx={buttonSx}
                     disabled={isProgress}
                     onClick={handleButtonClick}
+
                 >
                     {children}
                 </Fab>
