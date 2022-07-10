@@ -1,13 +1,14 @@
 import React, {useCallback, useState} from "react";
 import '../../App.css';
 import {thunks} from '../../Redux/ToDoReducer';
-import {IconButton, LinearProgress, Stack, TextField} from "@mui/material";
+import {Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatchApp, useSelectorApp} from "../../App";
 import {TodoListItem} from "../../DAL/TodoAPI";
+import {FabWithCircularProgress} from "../../common/FabWithCircularProgress";
 
 type InputBlockForAddTaskPropsType = {
-    todo:TodoListItem
+    todo: TodoListItem
 }
 
 export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.memo(({todo}) => {
@@ -16,9 +17,9 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingTodo=useSelectorApp(store=>store.appReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.appReducer.waitingList[todo.id])
 
-        const addTask = useCallback( () => {
+        const addTask = useCallback(() => {
 
             if ((/^\s+$/).test(inputText) || inputText === '') {
                 setErrorInput(true)
@@ -27,9 +28,9 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
 
             dispatch(thunks.addTaskTC(todo, inputText))
             setInputText('')
-        },[dispatch,todo.id,inputText])
+        }, [dispatch, todo.id, inputText])
 
-        const ChangeTextTaskTitle =(e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
+        const ChangeTextTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
 
 
         const onclickHandler = () => {
@@ -51,9 +52,12 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                     fullWidth
                     variant="filled"
                 />
-                <IconButton onClick={addTask}><AddTask/></IconButton>
-                {isWaitingTodo&&<LinearProgress/>}
+                <FabWithCircularProgress callback={addTask} isProgress={isWaitingTodo}
+                                         color={!todo.isASynchronizedTodo ? 'secondary' : "default"}>
+                    <AddTask/>
+                </FabWithCircularProgress>
             </Stack>
         )
     }
 )
+
