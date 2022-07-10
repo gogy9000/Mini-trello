@@ -7,17 +7,16 @@ import React, {
 } from "react";
 
 import {Box, TextField} from "@mui/material";
+import {TextFieldProps} from "@mui/material/TextField/TextField";
 
-type DefaultInputPropsType = DetailedHTMLProps<InputHTMLAttributes<HTMLInputElement>, HTMLInputElement>
+
 type DefaultSpanPropsType = DetailedHTMLProps<HTMLAttributes<HTMLSpanElement>, HTMLSpanElement>
-type CustomEditSpanPropsType = DefaultInputPropsType & {
+type CustomEditSpanPropsType = TextFieldProps & {
     onChangeText?: React.Dispatch<React.SetStateAction<string>>
     onEnter?: () => void
-    error?: string
     spanClassName?: string
     spanProps?: DefaultSpanPropsType
     onClick?: () => void
-    setError?: React.Dispatch<React.SetStateAction<string>>
     value: string
     editModeControlled?: boolean
     setEditModeControlled?: React.Dispatch<React.SetStateAction<boolean>>
@@ -26,7 +25,7 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
 
         const {
             onChange, value, error,  onEnter,  spanProps, onChangeText,
-            editModeControlled, setEditModeControlled
+            editModeControlled, setEditModeControlled, ...restProps
         } = props
 
         const [editMode, setEditMode] = useState<boolean>(false)
@@ -67,17 +66,15 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
                             <TextField
                                 error={!!error}
                                 data-testid='TextField'
-                                variant={"standard"}
                                 onKeyPress={(e) => {
                                     onEnterCallBack(e.key)
                                 }}
                                 onChange={onChangeCallBack}
-
                                 helperText={!!error ? error : false}
                                 id="standard-error"
-                                label="update todo"
                                 multiline
                                 fullWidth
+                                {...restProps}
                                 value={value}/>
                         </span>
                         :

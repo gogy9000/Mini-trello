@@ -52,7 +52,8 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                     fullWidth
                     variant="filled"
                 />
-                <FabWithCircularProgress callback={addTask} isProgress={isWaitingTodo} color='secondary'>
+                <FabWithCircularProgress callback={addTask} isProgress={isWaitingTodo}
+                                         color={!todo.isASynchronizedTodo ? 'secondary' : "default"}>
                     <AddTask/>
                 </FabWithCircularProgress>
             </Stack>

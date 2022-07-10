@@ -6,9 +6,10 @@
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use CollapsedButtons.tsx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/CollapsedButtons.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/CollapsedButtons.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/FabWithCircularProgress.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/FabWithCircularProgress.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -214,14 +215,7 @@
       <workItem from="1656762160310" duration="884000" />
       <workItem from="1656831872458" duration="618000" />
       <workItem from="1656913205221" duration="616000" />
-      <workItem from="1657434968977" duration="19107000" />
-    </task>
-    <task id="LOCAL-00022" summary="refactoring in process">
-      <created>1654539492589</created>
-      <option name="number" value="00022" />
-      <option name="presentableId" value="LOCAL-00022" />
-      <option name="project" value="LOCAL" />
-      <updated>1654539492589</updated>
+      <workItem from="1657434968977" duration="24687000" />
     </task>
     <task id="LOCAL-00023" summary="refactoring in process">
       <created>1654541479357</created>
@@ -559,7 +553,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657455051771</updated>
     </task>
-    <option name="localTasksCounter" value="71" />
+    <task id="LOCAL-00071" summary="use CollapsedButtons.tsx">
+      <created>1657460517954</created>
+      <option name="number" value="00071" />
+      <option name="presentableId" value="LOCAL-00071" />
+      <option name="project" value="LOCAL" />
+      <updated>1657460517954</updated>
+    </task>
+    <option name="localTasksCounter" value="72" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

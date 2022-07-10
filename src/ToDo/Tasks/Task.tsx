@@ -66,9 +66,10 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                     <CardContent>
                         <Typography component={'div'} variant="body2" color="text.primary">
                             <CustomEditSpan value={taskValue}
-                                            error={error}
+                                            variant='standard'
+                                            error={!!error}
                                             onEnter={updateTask}
-                                            setError={setError}
+                                            label="update task"
                                             onChangeText={setTaskValue}
                                             editModeControlled={editModeControlled}
                                             setEditModeControlled={setEditModeControlled}

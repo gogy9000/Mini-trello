@@ -8,6 +8,7 @@ import {AppRootStateType} from "../../Redux/ReduxStore";
 import {useDispatchApp, useSelectorApp} from "../../App";
 import {FabWithCircularProgress} from "../../common/FabWithCircularProgress";
 import {CollapsedButtons} from "../../common/CollapsedButtons";
+import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType
@@ -21,7 +22,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const isWaitingTodo = useSelectorApp(store => store.appReducer.waitingList[todo.id])
         const dispatch = useDispatchApp()
 
-        const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
+        // const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
 
         const updateTodoName = useCallback(() => {
             if (!todoName.trim()) {
@@ -32,7 +33,15 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
             setUpdateTodoMode(!updateTodoMode)
         }, [dispatch, todo.id, todoName, updateTodoMode])
 
-        const onUpdateTodoMode = () => setUpdateTodoMode(true)
+        const onUpdateTodoMode = useCallback(() => {
+            if (updateTodoMode) {
+                updateTodoName()
+            } else {
+                setUpdateTodoMode(true)
+            }
+
+
+        }, [updateTodoMode, todoName])
 
 
         const removeTodo = useCallback(() => {
@@ -46,59 +55,70 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
 
         return (
             <>
-                {
-                    !updateTodoMode
-                        ?
-                        <Card variant={'outlined'} sx={{display: 'flex', flexDirection: 'row-reverse'}}>
-                            <Box sx={{
-                                display: 'flex',
-                                flexDirection: 'row',
-                                alignItems: 'center',
-                                justifyContent: 'flexEnd'
-                            }}>
-                                <Typography variant={'h6'} p={1}>
-                                    {todo.title}
-
-                                </Typography>
-                                <Box sx={{
-                                    display: 'flex',
-                                    flexDirection: 'row',
-                                    flexWrap: 'wrap',
-                                    justifyContent: 'flex-end'
-                                }}>
-                                    <CollapsedButtons
-                                        expandIcon={<ExpandMore/>}>
-                                            <IconButton disabled={isWaitingTodo} onClick={removeTodo}><Delete/></IconButton>
-                                            <IconButton disabled={isWaitingTodo} onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
-                                            <IconButton onClick={uploadTodo}
-                                                        disabled={isWaitingTodo}
-                                                        color={todo.isASynchronizedTodo ? 'inherit' : 'success'}>
-                                                <CloudUpload />
-                                            </IconButton>
-
-                                    </CollapsedButtons>
-
-                                </Box>
-                            </Box>
-                        </Card>
-                        :
-                        <Stack direction='row'>
-                            <TextField
-                                size={'small'}
-                                onClick={() => {
-                                    setError('')
-                                }}
-                                onChange={setTodoNameOnChange}
-                                value={todoName}
-                                error={!!error}
-                                id="filled-error-helper-text"
-                                label={'New todo name'}
-                                helperText={!!error ? error : false}
-                                variant="filled"
+                <Card variant={'outlined'} sx={{
+                    display: 'flex',
+                    flexDirection: 'row',
+                    justifyContent: 'flex-end'
+                }}>
+                    <Box sx={{
+                        display: 'flex',
+                        flexDirection: 'row',
+                        alignItems: 'start',
+                        justifyContent: 'flex-end'
+                    }}>
+                        <Typography variant={'h6'} p={1}>
+                            <CustomEditSpan value={todoName}
+                                            error={!!error}
+                                            variant="standard"
+                                            label="update todo"
+                                            onEnter={updateTodoName}
+                                            onChangeText={setTodoName}
+                                            editModeControlled={updateTodoMode}
+                                            setEditModeControlled={setUpdateTodoMode}
+                                            spanProps={{children: !todo.title ? undefined : todo.title}}
                             />
-                            <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>
-                        </Stack>
-                }
+
+                        </Typography>
+                        <Box sx={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            flexWrap: 'wrap',
+                            justifyContent: 'flex-end'
+                        }}>
+                            <CollapsedButtons
+                                expandIcon={<ExpandMore/>}>
+                                <IconButton disabled={isWaitingTodo} onClick={removeTodo}><Delete/></IconButton>
+                                <IconButton disabled={isWaitingTodo} onClick={onUpdateTodoMode}><ModeEdit/></IconButton>
+                                <IconButton onClick={uploadTodo}
+                                            disabled={isWaitingTodo}
+                                            color={todo.isASynchronizedTodo ? 'inherit' : 'success'}>
+                                    <CloudUpload/>
+                                </IconButton>
+
+                            </CollapsedButtons>
+
+                        </Box>
+                    </Box>
+                </Card>
+                {/*        :*/}
+                {/*        <Stack direction='row'>*/}
+
+                {/*            <TextField*/}
+                {/*                size={'small'}*/}
+                {/*                onClick={() => {*/}
+                {/*                    setError('')*/}
+                {/*                }}*/}
+                {/*                onChange={setTodoNameOnChange}*/}
+                {/*                value={todoName}*/}
+                {/*                error={!!error}*/}
+                {/*                id="filled-error-helper-text"*/}
+                {/*                label={'New todo name'}*/}
+                {/*                helperText={!!error ? error : false}*/}
+                {/*                variant="filled"*/}
+                {/*            />*/}
+                {/*            <IconButton onClick={updateTodoName} size={'small'}><Edit color={"primary"}/></IconButton>*/}
+                {/*        </Stack>*/}
+                {/*}*/}
             </>
         )
     }
