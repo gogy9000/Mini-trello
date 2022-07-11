@@ -8,9 +8,11 @@ import {thunks} from "./Redux/ToDoReducer";
 import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
 import {actionsApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
+import {Navigate, Route, Routes} from 'react-router-dom';
+import {Login} from "./features/Login";
 
 
-export const useDispatchApp: ()=>AppDispatchType = useDispatch
+export const useDispatchApp: () => AppDispatchType = useDispatch
 export const useSelectorApp: TypedUseSelectorHook<AppRootStateType> = useSelector
 
 export const App = React.memo(() => {
@@ -31,21 +33,33 @@ export const App = React.memo(() => {
             }
         }, [state.offlineMode])
 
-    const clearErrorCallback = useCallback( () => {
-        dispatch(actionsApp.changeHandleNetworkError(''))
-        dispatch(actionsApp.changeHandleClientsError([]))
+        const clearErrorCallback = useCallback(() => {
+            dispatch(actionsApp.changeHandleNetworkError(''))
+            dispatch(actionsApp.changeHandleClientsError([]))
 
-    },[stateApp])
+        }, [stateApp])
 
 
         return (
 
             <>
                 <PrimarySearchAppBar/>
-                {stateApp.isWaitingApp&&<LinearProgress/>}
-                <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
-                    <TodoContainer/>
-                </Grid>
+                {stateApp.isWaitingApp && <LinearProgress/>}
+                <Routes>
+                    <Route path='/'
+                           element={
+                               <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
+                                   <TodoContainer/>
+                               </Grid>
+                           }
+                    />
+                    <Route path='/Login' element={<Login/>}/>
+                    <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to='/404'/>}/>
+
+
+                </Routes>
+
                 <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
                 <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 

@@ -4,9 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="add Formik &amp; types">
-      <change afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="creat Login.tsx">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/index.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -221,14 +222,7 @@
       <workItem from="1656831872458" duration="618000" />
       <workItem from="1656913205221" duration="616000" />
       <workItem from="1657434968977" duration="25162000" />
-      <workItem from="1657518905125" duration="1272000" />
-    </task>
-    <task id="LOCAL-00027" summary="use Api todolist">
-      <created>1654871667038</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1654871667038</updated>
+      <workItem from="1657518905125" duration="5343000" />
     </task>
     <task id="LOCAL-00028" summary="migration on Api-Todo-list">
       <created>1654934697083</created>
@@ -566,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657519552971</updated>
     </task>
-    <option name="localTasksCounter" value="76" />
+    <task id="LOCAL-00076" summary="creat Login.tsx">
+      <created>1657520438739</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1657520438739</updated>
+    </task>
+    <option name="localTasksCounter" value="77" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +586,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create snapshot test" />
     <MESSAGE value="CustomEditSpan.test.tsx create" />
     <MESSAGE value="create unauthorizedMode" />
     <MESSAGE value="create synchronizeTodo (80%)" />
@@ -610,7 +610,8 @@
     <MESSAGE value="refactoring" />
     <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
-    <option name="LAST_COMMIT_MESSAGE" value="add Formik &amp; types" />
+    <MESSAGE value="creat Login.tsx" />
+    <option name="LAST_COMMIT_MESSAGE" value="creat Login.tsx" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
