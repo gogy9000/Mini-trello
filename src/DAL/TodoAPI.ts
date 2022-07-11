@@ -1,5 +1,6 @@
 import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
+import {AuthDataType} from "../Redux/auth/Auth";
 
 
 
@@ -47,6 +48,16 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
 })
+type loginPayloadType={
+    email:string
+    password:string
+    rememberMe?:boolean
+    captcha?:boolean
+}
+export const ApiAuth={
+    authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
+    login:(loginPayload:loginPayloadType)=>instance.post(`/auth/login`,loginPayload).then((res)=>res)
+}
 
 export const API = {
     getTodoList: () => instance.get(`todo-lists`).then((response:AxiosResponse<TodoListItem[]>)=> response),
