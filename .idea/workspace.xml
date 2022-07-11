@@ -222,13 +222,7 @@
       <workItem from="1656831872458" duration="618000" />
       <workItem from="1656913205221" duration="616000" />
       <workItem from="1657434968977" duration="25162000" />
-    </task>
-    <task id="LOCAL-00024" summary="fix ButtonsBlock.stories.tsx">
-      <created>1654675314027</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1654675314027</updated>
+      <workItem from="1657518905125" duration="545000" />
     </task>
     <task id="LOCAL-00025" summary=" create ToDo.stories.tsx">
       <created>1654690159291</created>
@@ -566,7 +560,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657475310921</updated>
     </task>
-    <option name="localTasksCounter" value="73" />
+    <task id="LOCAL-00073" summary="add react-router-dom &amp; types">
+      <created>1657519285942</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519285942</updated>
+    </task>
+    <option name="localTasksCounter" value="74" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -585,7 +586,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="install  snapshot tes by storybook" />
     <MESSAGE value="install  snapshot tes by storybook part2" />
     <MESSAGE value="create snapshot test" />
     <MESSAGE value="CustomEditSpan.test.tsx create" />
@@ -610,7 +610,8 @@
     <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="add react-router-dom &amp; types" />
+    <option name="LAST_COMMIT_MESSAGE" value="add react-router-dom &amp; types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
