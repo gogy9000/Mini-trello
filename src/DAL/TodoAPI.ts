@@ -5,7 +5,7 @@ import {TaskType} from "../Types";
 
 
 type Data<T = any> = {
-    data:  Item<T>
+    data: T
     fieldsErrors: string[]
     messages: string[]
     resultCode: number
@@ -41,12 +41,30 @@ export type TaskItem = {
     addedDate: string
     isASynchronizedTask:boolean
 }
+export type LoginPayloadType={
+    email:string
+    password:string
+    rememberMe?:boolean
+    captcha?:boolean
+}
+export type AuthDataType = {
+    email: string
+    id: string
+    login: string
+}
 
 const instance = axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
 })
+
+export const ApiAuth={
+    authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
+    login:(loginPayload:LoginPayloadType)=>instance.post(`/auth/login`,loginPayload)
+        .then((res:AxiosResponse<Data<{userId:string}>>)=>res),
+    logout:()=>instance.delete(`/auth/login`).then((res:AxiosResponse<Data<{}>>)=>res)
+}
 
 export const API = {
     getTodoList: () => instance.get(`todo-lists`).then((response:AxiosResponse<TodoListItem[]>)=> response),
@@ -66,7 +84,7 @@ export const API = {
 
 
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
-        .then((response: AxiosResponse<Data<TodoListItem>>) => {
+        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => {
                 return {
                     TodoListItem: response.data.data.item,
                     resultCode: response.data.resultCode,
@@ -91,7 +109,7 @@ export const API = {
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
-            .then((response: AxiosResponse<Data<TaskItem>>) => {
+            .then((response: AxiosResponse<Data<Item<TaskItem>>>) => {
                     return {
                         createdTask: response.data.data.item,
                         resultCode: response.data.resultCode,
@@ -110,7 +128,7 @@ export const API = {
                 startDate: task.startDate,
                 deadline: task.deadline
             }
-        ).then((response:AxiosResponse<Data<TaskItem>>) => {
+        ).then((response:AxiosResponse<Data<Item<TaskItem>>>) => {
                     return {
                         newTask: response.data.data.item,
                         resultCode: response.data.resultCode,

@@ -4,12 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use CollapsedButtons.tsx">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create AuthMe thunk">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -40,6 +41,14 @@
       <filtered-out-file-type name="TAG" />
       <filtered-out-file-type name="COMMIT_BY_MESSAGE" />
     </file-type-list>
+  </component>
+  <component name="GithubPullRequestsUISettings">
+    <option name="recentNewPullRequestHead">
+      <RepoCoordinatesHolder>
+        <option name="owner" value="gogy9000" />
+        <option name="repository" value="incubator-to-do-list" />
+      </RepoCoordinatesHolder>
+    </option>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -215,63 +224,8 @@
       <workItem from="1656762160310" duration="884000" />
       <workItem from="1656831872458" duration="618000" />
       <workItem from="1656913205221" duration="616000" />
-      <workItem from="1657434968977" duration="24687000" />
-    </task>
-    <task id="LOCAL-00023" summary="refactoring in process">
-      <created>1654541479357</created>
-      <option name="number" value="00023" />
-      <option name="presentableId" value="LOCAL-00023" />
-      <option name="project" value="LOCAL" />
-      <updated>1654541479357</updated>
-    </task>
-    <task id="LOCAL-00024" summary="fix ButtonsBlock.stories.tsx">
-      <created>1654675314027</created>
-      <option name="number" value="00024" />
-      <option name="presentableId" value="LOCAL-00024" />
-      <option name="project" value="LOCAL" />
-      <updated>1654675314027</updated>
-    </task>
-    <task id="LOCAL-00025" summary=" create ToDo.stories.tsx">
-      <created>1654690159291</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1654690159291</updated>
-    </task>
-    <task id="LOCAL-00026" summary="use Api todolist">
-      <created>1654851145834</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1654851145835</updated>
-    </task>
-    <task id="LOCAL-00027" summary="use Api todolist">
-      <created>1654871667038</created>
-      <option name="number" value="00027" />
-      <option name="presentableId" value="LOCAL-00027" />
-      <option name="project" value="LOCAL" />
-      <updated>1654871667038</updated>
-    </task>
-    <task id="LOCAL-00028" summary="migration on Api-Todo-list">
-      <created>1654934697083</created>
-      <option name="number" value="00028" />
-      <option name="presentableId" value="LOCAL-00028" />
-      <option name="project" value="LOCAL" />
-      <updated>1654934697083</updated>
-    </task>
-    <task id="LOCAL-00029" summary="refactoring ToDoReducer.ts">
-      <created>1654937487958</created>
-      <option name="number" value="00029" />
-      <option name="presentableId" value="LOCAL-00029" />
-      <option name="project" value="LOCAL" />
-      <updated>1654937487958</updated>
-    </task>
-    <task id="LOCAL-00030" summary="fix refreshTask">
-      <created>1654942707910</created>
-      <option name="number" value="00030" />
-      <option name="presentableId" value="LOCAL-00030" />
-      <option name="project" value="LOCAL" />
-      <updated>1654942707910</updated>
+      <workItem from="1657434968977" duration="25162000" />
+      <workItem from="1657518905125" duration="24692000" />
     </task>
     <task id="LOCAL-00031" summary="use updateTodoLisThunk">
       <created>1654972107240</created>
@@ -560,7 +514,63 @@
       <option name="project" value="LOCAL" />
       <updated>1657460517954</updated>
     </task>
-    <option name="localTasksCounter" value="72" />
+    <task id="LOCAL-00072" summary="refactoring">
+      <created>1657475310920</created>
+      <option name="number" value="00072" />
+      <option name="presentableId" value="LOCAL-00072" />
+      <option name="project" value="LOCAL" />
+      <updated>1657475310921</updated>
+    </task>
+    <task id="LOCAL-00073" summary="add react-router-dom &amp; types">
+      <created>1657519285942</created>
+      <option name="number" value="00073" />
+      <option name="presentableId" value="LOCAL-00073" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519285942</updated>
+    </task>
+    <task id="LOCAL-00074" summary="add Formik &amp; types">
+      <created>1657519469661</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519469661</updated>
+    </task>
+    <task id="LOCAL-00075" summary="add Formik &amp; types">
+      <created>1657519552971</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519552971</updated>
+    </task>
+    <task id="LOCAL-00076" summary="creat Login.tsx">
+      <created>1657520438739</created>
+      <option name="number" value="00076" />
+      <option name="presentableId" value="LOCAL-00076" />
+      <option name="project" value="LOCAL" />
+      <updated>1657520438739</updated>
+    </task>
+    <task id="LOCAL-00077" summary="use Routes">
+      <created>1657531249954</created>
+      <option name="number" value="00077" />
+      <option name="presentableId" value="LOCAL-00077" />
+      <option name="project" value="LOCAL" />
+      <updated>1657531249954</updated>
+    </task>
+    <task id="LOCAL-00078" summary="create Auth logic (in progress 70%)">
+      <created>1657544476450</created>
+      <option name="number" value="00078" />
+      <option name="presentableId" value="LOCAL-00078" />
+      <option name="project" value="LOCAL" />
+      <updated>1657544476450</updated>
+    </task>
+    <task id="LOCAL-00079" summary="create AuthMe thunk">
+      <created>1657559258697</created>
+      <option name="number" value="00079" />
+      <option name="presentableId" value="LOCAL-00079" />
+      <option name="project" value="LOCAL" />
+      <updated>1657559258697</updated>
+    </task>
+    <option name="localTasksCounter" value="80" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -579,13 +589,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create InputForAddTask.stories.tsx" />
-    <MESSAGE value="install  snapshot tes by storybook" />
-    <MESSAGE value="install  snapshot tes by storybook part2" />
-    <MESSAGE value="create snapshot test" />
-    <MESSAGE value="CustomEditSpan.test.tsx create" />
-    <MESSAGE value="create unauthorizedMode" />
-    <MESSAGE value="create synchronizeTodo (80%)" />
     <MESSAGE value="create synchronizeTodo (90%)" />
     <MESSAGE value="create synchronizeTodo (100%)" />
     <MESSAGE value="create synchronizeTodo (101%)" />
@@ -604,7 +607,14 @@
     <MESSAGE value="refactoring thunks" />
     <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
-    <option name="LAST_COMMIT_MESSAGE" value="use CollapsedButtons.tsx" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="add react-router-dom &amp; types" />
+    <MESSAGE value="add Formik &amp; types" />
+    <MESSAGE value="creat Login.tsx" />
+    <MESSAGE value="use Routes" />
+    <MESSAGE value="create Auth logic (in progress 70%)" />
+    <MESSAGE value="create AuthMe thunk" />
+    <option name="LAST_COMMIT_MESSAGE" value="create AuthMe thunk" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -21,6 +21,7 @@ import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
 import {useDispatchApp, useSelectorApp} from "../App";
 import {actions} from "../Redux/ToDoReducer";
+import {thunkAuth} from "../Redux/auth/Auth";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -96,6 +97,10 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         const onOfflineMode = () => {
             dispatch(actions.changeOfflineMode(!state.offlineMode))
         }
+        const logout = () => {
+          dispatch(thunkAuth.logout())
+            handleMenuClose()
+        }
 
         const offlineTitle = "B Offline режиме ваши данные будут сохранены в локальном хранилище, но не синхронизированы с сервером"
         const onlineTitle = 'В Online режиме ваши данные будут синхронизированы с сервером'
@@ -119,6 +124,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
             >
                 <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
                 <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                <MenuItem onClick={logout}>logout</MenuItem>
 
             </Menu>
         );
