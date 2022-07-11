@@ -10,6 +10,7 @@ import {actionsApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
+import {thunkAuth} from "./Redux/auth/Auth";
 
 
 export const useDispatchApp: () => AppDispatchType = useDispatch
@@ -21,6 +22,9 @@ export const App = React.memo(() => {
         const stateApp = useSelectorApp(state => state.appReducer)
 
         const dispatch = useDispatchApp()
+    useEffect(()=>{
+        dispatch(thunkAuth.authMe())
+    },[])
 
         useEffect(() => {
 

@@ -1,12 +1,11 @@
 import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
-import {AuthDataType} from "../Redux/auth/Auth";
 
 
 
 
 type Data<T = any> = {
-    data:  Item<T>
+    data: T
     fieldsErrors: string[]
     messages: string[]
     resultCode: number
@@ -54,9 +53,15 @@ type loginPayloadType={
     rememberMe?:boolean
     captcha?:boolean
 }
+export type AuthDataType = {
+    email: string
+    id: string
+    login: string
+}
 export const ApiAuth={
     authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
-    login:(loginPayload:loginPayloadType)=>instance.post(`/auth/login`,loginPayload).then((res)=>res)
+    login:(loginPayload:loginPayloadType)=>instance.post(`/auth/login`,loginPayload).then((res)=>res),
+    logout:()=>instance.delete(`/auth/login`).then((res)=>res)
 }
 
 export const API = {
@@ -77,7 +82,7 @@ export const API = {
 
 
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
-        .then((response: AxiosResponse<Data<TodoListItem>>) => {
+        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => {
                 return {
                     TodoListItem: response.data.data.item,
                     resultCode: response.data.resultCode,
@@ -102,7 +107,7 @@ export const API = {
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
-            .then((response: AxiosResponse<Data<TaskItem>>) => {
+            .then((response: AxiosResponse<Data<Item<TaskItem>>>) => {
                     return {
                         createdTask: response.data.data.item,
                         resultCode: response.data.resultCode,
@@ -121,7 +126,7 @@ export const API = {
                 startDate: task.startDate,
                 deadline: task.deadline
             }
-        ).then((response:AxiosResponse<Data<TaskItem>>) => {
+        ).then((response:AxiosResponse<Data<Item<TaskItem>>>) => {
                     return {
                         newTask: response.data.data.item,
                         resultCode: response.data.resultCode,
