@@ -1,6 +1,10 @@
 import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, Grid, TextField} from "@mui/material";
 import {useFormik} from "formik";
 import React from "react";
+import { Navigate } from "react-router-dom";
+import {useDispatchApp, useSelectorApp} from "../App";
+import {thunkAuth} from "../Redux/auth/Auth";
+import {useSelector} from "react-redux";
 
 type FormikErrorType = {
     email?: string
@@ -9,6 +13,8 @@ type FormikErrorType = {
 }
 
 export const Login = () => {
+    const isAuthorized=useSelectorApp((state)=>state.authReducer.isAuthorized)
+    const dispatch=useDispatchApp()
 
     const formik = useFormik({
         initialValues: {
@@ -31,11 +37,11 @@ export const Login = () => {
             return errors
         },
         onSubmit: values => {
-            alert(JSON.stringify(values));
+            dispatch(thunkAuth.login(values))
             formik.resetForm()
         },
     })
-
+    if(isAuthorized){return <Navigate to='/incubator-to-do-list'/>}
     return (
         <Grid container justifyContent='center'>
             <Grid item justifyContent='center'>

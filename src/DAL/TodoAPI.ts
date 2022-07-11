@@ -41,13 +41,7 @@ export type TaskItem = {
     addedDate: string
     isASynchronizedTask:boolean
 }
-
-const instance = axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
-})
-type loginPayloadType={
+export type LoginPayloadType={
     email:string
     password:string
     rememberMe?:boolean
@@ -58,10 +52,18 @@ export type AuthDataType = {
     id: string
     login: string
 }
+
+const instance = axios.create({
+    withCredentials: true,
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
+})
+
 export const ApiAuth={
     authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
-    login:(loginPayload:loginPayloadType)=>instance.post(`/auth/login`,loginPayload).then((res)=>res),
-    logout:()=>instance.delete(`/auth/login`).then((res)=>res)
+    login:(loginPayload:LoginPayloadType)=>instance.post(`/auth/login`,loginPayload)
+        .then((res:AxiosResponse<Data<{userId:string}>>)=>res),
+    logout:()=>instance.delete(`/auth/login`).then((res:AxiosResponse<Data<{}>>)=>res)
 }
 
 export const API = {

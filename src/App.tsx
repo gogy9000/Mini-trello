@@ -20,11 +20,13 @@ export const App = React.memo(() => {
 
         const state = useSelectorApp(state => state.toDoReducer)
         const stateApp = useSelectorApp(state => state.appReducer)
+        const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
+
 
         const dispatch = useDispatchApp()
-    useEffect(()=>{
-        dispatch(thunkAuth.authMe())
-    },[])
+        useEffect(() => {
+            dispatch(thunkAuth.authMe())
+        }, [])
 
         useEffect(() => {
 
@@ -45,29 +47,36 @@ export const App = React.memo(() => {
 
 
         return (
-
             <>
-                <PrimarySearchAppBar/>
-                {stateApp.isWaitingApp && <LinearProgress/>}
-                <Routes>
-                    <Route path='/'
-                           element={
-                               <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
-                                   <TodoContainer/>
-                               </Grid>
-                           }
-                    />
-                    <Route path='/Login' element={<Login/>}/>
-                    <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
-                    <Route path='*' element={<Navigate to='/404'/>}/>
+                {isAuthorized
+                    ?
+                    <>
+                        <PrimarySearchAppBar/>
+                        {stateApp.isWaitingApp && <LinearProgress/>}
+                        <Routes>
+                            <Route path='/incubator-to-do-list'
+                                   element={
+                                       <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
+                                           <TodoContainer/>
+                                       </Grid>
+                                   }
+                            />
+                            <Route path='/login' element={<Login/>}/>
+                            <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
+                            <Route path='*' element={<Navigate to='/404'/>}/>
 
 
-                </Routes>
+                        </Routes>
 
-                <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
-                <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
+                        <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
+                        <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 
+                    </>
+                    :
+                    <Login/>
+                }
             </>
+
         )
             ;
     }
