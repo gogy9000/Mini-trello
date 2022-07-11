@@ -4,10 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="add Formik &amp; types">
+      <change afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -18,8 +17,8 @@
     <option name="RECENT_TEMPLATES">
       <list>
         <option value="JavaScript File" />
-        <option value="TypeScript JSX File" />
         <option value="TypeScript File" />
+        <option value="TypeScript JSX File" />
       </list>
     </option>
   </component>
@@ -222,21 +221,7 @@
       <workItem from="1656831872458" duration="618000" />
       <workItem from="1656913205221" duration="616000" />
       <workItem from="1657434968977" duration="25162000" />
-      <workItem from="1657518905125" duration="545000" />
-    </task>
-    <task id="LOCAL-00025" summary=" create ToDo.stories.tsx">
-      <created>1654690159291</created>
-      <option name="number" value="00025" />
-      <option name="presentableId" value="LOCAL-00025" />
-      <option name="project" value="LOCAL" />
-      <updated>1654690159291</updated>
-    </task>
-    <task id="LOCAL-00026" summary="use Api todolist">
-      <created>1654851145834</created>
-      <option name="number" value="00026" />
-      <option name="presentableId" value="LOCAL-00026" />
-      <option name="project" value="LOCAL" />
-      <updated>1654851145835</updated>
+      <workItem from="1657518905125" duration="1272000" />
     </task>
     <task id="LOCAL-00027" summary="use Api todolist">
       <created>1654871667038</created>
@@ -567,7 +552,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657519285942</updated>
     </task>
-    <option name="localTasksCounter" value="74" />
+    <task id="LOCAL-00074" summary="add Formik &amp; types">
+      <created>1657519469661</created>
+      <option name="number" value="00074" />
+      <option name="presentableId" value="LOCAL-00074" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519469661</updated>
+    </task>
+    <task id="LOCAL-00075" summary="add Formik &amp; types">
+      <created>1657519552971</created>
+      <option name="number" value="00075" />
+      <option name="presentableId" value="LOCAL-00075" />
+      <option name="project" value="LOCAL" />
+      <updated>1657519552971</updated>
+    </task>
+    <option name="localTasksCounter" value="76" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -586,7 +585,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="install  snapshot tes by storybook part2" />
     <MESSAGE value="create snapshot test" />
     <MESSAGE value="CustomEditSpan.test.tsx create" />
     <MESSAGE value="create unauthorizedMode" />
@@ -611,7 +609,8 @@
     <MESSAGE value="use CollapsedButtons.tsx" />
     <MESSAGE value="refactoring" />
     <MESSAGE value="add react-router-dom &amp; types" />
-    <option name="LAST_COMMIT_MESSAGE" value="add react-router-dom &amp; types" />
+    <MESSAGE value="add Formik &amp; types" />
+    <option name="LAST_COMMIT_MESSAGE" value="add Formik &amp; types" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
