@@ -4,6 +4,7 @@ import {AppDispatchType, AppThunk, InferActionsType} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
 import {handleClientsError, handlerNetworkError} from "../utils/HadleErrorUtils";
+import {AxiosResponse} from "axios";
 
 
 export enum EnumTodo {
@@ -355,7 +356,7 @@ export const thunks = {
 
 
 
-    getTodolistAndTasks: (): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    getTodolistAndTasks: (): AppThunk<Promise<AxiosResponse<TodoListItem[], any> | undefined>> => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
             return
         } else {
@@ -372,6 +373,7 @@ export const thunks = {
                 } else {
                     handleClientsError(dispatch, [response.statusText])
                 }
+                return response
             } catch (error) {
                 handlerNetworkError(dispatch, error)
             } finally {

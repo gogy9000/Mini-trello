@@ -1,6 +1,7 @@
-import {AppDispatchType, AppThunk, InferActionsType} from "../ReduxStore";
-import {ApiAuth, AuthDataType, LoginPayloadType} from "../../DAL/TodoAPI";
+import {AppDispatchType, AppThunk, InferActionsType, InferThunksType, UnionThunkType} from "../ReduxStore";
+import {ApiAuth, AuthDataType, Data, LoginPayloadType} from "../../DAL/TodoAPI";
 import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
+import {AxiosResponse} from "axios";
 
 enum EnumAuth {
     setAuthData = 'SET-AUTH-DATA',
@@ -34,8 +35,9 @@ export const actionsAuth = {
     setIsAuthorized: (isAuthorized: boolean) => ({type: EnumAuth.setIsAuthorized, isAuthorized} as const)
 }
 
+
 export const thunkAuth = {
-    authMe: (): AppThunk => async (dispatch: AppDispatchType) => {
+    authMe: (): AppThunk<Promise<AxiosResponse<Data<AuthDataType>> | undefined>> => async (dispatch: AppDispatchType) => {
         try {
             const response = await ApiAuth.authMe()
             if (response.data.resultCode === 0) {
@@ -44,18 +46,20 @@ export const thunkAuth = {
             } else {
                 handleClientsError(dispatch, response.data.messages)
 
-                // dispatch(actionsAuth.setAuthData(
-                //     {
-                //         email: '',
-                //         id: '',
-                //         login: '',
-                //         isAuthorized: false,
-                //     }
-                // ))
+                dispatch(actionsAuth.setAuthData(
+                    {
+                        email: '',
+                        id: '',
+                        login: '',
+                        isAuthorized: false,
+                    }
+                ))
             }
+            return response
         } catch (e) {
             handlerNetworkError(dispatch, e)
         }
+
     },
     login: (loginPayload: LoginPayloadType): AppThunk => async (dispatch: AppDispatchType) => {
         try {

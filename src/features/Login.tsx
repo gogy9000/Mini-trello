@@ -41,7 +41,7 @@ export const Login = () => {
             formik.resetForm()
         },
     })
-    if(isAuthorized){return <Navigate to='/incubator-to-do-list'/>}
+    if(isAuthorized){return <Navigate to='/'/>}
     return (
         <Grid container justifyContent='center'>
             <Grid item justifyContent='center'>
