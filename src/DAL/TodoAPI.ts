@@ -4,13 +4,13 @@ import {TaskType} from "../Types";
 
 
 
-type Data<T = any> = {
+export type Data<T = any> = {
     data: T
     fieldsErrors: string[]
     messages: string[]
     resultCode: number
 }
-type Item<D=any>={
+export type Item<D=any>={
     item:D
 }
 
@@ -58,7 +58,6 @@ const instance = axios.create({
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     headers: {"API-KEY": "c73c3d73-c86d-4ccb-b780-4d18cdc9edd5"}
 })
-
 export const ApiAuth={
     authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
     login:(loginPayload:LoginPayloadType)=>instance.post(`/auth/login`,loginPayload)

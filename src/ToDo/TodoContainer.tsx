@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useMemo} from "react";
 import '../App.css';
 import {TodoTitleType} from "../Types";
 import {ToDo} from "./ToDo";
@@ -6,13 +6,14 @@ import {Grid, Paper} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 import {Masonry} from "@mui/lab";
 import {useSelectorApp} from "../App";
-
+import {Navigate} from 'react-router-dom';
 
 export const TodoContainer = React.memo(() => {
 
+        const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
         const tasksTitle = useSelectorApp(state => state.toDoReducer.tasksTitle)
 
-        const todos = tasksTitle.map((todo: TodoTitleType) => {
+        const todos = useMemo( ()=> tasksTitle.map((todo: TodoTitleType) => {
                 return (
                     <Paper elevation={8} key={todo.id}>
                         <ToDo todo={todo}/>
@@ -20,8 +21,9 @@ export const TodoContainer = React.memo(() => {
 
                 )
             }
-        )
+        ),[tasksTitle])
 
+        if(!isAuthorized){return <Navigate to='/login'/>}
         return (
             <>
                 <Grid item>

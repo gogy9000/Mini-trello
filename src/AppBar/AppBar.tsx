@@ -10,18 +10,16 @@ import Badge from '@mui/material/Badge';
 import MenuItem from '@mui/material/MenuItem';
 import Menu from '@mui/material/Menu';
 import MenuIcon from '@mui/icons-material/Menu';
-import SearchIcon from '@mui/icons-material/Search';
 import AccountCircle from '@mui/icons-material/AccountCircle';
 import MailIcon from '@mui/icons-material/Mail';
 import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
-import {useSelector} from "react-redux";
-import {AppRootStateType} from "../Redux/ReduxStore";
 import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
 import {useDispatchApp, useSelectorApp} from "../App";
 import {actions} from "../Redux/ToDoReducer";
 import {thunkAuth} from "../Redux/auth/Auth";
+import {Navigate, NavLink} from 'react-router-dom';
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
@@ -71,6 +69,8 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
             React.useState<null | HTMLElement>(null);
 
         const state = useSelectorApp(state => state.toDoReducer)
+        const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
+
         const dispatch = useDispatchApp()
 
         const isMenuOpen = Boolean(anchorEl);
@@ -100,6 +100,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         const logout = () => {
           dispatch(thunkAuth.logout())
             handleMenuClose()
+
         }
 
         const offlineTitle = "B Offline режиме ваши данные будут сохранены в локальном хранилище, но не синхронизированы с сервером"
@@ -124,7 +125,16 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
             >
                 <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
                 <MenuItem onClick={handleMenuClose}>My account</MenuItem>
-                <MenuItem onClick={logout}>logout</MenuItem>
+                {
+                    isAuthorized
+                        ?
+                        <MenuItem onClick={logout}>logout</MenuItem>
+                        :
+                        <NavLink  style={{textDecoration:'none', color:'inherit'}} to='/login'>
+                            <MenuItem onClick={handleMenuClose}>login</MenuItem>
+                        </NavLink>
+                }
+
 
             </Menu>
         );
