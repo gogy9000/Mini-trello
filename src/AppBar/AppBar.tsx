@@ -255,17 +255,17 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
                             {/*        <NotificationsIcon />*/}
                             {/*    </Badge>*/}
                             {/*</IconButton>*/}
-                            {/*<IconButton*/}
-                            {/*    size="large"*/}
-                            {/*    edge="end"*/}
-                            {/*    aria-label="account of current user"*/}
-                            {/*    aria-controls={menuId}*/}
-                            {/*    aria-haspopup="true"*/}
-                            {/*    onClick={handleProfileMenuOpen}*/}
-                            {/*    color="inherit"*/}
-                            {/*>*/}
-                            {/*    <AccountCircle />*/}
-                            {/*</IconButton>*/}
+                            <IconButton
+                                size="large"
+                                edge="end"
+                                aria-label="account of current user"
+                                aria-controls={menuId}
+                                aria-haspopup="true"
+                                onClick={handleProfileMenuOpen}
+                                color="inherit"
+                            >
+                                <AccountCircle />
+                            </IconButton>
                         </Box>
                         <Box sx={{display: {xs: 'flex', md: 'none'}}}>
                             <IconButton

@@ -51,18 +51,11 @@ export const App = React.memo(() => {
                         <PrimarySearchAppBar/>
                         {stateApp.isWaitingApp && <LinearProgress/>}
                         <Routes>
-                            <Route path='/'
-                                   element={
-                                       <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
-                                           <TodoContainer/>
-                                       </Grid>
-                                   }
-                            />
+                            <Route path='/' element={<TodoContainer/>}/>
+                            <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
                             <Route path='/login' element={<Login/>}/>
                             <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
                             <Route path='*' element={<Navigate to='/404'/>}/>
-
-
                         </Routes>
 
                         <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
