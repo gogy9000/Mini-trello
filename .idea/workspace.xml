@@ -4,17 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="Login Logout logic completed">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring">
+      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +24,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="use_useReduser" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,7 +49,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -73,7 +64,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/common" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../chees-app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -156,8 +147,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.deploy" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.storybook" />
@@ -230,21 +221,13 @@
       <workItem from="1656913205221" duration="616000" />
       <workItem from="1657434968977" duration="25162000" />
       <workItem from="1657518905125" duration="25085000" />
-      <workItem from="1657617224499" duration="17067000" />
-    </task>
-    <task id="LOCAL-00032" summary="fix checkTask in Task.tsx">
-      <created>1655020388956</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1655020388956</updated>
-    </task>
-    <task id="LOCAL-00033" summary="fix getTask in Api">
-      <created>1655029790905</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1655029790905</updated>
+      <workItem from="1657617224499" duration="17395000" />
+      <workItem from="1657701990249" duration="1305000" />
+      <workItem from="1657729368334" duration="6113000" />
+      <workItem from="1657792952189" duration="11044000" />
+      <workItem from="1657880691898" duration="450000" />
+      <workItem from="1657960773883" duration="3750000" />
+      <workItem from="1657999632249" duration="944000" />
     </task>
     <task id="LOCAL-00034" summary="fix double render App">
       <created>1655046880729</created>
@@ -575,7 +558,21 @@
       <option name="project" value="LOCAL" />
       <updated>1657564707596</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="refactoring">
+      <created>1657645917779</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1657645917780</updated>
+    </task>
+    <task id="LOCAL-00082" summary="refactoring">
+      <created>1657999755158</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1657999755158</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -611,7 +608,6 @@
     <MESSAGE value="refactoring thunks" />
     <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
-    <MESSAGE value="refactoring" />
     <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
     <MESSAGE value="creat Login.tsx" />
@@ -619,7 +615,8 @@
     <MESSAGE value="create Auth logic (in progress 70%)" />
     <MESSAGE value="create AuthMe thunk" />
     <MESSAGE value="Login Logout logic completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login Logout logic completed" />
+    <MESSAGE value="refactoring" />
+    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
