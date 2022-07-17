@@ -1,9 +1,10 @@
 // Button.stories.ts|tsx
 
 import React from 'react';
-import {ComponentStory, ComponentMeta} from '@storybook/react';
+
 import {ButtonsInToDoContainer} from "./ButtonsInToDoContainer";
 import {ProviderDecorators} from "../stories/ProviderDecorators";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 
 export default {
     title: 'ButtonBlock',

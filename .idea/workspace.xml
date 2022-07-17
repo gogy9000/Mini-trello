@@ -5,7 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="yarn lock">
-      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsBlock.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitlTodo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitlTodo.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/reportWebVitals.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/reportWebVitals.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/Button.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/Button.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/Header.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/Header.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/Page.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/Page.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -49,7 +59,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -228,14 +238,7 @@
       <workItem from="1657880691898" duration="450000" />
       <workItem from="1657960773883" duration="3750000" />
       <workItem from="1657999632249" duration="944000" />
-      <workItem from="1658054801787" duration="2058000" />
-    </task>
-    <task id="LOCAL-00035" summary="fix double render App">
-      <created>1655049896750</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1655049896750</updated>
+      <workItem from="1658054801787" duration="3451000" />
     </task>
     <task id="LOCAL-00036" summary="use redux-dev-tools">
       <created>1655051082522</created>
@@ -573,7 +576,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658057283130</updated>
     </task>
-    <option name="localTasksCounter" value="84" />
+    <task id="LOCAL-00084" summary="yarn lock">
+      <created>1658058007973</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1658058007973</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

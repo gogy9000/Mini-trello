@@ -1,6 +1,6 @@
 import {TodoTitle} from "./TodoTitle";
-import {ComponentMeta, ComponentStory} from "@storybook/react";
 import {ProviderDecorators} from "../../stories/ProviderDecorators";
+import {ComponentMeta, ComponentStory} from "@storybook/react";
 
 
 

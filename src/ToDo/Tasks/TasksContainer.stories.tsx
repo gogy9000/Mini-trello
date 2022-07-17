@@ -1,5 +1,5 @@
 
-import {ComponentMeta, ComponentStory} from "@storybook/react";
+import {ComponentMeta, ComponentStory} from "@storybook/react/dist/ts3.9/client/preview/types-6-3";
 import {ProviderDecorators} from "../../stories/ProviderDecorators";
 import {TasksContainer} from "./TasksContainer";
 
