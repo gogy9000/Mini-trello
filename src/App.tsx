@@ -19,18 +19,18 @@ export const App = () => {
 
         const dispatch = useDispatchApp()
 
-        useEffect(() => {
-            if(isAuthorized){
-            dispatch(thunkApp.initializeApp())
-            }
-
-        }, [isAuthorized])
-
-        useEffect(() => {
-            if (isAuthorized&&!state.offlineMode) {
-                dispatch(thunks.synchronizeTodoAll())
-            }
-        }, [state.offlineMode,isAuthorized])
+        // useEffect(() => {
+        //     if(isAuthorized){
+        //     dispatch(thunkApp.initializeApp())
+        //     }
+        //
+        // }, [isAuthorized])
+        //
+        // useEffect(() => {
+        //     if (isAuthorized&&!state.offlineMode) {
+        //         dispatch(thunks.synchronizeTodoAll())
+        //     }
+        // }, [state.offlineMode,isAuthorized])
 
         const clearErrorCallback = useCallback(() => {
             dispatch(actionsApp.changeHandleNetworkError(''))

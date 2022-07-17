@@ -23,7 +23,7 @@ export const TodoContainer = React.memo(() => {
             }
         ),[tasksTitle])
 
-        if(!isAuthorized){return <Navigate to='/login'/>}
+        // if(!isAuthorized){return <Navigate to='/login'/>}
         return (
             <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
                 <Grid item>
