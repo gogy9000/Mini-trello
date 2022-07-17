@@ -11,13 +11,13 @@ const root = ReactDOM.createRoot(
 );
 root.render(
 
-  <React.StrictMode>
-    <BrowserRouter>
-      <Provider store={store}>
-          {!store.getState().appReducer.isInitialization?<div>load</div>:<App/>}
-      </Provider>
-        </BrowserRouter>
-    </React.StrictMode>
+
+      <BrowserRouter>
+          <Provider store={store}>
+               <div>!!!</div>
+          </Provider>
+      </BrowserRouter>
+
 );
 
 // If you want to start measuring performance in your app, pass a function
