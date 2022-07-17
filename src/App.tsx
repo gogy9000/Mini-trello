@@ -44,19 +44,18 @@ export const App = () => {
         return (
 
                     <>
-                        <div>asd</div>
                         {/*<PrimarySearchAppBar/>*/}
-                        {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
-                        {/*<TodoContainer/>*/}
-                        {/*<Routes>*/}
-                        {/*    <Route path='/' element={<TodoContainer/>}/>*/}
-                        {/*    <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>*/}
-                        {/*    <Route path='/login' element={<Login/>}/>*/}
-                        {/*    <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>*/}
-                        {/*    <Route path='*' element={<Navigate to='/404'/>}/>*/}
-                        {/*</Routes>*/}
-                        {/*<TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>*/}
-                        {/*<TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>*/}
+                        {stateApp.isWaitingApp && <LinearProgress/>}
+                        <TodoContainer/>
+                        <Routes>
+                            <Route path='/' element={<TodoContainer/>}/>
+                            <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
+                            <Route path='/login' element={<Login/>}/>
+                            <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
+                            <Route path='*' element={<Navigate to='/404'/>}/>
+                        </Routes>
+                        <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
+                        <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 
                     </>
 
