@@ -49,7 +49,9 @@ export const App = React.memo(() => {
 
                     <>
                         <PrimarySearchAppBar/>
+
                         {stateApp.isWaitingApp && <LinearProgress/>}
+
                         <Routes>
                             <Route path='/' element={<TodoContainer/>}/>
                             <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
