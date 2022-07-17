@@ -30,10 +30,10 @@ let rootReducer = combineReducers({
 })
 
 
-export let store = legacy_createStore(rootReducer, composeEnhancers(applyMiddleware(thunk)))
+export let store = legacy_createStore(rootReducer,persistState, composeEnhancers(applyMiddleware(thunk)))
 
 store.subscribe(() => {
-    // saveState(store.getState())
+    saveState(store.getState())
 })
 
 // @ts-ignore
