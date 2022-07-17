@@ -4,9 +4,8 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="package.lock">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="yarn lock">
+      <change afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,14 +228,7 @@
       <workItem from="1657880691898" duration="450000" />
       <workItem from="1657960773883" duration="3750000" />
       <workItem from="1657999632249" duration="944000" />
-      <workItem from="1658054801787" duration="1585000" />
-    </task>
-    <task id="LOCAL-00034" summary="fix double render App">
-      <created>1655046880729</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1655046880729</updated>
+      <workItem from="1658054801787" duration="2058000" />
     </task>
     <task id="LOCAL-00035" summary="fix double render App">
       <created>1655049896750</created>
@@ -574,7 +566,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657999755158</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="yarn lock">
+      <created>1658057283130</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1658057283130</updated>
+    </task>
+    <option name="localTasksCounter" value="84" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -593,7 +592,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create synchronizeTodo (100%)" />
     <MESSAGE value="create synchronizeTodo (101%)" />
     <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
@@ -618,7 +616,8 @@
     <MESSAGE value="create AuthMe thunk" />
     <MESSAGE value="Login Logout logic completed" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="yarn lock" />
+    <option name="LAST_COMMIT_MESSAGE" value="yarn lock" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
