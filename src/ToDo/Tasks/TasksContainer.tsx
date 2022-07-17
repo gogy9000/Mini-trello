@@ -1,7 +1,7 @@
 import React from "react";
 import {Tasks} from "./Tasks";
 import {Divider, Stack} from "@mui/material";
-import {useSelectorApp} from "../../App";
+import {useSelectorApp} from "../../custom-hooks/CustomHooks";
 
 type TaskBlockWrapperPropsType = {
     todoId: string

@@ -2,9 +2,9 @@ import {Button, Checkbox, FormControl, FormControlLabel, FormGroup, FormLabel, G
 import {useFormik} from "formik";
 import React from "react";
 import { Navigate } from "react-router-dom";
-import {useDispatchApp, useSelectorApp} from "../App";
 import {thunkAuth} from "../Redux/auth/Auth";
 import {useSelector} from "react-redux";
+import {useDispatchApp, useSelectorApp} from "../custom-hooks/CustomHooks";
 
 type FormikErrorType = {
     email?: string

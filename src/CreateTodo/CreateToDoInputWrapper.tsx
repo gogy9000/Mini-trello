@@ -2,7 +2,7 @@ import React, { useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
 import {thunks} from '../Redux/ToDoReducer';
 import {useDispatch} from "react-redux";
-import {useDispatchApp} from "../App";
+import {useDispatchApp} from "../custom-hooks/CustomHooks";
 
 
 export const CreateToDoInputWrapper = React.memo(() => {

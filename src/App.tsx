@@ -1,21 +1,17 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TodoContainer} from "./ToDo/TodoContainer";
-import {CircularProgress, Grid, LinearProgress} from "@mui/material";
+import {CircularProgress, LinearProgress} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
-import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
-import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
 import {actionsApp, thunkApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
+import {useDispatchApp, useSelectorApp} from "./custom-hooks/CustomHooks";
 
 
-export const useDispatchApp: () => AppDispatchType = useDispatch
-export const useSelectorApp: TypedUseSelectorHook<AppRootStateType> = useSelector
-
-export const App = React.memo(() => {
+export const App = () => {
 
         const state = useSelectorApp(state => state.toDoReducer)
         const stateApp = useSelectorApp(state => state.appReducer)
@@ -50,14 +46,14 @@ export const App = React.memo(() => {
                     <>
                         <PrimarySearchAppBar/>
                         {stateApp.isWaitingApp && <LinearProgress/>}
-                        <Routes>
-                            <Route path='/' element={<TodoContainer/>}/>
-                            <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
-                            <Route path='*' element={<Navigate to='/404'/>}/>
-                        </Routes>
-
+                        <TodoContainer/>
+                        {/*<Routes>*/}
+                        {/*    <Route path='/' element={<TodoContainer/>}/>*/}
+                        {/*    <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>*/}
+                        {/*    <Route path='/login' element={<Login/>}/>*/}
+                        {/*    <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>*/}
+                        {/*    <Route path='*' element={<Navigate to='/404'/>}/>*/}
+                        {/*</Routes>*/}
                         <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
                         <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 
@@ -66,7 +62,7 @@ export const App = React.memo(() => {
         )
             ;
     }
-)
+
 
 
 

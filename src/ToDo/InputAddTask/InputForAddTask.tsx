@@ -3,9 +3,9 @@ import '../../App.css';
 import {thunks} from '../../Redux/ToDoReducer';
 import {Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
-import {useDispatchApp, useSelectorApp} from "../../App";
 import {TodoListItem} from "../../DAL/TodoAPI";
 import {FabWithCircularProgress} from "../../common/FabWithCircularProgress";
+import {useDispatchApp, useSelectorApp} from "../../custom-hooks/CustomHooks";
 
 type InputBlockForAddTaskPropsType = {
     todo: TodoListItem

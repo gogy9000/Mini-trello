@@ -5,10 +5,10 @@ import {CloudUpload, Delete, Edit, Expand, ExpandMore, ModeEdit} from "@mui/icon
 import {actions, thunks} from '../../Redux/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/ReduxStore";
-import {useDispatchApp, useSelectorApp} from "../../App";
 import {FabWithCircularProgress} from "../../common/FabWithCircularProgress";
 import {CollapsedButtons} from "../../common/CollapsedButtons";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
+import {useDispatchApp, useSelectorApp} from "../../custom-hooks/CustomHooks";
 
 type TodoTitlePropsType = {
     todo: TodoTitleType

@@ -5,8 +5,8 @@ import {ToDo} from "./ToDo";
 import {Grid, Paper} from "@mui/material";
 import {AccordionWrapper} from "../CreateTodo/AccordionForCreateToDoInput/AccordionWrapper";
 import {Masonry} from "@mui/lab";
-import {useSelectorApp} from "../App";
 import {Navigate} from 'react-router-dom';
+import {useSelectorApp} from "../custom-hooks/CustomHooks";
 
 export const TodoContainer = React.memo(() => {
 

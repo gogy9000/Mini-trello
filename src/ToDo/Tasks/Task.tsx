@@ -5,8 +5,8 @@ import {Box, Card, CardContent, Checkbox, IconButton, LinearProgress, Typography
 import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
-import {useDispatchApp, useSelectorApp} from "../../App";
 import {CollapsedButtons} from "../../common/CollapsedButtons";
+import {useDispatchApp, useSelectorApp} from "../../custom-hooks/CustomHooks";
 
 export type TaskPropsType = {
     todoId: string

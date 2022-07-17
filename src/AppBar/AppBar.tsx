@@ -16,10 +16,10 @@ import NotificationsIcon from '@mui/icons-material/Notifications';
 import MoreIcon from '@mui/icons-material/MoreVert';
 import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
-import {useDispatchApp, useSelectorApp} from "../App";
 import {actions} from "../Redux/ToDoReducer";
 import {thunkAuth} from "../Redux/auth/Auth";
 import {Navigate, NavLink} from 'react-router-dom';
+import {useDispatchApp, useSelectorApp} from "../custom-hooks/CustomHooks";
 
 const Search = styled('div')(({theme}) => ({
     position: 'relative',
