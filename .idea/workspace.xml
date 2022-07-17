@@ -4,9 +4,7 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="refactoring">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="package.lock" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -147,10 +145,10 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.storybook" />
-        <item itemvalue="npm.start" />
         <item itemvalue="npm.deploy" />
       </list>
     </recent_temporary>
@@ -227,13 +225,6 @@
       <workItem from="1657792952189" duration="11044000" />
       <workItem from="1657880691898" duration="450000" />
       <workItem from="1657960773883" duration="3750000" />
-    </task>
-    <task id="LOCAL-00033" summary="fix getTask in Api">
-      <created>1655029790905</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1655029790905</updated>
     </task>
     <task id="LOCAL-00034" summary="fix double render App">
       <created>1655046880729</created>
@@ -571,7 +562,14 @@
       <option name="project" value="LOCAL" />
       <updated>1657645917780</updated>
     </task>
-    <option name="localTasksCounter" value="82" />
+    <task id="LOCAL-00082" summary="package.lock">
+      <created>1658051721477</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1658051721477</updated>
+    </task>
+    <option name="localTasksCounter" value="83" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -590,7 +588,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create synchronizeTodo (100%)" />
     <MESSAGE value="create synchronizeTodo (101%)" />
     <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
@@ -615,7 +612,8 @@
     <MESSAGE value="create AuthMe thunk" />
     <MESSAGE value="Login Logout logic completed" />
     <MESSAGE value="refactoring" />
-    <option name="LAST_COMMIT_MESSAGE" value="refactoring" />
+    <MESSAGE value="package.lock" />
+    <option name="LAST_COMMIT_MESSAGE" value="package.lock" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
