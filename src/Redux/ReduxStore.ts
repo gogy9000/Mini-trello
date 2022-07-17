@@ -17,10 +17,10 @@ export type AppThunk<ReturnType=any> = ThunkAction<ReturnType, AppRootStateType,
 
 const persistState = loadState()
 
-const composeEnhancers = composeWithDevTools({
-    trace: true,
-    traceLimit: 10
-});
+// const composeEnhancers = composeWithDevTools({
+//     trace: true,
+//     traceLimit: 10
+// });
 
 
 let rootReducer = combineReducers({
@@ -30,7 +30,7 @@ let rootReducer = combineReducers({
 })
 
 
-export let store = legacy_createStore(rootReducer, persistState, composeEnhancers(applyMiddleware(thunk)))
+export let store = legacy_createStore(rootReducer, persistState,applyMiddleware(thunk))
 
 store.subscribe(() => {
     saveState(store.getState())
