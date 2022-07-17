@@ -6,7 +6,7 @@
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="yarn lock">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -229,14 +229,7 @@
       <workItem from="1657880691898" duration="450000" />
       <workItem from="1657960773883" duration="3750000" />
       <workItem from="1657999632249" duration="944000" />
-      <workItem from="1658054801787" duration="6729000" />
-    </task>
-    <task id="LOCAL-00038" summary="fix ToDoReducer.test.ts">
-      <created>1655117464751</created>
-      <option name="number" value="00038" />
-      <option name="presentableId" value="LOCAL-00038" />
-      <option name="project" value="LOCAL" />
-      <updated>1655117464751</updated>
+      <workItem from="1658054801787" duration="7696000" />
     </task>
     <task id="LOCAL-00039" summary="fix TodoAPI.ts types">
       <created>1655309128593</created>
@@ -574,7 +567,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658064235913</updated>
     </task>
-    <option name="localTasksCounter" value="87" />
+    <task id="LOCAL-00087" summary="yarn lock">
+      <created>1658071142608</created>
+      <option name="number" value="00087" />
+      <option name="presentableId" value="LOCAL-00087" />
+      <option name="project" value="LOCAL" />
+      <updated>1658071142608</updated>
+    </task>
+    <option name="localTasksCounter" value="88" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
