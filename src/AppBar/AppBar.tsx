@@ -95,7 +95,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         };
 
         const onOfflineMode = () => {
-            dispatch(actions.changeOfflineMode(!state.offlineMode))
+            dispatch(actions.changeUnauthorizedMode(!state.offlineMode))
         }
         const logout = () => {
           dispatch(thunkAuth.logout())

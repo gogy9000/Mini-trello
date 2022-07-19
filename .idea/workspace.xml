@@ -4,13 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="install Redux/toolkit">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use appSlice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ButtonsAllActiveCommplitedTask/ButtonsInToDoContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/TasksContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -54,7 +56,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="CurrentFile" />
+    <option name="selectedTabId" value="ProjectErrors" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -235,14 +237,7 @@
       <workItem from="1657960773883" duration="3750000" />
       <workItem from="1658084354008" duration="2659000" />
       <workItem from="1658131510683" duration="24382000" />
-      <workItem from="1658216490467" duration="13013000" />
-    </task>
-    <task id="LOCAL-00037" summary="use redux-dev-tools Trace">
-      <created>1655107213596</created>
-      <option name="number" value="00037" />
-      <option name="presentableId" value="LOCAL-00037" />
-      <option name="project" value="LOCAL" />
-      <updated>1655107213596</updated>
+      <workItem from="1658216490467" duration="23656000" />
     </task>
     <task id="LOCAL-00038" summary="fix ToDoReducer.test.ts">
       <created>1655117464751</created>
@@ -580,7 +575,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658219375656</updated>
     </task>
-    <option name="localTasksCounter" value="86" />
+    <task id="LOCAL-00086" summary="use appSlice">
+      <created>1658242128242</created>
+      <option name="number" value="00086" />
+      <option name="presentableId" value="LOCAL-00086" />
+      <option name="project" value="LOCAL" />
+      <updated>1658242128242</updated>
+    </task>
+    <option name="localTasksCounter" value="87" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -599,7 +601,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="refactoring (15%), create unit-tests" />
     <MESSAGE value="create AppReducer.ts" />
     <MESSAGE value="create TransitionAlerts" />
     <MESSAGE value="use TransitionAlerts" />
@@ -624,7 +625,8 @@
     <MESSAGE value="yarn lock" />
     <MESSAGE value="ebaniRot" />
     <MESSAGE value="install Redux/toolkit" />
-    <option name="LAST_COMMIT_MESSAGE" value="install Redux/toolkit" />
+    <MESSAGE value="use appSlice" />
+    <option name="LAST_COMMIT_MESSAGE" value="use appSlice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

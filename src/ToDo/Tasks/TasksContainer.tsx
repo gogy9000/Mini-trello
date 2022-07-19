@@ -8,9 +8,7 @@ type TaskBlockWrapperPropsType = {
     filter: string
 }
 export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({todoId, filter}) => {
-
-        const activeTasks = useSelectorApp(state => state.toDoReducer.taskBody[todoId].activeTasks)
-        const completedTasks = useSelectorApp(state => state.toDoReducer.taskBody[todoId].completedTasks)
+        const activeTasks = useSelectorApp(state => state.toDoReducer.taskBody[todoId])
 
         return (
 
@@ -18,26 +16,10 @@ export const TasksContainer: React.FC<TaskBlockWrapperPropsType> = React.memo(({
                    divider={<Divider orientation="horizontal" flexItem/>}
                    spacing={1}>
                 {
-                    activeTasks.length === 0 && completedTasks.length === 0
-                    && <div>no active and completed tasks</div>
+                    activeTasks.length === 0
+                        ? <div>no active and completed tasks</div> : <Tasks todoId={todoId} tasks={activeTasks}/>
                 }
 
-                {
-                    filter === 'All' && <>
-                        <Tasks todoId={todoId} tasks={activeTasks}/>
-                        <Tasks todoId={todoId} tasks={completedTasks}/>
-                    </>
-                }
-
-                {
-                    filter === 'Completed' &&
-                    <Tasks todoId={todoId} tasks={completedTasks}/>
-                }
-
-                {
-                    filter === 'Active' &&
-                    <Tasks todoId={todoId} tasks={activeTasks}/>
-                }
 
             </Stack>
         )
