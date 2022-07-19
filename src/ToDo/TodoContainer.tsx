@@ -25,7 +25,7 @@ export const TodoContainer = React.memo(() => {
 
         if(!isAuthorized){return <Navigate to='/login'/>}
         return (
-            <>
+            <Grid container direction='column' justifyContent='end' spacing={1} pl={3} pr={3}>
                 <Grid item>
                     <AccordionWrapper/>
                 </Grid>
@@ -39,7 +39,7 @@ export const TodoContainer = React.memo(() => {
                         {todos}
                     </Masonry>
                 </Grid>
-            </>
+            </Grid>
         )
 
 

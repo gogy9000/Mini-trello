@@ -356,7 +356,7 @@ export const thunks = {
 
 
 
-    getTodolistAndTasks: (): AppThunk<Promise<AxiosResponse<TodoListItem[], any> | undefined>> => async (dispatch: AppDispatchType, getState) => {
+    getTodolistAndTasks: (): AppThunk<Promise<AxiosResponse<TodoListItem[]> | undefined>> => async (dispatch: AppDispatchType, getState) => {
         if (getState().toDoReducer.offlineMode) {
             return
         } else {
@@ -566,7 +566,7 @@ export const thunks = {
         }
     },
 
-    deleteTask: (todolistId: string, task:TaskType): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    deleteTask: (todolistId: string, task:TaskType): AppThunk => async (dispatch: AppDispatchType) => {
         if (task.isASynchronizedTask) {
             dispatch(actions.deleteTaskAC(task.id, todolistId))
         } else {

@@ -4,17 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="Login Logout logic completed">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="install Redux/toolkit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -33,7 +29,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="DEV" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -58,7 +54,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -73,7 +69,8 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/src/common" />
+    <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JavaScript" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../chees-app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -157,10 +154,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
-        <item itemvalue="npm.deploy" />
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.test:integration" />
+        <item itemvalue="npm.test" />
         <item itemvalue="npm.storybook" />
+        <item itemvalue="npm.deploy" />
       </list>
     </recent_temporary>
   </component>
@@ -230,42 +227,15 @@
       <workItem from="1656913205221" duration="616000" />
       <workItem from="1657434968977" duration="25162000" />
       <workItem from="1657518905125" duration="25085000" />
-      <workItem from="1657617224499" duration="17067000" />
-    </task>
-    <task id="LOCAL-00032" summary="fix checkTask in Task.tsx">
-      <created>1655020388956</created>
-      <option name="number" value="00032" />
-      <option name="presentableId" value="LOCAL-00032" />
-      <option name="project" value="LOCAL" />
-      <updated>1655020388956</updated>
-    </task>
-    <task id="LOCAL-00033" summary="fix getTask in Api">
-      <created>1655029790905</created>
-      <option name="number" value="00033" />
-      <option name="presentableId" value="LOCAL-00033" />
-      <option name="project" value="LOCAL" />
-      <updated>1655029790905</updated>
-    </task>
-    <task id="LOCAL-00034" summary="fix double render App">
-      <created>1655046880729</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1655046880729</updated>
-    </task>
-    <task id="LOCAL-00035" summary="fix double render App">
-      <created>1655049896750</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1655049896750</updated>
-    </task>
-    <task id="LOCAL-00036" summary="use redux-dev-tools">
-      <created>1655051082522</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1655051082522</updated>
+      <workItem from="1657617224499" duration="17395000" />
+      <workItem from="1657701990249" duration="1305000" />
+      <workItem from="1657729368334" duration="6113000" />
+      <workItem from="1657792952189" duration="11044000" />
+      <workItem from="1657880691898" duration="450000" />
+      <workItem from="1657960773883" duration="3750000" />
+      <workItem from="1658084354008" duration="2659000" />
+      <workItem from="1658131510683" duration="24382000" />
+      <workItem from="1658216490467" duration="13013000" />
     </task>
     <task id="LOCAL-00037" summary="use redux-dev-tools Trace">
       <created>1655107213596</created>
@@ -575,7 +545,42 @@
       <option name="project" value="LOCAL" />
       <updated>1657564707596</updated>
     </task>
-    <option name="localTasksCounter" value="81" />
+    <task id="LOCAL-00081" summary="refactoring">
+      <created>1657645917779</created>
+      <option name="number" value="00081" />
+      <option name="presentableId" value="LOCAL-00081" />
+      <option name="project" value="LOCAL" />
+      <updated>1657645917780</updated>
+    </task>
+    <task id="LOCAL-00082" summary="yarn lock">
+      <created>1658083805380</created>
+      <option name="number" value="00082" />
+      <option name="presentableId" value="LOCAL-00082" />
+      <option name="project" value="LOCAL" />
+      <updated>1658083805380</updated>
+    </task>
+    <task id="LOCAL-00083" summary="ebaniRot">
+      <created>1658084693996</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1658084693996</updated>
+    </task>
+    <task id="LOCAL-00084" summary="ebaniRot">
+      <created>1658086899440</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1658086899440</updated>
+    </task>
+    <task id="LOCAL-00085" summary="install Redux/toolkit">
+      <created>1658219375655</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1658219375656</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,9 +599,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create synchronizeTodo (100%)" />
-    <MESSAGE value="create synchronizeTodo (101%)" />
-    <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
     <MESSAGE value="create AppReducer.ts" />
     <MESSAGE value="create TransitionAlerts" />
@@ -611,7 +613,6 @@
     <MESSAGE value="refactoring thunks" />
     <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
-    <MESSAGE value="refactoring" />
     <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
     <MESSAGE value="creat Login.tsx" />
@@ -619,7 +620,11 @@
     <MESSAGE value="create Auth logic (in progress 70%)" />
     <MESSAGE value="create AuthMe thunk" />
     <MESSAGE value="Login Logout logic completed" />
-    <option name="LAST_COMMIT_MESSAGE" value="Login Logout logic completed" />
+    <MESSAGE value="refactoring" />
+    <MESSAGE value="yarn lock" />
+    <MESSAGE value="ebaniRot" />
+    <MESSAGE value="install Redux/toolkit" />
+    <option name="LAST_COMMIT_MESSAGE" value="install Redux/toolkit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
