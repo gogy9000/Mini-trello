@@ -1,14 +1,14 @@
-import {actionsApp} from "../Redux/AppReducer";
+import {appSlice} from "../Redux/AppReducer";
 import {AppDispatchType} from "../Redux/ReduxStore";
 import {AxiosError} from "axios";
 
 export const handleClientsError = (dispatch: AppDispatchType, error: string[]) => {
-    dispatch(actionsApp.changeHandleClientsError(error))
+    dispatch(appSlice.actions.changeHandleClientsError(error))
 }
 
 export const handlerNetworkError = (dispatch: AppDispatchType, error: unknown) => {
     if (error instanceof AxiosError) {
-        dispatch(actionsApp.changeHandleNetworkError(error.message))
+        dispatch(appSlice.actions.changeHandleNetworkError(error.message))
     } else {
         throw error
     }

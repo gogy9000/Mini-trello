@@ -4,10 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="ebaniRot">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="install Redux/toolkit">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -232,14 +235,7 @@
       <workItem from="1657960773883" duration="3750000" />
       <workItem from="1658084354008" duration="2659000" />
       <workItem from="1658131510683" duration="24382000" />
-      <workItem from="1658216490467" duration="2034000" />
-    </task>
-    <task id="LOCAL-00036" summary="use redux-dev-tools">
-      <created>1655051082522</created>
-      <option name="number" value="00036" />
-      <option name="presentableId" value="LOCAL-00036" />
-      <option name="project" value="LOCAL" />
-      <updated>1655051082522</updated>
+      <workItem from="1658216490467" duration="13013000" />
     </task>
     <task id="LOCAL-00037" summary="use redux-dev-tools Trace">
       <created>1655107213596</created>
@@ -577,7 +573,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658086899440</updated>
     </task>
-    <option name="localTasksCounter" value="85" />
+    <task id="LOCAL-00085" summary="install Redux/toolkit">
+      <created>1658219375655</created>
+      <option name="number" value="00085" />
+      <option name="presentableId" value="LOCAL-00085" />
+      <option name="project" value="LOCAL" />
+      <updated>1658219375656</updated>
+    </task>
+    <option name="localTasksCounter" value="86" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -596,7 +599,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
     <MESSAGE value="create AppReducer.ts" />
     <MESSAGE value="create TransitionAlerts" />
@@ -621,7 +623,8 @@
     <MESSAGE value="refactoring" />
     <MESSAGE value="yarn lock" />
     <MESSAGE value="ebaniRot" />
-    <option name="LAST_COMMIT_MESSAGE" value="ebaniRot" />
+    <MESSAGE value="install Redux/toolkit" />
+    <option name="LAST_COMMIT_MESSAGE" value="install Redux/toolkit" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

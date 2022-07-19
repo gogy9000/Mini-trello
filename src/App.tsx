@@ -6,7 +6,7 @@ import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
 import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
-import {actionsApp, thunkApp} from "./Redux/AppReducer";
+import {appSlice, thunkApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
@@ -37,8 +37,9 @@ export const App = React.memo(() => {
         }, [state.offlineMode,isAuthorized])
 
         const clearErrorCallback = useCallback(() => {
-            dispatch(actionsApp.changeHandleNetworkError(''))
-            dispatch(actionsApp.changeHandleClientsError([]))
+
+            dispatch(appSlice.actions.changeHandleNetworkError(''))
+            dispatch(appSlice.actions.changeHandleClientsError([]))
         }, [dispatch])
 
         if (stateApp.isInitialization){return <div
