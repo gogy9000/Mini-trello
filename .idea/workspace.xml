@@ -4,11 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="yarn lock">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="ebaniRot">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/package-lock.json" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -27,7 +26,7 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="750f0a6737e74a91b2b8356b51bf4f7f3e5fe198" />
+        <entry key="$PROJECT_DIR$" value="DEV" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -67,6 +66,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JavaScript" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../../chees-app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
@@ -230,21 +230,9 @@
       <workItem from="1657792952189" duration="11044000" />
       <workItem from="1657880691898" duration="450000" />
       <workItem from="1657960773883" duration="3750000" />
-      <workItem from="1658084354008" duration="154000" />
-    </task>
-    <task id="LOCAL-00034" summary="fix double render App">
-      <created>1655046880729</created>
-      <option name="number" value="00034" />
-      <option name="presentableId" value="LOCAL-00034" />
-      <option name="project" value="LOCAL" />
-      <updated>1655046880729</updated>
-    </task>
-    <task id="LOCAL-00035" summary="fix double render App">
-      <created>1655049896750</created>
-      <option name="number" value="00035" />
-      <option name="presentableId" value="LOCAL-00035" />
-      <option name="project" value="LOCAL" />
-      <updated>1655049896750</updated>
+      <workItem from="1658084354008" duration="2659000" />
+      <workItem from="1658131510683" duration="24382000" />
+      <workItem from="1658216490467" duration="2034000" />
     </task>
     <task id="LOCAL-00036" summary="use redux-dev-tools">
       <created>1655051082522</created>
@@ -575,7 +563,21 @@
       <option name="project" value="LOCAL" />
       <updated>1658083805380</updated>
     </task>
-    <option name="localTasksCounter" value="83" />
+    <task id="LOCAL-00083" summary="ebaniRot">
+      <created>1658084693996</created>
+      <option name="number" value="00083" />
+      <option name="presentableId" value="LOCAL-00083" />
+      <option name="project" value="LOCAL" />
+      <updated>1658084693996</updated>
+    </task>
+    <task id="LOCAL-00084" summary="ebaniRot">
+      <created>1658086899440</created>
+      <option name="number" value="00084" />
+      <option name="presentableId" value="LOCAL-00084" />
+      <option name="project" value="LOCAL" />
+      <updated>1658086899440</updated>
+    </task>
+    <option name="localTasksCounter" value="85" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -594,7 +596,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create synchronizeTodo (101%)" />
     <MESSAGE value="refactoring (10%)" />
     <MESSAGE value="refactoring (15%), create unit-tests" />
     <MESSAGE value="create AppReducer.ts" />
@@ -619,7 +620,8 @@
     <MESSAGE value="Login Logout logic completed" />
     <MESSAGE value="refactoring" />
     <MESSAGE value="yarn lock" />
-    <option name="LAST_COMMIT_MESSAGE" value="yarn lock" />
+    <MESSAGE value="ebaniRot" />
+    <option name="LAST_COMMIT_MESSAGE" value="ebaniRot" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
