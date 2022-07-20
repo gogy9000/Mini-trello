@@ -15,7 +15,6 @@ export type TaskPropsType = {
 
 export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
 
-
         const [taskValue, setTaskValue] = useState<string>(task.title)
         const [error, setError] = useState<string>('')
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
@@ -36,7 +35,10 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                 setError('todo empty')
                 return
             }
-
+             if (task.title===taskValue.trim()){
+                 setEditModeControlled(false)
+                 return
+             }
             dispatch(thunks.updateTask({...task, title: taskValue.trim()}))
             if (error !== '') {
                 setError('')
@@ -79,22 +81,23 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
                     </CardContent>
                     <CollapsedButtons expandIcon={<ExpandMoreIcon/>}>
 
-                        <IconButton onClick={deleteTask}>
-                            <Clear/>
+                        <IconButton onClick={deleteTask} disabled={isWaitingId} >
+                            <Clear />
                         </IconButton>
                         {
                             !editModeControlled
                             ?
-                            <IconButton onClick={onEditMode}>
+                            <IconButton onClick={onEditMode} disabled={isWaitingId}>
                                 <Create/>
                             </IconButton>
                             :
-                            <IconButton onClick={updateTask}>
+                            <IconButton onClick={updateTask} disabled={isWaitingId}>
                                 <Create color='primary'/>
                             </IconButton>
                         }
 
                         <Checkbox
+                            disabled={isWaitingId}
                             checked={task.status === 1}
                             inputProps={{'aria-label': 'controlled'}}
                             icon={<RadioButtonUnchecked/>}

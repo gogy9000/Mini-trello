@@ -36,6 +36,7 @@ const todoSlice = createSlice({
     reducers: {
         removeTodoAC: (state, action: PayloadAction<string>) => {
             state.tasksTitle = state.tasksTitle.filter(todo => todo.id !== action.payload)
+            delete state.taskBody[action.payload]
         },
         updateTodoNameAC: (state, action: PayloadAction<{ title: string, id: string }>) => {
             state.tasksTitle.forEach(todo => {
@@ -52,32 +53,38 @@ const todoSlice = createSlice({
             state.taskBody[action.payload.todoListId].push(action.payload)
         },
         updateTaskAC: (state, action: PayloadAction<TaskType>) => {
-            state.taskBody[action.payload.todoListId].forEach(task => {
-                if (task.id === action.payload.id) {
-                    task = action.payload
-                }
-            })
+            state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
+                .map(task => task.id === action.payload.id ? action.payload : task)
         },
         deleteTaskAC: (state, action: PayloadAction<{ taskId: string, todoId: string }>) => {
-            state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId].filter(task => task.id !== action.payload.taskId)
+            state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId]
+                .filter(task => task.id !== action.payload.taskId)
         },
         refreshTodoListAC: (state, action: PayloadAction<TodoListItem[]>) => {
-            action.payload.forEach(todo => {
-                state.tasksTitle.push({...todo, filter: "All"})
-                state.taskBody[todo.id] = []
-            })
+
+            state.tasksTitle = action.payload.reduce((acc, todo: TodoListItem) => {
+                return [...acc, {...todo, filter: "All"}]
+            }, [] as TodoTitleType[])
+
+            state.taskBody = action.payload.reduce((acc, todo: TodoListItem) => {
+                return {...acc, [todo.id]: []}
+            }, state.taskBody)
         },
         refreshTasks: (state, action: PayloadAction<TaskType[]>) => {
-            action.payload.forEach(task => {
-                state.taskBody[task.todoListId].push(task)
-            })
+
+            state.taskBody = action.payload.reduce((ac, cu) => {
+                return {...ac, [cu.todoListId]: [...ac[cu.todoListId], cu]}
+            }, state.taskBody as { [key: string]: TaskType[] })
+
         },
         changeUnauthorizedMode: (state, action: PayloadAction<boolean>) => {
             state.offlineMode = action.payload
         },
-        changeFilterAC:(state, action: PayloadAction<{todoId:string,newFilter:string }>)=>{
-            state.tasksTitle.forEach(todo=> {
-                if(todo.id === action.payload.todoId){todo.filter=action.payload.newFilter}
+        changeFilterAC: (state, action: PayloadAction<{ todoId: string, newFilter: string }>) => {
+            state.tasksTitle.forEach(todo => {
+                if (todo.id === action.payload.todoId) {
+                    todo.filter = action.payload.newFilter
+                }
             })
         }
     }
@@ -326,26 +333,6 @@ export const thunks = {
                             }
                         )
                     })
-
-                    // let completedTasksPromise = new Promise((resolve, reject) => {
-                    //
-                    //     if (getState().toDoReducer.taskBody[todo.id].completedTasks.length === 0) {
-                    //         reject('completedTasks-empty')
-                    //         return
-                    //     }
-                    //
-                    //     getState().toDoReducer.taskBody[todo.id].completedTasks.forEach(
-                    //         async (task, index, array) => {
-                    //
-                    //             if (task.isASynchronizedTask) {
-                    //                 dispatch(thunks.synchronizeTask(props.TodoListItem.id, task))
-                    //             }
-                    //             if (index === array.length - 1) {
-                    //                 resolve('success')
-                    //             }
-                    //         }
-                    //     )
-                    // })
 
                     Promise.allSettled([activeTasksPromise])
                         .then(() => {
@@ -609,13 +596,13 @@ export const thunks = {
 
     deleteTask: (todolistId: string, task: TaskType): AppThunk => async (dispatch: AppDispatchType) => {
         if (task.isASynchronizedTask) {
-            dispatch(actions.deleteTaskAC({taskId:task.id,todoId:todolistId}))
+            dispatch(actions.deleteTaskAC({taskId: task.id, todoId: todolistId}))
         } else {
             try {
-
+                dispatch(actionsApp.addWaitingList(task.id))
                 const resp = await API.deleteTask(todolistId, task.id)
                 if (resp.data.resultCode === 0) {
-                    dispatch(actions.deleteTaskAC({taskId:task.id,todoId:todolistId}))
+                    dispatch(actions.deleteTaskAC({taskId: task.id, todoId: todolistId}))
                 } else {
                     handleClientsError(dispatch, resp.data.messages)
                 }
