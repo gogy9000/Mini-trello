@@ -2,11 +2,12 @@ import {AppDispatchType, AppThunk, InferActionsType, InferThunksType, UnionThunk
 import {ApiAuth, AuthDataType, Data, LoginPayloadType} from "../../DAL/TodoAPI";
 import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
 import {AxiosResponse} from "axios";
+import {createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 
-enum EnumAuth {
-    setAuthData = 'SET-AUTH-DATA',
-    setIsAuthorized = 'SET-IS-AUTHORIZED'
-}
+// enum EnumAuth {
+//     setAuthData = 'SET-AUTH-DATA',
+//     setIsAuthorized = 'SET-IS-AUTHORIZED'
+// }
 
 export const initState = {
     email: '',
@@ -14,26 +15,43 @@ export const initState = {
     login: '',
     isAuthorized: false,
 }
-type stateAuthType = typeof initState
-type ActionsAuthType = InferActionsType<typeof actionsAuth>
-export const authReducer = (state: stateAuthType = initState, action: ActionsAuthType): stateAuthType => {
-    switch (action.type) {
-        case EnumAuth.setAuthData:
-            return {...state, ...action.authData}
-        case EnumAuth.setIsAuthorized:
-            return {...state, isAuthorized: action.isAuthorized}
-        default:
-            return state
+
+export const authSlice=createSlice({
+    name:'auth',
+    initialState:initState,
+    reducers:{
+        setAuthData:(state:Draft<typeof initState> ,action:PayloadAction<AuthDataTypeWithIsAuthorized>)=>{
+            return {...state,...action.payload}
+        },
+        setIsAuthorized:(state:Draft<typeof initState> ,action:PayloadAction<boolean>)=>{
+            return {...state, isAuthorized:action.payload}
+        }
 
     }
-}
+})
+
+type stateAuthType = typeof initState
+type ActionsAuthType = InferActionsType<typeof actionsAuth>
+export const authReducer = authSlice.reducer
+    // (state: stateAuthType = initState, action: ActionsAuthType): stateAuthType => {
+    //     switch (action.type) {
+    //         case EnumAuth.setAuthData:
+    //             return {...state, ...action.authData}
+    //         case EnumAuth.setIsAuthorized:
+    //             return {...state, isAuthorized: action.isAuthorized}
+    //         default:
+    //             return state
+    //
+    //     }
+    // }
 type AuthDataTypeWithIsAuthorized = AuthDataType & {
     isAuthorized: boolean
 }
-export const actionsAuth = {
-    setAuthData: (authData: AuthDataTypeWithIsAuthorized) => ({type: EnumAuth.setAuthData, authData} as const),
-    setIsAuthorized: (isAuthorized: boolean) => ({type: EnumAuth.setIsAuthorized, isAuthorized} as const)
-}
+export const actionsAuth =authSlice.actions
+    // {
+    //     setAuthData: (authData: AuthDataTypeWithIsAuthorized) => ({type: EnumAuth.setAuthData, authData} as const),
+    //     setIsAuthorized: (isAuthorized: boolean) => ({type: EnumAuth.setIsAuthorized, isAuthorized} as const)
+    // }
 
 
 export const thunkAuth = {
