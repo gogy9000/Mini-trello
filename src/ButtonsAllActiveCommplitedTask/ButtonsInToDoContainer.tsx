@@ -14,7 +14,7 @@ export const ButtonsInToDoContainer: React.FC<ButtonsInToDoWrapperPropsType> = R
 
         const dispatch=useDispatch()
         const onClickHandler = (newFilter: string) => {
-            dispatch(actions.changeFilterAC(todoId, newFilter))
+            dispatch(actions.changeFilterAC({todoId, newFilter}))
         }
 
         return (

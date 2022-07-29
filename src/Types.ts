@@ -1,4 +1,4 @@
-import {ActionsType} from './Redux/ToDoReducer';
+
 
 export type TaskType = {
     description: string|null
@@ -29,18 +29,6 @@ export type StateType={
     offlineMode:boolean
 
 }
-
-
-
-export type InputPropsType = {
-    idTitle:string
-    state: StateType
-    dispatch: (action:ActionsType) => void
-
-}
 export type taskBodyType={
-    [x:string]:{
-        activeTasks: Array<TaskType>
-        completedTasks:Array<TaskType>
-    }
+    [x:string]:TaskType[]
 }

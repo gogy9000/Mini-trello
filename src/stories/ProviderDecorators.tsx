@@ -2,6 +2,7 @@ import {Provider} from "react-redux";
 import {combineReducers, legacy_createStore} from "redux";
 import {toDoReducer} from "../Redux/ToDoReducer";
 import {TaskType, TodoTitleType} from "../Types";
+import {configureStore} from "@reduxjs/toolkit";
 
 
 type RootReducerType = typeof rootReducer
@@ -13,8 +14,7 @@ let rootReducer = combineReducers({
 let stateStories = {
     tasksTitle: [{id: '123321', title: 'todo azaza', addedDate: 'string', order: 0, filter: 'All'}] as TodoTitleType[],
     taskBody: {
-        ['123321']: {
-            activeTasks: [{
+        ['123321']:  [{
                 description: 'string | null',
                 title: 'Active Task',
                 status: 0,
@@ -26,24 +26,14 @@ let stateStories = {
                 order: 0,
                 addedDate: '123'
             }] as TaskType[],
-            completedTasks: [{
-                description: 'string | null',
-                title: 'Completed Task',
-                status: 1,
-                priority: 1,
-                startDate: 'string | null',
-                deadline: 'string | null',
-                id: '21',
-                todoListId: '123',
-                order: 0,
-                addedDate: '123'
-            }] as TaskType[]
-        }
     },
     offlineMode: true
 }
 
 
-let storeForStoryBook = legacy_createStore(rootReducer, {stateTodo: stateStories})
+let storeForStoryBook = configureStore({
+    reducer:rootReducer,
+    preloadedState: {stateTodo: stateStories}
+})
 
 export const ProviderDecorators = (storiesFn: any) => <Provider store={storeForStoryBook}>{storiesFn()}</Provider>

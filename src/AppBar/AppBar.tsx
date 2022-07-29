@@ -95,7 +95,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
         };
 
         const onOfflineMode = () => {
-            dispatch(actions.changeOfflineMode(!state.offlineMode))
+            dispatch(actions.changeUnauthorizedMode(!state.offlineMode))
         }
         const logout = () => {
           dispatch(thunkAuth.logout())
@@ -123,8 +123,14 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
                 open={isMenuOpen}
                 onClose={handleMenuClose}
             >
-                <MenuItem onClick={handleMenuClose}>Profile</MenuItem>
-                <MenuItem onClick={handleMenuClose}>My account</MenuItem>
+                <MenuItem onClick={handleMenuClose}>
+                    Profile
+                </MenuItem>
+
+                <MenuItem onClick={handleMobileMenuOpen}>
+                    My account
+                </MenuItem>
+
                 {
                     isAuthorized
                         ?
@@ -267,7 +273,7 @@ export const PrimarySearchAppBar = React.memo(function PrimarySearchAppBar() {
                                 <AccountCircle />
                             </IconButton>
                         </Box>
-                        <Box sx={{display: {xs: 'flex', md: 'none'}}}>
+                        <Box sx={{display: {xs: 'flex',/* md: 'none'*/}}}>
                             <IconButton
                                 size="large"
                                 aria-label="show more"

@@ -35,8 +35,7 @@ beforeEach(() => {
                     title: 'string'
                 }],
             taskBody: {
-                [todoId]: {
-                    activeTasks: [{
+                [todoId]: [{
                         id: taskId1,
                         title: "dfd",
                         description: null,
@@ -47,20 +46,8 @@ beforeEach(() => {
                         startDate: null,
                         deadline: null,
                         addedDate: "2022-06-13T06:38:58.827",
-                    }] as Array<TaskType>,
-                    completedTasks: [{
-                        id: taskId2,
-                        title: "adasd",
-                        description: null,
-                        todoListId: todoId,
-                        order: -2,
-                        status: 1,
-                        priority: 1,
-                        startDate: null,
-                        deadline: null,
-                        addedDate: "2022-06-13T06:39:57.153",
                     }] as Array<TaskType>
-                },
+               ,
             },
             offlineMode: true
         }
@@ -68,7 +55,7 @@ beforeEach(() => {
 )
 test('filter should be changed', () => {
 
-    let action = actions.changeFilterAC("b072220d-fb22-419f-9e90-27fb715cf285", 'Active')
+    let action = actions.changeFilterAC({todoId:"b072220d-fb22-419f-9e90-27fb715cf285", newFilter:'Active'})
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].filter).toBe('Active')
 })
@@ -87,16 +74,16 @@ test('Todo should be add', () => {
 test('Task should be added', () => {
     let action = actions.addTaskAC(newTask)
     let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[newTask.todoListId].activeTasks.length).toBe(2)
+    expect(newState.taskBody[newTask.todoListId].length).toBe(2)
 })
 test('task to be updated', () => {
-    let updatedTask = {...stateToDo.taskBody[todoId].activeTasks[0], title: 'new task'}
+    let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
     let action = actions.updateTaskAC(updatedTask)
     let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[updatedTask.todoListId].activeTasks[0].title).toBe(updatedTask.title)
+    expect(newState.taskBody[updatedTask.todoListId][0].title).toBe(updatedTask.title)
 })
 test('to-do name should be updated', () => {
-    let action = actions.updateTodoNameAC('title updated', todoId)
+    let action = actions.updateTodoNameAC({title:'title updated', id:todoId})
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].title).toBe('title updated')
 })
@@ -107,26 +94,9 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = actions.deleteTaskAC(taskId1, todoId)
+    let action = actions.deleteTaskAC({taskId:taskId1, todoId})
     let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[todoId].activeTasks.length).toBe(0)
-    expect(newState.taskBody[todoId].completedTasks.length).toBe(1)
-})
-test('task to be checked', () => {
-    let checkedTask = {...stateToDo.taskBody[todoId].activeTasks[0], status: 1}
-    let action = actions.updateTaskAC(checkedTask)
-    let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[todoId].activeTasks.length).toBe(0)
-    expect(newState.taskBody[todoId].completedTasks.length).toBe(2)
-    expect(newState.taskBody[todoId].completedTasks[1].status).toBe(1)
-})
-test('todo to be unchecked', () => {
-    let checkedTask = {...stateToDo.taskBody[todoId].completedTasks[0], status: 0}
-    let action = actions.updateTaskAC(checkedTask)
-    let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[todoId].activeTasks.length).toBe(2)
-    expect(newState.taskBody[todoId].completedTasks.length).toBe(0)
-    expect(newState.taskBody[todoId].activeTasks[1].status).toBe(0)
+    expect(newState.taskBody[todoId].length).toBe(0)
 })
 test('todolist should be refreshed', () => {
     let refreshedTodolist = [
@@ -170,7 +140,9 @@ test('tasks should be refreshed', () => {
     ]
     let action = actions.refreshTasks(refreshedTasks)
     let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[todoId].activeTasks[0].description).toBe('ololo')
-    expect(newState.taskBody[todoId].completedTasks[0].description).toBe('azaza')
+    expect(newState.taskBody[todoId].length).toBe(2)
+    expect(newState.taskBody[todoId][0].description).toBe('ololo')
+    expect(newState.taskBody[todoId][1].description).toBe('azaza')
+
 })
 

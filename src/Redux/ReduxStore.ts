@@ -36,7 +36,7 @@ let rootReducer = combineReducers({
 export let store = configureStore({
         reducer:rootReducer,
         middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
-        // devTools: process.env.NODE_ENV !== 'production',
+        devTools: process.env.NODE_ENV !== 'production',
         preloadedState,
 
 }

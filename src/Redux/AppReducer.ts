@@ -47,7 +47,6 @@ export const thunkApp = {
         const response1 = await dispatch(thunkAuth.authMe())
         const response2 = await dispatch(thunks.getTodolistAndTasks())
         Promise.allSettled([response1, response2]).then((res) => {
-            console.log(res)
             dispatch(actionsApp.setIsInitialization(false))
         })
     }
