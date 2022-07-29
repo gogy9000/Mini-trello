@@ -4,10 +4,17 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="fixed bag">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use authSlice">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/features/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -51,7 +58,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -67,7 +74,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../chees-app" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Portfolio" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -97,7 +104,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
+  <component name="RunManager" selected="npm.test">
     <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -151,8 +158,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
-        <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.test" />
+        <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.storybook" />
         <item itemvalue="npm.deploy" />
       </list>
@@ -233,14 +240,18 @@
       <workItem from="1658084354008" duration="2659000" />
       <workItem from="1658131510683" duration="24382000" />
       <workItem from="1658216490467" duration="24495000" />
-      <workItem from="1658301725649" duration="10782000" />
-    </task>
-    <task id="LOCAL-00040" summary="create TitlTodo.stories.tsx">
-      <created>1655360250195</created>
-      <option name="number" value="00040" />
-      <option name="presentableId" value="LOCAL-00040" />
-      <option name="project" value="LOCAL" />
-      <updated>1655360250195</updated>
+      <workItem from="1658301725649" duration="11986000" />
+      <workItem from="1658423379233" duration="9292000" />
+      <workItem from="1658499138332" duration="1338000" />
+      <workItem from="1658512053977" duration="2429000" />
+      <workItem from="1658561011609" duration="5618000" />
+      <workItem from="1658650166268" duration="4441000" />
+      <workItem from="1658739216715" duration="1207000" />
+      <workItem from="1658859839435" duration="1973000" />
+      <workItem from="1658904962228" duration="2772000" />
+      <workItem from="1658998081929" duration="5588000" />
+      <workItem from="1659028094512" duration="718000" />
+      <workItem from="1659085477406" duration="6095000" />
     </task>
     <task id="LOCAL-00041" summary="create InputForAddTask.stories.tsx">
       <created>1655367200616</created>
@@ -578,7 +589,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658312192818</updated>
     </task>
-    <option name="localTasksCounter" value="89" />
+    <task id="LOCAL-00089" summary="use authSlice">
+      <created>1658313697074</created>
+      <option name="number" value="00089" />
+      <option name="presentableId" value="LOCAL-00089" />
+      <option name="project" value="LOCAL" />
+      <updated>1658313697074</updated>
+    </task>
+    <option name="localTasksCounter" value="90" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -597,7 +615,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use TransitionAlerts" />
     <MESSAGE value=" create waitingList" />
     <MESSAGE value="use waitingList" />
     <MESSAGE value="create toggleIsWaitingApp" />
@@ -622,7 +639,8 @@
     <MESSAGE value="use appSlice" />
     <MESSAGE value="use todoSlice" />
     <MESSAGE value="fixed bag" />
-    <option name="LAST_COMMIT_MESSAGE" value="fixed bag" />
+    <MESSAGE value="use authSlice" />
+    <option name="LAST_COMMIT_MESSAGE" value="use authSlice" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

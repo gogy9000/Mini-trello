@@ -25,7 +25,7 @@ export const initialState: StateType =
     {
         tasksTitle: [] as Array<TodoTitleType>,
         taskBody: {
-            // ['123']: {}
+
 
         },
         offlineMode: true
@@ -72,8 +72,11 @@ const todoSlice = createSlice({
         },
         refreshTasks: (state, action: PayloadAction<TaskType[]>) => {
 
-            state.taskBody = action.payload.reduce((ac, cu) => {
-                return {...ac, [cu.todoListId]: [...ac[cu.todoListId], cu]}
+            state.taskBody = action.payload.reduce((taskBody, newTask) => {
+                return {...taskBody, [newTask.todoListId]: [
+                    ...taskBody[newTask.todoListId].filter((oldTask)=> oldTask.id!==newTask.id), newTask
+                    ]
+                }
             }, state.taskBody as { [key: string]: TaskType[] })
 
         },

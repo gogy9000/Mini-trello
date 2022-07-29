@@ -140,6 +140,9 @@ test('tasks should be refreshed', () => {
     ]
     let action = actions.refreshTasks(refreshedTasks)
     let newState = toDoReducer(stateToDo, action)
+    expect(newState.taskBody[todoId].length).toBe(2)
     expect(newState.taskBody[todoId][0].description).toBe('ololo')
+    expect(newState.taskBody[todoId][1].description).toBe('azaza')
+
 })
 
