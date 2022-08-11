@@ -1,5 +1,5 @@
 import {StateType, TaskType, TodoTitleType} from "../Types";
-import {API, TodoListItem} from "../DAL/TodoAPI";
+import {API,TodoListItem} from "../DAL/TodoAPI";
 import {AppDispatchType, AppThunk, InferActionsType} from "./ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "./AppReducer";
@@ -327,7 +327,7 @@ export const thunks = {
                             async (task, i, arr) => {
 
                                 if (task.isASynchronizedTask) {
-                                    dispatch(thunks.synchronizeTask(props.TodoListItem.id, task))
+                                      dispatch(thunks.synchronizeTask(props.TodoListItem.id, task))
 
                                 }
                                 if (i === arr.length - 1) {
@@ -358,32 +358,41 @@ export const thunks = {
     },
 
     synchronizeTasks: (todo: TodoListItem): AppThunk => async (dispatch: AppDispatchType, getState) => {
+
         if (!todo.isASynchronizedTodo) {
             for (const task of getState().toDoReducer.taskBody[todo.id]) {
                 if (task.isASynchronizedTask) {
-                    dispatch(thunks.synchronizeTask(todo.id, task))
+                      await  dispatch(thunks.synchronizeTask(todo.id, task))
+
                 }
             }
         }
     },
 
-    synchronizeTask: (todoId: string, task: TaskType): AppThunk => async (dispatch: AppDispatchType) => {
+    synchronizeTask: (todoId: string, task: TaskType): AppThunk => {
 
-        try {
-            dispatch(actionsApp.addWaitingList(todoId))
-            const props = await API.createNewTask(todoId, task.title)
-            if (props.resultCode === 0) {
-                dispatch(actions.addTaskAC(props.createdTask))
-                dispatch(thunks.updateTask({...props.createdTask, status: task.status}))
-                dispatch(actions.deleteTaskAC({taskId: task.id, todoId}))
-            } else {
-                handleClientsError(dispatch, props.messages)
+      return   async (dispatch: AppDispatchType) => {
+
+            try {
+                dispatch(actionsApp.addWaitingList(todoId))
+                const props = await API.createNewTask(todoId, task.title)
+                if (props.resultCode === 0) {
+                    dispatch(actions.addTaskAC(props.createdTask))
+                    if(task.status!==0){
+                        dispatch(thunks.updateTask({...props.createdTask, status: task.status}))
+                    }
+                    dispatch(actions.deleteTaskAC({taskId: task.id, todoId}))
+                } else {
+                    handleClientsError(dispatch, props.messages)
+                }
+                return props.resultCode
+            } catch (error) {
+              handlerNetworkError(dispatch, error)
+                console.log(error)
+
+            } finally {
+                dispatch(actionsApp.removeWaitingList(todoId))
             }
-
-        } catch (error) {
-            handlerNetworkError(dispatch, error)
-        } finally {
-            dispatch(actionsApp.removeWaitingList(todoId))
         }
     },
 
@@ -399,7 +408,7 @@ export const thunks = {
                 if (response.status === 200) {
                     dispatch(actions.refreshTodoListAC(response.data))
                     response.data.forEach((todo) => {
-                        dispatch(thunks.getTasks(todo.id))
+                            dispatch(thunks.getTasks(todo.id))
                     })
 
                 } else {
@@ -591,6 +600,7 @@ export const thunks = {
 
             } catch (error) {
                 handlerNetworkError(dispatch, error)
+                console.log(error)
             } finally {
                 dispatch(actionsApp.removeWaitingList(task.id))
             }

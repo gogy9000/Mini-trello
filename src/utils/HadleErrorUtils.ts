@@ -9,6 +9,7 @@ export const handleClientsError = (dispatch: AppDispatchType, error: string[]) =
 export const handlerNetworkError = (dispatch: AppDispatchType, error: unknown) => {
     if (error instanceof AxiosError) {
         dispatch(appSlice.actions.changeHandleNetworkError(error.message))
+        return error.message
     } else {
         throw error
     }

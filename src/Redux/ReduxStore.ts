@@ -19,10 +19,7 @@ export type AppThunk<ReturnType=any> = ThunkAction<ReturnType, AppRootStateType,
 
 const preloadedState :AppRootStateType = loadState()
 
-// const composeEnhancers = composeWithDevTools({
-//     trace: true,
-//     traceLimit: 10
-// });
+
 
 
 let rootReducer = combineReducers({
