@@ -4,16 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use authSlice">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="use fix test">
+      <change afterPath="$PROJECT_DIR$/src/utils/LimitRPS.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/AppBar/AppBar.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/features/Login.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/features/Login.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/yarn.lock" beforeDir="false" afterPath="$PROJECT_DIR$/yarn.lock" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -104,7 +103,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="npm.start">
     <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -158,10 +157,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.deploy" />
         <item itemvalue="npm.test" />
         <item itemvalue="npm.test:integration" />
         <item itemvalue="npm.storybook" />
-        <item itemvalue="npm.deploy" />
       </list>
     </recent_temporary>
   </component>
@@ -251,14 +250,12 @@
       <workItem from="1658904962228" duration="2772000" />
       <workItem from="1658998081929" duration="5588000" />
       <workItem from="1659028094512" duration="718000" />
-      <workItem from="1659085477406" duration="6095000" />
-    </task>
-    <task id="LOCAL-00041" summary="create InputForAddTask.stories.tsx">
-      <created>1655367200616</created>
-      <option name="number" value="00041" />
-      <option name="presentableId" value="LOCAL-00041" />
-      <option name="project" value="LOCAL" />
-      <updated>1655367200616</updated>
+      <workItem from="1659085477406" duration="15352000" />
+      <workItem from="1659109669068" duration="656000" />
+      <workItem from="1659432476635" duration="1769000" />
+      <workItem from="1659510998015" duration="1860000" />
+      <workItem from="1660031759422" duration="1233000" />
+      <workItem from="1660200895844" duration="13899000" />
     </task>
     <task id="LOCAL-00042" summary="install  snapshot tes by storybook">
       <created>1655377504976</created>
@@ -596,7 +593,14 @@
       <option name="project" value="LOCAL" />
       <updated>1658313697074</updated>
     </task>
-    <option name="localTasksCounter" value="90" />
+    <task id="LOCAL-00090" summary="use fix test">
+      <created>1659093232090</created>
+      <option name="number" value="00090" />
+      <option name="presentableId" value="LOCAL-00090" />
+      <option name="project" value="LOCAL" />
+      <updated>1659093232090</updated>
+    </task>
+    <option name="localTasksCounter" value="91" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -615,7 +619,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value=" create waitingList" />
     <MESSAGE value="use waitingList" />
     <MESSAGE value="create toggleIsWaitingApp" />
     <MESSAGE value="use toggleIsWaitingApp" />
@@ -640,7 +643,8 @@
     <MESSAGE value="use todoSlice" />
     <MESSAGE value="fixed bag" />
     <MESSAGE value="use authSlice" />
-    <option name="LAST_COMMIT_MESSAGE" value="use authSlice" />
+    <MESSAGE value="use fix test" />
+    <option name="LAST_COMMIT_MESSAGE" value="use fix test" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

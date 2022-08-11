@@ -1,5 +1,7 @@
 import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
+import {limitRPS} from "../utils/LimitRPS";
+import axiosRateLimit from "axios-rate-limit";
 
 
 
@@ -53,11 +55,14 @@ export type AuthDataType = {
     login: string
 }
 
-const instance = axios.create({
+const instance = axiosRateLimit( axios.create({
     withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.1/',
     headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
-})
+}),{maxRequests:2,perMilliseconds:1000,maxRPS:2})
+
+
+
 export const ApiAuth={
     authMe:()=>instance.get(`auth/me`).then((res:AxiosResponse<Data<AuthDataType>>)=>res),
     login:(loginPayload:LoginPayloadType)=>instance.post(`/auth/login`,loginPayload)

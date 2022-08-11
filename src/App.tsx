@@ -1,7 +1,7 @@
 import React, {useCallback, useEffect} from 'react';
 import './App.css';
 import {TodoContainer} from "./ToDo/TodoContainer";
-import {CircularProgress, Grid, LinearProgress} from "@mui/material";
+import {CircularProgress, LinearProgress} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
@@ -10,6 +10,7 @@ import {appSlice, thunkApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
+import {limitRPS} from "./utils/LimitRPS";
 
 
 export const useDispatchApp: () => AppDispatchType = useDispatch
@@ -19,22 +20,22 @@ export const App = React.memo(() => {
 
         const state = useSelectorApp(state => state.toDoReducer)
         const stateApp = useSelectorApp(state => state.appReducer)
-        const isAuthorized= useSelectorApp(state=>state.authReducer.isAuthorized)
+        const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
 
         const dispatch = useDispatchApp()
 
         useEffect(() => {
-            if(isAuthorized){
-            dispatch(thunkApp.initializeApp())
+            if (isAuthorized) {
+                dispatch(thunkApp.initializeApp())
             }
 
         }, [isAuthorized])
 
         useEffect(() => {
-            if (isAuthorized&&!state.offlineMode) {
+            if (isAuthorized && !state.offlineMode) {
                 dispatch(thunks.synchronizeTodoAll())
             }
-        }, [state.offlineMode,isAuthorized])
+        }, [state.offlineMode, isAuthorized])
 
         const clearErrorCallback = useCallback(() => {
 
@@ -42,29 +43,31 @@ export const App = React.memo(() => {
             dispatch(appSlice.actions.changeHandleClientsError([]))
         }, [dispatch])
 
-        if (stateApp.isInitialization){return <div
-            style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
-            <CircularProgress/>
-        </div>}
+        if (stateApp.isInitialization) {
+            return <div
+                style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
+                <CircularProgress/>
+            </div>
+        }
         return (
 
-                    <>
-                        <PrimarySearchAppBar/>
+            <>
+                <PrimarySearchAppBar/>
 
-                        {stateApp.isWaitingApp && <LinearProgress/>}
+                {stateApp.isWaitingApp && <LinearProgress/>}
 
-                        <Routes>
-                            <Route path='/' element={<TodoContainer/>}/>
-                            <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
-                            <Route path='/login' element={<Login/>}/>
-                            <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
-                            <Route path='*' element={<Navigate to='/404'/>}/>
-                        </Routes>
+                <Routes>
+                    <Route path='/' element={<TodoContainer/>}/>
+                    <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
+                    <Route path='/login' element={<Login/>}/>
+                    <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
+                    <Route path='*' element={<Navigate to='/404'/>}/>
+                </Routes>
 
-                        <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
-                        <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 
-                    </>
+            </>
 
         )
             ;
