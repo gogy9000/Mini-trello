@@ -32,6 +32,7 @@
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook -s public",
     "jest:integration": "jest -c integration/jest.config.js",
+    "jest:integration-update": "jest -c integration/jest.config.js --updateSnapshot",
     "test:integration": "start-server-and-test storybook http-get://localhost:6006 jest:integration",
     "predeploy": "npm run build",
     "deploy": "gh-pages -d build"

@@ -9,7 +9,7 @@ export type TaskBlockType = {
 }
 
 export const Tasks: React.FC<TaskBlockType> = React.memo(({todoId, filter}) => {
-
+        debugger
         const tasks =  useSelectorApp(state => {
             if (filter === 'All') {
                 return state.toDoReducer.taskBody[todoId]
