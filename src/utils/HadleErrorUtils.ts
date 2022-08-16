@@ -1,14 +1,16 @@
-import {appSlice} from "../Redux/AppReducer";
+import {actionsApp} from "../Redux/AppReducer";
 import {AppDispatchType} from "../Redux/ReduxStore";
 import {AxiosError} from "axios";
+import {ThunkDispatch} from "redux-thunk";
+import {AnyAction} from "@reduxjs/toolkit";
 
-export const handleClientsError = (dispatch: AppDispatchType, error: string[]) => {
-    dispatch(appSlice.actions.changeHandleClientsError(error))
+export const handleClientsError = (dispatch: ThunkDispatch<unknown, unknown, AnyAction>, error: string[]) => {
+    dispatch(actionsApp.changeHandleClientsError(error))
 }
 
-export const handlerNetworkError = (dispatch: AppDispatchType, error: unknown) => {
+export const handlerNetworkError = (dispatch:ThunkDispatch<unknown, unknown, AnyAction>, error: unknown) => {
     if (error instanceof AxiosError) {
-        dispatch(appSlice.actions.changeHandleNetworkError(error.message))
+        dispatch(actionsApp.changeHandleNetworkError(error.message))
         return error.message
     } else {
         throw error

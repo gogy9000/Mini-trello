@@ -4,17 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="install and use axios-rate-limit">
-      <change afterPath="$PROJECT_DIR$/integration/__image_snapshots__/__diff_output__/app-test-js-input-for-add-task-base-example-visually-looks-correct-1-diff.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/integration/__image_snapshots__/__diff_output__/app-test-js-task-container-base-example-visually-looks-correct-1-diff.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/integration/__image_snapshots__/__diff_output__/app-test-js-title-todo-base-example-visually-looks-correct-1-diff.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/integration/__image_snapshots__/__diff_output__/app-test-js-todo-base-example-visually-looks-correct-1-diff.png" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="bag fixed with jest:integration">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/CustomEditSpan.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CustomComponent/custom-component-tests/CustomEditSpan.test.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CustomComponent/custom-component-tests/CustomEditSpan.test.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -82,7 +79,7 @@
     <property name="nodejs.jest.jest_package" value="$PROJECT_DIR$/node_modules/react-scripts" />
     <property name="nodejs_package_manager_path" value="yarn" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="ts.external.directory.path" value="C:\Program Files\JetBrains\WebStorm 2021.3.2\plugins\JavaScriptLanguage\jsLanguageServicesImpl\external" />
+    <property name="ts.external.directory.path" value="G:\incubator-to-do-list\incubator-to-do-list\node_modules\typescript\lib" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -104,7 +101,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.jest:integration-update">
+  <component name="RunManager" selected="npm.test">
     <configuration name="jest:integration-update" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -125,17 +122,27 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="storybook" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
-        <script value="storybook" />
+        <script value="start" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="test:integration-update" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="test" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
+    <configuration name="test:integration-update" type="js.build_tools.npm" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
@@ -157,11 +164,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="npm.test" />
+        <item itemvalue="npm.start" />
         <item itemvalue="npm.jest:integration-update" />
-        <item itemvalue="npm.test:integration-update" />
         <item itemvalue="npm.update-snapshots" />
         <item itemvalue="npm.jest:integration" />
-        <item itemvalue="npm.storybook" />
       </list>
     </recent_temporary>
   </component>
@@ -257,14 +264,11 @@
       <workItem from="1659510998015" duration="1860000" />
       <workItem from="1660031759422" duration="1233000" />
       <workItem from="1660200895844" duration="15635000" />
-      <workItem from="1660284452028" duration="8133000" />
-    </task>
-    <task id="LOCAL-00043" summary="install  snapshot tes by storybook part2">
-      <created>1655377884659</created>
-      <option name="number" value="00043" />
-      <option name="presentableId" value="LOCAL-00043" />
-      <option name="project" value="LOCAL" />
-      <updated>1655377884659</updated>
+      <workItem from="1660284452028" duration="11566000" />
+      <workItem from="1660388892715" duration="1006000" />
+      <workItem from="1660465085571" duration="888000" />
+      <workItem from="1660559500593" duration="13668000" />
+      <workItem from="1660631124948" duration="7449000" />
     </task>
     <task id="LOCAL-00044" summary="create snapshot test">
       <created>1655385475067</created>
@@ -602,7 +606,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660230051992</updated>
     </task>
-    <option name="localTasksCounter" value="92" />
+    <task id="LOCAL-00092" summary="bag fixed with jest:integration">
+      <created>1660293159892</created>
+      <option name="number" value="00092" />
+      <option name="presentableId" value="LOCAL-00092" />
+      <option name="project" value="LOCAL" />
+      <updated>1660293159893</updated>
+    </task>
+    <option name="localTasksCounter" value="93" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -621,7 +632,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="create toggleIsWaitingApp" />
     <MESSAGE value="use toggleIsWaitingApp" />
     <MESSAGE value="fix CORS problem" />
     <MESSAGE value="fix Thunk types" />
@@ -646,7 +656,8 @@
     <MESSAGE value="use authSlice" />
     <MESSAGE value="use fix test" />
     <MESSAGE value="install and use axios-rate-limit" />
-    <option name="LAST_COMMIT_MESSAGE" value="install and use axios-rate-limit" />
+    <MESSAGE value="bag fixed with jest:integration" />
+    <option name="LAST_COMMIT_MESSAGE" value="bag fixed with jest:integration" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -1,10 +1,24 @@
-import {AppDispatchType, AppThunk} from "./ReduxStore";
+
 import {thunkAuth} from "./auth/Auth";
 import {thunks} from "./ToDoReducer";
-import {createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+
+export const thunkApp = {
+    initializeApp: createAsyncThunk( "app/initializeApp",
+        (params,{dispatch}) =>{
+            dispatch(actionsApp.setIsInitialization(true))
+            const response1 =dispatch(thunkAuth.authMe())
+        // @ts-ignore
+            const response2 =dispatch(thunks.getTodolistAndTasks())
+        Promise.allSettled([response1, response2]).then(() => {
+            dispatch(actionsApp.setIsInitialization(false))
+        })
+    })
+}
 
 
-let initState = {
+
+const initialState = {
     networkError: '',
     clientsError: [] as string[],
     waitingList: {} as { [key: string]: boolean },
@@ -12,9 +26,9 @@ let initState = {
     isInitialization: false
 }
 
-export const appSlice = createSlice({
+ const appSlice = createSlice({
     name: 'app',
-    initialState: initState,
+    initialState,
     reducers: {
         changeHandleNetworkError: (state, action: PayloadAction<string>) => {
             state.networkError = action.payload
@@ -34,20 +48,9 @@ export const appSlice = createSlice({
         setIsInitialization: (state, action: PayloadAction<boolean>) => {
             state.isInitialization = action.payload
         },
-    }
+    },
+
 })
 
 export const appReducer = appSlice.reducer
-
 export const actionsApp = appSlice.actions
-
-export const thunkApp = {
-    initializeApp: (): AppThunk => async (dispatch: AppDispatchType) => {
-        dispatch(actionsApp.setIsInitialization(true))
-        const response1 = await dispatch(thunkAuth.authMe())
-        const response2 = await dispatch(thunks.getTodolistAndTasks())
-        Promise.allSettled([response1, response2]).then((res) => {
-            dispatch(actionsApp.setIsInitialization(false))
-        })
-    }
-}

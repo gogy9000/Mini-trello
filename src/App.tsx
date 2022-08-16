@@ -6,11 +6,11 @@ import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
 import {thunks} from "./Redux/ToDoReducer";
 import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
-import {appSlice, thunkApp} from "./Redux/AppReducer";
+import {actionsApp,thunkApp} from "./Redux/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
-import {limitRPS} from "./utils/LimitRPS";
+
 
 
 export const useDispatchApp: () => AppDispatchType = useDispatch
@@ -39,8 +39,8 @@ export const App = React.memo(() => {
 
         const clearErrorCallback = useCallback(() => {
 
-            dispatch(appSlice.actions.changeHandleNetworkError(''))
-            dispatch(appSlice.actions.changeHandleClientsError([]))
+            dispatch(actionsApp.changeHandleNetworkError(''))
+            dispatch(actionsApp.changeHandleClientsError([]))
         }, [dispatch])
 
         if (stateApp.isInitialization) {
