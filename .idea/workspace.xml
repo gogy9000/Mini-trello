@@ -4,14 +4,10 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="bag fixed with jest:integration">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="migration on createAsyncThunk (10%)">
+      <change afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/AppReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -102,21 +98,24 @@
     </key>
   </component>
   <component name="RunManager" selected="npm.test">
+    <configuration name="AuthData should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/auth/AuthTests.ts" />
+      <test-names>
+        <test-name value="AuthData should be added" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="jest:integration-update" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
       <scripts>
         <script value="jest:integration-update" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="jest:integration" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="jest:integration" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -165,10 +164,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
+        <item itemvalue="Jest.AuthData should be added" />
         <item itemvalue="npm.start" />
         <item itemvalue="npm.jest:integration-update" />
         <item itemvalue="npm.update-snapshots" />
-        <item itemvalue="npm.jest:integration" />
       </list>
     </recent_temporary>
   </component>
@@ -268,14 +267,7 @@
       <workItem from="1660388892715" duration="1006000" />
       <workItem from="1660465085571" duration="888000" />
       <workItem from="1660559500593" duration="13668000" />
-      <workItem from="1660631124948" duration="7449000" />
-    </task>
-    <task id="LOCAL-00044" summary="create snapshot test">
-      <created>1655385475067</created>
-      <option name="number" value="00044" />
-      <option name="presentableId" value="LOCAL-00044" />
-      <option name="project" value="LOCAL" />
-      <updated>1655385475067</updated>
+      <workItem from="1660631124948" duration="11481000" />
     </task>
     <task id="LOCAL-00045" summary="CustomEditSpan.test.tsx create">
       <created>1655479653192</created>
@@ -613,7 +605,14 @@
       <option name="project" value="LOCAL" />
       <updated>1660293159893</updated>
     </task>
-    <option name="localTasksCounter" value="93" />
+    <task id="LOCAL-00093" summary="migration on createAsyncThunk (10%)">
+      <created>1660669238922</created>
+      <option name="number" value="00093" />
+      <option name="presentableId" value="LOCAL-00093" />
+      <option name="project" value="LOCAL" />
+      <updated>1660669238922</updated>
+    </task>
+    <option name="localTasksCounter" value="94" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -632,7 +631,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use toggleIsWaitingApp" />
     <MESSAGE value="fix CORS problem" />
     <MESSAGE value="fix Thunk types" />
     <MESSAGE value="fix refactoring" />
@@ -657,7 +655,8 @@
     <MESSAGE value="use fix test" />
     <MESSAGE value="install and use axios-rate-limit" />
     <MESSAGE value="bag fixed with jest:integration" />
-    <option name="LAST_COMMIT_MESSAGE" value="bag fixed with jest:integration" />
+    <MESSAGE value="migration on createAsyncThunk (10%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="migration on createAsyncThunk (10%)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

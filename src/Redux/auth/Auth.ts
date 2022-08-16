@@ -3,13 +3,13 @@ import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUti
 import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 
 
-type InitialStateType = {
+export type InitialStateAuthType = {
     email: string
     id: string
     login: string
     isAuthorized: boolean,
 }
-export const initialState = {
+export const initialState:InitialStateAuthType = {
     email: '',
     id: '',
     login: '',
@@ -62,7 +62,7 @@ export const authSlice = createSlice({
     initialState,
     reducers: {},
     extraReducers: builder => {
-        const setAuthData = (state: Draft<InitialStateType>, action: PayloadAction<InitialStateType | {} | undefined>) => {
+        const setAuthData = (state: Draft<InitialStateAuthType>, action: PayloadAction<InitialStateAuthType | {} | undefined>) => {
             if (!action.payload) {
                 return
             }
