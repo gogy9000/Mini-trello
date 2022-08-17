@@ -6,13 +6,12 @@ import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 export const thunkApp = {
     initializeApp: createAsyncThunk( "app/initializeApp",
         (params,{dispatch}) =>{
-            // dispatch(actionsApp.setIsInitialization(true))
             const response1 =dispatch(thunkAuth.authMe())
         // @ts-ignore
             const response2 =dispatch(thunks.getTodolistAndTasks())
        return  Promise.allSettled([response1, response2]).then(() => {
             return false
-            // dispatch(actionsApp.setIsInitialization(false))
+
         })
     })
 }
@@ -52,9 +51,6 @@ const initialState:InitialAppStateType = {
         toggleIsWaitingApp: (state, action: PayloadAction<boolean>) => {
             state.isWaitingApp = action.payload
         },
-        // setIsInitialization: (state, action: PayloadAction<boolean>) => {
-        //     state.isInitialization = action.payload
-        // },
     },
      extraReducers:(builder)=>{
         builder
