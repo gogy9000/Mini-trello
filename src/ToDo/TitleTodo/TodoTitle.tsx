@@ -2,7 +2,7 @@ import {TodoTitleType} from "../../Types";
 import React, {ChangeEvent, useCallback, useState} from "react";
 import {Box, Card, Fab, IconButton, LinearProgress, Stack, TextField, Typography} from "@mui/material";
 import {CloudUpload, Delete, Edit, Expand, ExpandMore, ModeEdit} from "@mui/icons-material";
-import {actions, thunks} from '../../Redux/ToDoReducer';
+import {actions, thunks} from '../../Redux/Todo/ToDoReducer';
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "../../Redux/ReduxStore";
 import {useDispatchApp, useSelectorApp} from "../../App";

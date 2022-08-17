@@ -2,7 +2,7 @@ import React from "react";
 import '../App.css';
 import {Button, ButtonGroup} from "@mui/material";
 import {useDispatch} from "react-redux";
-import {actions} from "../Redux/ToDoReducer";
+import {actions} from "../Redux/Todo/ToDoReducer";
 
 
 type ButtonsInToDoWrapperPropsType = {

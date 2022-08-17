@@ -1,4 +1,4 @@
-import {actionsApp} from "../Redux/AppReducer";
+import {actionsApp} from "../Redux/Application/AppReducer";
 import {AppDispatchType} from "../Redux/ReduxStore";
 import {AxiosError} from "axios";
 import {ThunkDispatch} from "redux-thunk";

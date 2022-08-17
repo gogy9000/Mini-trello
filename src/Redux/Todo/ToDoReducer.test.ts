@@ -1,4 +1,4 @@
-import {StateType, TaskType} from "../Types";
+import {StateType, TaskType} from "../../Types";
 
 import {actions, toDoReducer} from "./ToDoReducer";
 

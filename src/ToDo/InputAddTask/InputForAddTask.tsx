@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/Todo/ToDoReducer';
 import {Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatchApp, useSelectorApp} from "../../App";

@@ -1,9 +1,9 @@
-import {StateType, TaskType, TodoTitleType} from "../Types";
-import {API,TodoListItem} from "../DAL/TodoAPI";
-import {AppDispatchType, AppThunk, InferActionsType} from "./ReduxStore";
+import {StateType, TaskType, TodoTitleType} from "../../Types";
+import {API,TodoListItem} from "../../DAL/TodoAPI";
+import {AppDispatchType, AppThunk, InferActionsType} from "../ReduxStore";
 import {v1} from "uuid";
-import {actionsApp} from "./AppReducer";
-import {handleClientsError, handlerNetworkError} from "../utils/HadleErrorUtils";
+import {actionsApp} from "../Application/AppReducer";
+import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
 import {AxiosResponse} from "axios";
 import {createSlice, PayloadAction} from "@reduxjs/toolkit";
 

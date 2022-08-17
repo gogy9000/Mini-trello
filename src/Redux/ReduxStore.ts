@@ -1,8 +1,8 @@
 
-import {actions, toDoReducer} from './ToDoReducer';
+import {actions, toDoReducer} from './Todo/ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {actionsApp, appReducer} from "./AppReducer";
+import {actionsApp, appReducer} from "./Application/AppReducer";
 import {actionsAuth, authReducer} from "./auth/Auth";
 import {configureStore,combineReducers} from "@reduxjs/toolkit";
 

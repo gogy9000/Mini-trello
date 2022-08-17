@@ -1,9 +1,9 @@
 import {Provider} from "react-redux";
 import {combineReducers} from "redux";
-import {toDoReducer} from "../Redux/ToDoReducer";
+import {toDoReducer} from "../Redux/Todo/ToDoReducer";
 import {TaskType, TodoTitleType} from "../Types";
 import {configureStore} from "@reduxjs/toolkit";
-import {appReducer} from "../Redux/AppReducer";
+import {appReducer} from "../Redux/Application/AppReducer";
 import {authReducer} from "../Redux/auth/Auth";
 
 

@@ -1,6 +1,6 @@
 import React, { useState} from "react";
 import {Button, Grid, Paper, TextField} from "@mui/material";
-import {thunks} from '../Redux/ToDoReducer';
+import {thunks} from '../Redux/Todo/ToDoReducer';
 import {useDispatch} from "react-redux";
 import {useDispatchApp} from "../App";
 

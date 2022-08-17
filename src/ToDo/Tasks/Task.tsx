@@ -1,6 +1,6 @@
 import {TaskType} from "../../Types";
 import React, {useCallback, useState} from "react";
-import {thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/Todo/ToDoReducer';
 import {Box, Card, CardContent, Checkbox, IconButton, LinearProgress, Typography} from "@mui/material";
 import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
