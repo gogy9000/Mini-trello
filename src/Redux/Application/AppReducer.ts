@@ -7,7 +7,7 @@ export const thunkApp = {
     initializeApp: createAsyncThunk( "app/initializeApp",
         (params,{dispatch}) =>{
             const response1 =dispatch(thunkAuth.authMe())
-        // @ts-ignore
+
             const response2 =dispatch(thunks.getTodolistAndTasks())
        return  Promise.allSettled([response1, response2]).then(() => {
             return false

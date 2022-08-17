@@ -75,10 +75,9 @@ describe("waitingList",()=>{
     })
 })
 
-test.skip("initialThunk",()=>{
+test("initialThunk",()=>{
     const thunk=thunkApp.initializeApp()
     const dispatchMock=jest.fn()
     thunk(dispatchMock,()=>state,{})
-    expect(dispatchMock).toBeCalledTimes(4)
-    // expect(dispatchMock).toHaveBeenLastCalledWith({})
+    expect(dispatchMock).toBeCalledTimes(3)
 })

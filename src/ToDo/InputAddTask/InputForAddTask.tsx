@@ -26,7 +26,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                 return
             }
 
-            dispatch(thunks.addTaskTC(todo, inputText))
+            dispatch(thunks.addTask({todo, taskTitle:inputText}))
             setInputText('')
         }, [dispatch, todo.id, inputText])
 

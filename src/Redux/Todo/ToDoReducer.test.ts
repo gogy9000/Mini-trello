@@ -1,6 +1,6 @@
 import {StateType, TaskType} from "../../Types";
 
-import {actions, toDoReducer} from "./ToDoReducer";
+import {actions, thunks, toDoReducer} from "./ToDoReducer";
 
 
 let stateToDo: StateType
@@ -78,7 +78,7 @@ test('Task should be added', () => {
 })
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
-    let action = actions.updateTaskAC(updatedTask)
+    let action = thunks.updateTask.fulfilled(updatedTask,"",updatedTask)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[updatedTask.todoListId][0].title).toBe(updatedTask.title)
 })
@@ -94,7 +94,7 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = actions.deleteTaskAC({taskId:taskId1, todoId})
+    let action = thunks.deleteTask.fulfilled({taskId:taskId1, todoId},"",{todolistId:todoId,task:newTask})
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(0)
 })
