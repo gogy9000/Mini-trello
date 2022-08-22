@@ -1,6 +1,7 @@
 import {InitialStateTodoType, TaskType} from "../../Types";
 
 import {actions, thunks, toDoReducer} from "./ToDoReducer";
+import {actionsApp, appReducer} from "../Application/AppReducer";
 
 
 let stateToDo: InitialStateTodoType
@@ -95,7 +96,7 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = thunks.deleteTask.fulfilled({taskId:taskId1, todoId},"",{todolistId:todoId,task:newTask})
+    let action = actions.deleteTaskAC({todoId,taskId:taskId1})
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(0)
 })
@@ -146,4 +147,25 @@ test('tasks should be refreshed', () => {
     expect(newState.taskBody[todoId][1].description).toBe('azaza')
 
 })
+// describe("waitingList",()=>{
 
+//     it("waitingList item should be added",()=>{
+//         let action=actions.addWaitingList("id")
+//         let newState=toDoReducer(state,action)
+//         expect(Object.keys(newState.waitingList).length).toBe(1)
+//         expect(newState.waitingList["id"]).toBe(true)
+//         expect(Object.keys(newState.waitingList).length).not.toBe(2)
+//     })
+//     it("waitingList item should be removed",()=>{
+//         let state={
+//             networkError: '',
+//             clientsError: [] ,
+//             waitingList: {id:true} ,
+//             isWaitingApp: false,
+//             isInitialization: false
+//         }
+//         let action=actionsApp.removeWaitingList("id")
+//         let newState=appReducer(state,action)
+//         expect(Object.keys(newState.waitingList).length).toBe(0)
+//     })
+// })

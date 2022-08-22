@@ -17,7 +17,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingTodo = useSelectorApp(store => store.appReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo.id])
 
         const addTask = useCallback(() => {
 

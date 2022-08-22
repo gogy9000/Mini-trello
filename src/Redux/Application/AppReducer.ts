@@ -1,38 +1,33 @@
-
 import {thunkAuth} from "../auth/Auth";
 import {thunks} from "../Todo/ToDoReducer";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 
 export const thunkApp = {
-    initializeApp: createAsyncThunk( "app/initializeApp",
-        (params,{dispatch}) =>{
-            const response1 =dispatch(thunkAuth.authMe())
-
-            const response2 =dispatch(thunks.getTodolistAndTasks())
-       return  Promise.allSettled([response1, response2]).then(() => {
-            return false
-
+    initializeApp: createAsyncThunk("app/initializeApp",
+        async (params, {dispatch}) => {
+            await dispatch(thunkAuth.authMe())
+            await dispatch(thunks.getTodolistAndTasks())
+            return
         })
-    })
 }
 
-export type InitialAppStateType ={
+export type InitialAppStateType = {
     networkError: string
-    clientsError:  string[]
-    waitingList: { [key: string]: boolean }
+    clientsError: string[]
+    // waitingList: { [key: string]: boolean }
     isWaitingApp: boolean
     isInitialization: boolean
 }
 
-const initialState:InitialAppStateType = {
+const initialState: InitialAppStateType = {
     networkError: '',
-    clientsError: [] ,
-    waitingList: {} ,
+    clientsError: [],
+    // waitingList: {},
     isWaitingApp: false,
     isInitialization: false
 }
 
- const appSlice = createSlice({
+const appSlice = createSlice({
     name: 'app',
     initialState,
     reducers: {
@@ -42,24 +37,24 @@ const initialState:InitialAppStateType = {
         changeHandleClientsError: (state, actions: PayloadAction<string[]>) => {
             state.clientsError = actions.payload
         },
-        addWaitingList: (state, action: PayloadAction<string>) => {
-            state.waitingList[action.payload] = true
-        },
-        removeWaitingList: (state, action: PayloadAction<string>) => {
-            delete state.waitingList[action.payload]
-        },
+        // addWaitingList: (state, action: PayloadAction<string>) => {
+        //     state.waitingList[action.payload] = true
+        // },
+        // removeWaitingList: (state, action: PayloadAction<string>) => {
+        //     delete state.waitingList[action.payload]
+        // },
         toggleIsWaitingApp: (state, action: PayloadAction<boolean>) => {
             state.isWaitingApp = action.payload
         },
     },
-     extraReducers:(builder)=>{
+    extraReducers: (builder) => {
         builder
-            .addCase(thunkApp.initializeApp.pending,(state)=>{
-            state.isInitialization=true
-        }).addCase(thunkApp.initializeApp.fulfilled,(state,action)=>{
-            state.isInitialization=action.payload
+            .addCase(thunkApp.initializeApp.pending, (state) => {
+                state.isInitialization = true
+            }).addCase(thunkApp.initializeApp.fulfilled, (state) => {
+            state.isInitialization = false
         })
-             }
+    }
 
 })
 

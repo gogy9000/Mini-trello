@@ -19,7 +19,10 @@ export const useSelectorApp: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const App = React.memo(() => {
 
         const state = useSelectorApp(state => state.toDoReducer)
-        const stateApp = useSelectorApp(state => state.appReducer)
+        const isInitialization=useSelectorApp(state=>state.appReducer.isInitialization)
+        const isFetchingAuth=useSelectorApp(state=>state.authReducer.isFetching)
+        const networkError=useSelectorApp(state=>state.appReducer.networkError)
+        const clientsError=useSelectorApp(state=>state.appReducer.clientsError)
         const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
 
         const dispatch = useDispatchApp()
@@ -43,7 +46,7 @@ export const App = React.memo(() => {
             dispatch(actionsApp.changeHandleClientsError([]))
         }, [dispatch])
 
-        if (stateApp.isInitialization) {
+        if (isInitialization||isFetchingAuth) {
             return <div
                 style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
                 <CircularProgress/>
@@ -54,7 +57,7 @@ export const App = React.memo(() => {
             <>
                 <PrimarySearchAppBar/>
 
-                {stateApp.isWaitingApp && <LinearProgress/>}
+                {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
 
                 <Routes>
                     <Route path='/' element={<TodoContainer/>}/>
@@ -64,8 +67,8 @@ export const App = React.memo(() => {
                     <Route path='*' element={<Navigate to='/404'/>}/>
                 </Routes>
 
-                <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
-                <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={networkError} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={clientsError[0]} clearErrorCallback={clearErrorCallback}/>
 
             </>
 

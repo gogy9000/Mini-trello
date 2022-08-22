@@ -1,6 +1,5 @@
 import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
-import {limitRPS} from "../utils/LimitRPS";
 import axiosRateLimit from "axios-rate-limit";
 
 

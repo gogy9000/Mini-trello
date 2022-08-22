@@ -20,7 +20,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingId = useSelectorApp(store => store.appReducer.waitingList[task.id])
+        const isWaitingId = useSelectorApp(store => store.toDoReducer.waitingList[task.id])
 
 
         const checkTask = useCallback(() => {

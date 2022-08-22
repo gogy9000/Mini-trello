@@ -19,7 +19,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const isWaitingTodo = useSelectorApp(store => store.appReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo.id])
         const dispatch = useDispatchApp()
 
         // const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
