@@ -1,9 +1,9 @@
-import {StateType, TaskType} from "../../Types";
+import {InitialStateTodoType, TaskType} from "../../Types";
 
 import {actions, thunks, toDoReducer} from "./ToDoReducer";
 
 
-let stateToDo: StateType
+let stateToDo: InitialStateTodoType
 let todoId: string
 let taskId1: string
 let taskId2: string
@@ -49,7 +49,8 @@ beforeEach(() => {
                     }] as Array<TaskType>
                ,
             },
-            offlineMode: true
+            offlineMode: true,
+            waitingList:{},
         }
     }
 )

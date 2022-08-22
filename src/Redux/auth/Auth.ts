@@ -1,80 +1,89 @@
-import {ApiAuth,LoginPayloadType} from "../../DAL/TodoAPI";
-import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
+import {ApiAuth, Data, LoginPayloadType} from "../../DAL/TodoAPI";
+import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
 import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
+import {AxiosResponse} from "axios";
 
 
 export type InitialStateAuthType = {
-    email: string
-    id: string
-    login: string
+    authData:{
+        email: string
+        id: string
+        login: string
+    }
     isAuthorized: boolean,
+    isFetching:boolean
 }
-export const initialState:InitialStateAuthType = {
-    email: '',
-    id: '',
-    login: '',
+export const initialState: InitialStateAuthType = {
+    authData:{
+        email: '',
+        id: '',
+        login: '',
+    },
     isAuthorized: false,
+    isFetching:false
 }
 
 
 export const thunkAuth = {
-    authMe: createAsyncThunk("auth/authMe", async (params, {dispatch}) => {
-        try {
-            const response = await ApiAuth.authMe()
-            if (response.data.resultCode === 0) {
-                return {...response.data.data, isAuthorized: true}
-            } else {
-                handleClientsError(dispatch, response.data.messages)
-            }
-        } catch (e) {
-            handlerNetworkError(dispatch, e)
-        }
+    authMe: createAsyncThunk("auth/authMe", (params, {dispatch}) => {
 
-    }),
-   login: createAsyncThunk("auth/login", async (loginPayload: LoginPayloadType, {dispatch}) => {
-        try {
-            const response = await ApiAuth.login(loginPayload)
+        const promise = ApiAuth.authMe().then((response) => {
             if (response.data.resultCode === 0) {
-                dispatch(thunkAuth.authMe())
-            } else {
-                handleClientsError(dispatch, response.data.messages)
+                dispatch(actionsAuth.setAuthData({...response.data.data, isAuthorized: true}))
             }
-        } catch (e) {
-            handlerNetworkError(dispatch, e)
-        }
+            return response
+        })
+        errorsInterceptor(dispatch, [promise])
     }),
-   logout :createAsyncThunk("auth/logout", async (params, {dispatch}) => {
-       try {
-            const response = await ApiAuth.logout()
+    login: createAsyncThunk("auth/login", async (loginPayload: LoginPayloadType, {dispatch}) => {
+
+        const promise = ApiAuth.login(loginPayload)
+            .then((response) => {
+                if (response.data.resultCode === 0) {
+                    dispatch(thunkAuth.authMe())
+                }
+                return response
+            })
+        errorsInterceptor(dispatch, [promise])
+    }),
+    logout: createAsyncThunk("auth/logout",  (params, {dispatch}) => {
+        const promise = ApiAuth.logout().then((response) => {
             if (response.data.resultCode === 0) {
-                return {}
-            } else {
-                handleClientsError(dispatch, response.data.messages)
+                dispatch(actionsAuth.setAuthData({}))
             }
-        } catch (e) {
-            handlerNetworkError(dispatch, e)
-        }
+            return response
+        })
+        errorsInterceptor(dispatch, [promise])
     })
 }
 
 export const authSlice = createSlice({
     name: 'auth',
     initialState,
-    reducers: {},
-    extraReducers: builder => {
-        const setAuthData = (state: Draft<InitialStateAuthType>, action: PayloadAction<InitialStateAuthType | {} | undefined>) => {
-            if (!action.payload) {
-                return
-            }
+    reducers: {
+        setAuthData: (state: Draft<InitialStateAuthType>, action: PayloadAction<InitialStateAuthType | {}>) => {
             if (Object.keys(action.payload).length === 0) {
-                return {email: '', id: '', login: '', isAuthorized: false}
+                state.authData={email: '', id: '', login: ''}
+                state.isAuthorized=false
             } else {
-                return {...state, ...action.payload}
+                state.authData= {...state.authData,...action.payload}
+                state.isAuthorized=true
             }
         }
+    },
+    extraReducers: builder => {
+        const onAuthPreloader = (state: Draft<InitialStateAuthType>) => {
+            state.isFetching=true
+        }
+        const offAuthPreloader=(state: Draft<InitialStateAuthType>) => {
+            state.isFetching=false
+        }
+
         builder
-            .addCase(thunkAuth.authMe.fulfilled, setAuthData)
-            .addCase(thunkAuth.logout.fulfilled, setAuthData)
+            .addCase(thunkAuth.login.pending,onAuthPreloader)
+            .addCase(thunkAuth.authMe.fulfilled,offAuthPreloader)
+            .addCase(thunkAuth.logout.pending,onAuthPreloader)
+            .addCase(thunkAuth.logout.fulfilled, offAuthPreloader)
     }
 })
 

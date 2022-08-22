@@ -1,10 +1,10 @@
-import {StateType, TaskType, TodoTitleType} from "../../Types";
+import {InitialStateTodoType, TaskType, TodoTitleType} from "../../Types";
 import {API,TodoListItem} from "../../DAL/TodoAPI";
 import {AppDispatchType, AppRootStateType, AppThunk, InferActionsType} from "../ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "../Application/AppReducer";
-import {handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
-import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
+import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
+import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 
 enum todoEnum {
     todo='todo',
@@ -322,15 +322,16 @@ export const thunks = {
         } else {
             try {
                 dispatch(actionsApp.addWaitingList(task.id))
-                const resp = await API.deleteTask(todolistId, task.id)
-                if (resp.data.resultCode === 0) {
-                  return   {taskId: task.id, todoId: todolistId}
+                const response = await API.deleteTask(todolistId, task.id)
+                if (response.data.resultCode === 0) {
+                  return  {taskId: task.id, todoId: todolistId}
                 } else {
-                     handleClientsError(dispatch, resp.data.messages)
+                     handleClientsError(dispatch, response.data.messages)
                     return rejectWithValue({})
                 }
             } catch (error) {
                  handlerNetworkError(dispatch, error)
+
                 return rejectWithValue({})
             } finally {
                 dispatch(actionsApp.removeWaitingList(task.id))
@@ -340,12 +341,14 @@ export const thunks = {
 }
 
 
-export const initialState: StateType =
+export const initialState: InitialStateTodoType =
     {
         tasksTitle: [],
         taskBody: {},
-        offlineMode: true
+        offlineMode: true,
+        waitingList:{}
     }
+
 const todoSlice = createSlice({
     name: todoEnum.todo,
     initialState: initialState,
@@ -408,6 +411,7 @@ const todoSlice = createSlice({
         }
     },
     extraReducers:builder=>{
+
         builder
             .addCase(thunks.deleteTask.fulfilled,(state,action)=>{
                     state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId]

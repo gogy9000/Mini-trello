@@ -1,36 +1,58 @@
-import {authReducer, InitialStateAuthType, thunkAuth} from "./Auth";
+import {actionsAuth, authReducer, InitialStateAuthType, thunkAuth} from "./Auth";
 
 
-let initialState:InitialStateAuthType
-let authData:InitialStateAuthType
-beforeEach(()=>{
-    initialState={
-       email: '',
-       id: '',
-       login: '',
-       isAuthorized: false,
+let initialState: InitialStateAuthType
+let authData: InitialStateAuthType["authData"]
+beforeEach(() => {
+        initialState = {
+            authData: {
+                email: '',
+                id: '',
+                login: '',
+            },
+            isAuthorized: false,
+            isFetching: false
+        }
+        authData = {
+            email: 'email',
+            id: 'id',
+            login: 'login',
+        }
     }
-    authData= {
-        email: 'email',
-        id: 'id',
-        login: 'login',
-        isAuthorized: true,
-    }
-}
 )
-test("AuthData should be removed",()=>{
-    let action= thunkAuth.logout.fulfilled({},"")
-    let newState=authReducer(initialState,action)
-    expect(newState.email).toBe("")
-    expect(newState.id).toBe("")
-    expect(newState.login).toBe("")
+test("AuthData should be removed", () => {
+    let action = actionsAuth.setAuthData({})
+    let newState = authReducer(initialState, action)
+    expect(newState.authData.email).toBe("")
+    expect(newState.authData.id).toBe("")
+    expect(newState.authData.login).toBe("")
     expect(newState.isAuthorized).toBe(false)
 })
-test("AuthData should be removed",()=>{
-    let action= thunkAuth.authMe.fulfilled(authData,"")
-    let newState=authReducer(initialState,action)
-    expect(newState.email).toBe("email")
-    expect(newState.id).toBe("id")
-    expect(newState.login).toBe("login")
+test("AuthData should be added", () => {
+    let action = actionsAuth.setAuthData(authData)
+    let newState = authReducer(initialState, action)
+    expect(newState.authData.email).toBe("email")
+    expect(newState.authData.id).toBe("id")
+    expect(newState.authData.login).toBe("login")
     expect(newState.isAuthorized).toBe(true)
+})
+test("offAuthPreloader should be false",()=>{
+    const action= thunkAuth.authMe.fulfilled
+    let newState = authReducer(initialState, action)
+    expect(newState.isFetching).toBe(false)
+})
+test("onAuthPreloader should be truthy",()=>{
+    const action= thunkAuth.login.pending
+    let newState = authReducer(initialState, action)
+    expect(newState.isFetching).toBe(true)
+})
+test("onAuthPreloader should be truthy",()=>{
+    const action= thunkAuth.logout.pending
+    let newState = authReducer(initialState, action)
+    expect(newState.isFetching).toBe(true)
+})
+test("onAuthPreloader should be false",()=>{
+    const action= thunkAuth.login.fulfilled
+    let newState = authReducer(initialState, action)
+    expect(newState.isFetching).toBe(false)
 })

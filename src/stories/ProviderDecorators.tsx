@@ -31,7 +31,8 @@ let stateStories:AppRootStateType["toDoReducer"] = {
                 addedDate: '123'
             }] as TaskType[],
     },
-    offlineMode: true
+    offlineMode: true,
+    waitingList:{}
 }
 
 

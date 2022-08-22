@@ -4,10 +4,16 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="migration on createAsyncThunk (10%)">
-      <change afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.test.ts" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="migration on createAsyncThunk (30%)">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDoReducerForReactUseReducer/ToDoReducerForUseReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -67,7 +73,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../Portfolio" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tododo" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -90,11 +96,11 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\CreateToDoWrapper.tsx" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\Redux\Todo" />
+      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\Redux\Application" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\common" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo\AccordionForCreateToDoInput" />
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\TitleTodo" />
-      <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\ToDo\Tasks" />
     </key>
   </component>
   <component name="RunManager" selected="npm.test">
@@ -164,8 +170,8 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.test" />
-        <item itemvalue="Jest.AuthData should be added" />
         <item itemvalue="npm.start" />
+        <item itemvalue="Jest.AuthData should be added" />
         <item itemvalue="npm.jest:integration-update" />
         <item itemvalue="npm.update-snapshots" />
       </list>
@@ -267,35 +273,9 @@
       <workItem from="1660388892715" duration="1006000" />
       <workItem from="1660465085571" duration="888000" />
       <workItem from="1660559500593" duration="13668000" />
-      <workItem from="1660631124948" duration="11481000" />
-    </task>
-    <task id="LOCAL-00045" summary="CustomEditSpan.test.tsx create">
-      <created>1655479653192</created>
-      <option name="number" value="00045" />
-      <option name="presentableId" value="LOCAL-00045" />
-      <option name="project" value="LOCAL" />
-      <updated>1655479653192</updated>
-    </task>
-    <task id="LOCAL-00046" summary="CustomEditSpan.test.tsx create">
-      <created>1655480810328</created>
-      <option name="number" value="00046" />
-      <option name="presentableId" value="LOCAL-00046" />
-      <option name="project" value="LOCAL" />
-      <updated>1655480810328</updated>
-    </task>
-    <task id="LOCAL-00047" summary="CustomEditSpan.test.tsx create">
-      <created>1655480834631</created>
-      <option name="number" value="00047" />
-      <option name="presentableId" value="LOCAL-00047" />
-      <option name="project" value="LOCAL" />
-      <updated>1655480834631</updated>
-    </task>
-    <task id="LOCAL-00048" summary="create unauthorizedMode">
-      <created>1655562373899</created>
-      <option name="number" value="00048" />
-      <option name="presentableId" value="LOCAL-00048" />
-      <option name="project" value="LOCAL" />
-      <updated>1655562373899</updated>
+      <workItem from="1660631124948" duration="12354000" />
+      <workItem from="1660714807787" duration="28158000" />
+      <workItem from="1661145537289" duration="16369000" />
     </task>
     <task id="LOCAL-00049" summary="create synchronizeTodo (80%)">
       <created>1655578760363</created>
@@ -612,7 +592,35 @@
       <option name="project" value="LOCAL" />
       <updated>1660669238922</updated>
     </task>
-    <option name="localTasksCounter" value="94" />
+    <task id="LOCAL-00094" summary="create Auth.test.ts">
+      <created>1660673521331</created>
+      <option name="number" value="00094" />
+      <option name="presentableId" value="LOCAL-00094" />
+      <option name="project" value="LOCAL" />
+      <updated>1660673521331</updated>
+    </task>
+    <task id="LOCAL-00095" summary="create Auth.test.ts">
+      <created>1660719438888</created>
+      <option name="number" value="00095" />
+      <option name="presentableId" value="LOCAL-00095" />
+      <option name="project" value="LOCAL" />
+      <updated>1660719438888</updated>
+    </task>
+    <task id="LOCAL-00096" summary="create AppReducer.test.ts">
+      <created>1660729678940</created>
+      <option name="number" value="00096" />
+      <option name="presentableId" value="LOCAL-00096" />
+      <option name="project" value="LOCAL" />
+      <updated>1660729678940</updated>
+    </task>
+    <task id="LOCAL-00097" summary="migration on createAsyncThunk (30%)">
+      <created>1660760172202</created>
+      <option name="number" value="00097" />
+      <option name="presentableId" value="LOCAL-00097" />
+      <option name="project" value="LOCAL" />
+      <updated>1660760172202</updated>
+    </task>
+    <option name="localTasksCounter" value="98" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,9 +639,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix CORS problem" />
-    <MESSAGE value="fix Thunk types" />
-    <MESSAGE value="fix refactoring" />
     <MESSAGE value="refactoring thunks" />
     <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
@@ -656,7 +661,10 @@
     <MESSAGE value="install and use axios-rate-limit" />
     <MESSAGE value="bag fixed with jest:integration" />
     <MESSAGE value="migration on createAsyncThunk (10%)" />
-    <option name="LAST_COMMIT_MESSAGE" value="migration on createAsyncThunk (10%)" />
+    <MESSAGE value="create Auth.test.ts" />
+    <MESSAGE value="create AppReducer.test.ts" />
+    <MESSAGE value="migration on createAsyncThunk (30%)" />
+    <option name="LAST_COMMIT_MESSAGE" value="migration on createAsyncThunk (30%)" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
