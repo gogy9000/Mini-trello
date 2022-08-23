@@ -6,13 +6,15 @@ import {actionsApp} from "../Application/AppReducer";
 import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
 import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
 
-enum todoEnum {
+enum todo {
     todo = 'todo',
     deleteTask = 'todo/deleteTask',
     getTodolistAndTasks = "todo/getTodolistAndTasks",
     getTasks = "todo/getTasks",
     updateTask = "todo/updateTask",
-    addTask = "todo/addTask"
+    addTask = "todo/addTask",
+    deleteTodolist = "todo/deleteTodolist",
+    createTodolist = "todo/createTodolist"
 }
 
 export const thunks = {
@@ -93,16 +95,15 @@ export const thunks = {
             try {
                 // dispatch(actionsApp.addWaitingList(todoId))
                 const props = await API.createNewTask(todoId, task.title)
-                if (props.resultCode === 0) {
-                    dispatch(actions.addTaskAC(props.createdTask))
+                if (props.data.resultCode === 0) {
+                    dispatch(actions.addTaskAC(props.data.data.item))
                     if (task.status !== 0) {
-                        dispatch(thunks.updateTask({...props.createdTask, status: task.status}))
+                        dispatch(thunks.updateTask({...props.data.data.item, status: task.status}))
                     }
                     dispatch(actions.deleteTaskAC({taskId: task.id, todoId}))
                 } else {
-                    handleClientsError(dispatch, props.messages)
+                    handleClientsError(dispatch, props.data.messages)
                 }
-                return props.resultCode
             } catch (error) {
                 handlerNetworkError(dispatch, error)
                 console.log(error)
@@ -114,7 +115,7 @@ export const thunks = {
     },
 
     getTodolistAndTasks: createAsyncThunk
-    (todoEnum.getTodolistAndTasks, async (param, {dispatch, getState}) => {
+    (todo.getTodolistAndTasks, async (param, {dispatch, getState}) => {
         let state = getState() as AppRootStateType
         if (state.toDoReducer.offlineMode) {
             return
@@ -140,7 +141,7 @@ export const thunks = {
         }
     }),
 
-    getTasks: createAsyncThunk(todoEnum.getTasks, async ({todolistId}: { todolistId: string }, {dispatch}) => {
+    getTasks: createAsyncThunk(todo.getTasks, async ({todolistId}: { todolistId: string }, {dispatch}) => {
 
         try {
             // dispatch(actionsApp.addWaitingList(todolistId))
@@ -157,7 +158,7 @@ export const thunks = {
         }
     }),
 
-    createTodolistTC: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    createTodolist: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
 
         if (title.length > 100) {
 
@@ -214,35 +215,22 @@ export const thunks = {
         }
     },
 
-    deleteTodolist: (todo: TodoListItem): AppThunk => async (dispatch: AppDispatchType) => {
+    deleteTodolist: createAsyncThunk(todo.deleteTodolist, async (todo: TodoListItem, {dispatch}) => {
         const {id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
             dispatch(actions.removeTodoAC(todo.id))
         } else {
-            try {
-                // dispatch(actionsApp.addWaitingList(id))
-
-                const response = await API.deleteTodoList(id)
-                if (response.data.resultCode === 0) {
-                    dispatch(actions.removeTodoAC(id))
-                } else {
-                    handleClientsError(dispatch, response.data.messages)
-                }
-
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            } finally {
-                // dispatch(actionsApp.removeWaitingList(id))
+            const response = await API.deleteTodoList(id)
+            if (response.data.resultCode === 0) {
+                dispatch(actions.removeTodoAC(id))
             }
+            errorsInterceptor(dispatch, [response])
         }
-
-
-    },
+    }),
 
     addTask: createAsyncThunk
-    (todoEnum.addTask, async (param: { todo: TodoListItem, taskTitle: string }, {
+    (todo.addTask, async (param: { todo: TodoListItem, taskTitle: string }, {
         dispatch,
-        rejectWithValue
     }) => {
         const {todo, taskTitle} = param
         const newASynchronizedTask: TaskType = {
@@ -259,7 +247,6 @@ export const thunks = {
             isASynchronizedTask: true,
 
         }
-
         if (todo.isASynchronizedTodo) {
 
             if (taskTitle.length > 100) {
@@ -270,59 +257,42 @@ export const thunks = {
                 dispatch(actions.addTaskAC(newASynchronizedTask))
             }
         } else {
-                const response = await API.createNewTask(todo.id, taskTitle)
-                if (response.resultCode === 0) {
-                    dispatch(actions.addTaskAC(response.createdTask))
-                }
-                errorsInterceptor(dispatch,[])
+            const response = await API.createNewTask(todo.id, taskTitle)
+            if (response.data.resultCode === 0) {
+                dispatch(actions.addTaskAC(response.data.data.item))
+            }
+            errorsInterceptor(dispatch, [response])
 
         }
     }),
 
-    updateTask: createAsyncThunk(todoEnum.updateTask, async (task: TaskType, {dispatch, rejectWithValue}) => {
+    updateTask: createAsyncThunk(todo.updateTask, async (task: TaskType, {dispatch, rejectWithValue}) => {
         if (task.isASynchronizedTask) {
             if (task.title.length > 100) {
                 const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
                 handleClientsError(dispatch, [error])
-                return rejectWithValue({})
             } else {
-                return task
+                dispatch(actions.updateTaskAC(task))
             }
         } else {
-            try {
-                // dispatch(actionsApp.addWaitingList(task.id))
-                const props = await API.updateTask(task)
-                if (props.resultCode === 0) {
-                    return props.newTask
-                } else {
-                    handleClientsError(dispatch, props.messages)
-                    return rejectWithValue({})
-                }
-
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-                return rejectWithValue({})
-            } finally {
-                // dispatch(actionsApp.removeWaitingList(task.id))
+            const response = await API.updateTask(task)
+            if (response.data.resultCode === 0) {
+                dispatch(actions.updateTaskAC(response.data.data.item))
             }
+            errorsInterceptor(dispatch, [response])
         }
     }),
 
     deleteTask: createAsyncThunk
-    (todoEnum.deleteTask, async (param: { todolistId: string, task: TaskType }, {dispatch}) => {
-        const {task, todolistId} = param
+    (todo.deleteTask, async (task: TaskType, {dispatch}) => {
         if (task.isASynchronizedTask) {
-            dispatch(actions.deleteTaskAC({taskId: task.id, todoId: todolistId}))
+            dispatch(actions.deleteTaskAC({taskId: task.id, todoId: task.todoListId}))
         } else {
-            const promise = await API.deleteTask(todolistId, task.id)
-                .then((response) => {
-                    if (response.data.resultCode === 0) {
-                        dispatch(actions.deleteTaskAC({taskId: task.id, todoId: todolistId}))
-                    }
-                    return response
-                })
-            errorsInterceptor(dispatch, [promise])
-
+            const response = await API.deleteTask(task.todoListId, task.id)
+            if (response.data.resultCode === 0) {
+                dispatch(actions.deleteTaskAC({taskId: task.id, todoId: task.todoListId}))
+            }
+            errorsInterceptor(dispatch, [response])
         }
     })
 }
@@ -337,7 +307,7 @@ export const initialState: InitialStateTodoType =
     }
 
 const todoSlice = createSlice({
-    name: todoEnum.todo,
+    name: todo.todo,
     initialState: initialState,
     reducers: {
         removeTodoAC: (state, action: PayloadAction<string>) => {
@@ -396,24 +366,43 @@ const todoSlice = createSlice({
                     todo.filter = action.payload.newFilter
                 }
             })
+        },
+        addWaitingList:(state,action)=>{
+
         }
     },
     extraReducers: builder => {
-        const addWaitingList = (state: Draft<InitialStateTodoType>, action: PayloadAction<undefined, string, { arg: { todolistId: string, task: TaskType }, requestId: string, requestStatus: "pending" }>) => {
-            state.waitingList = {...state.waitingList, [action.meta.arg.task.id]: true}
+        const addWaitingList = (waitingList:InitialStateTodoType["waitingList"],id:string) => {
+           return   {...waitingList, [id]: true}
         }
-        const removeWaitingList = (state: Draft<InitialStateTodoType>, action: PayloadAction<void, string, { arg: { todolistId: string, task: TaskType }, requestId: string, requestStatus: "fulfilled" }>) => {
-            delete state.waitingList[action.meta.arg.task.id]
+        const removeWaitingList=(waitingList:InitialStateTodoType["waitingList"],id:string)=>{
+            delete waitingList[id]
+            return waitingList
         }
-
         builder
-            .addCase(thunks.deleteTask.pending, addWaitingList)
-            .addCase(thunks.deleteTask.fulfilled, removeWaitingList)
-
-
+            .addCase(thunks.deleteTask.pending, (state, action) => {
+                state.waitingList = addWaitingList(state.waitingList, action.meta.arg.id)
+            })
+            .addCase(thunks.deleteTask.fulfilled, (state, action) => {
+                state.waitingList = removeWaitingList(state.waitingList, action.meta.arg.id)
+            })
+            .addCase(thunks.updateTask.pending, (state, action) => {
+                state.waitingList = addWaitingList(state.waitingList, action.meta.arg.id)
+            })
             .addCase(thunks.updateTask.fulfilled, (state, action) => {
-                state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
-                    .map(task => task.id === action.payload.id ? action.payload : task)
+                state.waitingList = removeWaitingList(state.waitingList, action.meta.arg.id)
+            })
+            .addCase(thunks.addTask.pending, (state, action) => {
+                state.waitingList = addWaitingList(state.waitingList, action.meta.arg.todo.id)
+            })
+            .addCase(thunks.addTask.fulfilled, (state, action) => {
+                state.waitingList = removeWaitingList(state.waitingList, action.meta.arg.todo.id)
+            })
+            .addCase(thunks.deleteTodolist.pending,(state,action)=>{
+               state.waitingList= addWaitingList(state.waitingList,action.meta.arg.id)
+            })
+            .addCase(thunks.deleteTodolist.fulfilled,(state,action)=> {
+               state.waitingList= removeWaitingList(state.waitingList,action.meta.arg.id)
             })
     }
 })

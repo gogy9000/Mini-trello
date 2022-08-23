@@ -20,13 +20,11 @@ export const handlerNetworkError = (dispatch:ThunkDispatch<unknown, unknown, Any
 
 export const errorsInterceptor=
     (dispatch:ThunkDispatch<unknown, unknown, AnyAction>,promises:Promise<AxiosResponse<Data>>[]|AxiosResponse<Data>[])=> {
-        console.log(promises)
     Promise.all(promises).then(value => {
         value.forEach(promise=>{
             handleClientsError(dispatch, promise.data.messages)
         })
     }).catch((e) => {
-        console.log(e)
         handlerNetworkError(dispatch, e)
     })
 }

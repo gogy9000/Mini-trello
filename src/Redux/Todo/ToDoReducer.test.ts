@@ -80,7 +80,7 @@ test('Task should be added', () => {
 })
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
-    let action = thunks.updateTask.fulfilled(updatedTask,"",updatedTask)
+    let action = actions.updateTaskAC(updatedTask)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[updatedTask.todoListId][0].title).toBe(updatedTask.title)
 })

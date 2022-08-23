@@ -48,7 +48,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         }, [dispatch, task, taskValue, error])
 
         const deleteTask = useCallback(() => {
-            dispatch(thunks.deleteTask({todolistId:todoId, task}))
+            dispatch(thunks.deleteTask( task))
 
         }, [dispatch, task.id, todoId])
 

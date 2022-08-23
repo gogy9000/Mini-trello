@@ -16,7 +16,7 @@ export const CreateToDoInputWrapper = React.memo(() => {
                 setError('To do title must not be empty')
                 return
             }
-            dispatch(thunks.createTodolistTC(todoName.trim()))
+            dispatch(thunks.createTodolist(todoName.trim()))
             setTodoName('')
             setError('')
         }

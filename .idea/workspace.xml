@@ -4,19 +4,14 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="create errorsInterceptor, refactoring authReducer">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/Application/AppReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Application/AppReducer.test.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/LimitRPS.ts" beforeDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -106,7 +101,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.test">
+  <component name="RunManager" selected="npm.start">
     <configuration name="AuthData should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -172,8 +167,8 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="npm.test" />
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.test" />
         <item itemvalue="Jest.AuthData should be added" />
         <item itemvalue="npm.jest:integration-update" />
         <item itemvalue="npm.update-snapshots" />
@@ -278,14 +273,8 @@
       <workItem from="1660559500593" duration="13668000" />
       <workItem from="1660631124948" duration="12354000" />
       <workItem from="1660714807787" duration="28158000" />
-      <workItem from="1661145537289" duration="24267000" />
-    </task>
-    <task id="LOCAL-00050" summary="create synchronizeTodo (90%)">
-      <created>1655627786704</created>
-      <option name="number" value="00050" />
-      <option name="presentableId" value="LOCAL-00050" />
-      <option name="project" value="LOCAL" />
-      <updated>1655627786704</updated>
+      <workItem from="1661145537289" duration="24790000" />
+      <workItem from="1661240447375" duration="6465000" />
     </task>
     <task id="LOCAL-00051" summary="create synchronizeTodo (100%)">
       <created>1655634442155</created>
@@ -623,7 +612,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661191709959</updated>
     </task>
-    <option name="localTasksCounter" value="99" />
+    <task id="LOCAL-00099" summary=" refactoring ToDoReducer.ts">
+      <created>1661199927651</created>
+      <option name="number" value="00099" />
+      <option name="presentableId" value="LOCAL-00099" />
+      <option name="project" value="LOCAL" />
+      <updated>1661199927651</updated>
+    </task>
+    <option name="localTasksCounter" value="100" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -642,7 +638,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="fix offlineMod" />
     <MESSAGE value="use CollapsedButtons.tsx" />
     <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
@@ -667,7 +662,8 @@
     <MESSAGE value="create AppReducer.test.ts" />
     <MESSAGE value="migration on createAsyncThunk (30%)" />
     <MESSAGE value="create errorsInterceptor, refactoring authReducer" />
-    <option name="LAST_COMMIT_MESSAGE" value="create errorsInterceptor, refactoring authReducer" />
+    <MESSAGE value=" refactoring ToDoReducer.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value=" refactoring ToDoReducer.ts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
