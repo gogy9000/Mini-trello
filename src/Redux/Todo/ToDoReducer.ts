@@ -14,40 +14,39 @@ enum todo {
     updateTask = "todo/updateTask",
     addTask = "todo/addTask",
     deleteTodolist = "todo/deleteTodolist",
-    createTodolist = "todo/createTodolist"
+    createTodolist = "todo/createTodolist",
+    updateTodoList="todo/updateTodoList",
+    synchronizeTodo="todo/synchronizeTodo",
+    synchronizeTask="todo/synchronizeTask",
+    synchronizeTasks="todo/synchronizeTasks",
+    synchronizeTodos="todo/synchronizeTodos"
 }
 
 export const thunks = {
-    synchronizeTodoAll: (): AppThunk => (dispatch: AppDispatchType, getState) => {
-
-        getState().toDoReducer.tasksTitle.forEach((todo) => {
+    synchronizeTodos: createAsyncThunk(todo.synchronizeTodos ,(param, {dispatch, getState}) => {
+        const state=getState() as AppRootStateType
+        state.toDoReducer.tasksTitle.forEach((todo) => {
                 dispatch(thunks.synchronizeTodo(todo))
-
             }
         )
-    },
+    }),
 
-    synchronizeTodo: (todo: TodoListItem): AppThunk => async (dispatch: AppDispatchType, getState) => {
+    synchronizeTodo: createAsyncThunk
+    (todo.synchronizeTodo, async (todo: TodoListItem, {dispatch, getState}) => {
+        const state=getState() as AppRootStateType
         if (todo.isASynchronizedTodo) {
-            try {
-                // dispatch(actionsApp.addWaitingList(todo.id))
-                const props = await API.createTodoList(todo.title)
-
-                if (props.resultCode === 0) {
-                    dispatch(actions.createNewTodoAC(props.TodoListItem))
-
+                const response = await API.createTodoList(todo.title)
+                if (response.data.resultCode === 0) {
+                    dispatch(actions.createNewTodoAC(response.data.data.item))
                     let activeTasksPromise = new Promise((resolve, reject) => {
-
-                        if (getState().toDoReducer.taskBody[todo.id].length === 0) {
+                        if (state.toDoReducer.taskBody[todo.id].length === 0) {
                             reject('activeTasks-empty')
                             return
                         }
-                        getState().toDoReducer.taskBody[todo.id].forEach(
-                            async (task, i, arr) => {
-
+                        state.toDoReducer.taskBody[todo.id].forEach(
+                             (task, i, arr) => {
                                 if (task.isASynchronizedTask) {
-                                    dispatch(thunks.synchronizeTask(props.TodoListItem.id, task))
-
+                                    dispatch(thunks.synchronizeTask(task))
                                 }
                                 if (i === arr.length - 1) {
                                     resolve('success')
@@ -55,64 +54,41 @@ export const thunks = {
                             }
                         )
                     })
-
                     Promise.allSettled([activeTasksPromise])
                         .then(() => {
                             dispatch(actions.removeTodoAC(todo.id))
-                            // dispatch(actionsApp.removeWaitingList(todo.id))
+
                         })
-
-                } else {
-                    handleClientsError(dispatch, props.messages)
-
                 }
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-                // dispatch(actionsApp.removeWaitingList(todo.id))
-            }
+                errorsInterceptor(dispatch,[response])
         }
-
         dispatch(thunks.synchronizeTasks(todo))
+    }),
 
-    },
-
-    synchronizeTasks: (todo: TodoListItem): AppThunk => async (dispatch: AppDispatchType, getState) => {
-
+    synchronizeTasks: createAsyncThunk(todo.synchronizeTasks, (todo: TodoListItem,{dispatch, getState}) => {
+        const state=getState() as AppRootStateType
         if (!todo.isASynchronizedTodo) {
-            for (const task of getState().toDoReducer.taskBody[todo.id]) {
+            for (const task of state.toDoReducer.taskBody[todo.id]) {
                 if (task.isASynchronizedTask) {
-                    await dispatch(thunks.synchronizeTask(todo.id, task))
-
+                     dispatch(thunks.synchronizeTask(task))
                 }
             }
         }
-    },
+    }),
 
-    synchronizeTask: (todoId: string, task: TaskType): AppThunk => {
+    synchronizeTask: createAsyncThunk(todo.synchronizeTask, async (task: TaskType,{dispatch}) => {
 
-        return async (dispatch: AppDispatchType) => {
-
-            try {
-                // dispatch(actionsApp.addWaitingList(todoId))
-                const props = await API.createNewTask(todoId, task.title)
-                if (props.data.resultCode === 0) {
-                    dispatch(actions.addTaskAC(props.data.data.item))
+                const response = await API.createNewTask(task.todoListId, task.title)
+                if (response.data.resultCode === 0) {
+                    dispatch(actions.addTaskAC(response.data.data.item))
                     if (task.status !== 0) {
-                        dispatch(thunks.updateTask({...props.data.data.item, status: task.status}))
+                        dispatch(thunks.updateTask({...response.data.data.item, status: task.status}))
                     }
-                    dispatch(actions.deleteTaskAC({taskId: task.id, todoId}))
-                } else {
-                    handleClientsError(dispatch, props.data.messages)
+                    dispatch(actions.deleteTaskAC({taskId: task.id, todoId:task.todoListId}))
                 }
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-                console.log(error)
+                errorsInterceptor(dispatch,[response])
 
-            } finally {
-                // dispatch(actionsApp.removeWaitingList(todoId))
-            }
-        }
-    },
+    }),
 
     getTodolistAndTasks: createAsyncThunk
     (todo.getTodolistAndTasks, async (param, {dispatch, getState}) => {
@@ -142,31 +118,19 @@ export const thunks = {
     }),
 
     getTasks: createAsyncThunk(todo.getTasks, async ({todolistId}: { todolistId: string }, {dispatch}) => {
-
-        try {
-            // dispatch(actionsApp.addWaitingList(todolistId))
-            const props = await API.getTasks(todolistId)
-            if (props.status === 200) {
-                dispatch(actions.refreshTasks(props.tasks))
-            } else {
-                handleClientsError(dispatch, [props.statusText])
+            const response = await API.getTasks(todolistId)
+            if (response.status === 200) {
+                dispatch(actions.refreshTasks(response.data.items))
             }
-        } catch (error) {
-            handlerNetworkError(dispatch, error)
-        } finally {
-            // dispatch(actionsApp.removeWaitingList(todolistId))
-        }
+            errorsInterceptor(dispatch,[response])
     }),
 
-    createTodolist: (title: string): AppThunk => async (dispatch: AppDispatchType, getState) => {
-
+    createTodolist: createAsyncThunk(todo.createTodolist, async (title:string,{dispatch, getState}) => {
+           const state=getState() as AppRootStateType
         if (title.length > 100) {
-
             const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
             handleClientsError(dispatch, [error])
-
         } else {
-
             const newASynchronizedTodo = {
                 id: v1(),
                 title: title,
@@ -175,47 +139,32 @@ export const thunks = {
                 isASynchronizedTodo: true
             }
             dispatch(actions.createNewTodoAC(newASynchronizedTodo))
-            if (!getState().toDoReducer.offlineMode) {
+            if (!state.toDoReducer.offlineMode) {
                 dispatch(thunks.synchronizeTodo(newASynchronizedTodo))
             }
-
         }
-    },
+    }),
 
-    updateTodoList: (todo: TodoListItem): AppThunk => async (dispatch: AppDispatchType) => {
+    updateTodoList: createAsyncThunk(todo.updateTodoList ,async (todo: TodoListItem, {dispatch}) => {
         const {title, id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
-
             if (title.length > 100) {
-
                 const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
                 handleClientsError(dispatch, [error])
-
             } else {
                 dispatch(actions.updateTodoNameAC({title, id}))
             }
-
         } else {
-            try {
-                // dispatch(actionsApp.addWaitingList(id))
-
                 const response = await API.updateTodoLis(id, title)
-
                 if (response.data.resultCode === 0) {
                     dispatch(actions.updateTodoNameAC({title, id}))
-                } else {
-                    handleClientsError(dispatch, response.data.messages)
                 }
-
-            } catch (error) {
-                handlerNetworkError(dispatch, error)
-            } finally {
-                // dispatch(actionsApp.removeWaitingList(id))
-            }
+                errorsInterceptor(dispatch,[response])
         }
-    },
+    }),
 
-    deleteTodolist: createAsyncThunk(todo.deleteTodolist, async (todo: TodoListItem, {dispatch}) => {
+    deleteTodolist: createAsyncThunk
+    (todo.deleteTodolist, async (todo: TodoListItem, {dispatch}) => {
         const {id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
             dispatch(actions.removeTodoAC(todo.id))

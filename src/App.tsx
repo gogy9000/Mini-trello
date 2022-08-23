@@ -36,7 +36,7 @@ export const App = React.memo(() => {
 
         useEffect(() => {
             if (isAuthorized && !state.offlineMode) {
-                dispatch(thunks.synchronizeTodoAll())
+                dispatch(thunks.synchronizeTodos())
             }
         }, [state.offlineMode, isAuthorized])
 

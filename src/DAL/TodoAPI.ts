@@ -23,7 +23,7 @@ export type TodoListItem = {
     isASynchronizedTodo?:boolean
 }
 
-type GetTaskType = {
+export type GetTaskType = {
     error:string|null
     items: TaskItem[]
     totalCount:number
@@ -74,27 +74,12 @@ export const API = {
 
     getTasks: (todolistId: string, count: number = 100, page: number = 1) => {
         return instance.get(`todo-lists/${todolistId}/tasks?count=${count}&page=${page}`)
-            .then((response: AxiosResponse<GetTaskType>) => {
-                    return {
-                        tasks: response.data.items,
-                        totalCount: response.data.totalCount,
-                        status: response.status,
-                        statusText: response.statusText
-                    }
-                }
-            )
+            .then((response: AxiosResponse<GetTaskType>) => response)
     },
 
 
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
-        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => {
-                return {
-                    TodoListItem: response.data.data.item,
-                    resultCode: response.data.resultCode,
-                    messages: response.data.messages
-                }
-            }
-        ),
+        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => response),
 
     updateTodoLis: (todolistId: string, title: string) => {
         return instance.put(`todo-lists/${todolistId}`, {title: title})

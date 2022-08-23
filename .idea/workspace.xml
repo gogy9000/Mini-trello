@@ -6,11 +6,9 @@
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/CreateTodo/CreateToDoInputWrapper.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -274,14 +272,7 @@
       <workItem from="1660631124948" duration="12354000" />
       <workItem from="1660714807787" duration="28158000" />
       <workItem from="1661145537289" duration="24790000" />
-      <workItem from="1661240447375" duration="6465000" />
-    </task>
-    <task id="LOCAL-00051" summary="create synchronizeTodo (100%)">
-      <created>1655634442155</created>
-      <option name="number" value="00051" />
-      <option name="presentableId" value="LOCAL-00051" />
-      <option name="project" value="LOCAL" />
-      <updated>1655634442155</updated>
+      <workItem from="1661240447375" duration="15643000" />
     </task>
     <task id="LOCAL-00052" summary="create synchronizeTodo (101%)">
       <created>1655639424780</created>
@@ -619,7 +610,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661199927651</updated>
     </task>
-    <option name="localTasksCounter" value="100" />
+    <task id="LOCAL-00100" summary=" refactoring ToDoReducer.ts">
+      <created>1661249264494</created>
+      <option name="number" value="00100" />
+      <option name="presentableId" value="LOCAL-00100" />
+      <option name="project" value="LOCAL" />
+      <updated>1661249264494</updated>
+    </task>
+    <option name="localTasksCounter" value="101" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
