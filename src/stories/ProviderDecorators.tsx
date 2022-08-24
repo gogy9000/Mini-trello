@@ -32,7 +32,8 @@ let stateStories:AppRootStateType["toDoReducer"] = {
             }] as TaskType[],
     },
     offlineMode: true,
-    waitingList:{}
+    waitingList:{},
+    errors:[]
 }
 
 

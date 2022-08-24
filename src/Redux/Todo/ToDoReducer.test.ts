@@ -52,6 +52,7 @@ beforeEach(() => {
             },
             offlineMode: true,
             waitingList:{},
+            errors:[],
         }
     }
 )
@@ -96,7 +97,7 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = actions.deleteTaskAC({todoId,taskId:taskId1})
+    let action = actions.deleteTask({todoId,taskId:taskId1})
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(0)
 })

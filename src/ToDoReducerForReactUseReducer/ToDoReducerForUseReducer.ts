@@ -182,7 +182,7 @@
 //     updateTodoNameAC: (titleName: string, todo: string) =>
 //         ({type: 'UPDATE-TODO-NAME', todo, titleName} as const),
 //     createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName, toDoId: v1()} as const),
-//     deleteTaskAC: (id: string, todo: string) => ({type: 'DELETE-TASK', id, todo} as const),
+//     deleteTask: (id: string, todo: string) => ({type: 'DELETE-TASK', id, todo} as const),
 //     addTaskAC: (todo: string, inputText: string) => ({
 //         type: 'ADD-TASK',
 //         todo,

@@ -25,9 +25,9 @@ export const initialState: InitialStateAuthType = {
 
 
 export const thunkAuth = {
-    authMe: createAsyncThunk("auth/authMe", (params, {dispatch}) => {
+    authMe: createAsyncThunk("auth/authMe", async (params, {dispatch}) => {
 
-        const promise = ApiAuth.authMe().then((response) => {
+        const promise =  ApiAuth.authMe().then((response) => {
             if (response.data.resultCode === 0) {
                 dispatch(actionsAuth.setAuthData({...response.data.data, isAuthorized: true}))
             }
@@ -37,7 +37,7 @@ export const thunkAuth = {
     }),
     login: createAsyncThunk("auth/login", async (loginPayload: LoginPayloadType, {dispatch}) => {
 
-        const promise = ApiAuth.login(loginPayload)
+        const promise =  ApiAuth.login(loginPayload)
             .then((response) => {
                 if (response.data.resultCode === 0) {
                     dispatch(thunkAuth.authMe())
@@ -46,7 +46,7 @@ export const thunkAuth = {
             })
         errorsInterceptor(dispatch, [promise])
     }),
-    logout: createAsyncThunk("auth/logout",  (params, {dispatch}) => {
+    logout: createAsyncThunk("auth/logout",  async (params, {dispatch}) => {
         const promise = ApiAuth.logout().then((response) => {
             if (response.data.resultCode === 0) {
                 dispatch(actionsAuth.setAuthData({}))
