@@ -298,10 +298,10 @@ const todoSlice = createSlice({
             state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
                 .map(task => task.id === action.payload.id ? action.payload : task)
         },
-        deleteTask: (state, action: PayloadAction<{ taskId: string, todoId: string }>) => {
-            state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId]
-                .filter(task => task.id !== action.payload.taskId)
-        },
+        // deleteTask: (state, action: PayloadAction<{ taskId: string, todoId: string }>) => {
+        //     state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId]
+        //         .filter(task => task.id !== action.payload.taskId)
+        // },
         refreshTodoListAC: (state, action: PayloadAction<TodoListItem[]>) => {
 
             state.tasksTitle = action.payload.reduce((acc, todo: TodoListItem) => {

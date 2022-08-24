@@ -2,6 +2,7 @@ import {InitialStateTodoType, TaskType} from "../../Types";
 
 import {actions, thunks, toDoReducer} from "./ToDoReducer";
 import {actionsApp, appReducer} from "../Application/AppReducer";
+import {Data} from "../../DAL/TodoAPI";
 
 
 let stateToDo: InitialStateTodoType
@@ -97,7 +98,9 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = actions.deleteTask({todoId,taskId:taskId1})
+    let returned={response:{resultCode:0},task:stateToDo.taskBody[todoId][0]} as { response: Data ; task: TaskType; }
+    const payload=stateToDo.taskBody[todoId][0]
+    let action = thunks.deleteTask.fulfilled(returned,"",payload)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(0)
 })
