@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/incubator-to-do-list/static/css/main.e6c13ad2.css",
-    "main.js": "/incubator-to-do-list/static/js/main.0d9d8606.js",
-    "static/js/787.b6086cd3.chunk.js": "/incubator-to-do-list/static/js/787.b6086cd3.chunk.js",
-    "index.html": "/incubator-to-do-list/index.html",
-    "main.e6c13ad2.css.map": "/incubator-to-do-list/static/css/main.e6c13ad2.css.map",
-    "main.0d9d8606.js.map": "/incubator-to-do-list/static/js/main.0d9d8606.js.map",
-    "787.b6086cd3.chunk.js.map": "/incubator-to-do-list/static/js/787.b6086cd3.chunk.js.map"
+    "main.css": "/Mini-trello/static/css/main.e6c13ad2.css",
+    "main.js": "/Mini-trello/static/js/main.3ecd89c7.js",
+    "static/js/787.b6086cd3.chunk.js": "/Mini-trello/static/js/787.b6086cd3.chunk.js",
+    "index.html": "/Mini-trello/index.html",
+    "main.e6c13ad2.css.map": "/Mini-trello/static/css/main.e6c13ad2.css.map",
+    "main.3ecd89c7.js.map": "/Mini-trello/static/js/main.3ecd89c7.js.map",
+    "787.b6086cd3.chunk.js.map": "/Mini-trello/static/js/787.b6086cd3.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.e6c13ad2.css",
-    "static/js/main.0d9d8606.js"
+    "static/js/main.3ecd89c7.js"
   ]
 }
