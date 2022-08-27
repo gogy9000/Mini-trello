@@ -54,7 +54,13 @@ export const thunks = {
                         state.toDoReducer.taskBody[todo.id].forEach(
                             (task, i, arr) => {
                                 if (task.isASynchronizedTask) {
-                                    dispatch(thunks.synchronizeTask({...task, todoListId: response.data.data.item.id}))
+                                    dispatch(thunks.synchronizeTask(
+                                            {
+                                                task: {...task, todoListId: response.data.data.item.id},
+                                                todo: response.data.data.item
+                                            }
+                                        )
+                                    )
                                 }
                                 if (i === arr.length - 1) {
                                     resolve('success')
@@ -82,27 +88,23 @@ export const thunks = {
         if (!todo.isASynchronizedTodo) {
             for (const task of state.toDoReducer.taskBody[todo.id]) {
                 if (task.isASynchronizedTask) {
-                    dispatch(thunks.synchronizeTask({...task, todoListId: todo.id}))
+                    dispatch(thunks.synchronizeTask(
+                        {task: {...task, todoListId: todo.id}, todo}))
                 }
             }
         }
     }),
 
-    synchronizeTask: createAsyncThunk(todo.synchronizeTask, async (task: TaskType, {dispatch}) => {
-        const promise = API.createNewTask(task.todoListId, task.title).then((response) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(actions.addTaskAC(response.data.data.item))
-                    if (task.status !== 0) {
-                        dispatch(thunks.updateTask({...response.data.data.item, status: task.status}))
-                    }
-                    // dispatch(actions.deleteTask({taskId: task.id, todoId: task.todoListId}))
-                    dispatch(thunks.deleteTask(task))
-                }
-                return response
+    synchronizeTask: createAsyncThunk(todo.synchronizeTask, async (params: { task: TaskType, todo: TodoListItem }, {dispatch}) => {
+
+        const {task, todo} = params
+        const addedTask = await dispatch(thunks.addTask({todo, taskTitle: task.title}))
+        if (thunks.addTask.fulfilled.match(addedTask)) {
+            if (task.status !== 0) {
+                dispatch(thunks.updateTask({...addedTask.payload, status: task.status}))
             }
-        )
-        errorsInterceptor(dispatch, [promise])
-        return promise
+            dispatch(thunks.deleteTask(task))
+        }
     }),
 
     getTodolistAndTasks: createAsyncThunk
@@ -199,10 +201,8 @@ export const thunks = {
         }
     }),
 
-    addTask: createAsyncThunk
-    (todo.addTask, async (param: { todo: TodoListItem, taskTitle: string }, {
-        dispatch,
-    }) => {
+    addTask: createAsyncThunk<TaskType, { todo: TodoListItem, taskTitle: string }, { rejectValue: string[] }>
+    (todo.addTask, async (param: { todo: TodoListItem, taskTitle: string }, {rejectWithValue}) => {
         const {todo, taskTitle} = param
         const newASynchronizedTask: TaskType = {
             description: null,
@@ -221,36 +221,35 @@ export const thunks = {
         if (todo.isASynchronizedTodo) {
 
             if (taskTitle.length > 100) {
-                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
-                handleClientsError(dispatch, [error])
+                const error = "Maximum length of '100'. (Title)"
+                return rejectWithValue([error])
             } else {
-                dispatch(actions.addTaskAC(newASynchronizedTask))
+                return newASynchronizedTask
             }
         } else {
-            const promise = API.createNewTask(todo.id, taskTitle).then((response) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(actions.addTaskAC(response.data.data.item))
-                }
-                return response
-            })
-            errorsInterceptor(dispatch, [promise])
-            return promise
+            const response = await API.createNewTask(todo.id, taskTitle)
+            if (response.data.resultCode === 0) {
+                return response.data.data.item
+            } else {
+                return rejectWithValue(response.data.messages)
+            }
         }
     }),
 
-    updateTask: createAsyncThunk<TaskType, TaskType, { rejectValue: { messages: string[] } }>
-    (todo.updateTask, async (task: TaskType, {dispatch, rejectWithValue}) => {
+    updateTask: createAsyncThunk<TaskType, TaskType, { rejectValue: string[] }>
+    (todo.updateTask, async (task: TaskType, {fulfillWithValue, rejectWithValue}) => {
         if (task.isASynchronizedTask) {
             if (task.title.length > 100) {
-                return rejectWithValue({messages: ["max length 100 symbols"]})
+                return rejectWithValue(["max length 100 symbols"])
+            } else {
+                return task
             }
-            return task
         } else {
             const response = await API.updateTask(task)
             if (response.data.resultCode === 0) {
                 return response.data.data.item
             } else {
-                return rejectWithValue({messages: response.data.messages})
+                return rejectWithValue(response.data.messages)
             }
         }
     }),
@@ -296,13 +295,9 @@ const todoSlice = createSlice({
             state.tasksTitle = [...state.tasksTitle, {...action.payload, filter: 'All'}]
             state.taskBody[action.payload.id] = []
         },
-        addTaskAC: (state, action: PayloadAction<TaskType>) => {
-            state.taskBody[action.payload.todoListId].push(action.payload)
-        },
-        updateTaskAC: (state, action: PayloadAction<TaskType>) => {
-            state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
-                .map(task => task.id === action.payload.id ? action.payload : task)
-        },
+        // addTaskAC: (state, action: PayloadAction<TaskType>) => {
+        //     state.taskBody[action.payload.todoListId].push(action.payload)
+        // },
         refreshTodoListAC: (state, action: PayloadAction<TodoListItem[]>) => {
 
             state.tasksTitle = action.payload.reduce((acc, todo: TodoListItem) => {
@@ -353,9 +348,9 @@ const todoSlice = createSlice({
 
             return state.errors.push(...errors)
         }
-        const unionErrorsInterceptor = (state: InitialStateTodoType, action: PayloadAction<{ messages: string[]; } | undefined, any, any, SerializedError>) => {
+        const unionErrorsInterceptor = (state: InitialStateTodoType, action: PayloadAction<string[] | undefined, any, any, SerializedError>) => {
             if (!!action.payload) {
-                return clientsErrorsInterceptor(state, action.payload.messages)
+                return clientsErrorsInterceptor(state, action.payload)
             } else {
                 return networkErrorsInterceptor(state, action.error.message)
             }
@@ -392,14 +387,16 @@ const todoSlice = createSlice({
                 unionErrorsInterceptor(state, action)
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
-
+            //add task
             .addCase(thunks.addTask.pending, (state, action) => {
                 addIdInWaitingList(state, action.meta.arg.todo.id)
             })
             .addCase(thunks.addTask.fulfilled, (state, action) => {
+                state.taskBody[action.payload.todoListId].push(action.payload)
                 removeIdInWaitingList(state, action.meta.arg.todo.id)
             })
             .addCase(thunks.addTask.rejected, (state, action) => {
+                unionErrorsInterceptor(state, action)
                 removeIdInWaitingList(state, action.meta.arg.todo.id)
             })
 
