@@ -1,9 +1,11 @@
-import {StateType, TaskType} from "../Types";
+import {InitialStateTodoType, TaskType} from "../../Types";
 
-import {actions, toDoReducer} from "./ToDoReducer";
+import {actions, thunks, toDoReducer} from "./ToDoReducer";
+import {actionsApp, appReducer} from "../Application/AppReducer";
+import {Data} from "../../DAL/TodoAPI";
 
 
-let stateToDo: StateType
+let stateToDo: InitialStateTodoType
 let todoId: string
 let taskId1: string
 let taskId2: string
@@ -49,7 +51,9 @@ beforeEach(() => {
                     }] as Array<TaskType>
                ,
             },
-            offlineMode: true
+            offlineMode: true,
+            waitingList:{},
+            errors:[],
         }
     }
 )
@@ -71,14 +75,14 @@ test('Todo should be add', () => {
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle.length).toBe(2)
 })
-test('Task should be added', () => {
-    let action = actions.addTaskAC(newTask)
-    let newState = toDoReducer(stateToDo, action)
-    expect(newState.taskBody[newTask.todoListId].length).toBe(2)
-})
+// test('Task should be added', () => {
+//     let action = actions.addTaskAC(newTask)
+//     let newState = toDoReducer(stateToDo, action)
+//     expect(newState.taskBody[newTask.todoListId].length).toBe(2)
+// })
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
-    let action = actions.updateTaskAC(updatedTask)
+    let action = thunks.updateTask.fulfilled(updatedTask,"",updatedTask)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[updatedTask.todoListId][0].title).toBe(updatedTask.title)
 })
@@ -94,7 +98,9 @@ test('ToDo should be removed', () => {
     expect(newState.tasksTitle.length).toBe(0)
 })
 test('task should be deleted', () => {
-    let action = actions.deleteTaskAC({taskId:taskId1, todoId})
+    let returned={response:{resultCode:0},task:stateToDo.taskBody[todoId][0]} as { response: Data ; task: TaskType; }
+    const payload=stateToDo.taskBody[todoId][0]
+    let action = thunks.deleteTask.fulfilled(returned,"",payload)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(0)
 })
@@ -145,4 +151,25 @@ test('tasks should be refreshed', () => {
     expect(newState.taskBody[todoId][1].description).toBe('azaza')
 
 })
+// describe("waitingList",()=>{
 
+//     it("waitingList item should be added",()=>{
+//         let action=actions.addWaitingList("id")
+//         let newState=toDoReducer(state,action)
+//         expect(Object.keys(newState.waitingList).length).toBe(1)
+//         expect(newState.waitingList["id"]).toBe(true)
+//         expect(Object.keys(newState.waitingList).length).not.toBe(2)
+//     })
+//     it("waitingList item should be removed",()=>{
+//         let state={
+//             networkError: '',
+//             clientsError: [] ,
+//             waitingList: {id:true} ,
+//             isWaitingApp: false,
+//             isInitialization: false
+//         }
+//         let action=actionsApp.removeWaitingList("id")
+//         let newState=appReducer(state,action)
+//         expect(Object.keys(newState.waitingList).length).toBe(0)
+//     })
+// })

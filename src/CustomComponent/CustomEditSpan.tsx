@@ -65,7 +65,7 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
                         <span>
                             <TextField
                                 error={!!error}
-                                data-testid='TextField'
+                                data-testid={'text'}
                                 onKeyPress={(e) => {
                                     onEnterCallBack(e.key)
                                 }}
@@ -81,7 +81,6 @@ export const CustomEditSpan: React.FC<CustomEditSpanPropsType> = React.memo((pro
                         <span onDoubleClick={onDoubleClickCallBack}
                               data-testid='span'
                               className={finalClassName}
-                              defaultValue='123'
                               {...restSpanProps}>
                                          {children || value}
                         </span>

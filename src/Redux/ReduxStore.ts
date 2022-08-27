@@ -1,18 +1,15 @@
 
-import {actions, toDoReducer} from './ToDoReducer';
+import {actions, toDoReducer} from './Todo/ToDoReducer';
 import {loadState, saveState} from "../local-storage-utils/Local-storage-utils";
 import thunk, {ThunkAction, ThunkDispatch} from "redux-thunk";
-import {composeWithDevTools} from "@redux-devtools/extension";
-import {appReducer, appSlice, thunkApp} from "./AppReducer";
-import {actionsAuth, authReducer, thunkAuth} from "./auth/Auth";
+import {actionsApp, appReducer} from "./Application/AppReducer";
+import {actionsAuth, authReducer} from "./auth/Auth";
 import {configureStore,combineReducers} from "@reduxjs/toolkit";
 
 
 
 export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
-export type InferThunksType<T> = T extends { [keys: string]: (...args: any[]) =>(dispatch:AppDispatchType,getState:AppRootStateType)=> infer U } ? Promise<U>: never
-export type UnionThunkType=InferThunksType<typeof thunkApp>
-export type UnionActionsType = InferActionsType<typeof actions | typeof appSlice.actions|typeof actionsAuth>
+export type UnionActionsType = InferActionsType<typeof actions | typeof actionsApp>
 export type AppRootStateType = ReturnType<typeof rootReducer>
 export type AppDispatchType = ThunkDispatch<AppRootStateType, unknown, UnionActionsType>
 export type AppThunk<ReturnType=any> = ThunkAction<ReturnType, AppRootStateType, unknown, UnionActionsType>

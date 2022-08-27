@@ -1,6 +1,6 @@
 import {TaskType} from "../../Types";
 import React, {useCallback, useState} from "react";
-import {thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/Todo/ToDoReducer';
 import {Box, Card, CardContent, Checkbox, IconButton, LinearProgress, Typography} from "@mui/material";
 import {CheckCircleOutline, Clear, Create, RadioButtonUnchecked} from "@mui/icons-material";
 import {CustomEditSpan} from "../../CustomComponent/CustomEditSpan";
@@ -20,7 +20,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         const [editModeControlled, setEditModeControlled] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingId = useSelectorApp(store => store.appReducer.waitingList[task.id])
+        const isWaitingId = useSelectorApp(store => store.toDoReducer.waitingList[task.id])
 
 
         const checkTask = useCallback(() => {
@@ -48,7 +48,7 @@ export const Task: React.FC<TaskPropsType> = React.memo(({task, todoId}) => {
         }, [dispatch, task, taskValue, error])
 
         const deleteTask = useCallback(() => {
-            dispatch(thunks.deleteTask(todoId, task))
+            dispatch(thunks.deleteTask( task))
 
         }, [dispatch, task.id, todoId])
 

@@ -1,6 +1,5 @@
 import axios, {AxiosResponse} from "axios";
 import {TaskType} from "../Types";
-import {limitRPS} from "../utils/LimitRPS";
 import axiosRateLimit from "axios-rate-limit";
 
 
@@ -24,7 +23,7 @@ export type TodoListItem = {
     isASynchronizedTodo?:boolean
 }
 
-type GetTaskType = {
+export type GetTaskType = {
     error:string|null
     items: TaskItem[]
     totalCount:number
@@ -75,27 +74,12 @@ export const API = {
 
     getTasks: (todolistId: string, count: number = 100, page: number = 1) => {
         return instance.get(`todo-lists/${todolistId}/tasks?count=${count}&page=${page}`)
-            .then((response: AxiosResponse<GetTaskType>) => {
-                    return {
-                        tasks: response.data.items,
-                        totalCount: response.data.totalCount,
-                        status: response.status,
-                        statusText: response.statusText
-                    }
-                }
-            )
+            .then((response: AxiosResponse<GetTaskType>) => response)
     },
 
 
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
-        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => {
-                return {
-                    TodoListItem: response.data.data.item,
-                    resultCode: response.data.resultCode,
-                    messages: response.data.messages
-                }
-            }
-        ),
+        .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => response),
 
     updateTodoLis: (todolistId: string, title: string) => {
         return instance.put(`todo-lists/${todolistId}`, {title: title})
@@ -113,14 +97,7 @@ export const API = {
 
     createNewTask: (todolistId: string, taskTitle: string) =>
         instance.post(`todo-lists/${todolistId}/tasks`, {title: taskTitle})
-            .then((response: AxiosResponse<Data<Item<TaskItem>>>) => {
-                    return {
-                        createdTask: response.data.data.item,
-                        resultCode: response.data.resultCode,
-                        messages: response.data.messages
-                    }
-                }
-            ),
+            .then((response: AxiosResponse<Data<Item<TaskItem>>>) => response),
 
     updateTask: (task: TaskType) => {
         return instance.put(`todo-lists/${task.todoListId}/tasks/${task.id}`,
@@ -132,14 +109,7 @@ export const API = {
                 startDate: task.startDate,
                 deadline: task.deadline
             }
-        ).then((response:AxiosResponse<Data<Item<TaskItem>>>) => {
-                    return {
-                        newTask: response.data.data.item,
-                        resultCode: response.data.resultCode,
-                        messages: response.data.messages
-                    }
-                }
-            )
+        ).then((response:AxiosResponse<Data<Item<TaskItem>>>) => response)
     },
 
     deleteTask: (todolistId: string, taskId: string) => instance.delete(`todo-lists/${todolistId}/tasks/${taskId}`)

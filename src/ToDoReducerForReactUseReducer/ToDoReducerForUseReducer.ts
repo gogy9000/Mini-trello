@@ -1,9 +1,9 @@
-// import {StateType, TaskType, TodoTitleType} from "../Types";
+// import {InitialStateTodoType, TaskType, TodoTitleType} from "../Types";
 //
 // import {v1} from 'uuid';
 //
 //
-// export const initialState: StateType = {
+// export const initialState: InitialStateTodoType = {
 //     tasksTitle: [] as Array<TodoTitleType>,
 //
 //     taskBody: {
@@ -21,7 +21,7 @@
 // export type InferActionsType<T> = T extends { [keys: string]: (...args: any[]) => infer U } ? U : never
 // export type ActionsType = InferActionsType<typeof actions>
 //
-// export let toDoReducer = (state: StateType = initialState, action: ActionsType): StateType => {
+// export let toDoReducer = (state: InitialStateTodoType = initialState, action: ActionsType): InitialStateTodoType => {
 //
 //     switch (action.type) {
 //
@@ -104,7 +104,7 @@
 //         case 'CHECK-TASK':
 //
 //
-//             let copyState: StateType = {
+//             let copyState: InitialStateTodoType = {
 //                 ...state,
 //                 tasksTitle: state.tasksTitle,
 //                 // @ts-ignore
@@ -182,7 +182,7 @@
 //     updateTodoNameAC: (titleName: string, todo: string) =>
 //         ({type: 'UPDATE-TODO-NAME', todo, titleName} as const),
 //     createNewTodoAC: (todoName: string) => ({type: 'CREATE-NEW-TODO', todoName, toDoId: v1()} as const),
-//     deleteTaskAC: (id: string, todo: string) => ({type: 'DELETE-TASK', id, todo} as const),
+//     deleteTask: (id: string, todo: string) => ({type: 'DELETE-TASK', id, todo} as const),
 //     addTaskAC: (todo: string, inputText: string) => ({
 //         type: 'ADD-TASK',
 //         todo,

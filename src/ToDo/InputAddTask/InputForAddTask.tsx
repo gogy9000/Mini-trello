@@ -1,6 +1,6 @@
 import React, {useCallback, useState} from "react";
 import '../../App.css';
-import {thunks} from '../../Redux/ToDoReducer';
+import {thunks} from '../../Redux/Todo/ToDoReducer';
 import {Stack, TextField} from "@mui/material";
 import {AddTask} from "@mui/icons-material";
 import {useDispatchApp, useSelectorApp} from "../../App";
@@ -17,7 +17,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingTodo = useSelectorApp(store => store.appReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo.id])
 
         const addTask = useCallback(() => {
 
@@ -26,7 +26,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
                 return
             }
 
-            dispatch(thunks.addTaskTC(todo, inputText))
+            dispatch(thunks.addTask({todo, taskTitle:inputText}))
             setInputText('')
         }, [dispatch, todo.id, inputText])
 

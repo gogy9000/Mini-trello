@@ -23,10 +23,12 @@ export type TodoTitleType ={
     isASynchronizedTodo?:boolean
 }
 
-export type StateType={
+export type InitialStateTodoType ={
     tasksTitle:Array<TodoTitleType>
     taskBody:taskBodyType
-    offlineMode:boolean
+    offlineMode:boolean,
+    waitingList:{ [id: string]: boolean }
+    errors:string[]
 
 }
 export type taskBodyType={

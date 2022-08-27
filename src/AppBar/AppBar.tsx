@@ -17,7 +17,7 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import {Task} from "@mui/icons-material";
 import {Stack, Switch, Tooltip} from "@mui/material";
 import {useDispatchApp, useSelectorApp} from "../App";
-import {actions} from "../Redux/ToDoReducer";
+import {actions} from "../Redux/Todo/ToDoReducer";
 import {thunkAuth} from "../Redux/auth/Auth";
 import {Navigate, NavLink} from 'react-router-dom';
 

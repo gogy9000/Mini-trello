@@ -4,13 +4,12 @@ import {TodoContainer} from "./ToDo/TodoContainer";
 import {CircularProgress, LinearProgress} from "@mui/material";
 import {PrimarySearchAppBar} from "./AppBar/AppBar";
 import {TypedUseSelectorHook, useDispatch, useSelector} from "react-redux";
-import {thunks} from "./Redux/ToDoReducer";
+import {actions, thunks} from "./Redux/Todo/ToDoReducer";
 import {AppDispatchType, AppRootStateType} from "./Redux/ReduxStore";
-import {appSlice, thunkApp} from "./Redux/AppReducer";
+import {actionsApp, thunkApp} from "./Redux/Application/AppReducer";
 import {TransitionAlerts} from "./TransitionAlerts";
 import {Navigate, Route, Routes} from 'react-router-dom';
 import {Login} from "./features/Login";
-import {limitRPS} from "./utils/LimitRPS";
 
 
 export const useDispatchApp: () => AppDispatchType = useDispatch
@@ -19,31 +18,39 @@ export const useSelectorApp: TypedUseSelectorHook<AppRootStateType> = useSelecto
 export const App = React.memo(() => {
 
         const state = useSelectorApp(state => state.toDoReducer)
-        const stateApp = useSelectorApp(state => state.appReducer)
+        const isInitialization = useSelectorApp(state => state.appReducer.isInitialization)
+        const isFetchingAuth = useSelectorApp(state => state.authReducer.isFetching)
+        const networkError = useSelectorApp(state => state.appReducer.networkError)
+        const clientsError = useSelectorApp(state => state.appReducer.clientsError)
+        const errors = useSelectorApp(state => state.toDoReducer.errors)
         const isAuthorized = useSelectorApp(state => state.authReducer.isAuthorized)
 
         const dispatch = useDispatchApp()
 
         useEffect(() => {
-            if (isAuthorized) {
+            if (!isAuthorized) {
                 dispatch(thunkApp.initializeApp())
             }
-
         }, [isAuthorized])
 
         useEffect(() => {
+            dispatch(thunks.getTodolistAndTasks())
+        }, [])
+
+
+        useEffect(() => {
             if (isAuthorized && !state.offlineMode) {
-                dispatch(thunks.synchronizeTodoAll())
+                dispatch(thunks.synchronizeTodos())
             }
         }, [state.offlineMode, isAuthorized])
 
         const clearErrorCallback = useCallback(() => {
-
-            dispatch(appSlice.actions.changeHandleNetworkError(''))
-            dispatch(appSlice.actions.changeHandleClientsError([]))
+            dispatch(actionsApp.changeHandleNetworkError(''))
+            dispatch(actionsApp.changeHandleClientsError([]))
+            dispatch(actions.clearErrors([]))
         }, [dispatch])
 
-        if (stateApp.isInitialization) {
+        if (isInitialization || isFetchingAuth) {
             return <div
                 style={{position: 'fixed', top: '30%', textAlign: 'center', width: '100%'}}>
                 <CircularProgress/>
@@ -52,9 +59,9 @@ export const App = React.memo(() => {
         return (
 
             <>
+                {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
                 <PrimarySearchAppBar/>
 
-                {stateApp.isWaitingApp && <LinearProgress/>}
 
                 <Routes>
                     <Route path='/' element={<TodoContainer/>}/>
@@ -64,9 +71,9 @@ export const App = React.memo(() => {
                     <Route path='*' element={<Navigate to='/404'/>}/>
                 </Routes>
 
-                <TransitionAlerts error={stateApp.networkError} clearErrorCallback={clearErrorCallback}/>
-                <TransitionAlerts error={stateApp.clientsError[0]} clearErrorCallback={clearErrorCallback}/>
-
+                <TransitionAlerts error={networkError} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={clientsError[0]} clearErrorCallback={clearErrorCallback}/>
+                <TransitionAlerts error={errors[0]} clearErrorCallback={clearErrorCallback}/>
             </>
 
         )
