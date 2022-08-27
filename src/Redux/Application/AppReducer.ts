@@ -6,8 +6,7 @@ export const thunkApp = {
     initializeApp: createAsyncThunk("app/initializeApp",
         async (params, {dispatch}) => {
             await dispatch(thunkAuth.authMe())
-            await dispatch(thunks.getTodolistAndTasks())
-            return
+
         })
 }
 

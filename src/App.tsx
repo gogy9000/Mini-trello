@@ -31,8 +31,12 @@ export const App = React.memo(() => {
             if (!isAuthorized) {
                 dispatch(thunkApp.initializeApp())
             }
-
         }, [isAuthorized])
+
+        useEffect(() => {
+            dispatch(thunks.getTodolistAndTasks())
+        }, [])
+
 
         useEffect(() => {
             if (isAuthorized && !state.offlineMode) {
@@ -55,9 +59,9 @@ export const App = React.memo(() => {
         return (
 
             <>
+                {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
                 <PrimarySearchAppBar/>
 
-                {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
 
                 <Routes>
                     <Route path='/' element={<TodoContainer/>}/>

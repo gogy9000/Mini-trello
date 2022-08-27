@@ -4,10 +4,14 @@ import {AppRootStateType} from "../ReduxStore";
 import {v1} from "uuid";
 import {actionsApp} from "../Application/AppReducer";
 import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
-import {createAsyncThunk, createSlice, Draft, PayloadAction} from "@reduxjs/toolkit";
+import {createAsyncThunk, createSlice, Draft, PayloadAction, SerializedError} from "@reduxjs/toolkit";
 import {AxiosResponse} from "axios";
-import {ThunkResult} from "@reduxjs/toolkit/dist/query/core/buildThunks";
-import {FulfilledActionFromAsyncThunk} from "@reduxjs/toolkit/dist/matchers";
+import {RejectedAction, ThunkResult} from "@reduxjs/toolkit/dist/query/core/buildThunks";
+import {
+    AnyAsyncThunk,
+    FulfilledActionFromAsyncThunk,
+    RejectedActionFromAsyncThunk
+} from "@reduxjs/toolkit/dist/matchers";
 
 enum todo {
     todo = 'todo',
@@ -27,6 +31,7 @@ enum todo {
 
 export const thunks = {
     synchronizeTodos: createAsyncThunk(todo.synchronizeTodos, (param, {dispatch, getState}) => {
+
         const state = getState() as AppRootStateType
         state.toDoReducer.tasksTitle.forEach((todo) => {
                 dispatch(thunks.synchronizeTodo(todo))
@@ -36,6 +41,7 @@ export const thunks = {
 
     synchronizeTodo: createAsyncThunk
     (todo.synchronizeTodo, async (todo: TodoListItem, {dispatch, getState}) => {
+
         const state = getState() as AppRootStateType
         if (todo.isASynchronizedTodo) {
             const promise = API.createTodoList(todo.title).then((response) => {
@@ -101,6 +107,7 @@ export const thunks = {
 
     getTodolistAndTasks: createAsyncThunk
     (todo.getTodolistAndTasks, async (param, {dispatch, getState}) => {
+
         let state = getState() as AppRootStateType
         if (state.toDoReducer.offlineMode) {
             return
@@ -231,33 +238,31 @@ export const thunks = {
         }
     }),
 
-    updateTask: createAsyncThunk(todo.updateTask, async (task: TaskType, {dispatch, rejectWithValue}) => {
+    updateTask: createAsyncThunk<TaskType, TaskType, { rejectValue: { messages: string[] } }>
+    (todo.updateTask, async (task: TaskType, {dispatch, rejectWithValue}) => {
         if (task.isASynchronizedTask) {
             if (task.title.length > 100) {
-                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
-                handleClientsError(dispatch, [error])
-            } else {
-                dispatch(actions.updateTaskAC(task))
+                return rejectWithValue({messages: ["max length 100 symbols"]})
             }
+            return task
         } else {
-            const promise = API.updateTask(task).then((response) => {
-                if (response.data.resultCode === 0) {
-                    dispatch(actions.updateTaskAC(response.data.data.item))
-                }
-                return response
-            })
-            errorsInterceptor(dispatch, [promise])
-            return promise
+            const response = await API.updateTask(task)
+            if (response.data.resultCode === 0) {
+                return response.data.data.item
+            } else {
+                return rejectWithValue({messages: response.data.messages})
+            }
         }
     }),
 
-    deleteTask: createAsyncThunk<{ response: Data,task:TaskType }, TaskType, {}>
+    deleteTask: createAsyncThunk<{ response: Data, task: TaskType }, TaskType, {}>
     (todo.deleteTask, async (task: TaskType, thunkAPI) => {
             if (task.isASynchronizedTask) {
                 return {response: {data: {}, fieldsErrors: [""], messages: [""], resultCode: 0}, task}
             } else {
-                    const promise = await  API.deleteTask(task.todoListId, task.id)
-                        return {response:promise.data, task}}
+                const promise = await API.deleteTask(task.todoListId, task.id)
+                return {response: promise.data, task}
+            }
         }
     )
 }
@@ -269,7 +274,7 @@ export const initialState: InitialStateTodoType =
         taskBody: {},
         offlineMode: true,
         waitingList: {},
-        errors:[]
+        errors: []
     }
 
 const todoSlice = createSlice({
@@ -298,10 +303,6 @@ const todoSlice = createSlice({
             state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
                 .map(task => task.id === action.payload.id ? action.payload : task)
         },
-        // deleteTask: (state, action: PayloadAction<{ taskId: string, todoId: string }>) => {
-        //     state.taskBody[action.payload.todoId] = state.taskBody[action.payload.todoId]
-        //         .filter(task => task.id !== action.payload.taskId)
-        // },
         refreshTodoListAC: (state, action: PayloadAction<TodoListItem[]>) => {
 
             state.tasksTitle = action.payload.reduce((acc, todo: TodoListItem) => {
@@ -334,25 +335,34 @@ const todoSlice = createSlice({
             })
         },
         clearErrors: (state, action) => {
-            state.errors=action.payload
+            state.errors = action.payload
         }
     },
     extraReducers: builder => {
 
-        const addIdInWaitingList=(state:InitialStateTodoType,id:string)=>{
+        const addIdInWaitingList = (state: InitialStateTodoType, id: string) => {
             return Object.assign(state.waitingList, {[id]: true})
         }
-        const removeIdInWaitingList=(state:InitialStateTodoType,id:string)=>{
+        const removeIdInWaitingList = (state: InitialStateTodoType, id: string) => {
             return delete state.waitingList[id]
         }
-        const networkErrorsInterceptor=(state:InitialStateTodoType,errors?:string)=>{
-          return  errors?state.errors.push(errors):state
+        const networkErrorsInterceptor = (state: InitialStateTodoType, errors?: string) => {
+            return errors ? state.errors.push(errors) : state
         }
-        const clientsErrorsInterceptor = (state:InitialStateTodoType,errors:string[]) => {
-          return   state.errors.concat(errors)
+        const clientsErrorsInterceptor = (state: InitialStateTodoType, errors: string[]) => {
+
+            return state.errors.push(...errors)
+        }
+        const unionErrorsInterceptor = (state: InitialStateTodoType, action: PayloadAction<{ messages: string[]; } | undefined, any, any, SerializedError>) => {
+            if (!!action.payload) {
+                return clientsErrorsInterceptor(state, action.payload.messages)
+            } else {
+                return networkErrorsInterceptor(state, action.error.message)
+            }
         }
 
         builder
+            //delete task
             .addCase(thunks.deleteTask.pending, (state, action) => {
                 addIdInWaitingList(state, action.meta.arg.id)
             })
@@ -360,24 +370,29 @@ const todoSlice = createSlice({
                 if (action.payload.response.resultCode === 0) {
                     state.taskBody[action.payload.task.todoListId] = state.taskBody[action.payload.task.todoListId]
                         .filter(task => task.id !== action.payload.task.id)
-                }else {
-                    clientsErrorsInterceptor(state,action.payload.response.messages)
+                } else {
+                    clientsErrorsInterceptor(state, action.payload.response.messages)
                 }
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.deleteTask.rejected, (state, action) => {
-                networkErrorsInterceptor(state,action.error.message)
+                networkErrorsInterceptor(state, action.error.message)
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
+            //update task
             .addCase(thunks.updateTask.pending, (state, action) => {
                 addIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.updateTask.fulfilled, (state, action) => {
-                 removeIdInWaitingList(state, action.meta.arg.id)
-            })
-            .addCase(thunks.updateTask.rejected, (state, action) => {
+                state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
+                    .map(task => task.id === action.payload.id ? action.payload : task)
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
+            .addCase(thunks.updateTask.rejected, (state, action) => {
+                unionErrorsInterceptor(state, action)
+                removeIdInWaitingList(state, action.meta.arg.id)
+            })
+
             .addCase(thunks.addTask.pending, (state, action) => {
                 addIdInWaitingList(state, action.meta.arg.todo.id)
             })
@@ -387,8 +402,9 @@ const todoSlice = createSlice({
             .addCase(thunks.addTask.rejected, (state, action) => {
                 removeIdInWaitingList(state, action.meta.arg.todo.id)
             })
+
             .addCase(thunks.deleteTodolist.pending, (state, action) => {
-                 addIdInWaitingList(state, action.meta.arg.id)
+                addIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.deleteTodolist.fulfilled, (state, action) => {
                 removeIdInWaitingList(state, action.meta.arg.id)

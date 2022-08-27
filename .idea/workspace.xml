@@ -4,12 +4,11 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.ts">
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.test.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/utils/HadleErrorUtils.ts" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -113,6 +112,19 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="task should be deleted" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="task should be deleted" />
+      </test-names>
+      <method v="2" />
+    </configuration>
     <configuration name="jest:integration-update" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -153,23 +165,13 @@
       <envs />
       <method v="2" />
     </configuration>
-    <configuration name="update-snapshots" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="update-snapshots" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="Jest.task should be deleted" />
         <item itemvalue="npm.test" />
         <item itemvalue="Jest.AuthData should be added" />
         <item itemvalue="npm.jest:integration-update" />
-        <item itemvalue="npm.update-snapshots" />
       </list>
     </recent_temporary>
   </component>
@@ -272,28 +274,9 @@
       <workItem from="1660631124948" duration="12354000" />
       <workItem from="1660714807787" duration="28158000" />
       <workItem from="1661145537289" duration="24790000" />
-      <workItem from="1661240447375" duration="15643000" />
-    </task>
-    <task id="LOCAL-00052" summary="create synchronizeTodo (101%)">
-      <created>1655639424780</created>
-      <option name="number" value="00052" />
-      <option name="presentableId" value="LOCAL-00052" />
-      <option name="project" value="LOCAL" />
-      <updated>1655639424780</updated>
-    </task>
-    <task id="LOCAL-00053" summary="refactoring (10%)">
-      <created>1655722647440</created>
-      <option name="number" value="00053" />
-      <option name="presentableId" value="LOCAL-00053" />
-      <option name="project" value="LOCAL" />
-      <updated>1655722647441</updated>
-    </task>
-    <task id="LOCAL-00054" summary="refactoring (15%), create unit-tests">
-      <created>1655919547286</created>
-      <option name="number" value="00054" />
-      <option name="presentableId" value="LOCAL-00054" />
-      <option name="project" value="LOCAL" />
-      <updated>1655919547286</updated>
+      <workItem from="1661240447375" duration="15706000" />
+      <workItem from="1661314861740" duration="29116000" />
+      <workItem from="1661610881841" duration="6535000" />
     </task>
     <task id="LOCAL-00055" summary="create AppReducer.ts">
       <created>1655976091567</created>
@@ -617,7 +600,28 @@
       <option name="project" value="LOCAL" />
       <updated>1661249264494</updated>
     </task>
-    <option name="localTasksCounter" value="101" />
+    <task id="LOCAL-00101" summary=" refactoring ToDoReducer.ts">
+      <created>1661281340275</created>
+      <option name="number" value="00101" />
+      <option name="presentableId" value="LOCAL-00101" />
+      <option name="project" value="LOCAL" />
+      <updated>1661281340275</updated>
+    </task>
+    <task id="LOCAL-00102" summary=" refactoring ToDoReducer.ts">
+      <created>1661347757427</created>
+      <option name="number" value="00102" />
+      <option name="presentableId" value="LOCAL-00102" />
+      <option name="project" value="LOCAL" />
+      <updated>1661347757427</updated>
+    </task>
+    <task id="LOCAL-00103" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661356518189</created>
+      <option name="number" value="00103" />
+      <option name="presentableId" value="LOCAL-00103" />
+      <option name="project" value="LOCAL" />
+      <updated>1661356518189</updated>
+    </task>
+    <option name="localTasksCounter" value="104" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -636,7 +640,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="use CollapsedButtons.tsx" />
     <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
     <MESSAGE value="creat Login.tsx" />
@@ -661,7 +664,8 @@
     <MESSAGE value="migration on createAsyncThunk (30%)" />
     <MESSAGE value="create errorsInterceptor, refactoring authReducer" />
     <MESSAGE value=" refactoring ToDoReducer.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value=" refactoring ToDoReducer.ts" />
+    <MESSAGE value=" refactoring ToDoReducer.test.ts" />
+    <option name="LAST_COMMIT_MESSAGE" value=" refactoring ToDoReducer.test.ts" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
