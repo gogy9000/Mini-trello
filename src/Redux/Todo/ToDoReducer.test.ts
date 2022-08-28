@@ -75,11 +75,11 @@ test('Todo should be add', () => {
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle.length).toBe(2)
 })
-// test('Task should be added', () => {
-//     let action = actions.addTaskAC(newTask)
-//     let newState = toDoReducer(stateToDo, action)
-//     expect(newState.taskBody[newTask.todoListId].length).toBe(2)
-// })
+test('Task should be added', () => {
+    let action = thunks.addTask.fulfilled(newTask,"", {todo:stateToDo.tasksTitle[0],taskTitle:newTask.title})
+    let newState = toDoReducer(stateToDo, action)
+    expect(newState.taskBody[newTask.todoListId].length).toBe(2)
+})
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
     let action = thunks.updateTask.fulfilled(updatedTask,"",updatedTask)
@@ -92,7 +92,7 @@ test('to-do name should be updated', () => {
     expect(newState.tasksTitle[0].title).toBe('title updated')
 })
 test('ToDo should be removed', () => {
-    let action = actions.removeTodoAC(todoId)
+    let action = thunks.deleteTodolist.fulfilled(todoId,todoId,stateToDo.tasksTitle[0])
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId]).toBe(undefined)
     expect(newState.tasksTitle.length).toBe(0)

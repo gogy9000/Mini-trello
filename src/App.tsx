@@ -65,7 +65,7 @@ export const App = React.memo(() => {
 
                 <Routes>
                     <Route path='/' element={<TodoContainer/>}/>
-                    <Route path='/incubator-to-do-list' element={<TodoContainer/>}/>
+                    <Route path='/Mini-trello' element={<TodoContainer/>}/>
                     <Route path='/login' element={<Login/>}/>
                     <Route path='/404' element={<h1>404:PAGE NOT FOUND</h1>}/>
                     <Route path='*' element={<Navigate to='/404'/>}/>

@@ -5,13 +5,7 @@ import {v1} from "uuid";
 import {actionsApp} from "../Application/AppReducer";
 import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
 import {createAsyncThunk, createSlice, Draft, PayloadAction, SerializedError} from "@reduxjs/toolkit";
-import {AxiosResponse} from "axios";
-import {RejectedAction, ThunkResult} from "@reduxjs/toolkit/dist/query/core/buildThunks";
-import {
-    AnyAsyncThunk,
-    FulfilledActionFromAsyncThunk,
-    RejectedActionFromAsyncThunk
-} from "@reduxjs/toolkit/dist/matchers";
+
 
 enum todo {
     todo = 'todo',
@@ -70,7 +64,7 @@ export const thunks = {
                     })
                     Promise.allSettled([promise])
                         .then(() => {
-                            dispatch(actions.removeTodoAC(todo.id))
+                            dispatch(thunks.deleteTodolist(todo))
 
                         })
 
@@ -184,20 +178,18 @@ export const thunks = {
         }
     }),
 
-    deleteTodolist: createAsyncThunk
-    (todo.deleteTodolist, async (todo: TodoListItem, {dispatch}) => {
+    deleteTodolist: createAsyncThunk<string,TodoListItem,{ rejectValue: string[]}>
+    (todo.deleteTodolist, async (todo: TodoListItem, {rejectWithValue}) => {
         const {id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
-            dispatch(actions.removeTodoAC(todo.id))
+            return  id
         } else {
-            const promise = API.deleteTodoList(id).then((response) => {
+            const response = await API.deleteTodoList(id)
                 if (response.data.resultCode === 0) {
-                    dispatch(actions.removeTodoAC(id))
+                    return  id
+                }else {
+                    return rejectWithValue(response.data.messages)
                 }
-                return response
-            })
-            errorsInterceptor(dispatch, [promise])
-            return promise
         }
     }),
 
@@ -237,7 +229,7 @@ export const thunks = {
     }),
 
     updateTask: createAsyncThunk<TaskType, TaskType, { rejectValue: string[] }>
-    (todo.updateTask, async (task: TaskType, {fulfillWithValue, rejectWithValue}) => {
+    (todo.updateTask, async (task: TaskType, {rejectWithValue}) => {
         if (task.isASynchronizedTask) {
             if (task.title.length > 100) {
                 return rejectWithValue(["max length 100 symbols"])
@@ -280,10 +272,6 @@ const todoSlice = createSlice({
     name: todo.todo,
     initialState: initialState,
     reducers: {
-        removeTodoAC: (state, action: PayloadAction<string>) => {
-            state.tasksTitle = state.tasksTitle.filter(todo => todo.id !== action.payload)
-            delete state.taskBody[action.payload]
-        },
         updateTodoNameAC: (state, action: PayloadAction<{ title: string, id: string }>) => {
             state.tasksTitle.forEach(todo => {
                 if (todo.id === action.payload.id) {
@@ -295,9 +283,7 @@ const todoSlice = createSlice({
             state.tasksTitle = [...state.tasksTitle, {...action.payload, filter: 'All'}]
             state.taskBody[action.payload.id] = []
         },
-        // addTaskAC: (state, action: PayloadAction<TaskType>) => {
-        //     state.taskBody[action.payload.todoListId].push(action.payload)
-        // },
+
         refreshTodoListAC: (state, action: PayloadAction<TodoListItem[]>) => {
 
             state.tasksTitle = action.payload.reduce((acc, todo: TodoListItem) => {
@@ -399,14 +385,17 @@ const todoSlice = createSlice({
                 unionErrorsInterceptor(state, action)
                 removeIdInWaitingList(state, action.meta.arg.todo.id)
             })
-
+            //delete todoList
             .addCase(thunks.deleteTodolist.pending, (state, action) => {
                 addIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.deleteTodolist.fulfilled, (state, action) => {
+                state.tasksTitle = state.tasksTitle.filter(todo => todo.id !== action.payload)
+                delete state.taskBody[action.payload]
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.deleteTodolist.rejected, (state, action) => {
+
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
     }
