@@ -157,24 +157,22 @@ export const thunks = {
         }
     }),
 
-    updateTodoList: createAsyncThunk(todo.updateTodoList, async (todo: TodoListItem, {dispatch}) => {
+    updateTodoList: createAsyncThunk<TodoListItem,TodoListItem,{ rejectValue: string[]}>
+    (todo.updateTodoList, async (todo: TodoListItem, {rejectWithValue}) => {
         const {title, id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
             if (title.length > 100) {
-                const error = "The field Title must be a string or array type with a maximum length of '100'. (Title)"
-                handleClientsError(dispatch, [error])
+              return rejectWithValue(["Maximum length of '100'. (Title)"])
             } else {
-                dispatch(actions.updateTodoNameAC({title, id}))
+              return todo
             }
         } else {
-            const promise = API.updateTodoLis(id, title).then((response) => {
+            const response = await API.updateTodoLis(id, title)
                 if (response.data.resultCode === 0) {
-                    dispatch(actions.updateTodoNameAC({title, id}))
+                 return todo
+                }else {
+                   return  rejectWithValue(response.data.messages)
                 }
-                return response
-            })
-            errorsInterceptor(dispatch, [promise])
-            return promise
         }
     }),
 
@@ -272,13 +270,6 @@ const todoSlice = createSlice({
     name: todo.todo,
     initialState: initialState,
     reducers: {
-        updateTodoNameAC: (state, action: PayloadAction<{ title: string, id: string }>) => {
-            state.tasksTitle.forEach(todo => {
-                if (todo.id === action.payload.id) {
-                    todo.title = action.payload.title
-                }
-            })
-        },
         createNewTodoAC: (state, action: PayloadAction<TodoListItem>) => {
             state.tasksTitle = [...state.tasksTitle, {...action.payload, filter: 'All'}]
             state.taskBody[action.payload.id] = []
@@ -395,7 +386,23 @@ const todoSlice = createSlice({
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
             .addCase(thunks.deleteTodolist.rejected, (state, action) => {
-
+                unionErrorsInterceptor(state, action)
+                removeIdInWaitingList(state, action.meta.arg.id)
+            })
+            //update todoList
+            .addCase(thunks.updateTodoList.pending, (state, action) => {
+                addIdInWaitingList(state, action.meta.arg.id)
+            })
+            .addCase(thunks.updateTodoList.fulfilled, (state, action) => {
+                state.tasksTitle.forEach(todo => {
+                    if (todo.id === action.payload.id) {
+                        todo.title = action.payload.title
+                    }
+                })
+                removeIdInWaitingList(state, action.meta.arg.id)
+            })
+            .addCase(thunks.updateTodoList.rejected, (state, action) => {
+                unionErrorsInterceptor(state, action)
                 removeIdInWaitingList(state, action.meta.arg.id)
             })
     }
