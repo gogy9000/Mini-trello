@@ -33,6 +33,7 @@ let stateStories:AppRootStateType["toDoReducer"] = {
     },
     offlineMode: true,
     waitingList:{},
+    isFetching:false,
     errors:[]
 }
 

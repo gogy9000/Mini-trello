@@ -2,7 +2,7 @@ import {InitialStateTodoType, TaskType} from "../../Types";
 
 import {actions, thunks, toDoReducer} from "./ToDoReducer";
 import {actionsApp, appReducer} from "../Application/AppReducer";
-import {Data} from "../../DAL/TodoAPI";
+import {Data, TaskItem} from "../../DAL/TodoAPI";
 
 
 let stateToDo: InitialStateTodoType
@@ -53,6 +53,7 @@ beforeEach(() => {
             },
             offlineMode: true,
             waitingList:{},
+            isFetching:false,
             errors:[],
         }
     }
@@ -75,11 +76,11 @@ test('Todo should be add', () => {
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle.length).toBe(2)
 })
-// test('Task should be added', () => {
-//     let action = actions.addTaskAC(newTask)
-//     let newState = toDoReducer(stateToDo, action)
-//     expect(newState.taskBody[newTask.todoListId].length).toBe(2)
-// })
+test('Task should be added', () => {
+    let action = thunks.addTask.fulfilled(newTask,"", {todo:stateToDo.tasksTitle[0],taskTitle:newTask.title})
+    let newState = toDoReducer(stateToDo, action)
+    expect(newState.taskBody[newTask.todoListId].length).toBe(2)
+})
 test('task to be updated', () => {
     let updatedTask = {...stateToDo.taskBody[todoId][0], title: 'new task'}
     let action = thunks.updateTask.fulfilled(updatedTask,"",updatedTask)
@@ -87,12 +88,13 @@ test('task to be updated', () => {
     expect(newState.taskBody[updatedTask.todoListId][0].title).toBe(updatedTask.title)
 })
 test('to-do name should be updated', () => {
-    let action = actions.updateTodoNameAC({title:'title updated', id:todoId})
+    const updatedTodo={...stateToDo.tasksTitle[0],title:'title updated'}
+    let action = thunks.updateTodoList.fulfilled(updatedTodo,"",updatedTodo)
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].title).toBe('title updated')
 })
 test('ToDo should be removed', () => {
-    let action = actions.removeTodoAC(todoId)
+    let action = thunks.deleteTodolist.fulfilled(todoId,todoId,stateToDo.tasksTitle[0])
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId]).toBe(undefined)
     expect(newState.tasksTitle.length).toBe(0)
@@ -112,7 +114,7 @@ test('todolist should be refreshed', () => {
             order: 1,
             title: 'string'
         }]
-    let action = actions.refreshTodoListAC(refreshedTodolist)
+    let action = thunks.getTodolistAndTasks.fulfilled(refreshedTodolist,"")
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].id).toBe('testId')
 
@@ -130,6 +132,7 @@ test('tasks should be refreshed', () => {
             startDate: null,
             deadline: null,
             addedDate: "2022-06-13T06:38:58.827",
+            isASynchronizedTask:true
         },
         {
             id: taskId2,
@@ -142,9 +145,10 @@ test('tasks should be refreshed', () => {
             startDate: null,
             deadline: null,
             addedDate: "2022-06-13T06:38:58.827",
+            isASynchronizedTask:true
         }
     ]
-    let action = actions.refreshTasks(refreshedTasks)
+    let action = thunks.getTasks.fulfilled(refreshedTasks,todoId,"")
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(2)
     expect(newState.taskBody[todoId][0].description).toBe('ololo')

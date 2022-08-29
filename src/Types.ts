@@ -28,6 +28,7 @@ export type InitialStateTodoType ={
     taskBody:taskBodyType
     offlineMode:boolean,
     waitingList:{ [id: string]: boolean }
+    isFetching:boolean
     errors:string[]
 
 }
