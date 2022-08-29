@@ -2,7 +2,7 @@ import {InitialStateTodoType, TaskType} from "../../Types";
 
 import {actions, thunks, toDoReducer} from "./ToDoReducer";
 import {actionsApp, appReducer} from "../Application/AppReducer";
-import {Data} from "../../DAL/TodoAPI";
+import {Data, TaskItem} from "../../DAL/TodoAPI";
 
 
 let stateToDo: InitialStateTodoType
@@ -53,6 +53,7 @@ beforeEach(() => {
             },
             offlineMode: true,
             waitingList:{},
+            isFetching:false,
             errors:[],
         }
     }
@@ -113,7 +114,7 @@ test('todolist should be refreshed', () => {
             order: 1,
             title: 'string'
         }]
-    let action = actions.refreshTodoListAC(refreshedTodolist)
+    let action = thunks.getTodolistAndTasks.fulfilled(refreshedTodolist,"")
     let newState = toDoReducer(stateToDo, action)
     expect(newState.tasksTitle[0].id).toBe('testId')
 
@@ -131,6 +132,7 @@ test('tasks should be refreshed', () => {
             startDate: null,
             deadline: null,
             addedDate: "2022-06-13T06:38:58.827",
+            isASynchronizedTask:true
         },
         {
             id: taskId2,
@@ -143,9 +145,10 @@ test('tasks should be refreshed', () => {
             startDate: null,
             deadline: null,
             addedDate: "2022-06-13T06:38:58.827",
+            isASynchronizedTask:true
         }
     ]
-    let action = actions.refreshTasks(refreshedTasks)
+    let action = thunks.getTasks.fulfilled(refreshedTasks,todoId,"")
     let newState = toDoReducer(stateToDo, action)
     expect(newState.taskBody[todoId].length).toBe(2)
     expect(newState.taskBody[todoId][0].description).toBe('ololo')

@@ -7,8 +7,10 @@
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.test.ts">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Application/AppReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -98,21 +100,8 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
     </key>
   </component>
-  <component name="RunManager" selected="npm.start">
-    <configuration name="AuthData should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/Redux/auth/AuthTests.ts" />
-      <test-names>
-        <test-name value="AuthData should be added" />
-      </test-names>
-      <method v="2" />
-    </configuration>
-    <configuration name="task should be deleted" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+  <component name="RunManager" selected="Jest.todolist should be refreshed">
+    <configuration name="Task should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
       <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
@@ -121,18 +110,47 @@
       <scope-kind value="TEST" />
       <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
       <test-names>
-        <test-name value="task should be deleted" />
+        <test-name value="Task should be added" />
       </test-names>
       <method v="2" />
     </configuration>
-    <configuration name="jest:integration-update" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="jest:integration-update" />
-      </scripts>
+    <configuration name="tasks should be refreshed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
       <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="tasks should be refreshed" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="to-do name should be updated" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="to-do name should be updated" />
+      </test-names>
+      <method v="2" />
+    </configuration>
+    <configuration name="todolist should be refreshed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
+      <node-interpreter value="project" />
+      <node-options value="" />
+      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
+      <working-dir value="$PROJECT_DIR$" />
+      <envs />
+      <scope-kind value="TEST" />
+      <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
+      <test-names>
+        <test-name value="todolist should be refreshed" />
+      </test-names>
       <method v="2" />
     </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
@@ -140,16 +158,6 @@
       <command value="run" />
       <scripts>
         <script value="start" />
-      </scripts>
-      <node-interpreter value="project" />
-      <envs />
-      <method v="2" />
-    </configuration>
-    <configuration name="test" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
-      <package-json value="$PROJECT_DIR$/package.json" />
-      <command value="run" />
-      <scripts>
-        <script value="test" />
       </scripts>
       <node-interpreter value="project" />
       <envs />
@@ -168,10 +176,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
-        <item itemvalue="Jest.task should be deleted" />
-        <item itemvalue="npm.test" />
-        <item itemvalue="Jest.AuthData should be added" />
-        <item itemvalue="npm.jest:integration-update" />
+        <item itemvalue="Jest.todolist should be refreshed" />
+        <item itemvalue="Jest.tasks should be refreshed" />
+        <item itemvalue="Jest.to-do name should be updated" />
+        <item itemvalue="Jest.Task should be added" />
       </list>
     </recent_temporary>
   </component>
@@ -276,42 +284,9 @@
       <workItem from="1661145537289" duration="24790000" />
       <workItem from="1661240447375" duration="15706000" />
       <workItem from="1661314861740" duration="29116000" />
-      <workItem from="1661610881841" duration="6535000" />
-    </task>
-    <task id="LOCAL-00055" summary="create AppReducer.ts">
-      <created>1655976091567</created>
-      <option name="number" value="00055" />
-      <option name="presentableId" value="LOCAL-00055" />
-      <option name="project" value="LOCAL" />
-      <updated>1655976091567</updated>
-    </task>
-    <task id="LOCAL-00056" summary="create TransitionAlerts">
-      <created>1655985880101</created>
-      <option name="number" value="00056" />
-      <option name="presentableId" value="LOCAL-00056" />
-      <option name="project" value="LOCAL" />
-      <updated>1655985880101</updated>
-    </task>
-    <task id="LOCAL-00057" summary="use TransitionAlerts">
-      <created>1655986851152</created>
-      <option name="number" value="00057" />
-      <option name="presentableId" value="LOCAL-00057" />
-      <option name="project" value="LOCAL" />
-      <updated>1655986851153</updated>
-    </task>
-    <task id="LOCAL-00058" summary=" create waitingList">
-      <created>1656002530030</created>
-      <option name="number" value="00058" />
-      <option name="presentableId" value="LOCAL-00058" />
-      <option name="project" value="LOCAL" />
-      <updated>1656002530030</updated>
-    </task>
-    <task id="LOCAL-00059" summary="use waitingList">
-      <created>1656004018707</created>
-      <option name="number" value="00059" />
-      <option name="presentableId" value="LOCAL-00059" />
-      <option name="project" value="LOCAL" />
-      <updated>1656004018708</updated>
+      <workItem from="1661610881841" duration="14515000" />
+      <workItem from="1661673840694" duration="14874000" />
+      <workItem from="1661754514195" duration="11786000" />
     </task>
     <task id="LOCAL-00060" summary="create toggleIsWaitingApp">
       <created>1656054048008</created>
@@ -621,7 +596,42 @@
       <option name="project" value="LOCAL" />
       <updated>1661356518189</updated>
     </task>
-    <option name="localTasksCounter" value="104" />
+    <task id="LOCAL-00104" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661617577867</created>
+      <option name="number" value="00104" />
+      <option name="presentableId" value="LOCAL-00104" />
+      <option name="project" value="LOCAL" />
+      <updated>1661617577868</updated>
+    </task>
+    <task id="LOCAL-00105" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661625402804</created>
+      <option name="number" value="00105" />
+      <option name="presentableId" value="LOCAL-00105" />
+      <option name="project" value="LOCAL" />
+      <updated>1661625402804</updated>
+    </task>
+    <task id="LOCAL-00106" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661625893623</created>
+      <option name="number" value="00106" />
+      <option name="presentableId" value="LOCAL-00106" />
+      <option name="project" value="LOCAL" />
+      <updated>1661625893623</updated>
+    </task>
+    <task id="LOCAL-00107" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661675828378</created>
+      <option name="number" value="00107" />
+      <option name="presentableId" value="LOCAL-00107" />
+      <option name="project" value="LOCAL" />
+      <updated>1661675828379</updated>
+    </task>
+    <task id="LOCAL-00108" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661677271873</created>
+      <option name="number" value="00108" />
+      <option name="presentableId" value="LOCAL-00108" />
+      <option name="project" value="LOCAL" />
+      <updated>1661677271873</updated>
+    </task>
+    <option name="localTasksCounter" value="109" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

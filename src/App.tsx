@@ -20,6 +20,8 @@ export const App = React.memo(() => {
         const state = useSelectorApp(state => state.toDoReducer)
         const isInitialization = useSelectorApp(state => state.appReducer.isInitialization)
         const isFetchingAuth = useSelectorApp(state => state.authReducer.isFetching)
+        const isFetchingTodo = useSelectorApp(state => state.toDoReducer.isFetching)
+
         const networkError = useSelectorApp(state => state.appReducer.networkError)
         const clientsError = useSelectorApp(state => state.appReducer.clientsError)
         const errors = useSelectorApp(state => state.toDoReducer.errors)
@@ -59,9 +61,8 @@ export const App = React.memo(() => {
         return (
 
             <>
-                {/*{stateApp.isWaitingApp && <LinearProgress/>}*/}
+                {isFetchingTodo && <LinearProgress/>}
                 <PrimarySearchAppBar/>
-
 
                 <Routes>
                     <Route path='/' element={<TodoContainer/>}/>
