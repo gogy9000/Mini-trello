@@ -16,20 +16,16 @@ export type AppThunk<ReturnType=any> = ThunkAction<ReturnType, AppRootStateType,
 
 const preloadedState :AppRootStateType = loadState()
 
-
-
-
 let rootReducer = combineReducers({
     toDoReducer,
     appReducer,
-    authReducer
+    authReducer,
 })
-
-
 
 export let store = configureStore({
         reducer:rootReducer,
-        middleware: (getDefaultMiddleware) => getDefaultMiddleware().prepend(thunk),
+        middleware: (getDefaultMiddleware) =>
+            getDefaultMiddleware().prepend(thunk),
         devTools: process.env.NODE_ENV !== 'production',
         preloadedState,
 

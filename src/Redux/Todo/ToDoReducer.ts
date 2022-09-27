@@ -2,10 +2,7 @@ import {InitialStateTodoType, TaskType, TodoTitleType} from "../../Types";
 import {API, Data, TaskItem, TodoListItem} from "../../DAL/TodoAPI";
 import {AppRootStateType} from "../ReduxStore";
 import {v1} from "uuid";
-import {actionsApp} from "../Application/AppReducer";
-import {errorsInterceptor, handleClientsError, handlerNetworkError} from "../../utils/HadleErrorUtils";
-import {createAsyncThunk, createSlice, Draft, PayloadAction, SerializedError} from "@reduxjs/toolkit";
-import {findAllInRenderedTree} from "react-dom/test-utils";
+import {createAsyncThunk, createSlice, PayloadAction, SerializedError} from "@reduxjs/toolkit";
 
 
 enum todo {
