@@ -5,12 +5,10 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.test.ts">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/App.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.tsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -70,7 +68,7 @@
     <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="com.intellij.ide.scratch.ScratchImplUtil$2/New Scratch File" value="JavaScript" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../tododo" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../chat" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.selected.package.eslint" value="(autodetect)" />
@@ -100,20 +98,7 @@
       <recent name="G:\incubator-to-do-list\incubator-to-do-list\src\CreateTodo" />
     </key>
   </component>
-  <component name="RunManager" selected="Jest.todolist should be refreshed">
-    <configuration name="Task should be added" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
-      <node-interpreter value="project" />
-      <node-options value="" />
-      <jest-package value="$PROJECT_DIR$/node_modules/react-scripts" />
-      <working-dir value="$PROJECT_DIR$" />
-      <envs />
-      <scope-kind value="TEST" />
-      <test-file value="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" />
-      <test-names>
-        <test-name value="Task should be added" />
-      </test-names>
-      <method v="2" />
-    </configuration>
+  <component name="RunManager" selected="npm.start">
     <configuration name="tasks should be refreshed" type="JavaScriptTestRunnerJest" temporary="true" nameIsGenerated="true">
       <node-interpreter value="project" />
       <node-options value="" />
@@ -153,6 +138,16 @@
       </test-names>
       <method v="2" />
     </configuration>
+    <configuration name="deploy" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
+      <package-json value="$PROJECT_DIR$/package.json" />
+      <command value="run" />
+      <scripts>
+        <script value="deploy" />
+      </scripts>
+      <node-interpreter value="project" />
+      <envs />
+      <method v="2" />
+    </configuration>
     <configuration name="start" type="js.build_tools.npm" temporary="true" nameIsGenerated="true">
       <package-json value="$PROJECT_DIR$/package.json" />
       <command value="run" />
@@ -176,10 +171,10 @@
     <recent_temporary>
       <list>
         <item itemvalue="npm.start" />
+        <item itemvalue="npm.deploy" />
         <item itemvalue="Jest.todolist should be refreshed" />
         <item itemvalue="Jest.tasks should be refreshed" />
         <item itemvalue="Jest.to-do name should be updated" />
-        <item itemvalue="Jest.Task should be added" />
       </list>
     </recent_temporary>
   </component>
@@ -286,14 +281,22 @@
       <workItem from="1661314861740" duration="29116000" />
       <workItem from="1661610881841" duration="14515000" />
       <workItem from="1661673840694" duration="14874000" />
-      <workItem from="1661754514195" duration="11786000" />
-    </task>
-    <task id="LOCAL-00060" summary="create toggleIsWaitingApp">
-      <created>1656054048008</created>
-      <option name="number" value="00060" />
-      <option name="presentableId" value="LOCAL-00060" />
-      <option name="project" value="LOCAL" />
-      <updated>1656054048008</updated>
+      <workItem from="1661754514195" duration="13396000" />
+      <workItem from="1661843571215" duration="1275000" />
+      <workItem from="1661930958180" duration="1935000" />
+      <workItem from="1662015250161" duration="1802000" />
+      <workItem from="1662110649507" duration="1195000" />
+      <workItem from="1662215557525" duration="3979000" />
+      <workItem from="1662272620346" duration="3924000" />
+      <workItem from="1662361113983" duration="7146000" />
+      <workItem from="1662462194104" duration="6752000" />
+      <workItem from="1662531340886" duration="4913000" />
+      <workItem from="1662626374716" duration="672000" />
+      <workItem from="1662973388906" duration="1408000" />
+      <workItem from="1663527174708" duration="2396000" />
+      <workItem from="1663567841151" duration="2554000" />
+      <workItem from="1663652881989" duration="1467000" />
+      <workItem from="1664264310172" duration="207000" />
     </task>
     <task id="LOCAL-00061" summary="use toggleIsWaitingApp">
       <created>1656059924038</created>
@@ -631,7 +634,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661677271873</updated>
     </task>
-    <option name="localTasksCounter" value="109" />
+    <task id="LOCAL-00109" summary=" refactoring ToDoReducer.test.ts">
+      <created>1661771595881</created>
+      <option name="number" value="00109" />
+      <option name="presentableId" value="LOCAL-00109" />
+      <option name="project" value="LOCAL" />
+      <updated>1661771595881</updated>
+    </task>
+    <option name="localTasksCounter" value="110" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
