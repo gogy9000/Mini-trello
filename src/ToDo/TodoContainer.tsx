@@ -15,7 +15,7 @@ export const TodoContainer = React.memo(() => {
 
         const todos = useMemo( ()=> tasksTitle.map((todo: TodoTitleType) => {
                 return (
-                    <Paper elevation={8} key={todo.id}>
+                    <Paper elevation={8} key={todo._id}>
                         <ToDo todo={todo}/>
                     </Paper>
 

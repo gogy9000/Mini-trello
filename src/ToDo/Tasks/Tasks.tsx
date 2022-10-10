@@ -28,7 +28,7 @@ export const Tasks: React.FC<TaskBlockType> = React.memo(({todoId, filter}) => {
         })
 
         const mapTasks = tasks.map((task: TaskType) => <Task task={task}
-                                                             key={task.id}
+                                                             key={task._id}
                                                              todoId={task.todoListId}/>
         )
 

@@ -4,11 +4,23 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment=" refactoring ToDoReducer.test.ts">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+    <list default="true" id="fed87f02-7f74-4a87-82d1-88aee7863e4f" name="Changes" comment="migration on https://mini-trello-backend.herokuapp.com">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/ReduxStore.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/DAL/TodoAPI.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.test.ts" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/Todo/ToDoReducer.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Redux/auth/Auth.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/InputAddTask/InputForAddTask.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Task.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/Tasks/Tasks.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitlTodo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TitlTodo.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TitleTodo/TodoTitle.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.stories.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/ToDo.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/ToDo/TodoContainer.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Types.ts" beforeDir="false" afterPath="$PROJECT_DIR$/src/Types.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/stories/ProviderDecorators.tsx" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -52,7 +64,7 @@
     <option name="stateVersion" value="1" />
   </component>
   <component name="ProblemsViewState">
-    <option name="selectedTabId" value="ProjectErrors" />
+    <option name="selectedTabId" value="CurrentFile" />
   </component>
   <component name="ProjectId" id="28kFPTu5GXtz8urzAqMbxSwoY97" />
   <component name="ProjectLevelVcsManager">
@@ -296,14 +308,14 @@
       <workItem from="1663527174708" duration="2396000" />
       <workItem from="1663567841151" duration="2554000" />
       <workItem from="1663652881989" duration="1467000" />
-      <workItem from="1664264310172" duration="207000" />
-    </task>
-    <task id="LOCAL-00061" summary="use toggleIsWaitingApp">
-      <created>1656059924038</created>
-      <option name="number" value="00061" />
-      <option name="presentableId" value="LOCAL-00061" />
-      <option name="project" value="LOCAL" />
-      <updated>1656059924039</updated>
+      <workItem from="1664264310172" duration="612000" />
+      <workItem from="1664635354141" duration="669000" />
+      <workItem from="1664694057784" duration="619000" />
+      <workItem from="1665073088796" duration="1557000" />
+      <workItem from="1665126847456" duration="9398000" />
+      <workItem from="1665302267288" duration="606000" />
+      <workItem from="1665316698852" duration="5008000" />
+      <workItem from="1665380524314" duration="2159000" />
     </task>
     <task id="LOCAL-00062" summary="fix CORS problem">
       <created>1656093532817</created>
@@ -641,7 +653,14 @@
       <option name="project" value="LOCAL" />
       <updated>1661771595881</updated>
     </task>
-    <option name="localTasksCounter" value="110" />
+    <task id="LOCAL-00110" summary=" refactoring ToDoReducer.test.ts">
+      <created>1664264610285</created>
+      <option name="number" value="00110" />
+      <option name="presentableId" value="LOCAL-00110" />
+      <option name="project" value="LOCAL" />
+      <updated>1664264610286</updated>
+    </task>
+    <option name="localTasksCounter" value="111" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -660,7 +679,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
-    <MESSAGE value="add react-router-dom &amp; types" />
     <MESSAGE value="add Formik &amp; types" />
     <MESSAGE value="creat Login.tsx" />
     <MESSAGE value="use Routes" />
@@ -685,7 +703,8 @@
     <MESSAGE value="create errorsInterceptor, refactoring authReducer" />
     <MESSAGE value=" refactoring ToDoReducer.ts" />
     <MESSAGE value=" refactoring ToDoReducer.test.ts" />
-    <option name="LAST_COMMIT_MESSAGE" value=" refactoring ToDoReducer.test.ts" />
+    <MESSAGE value="migration on https://mini-trello-backend.herokuapp.com" />
+    <option name="LAST_COMMIT_MESSAGE" value="migration on https://mini-trello-backend.herokuapp.com" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

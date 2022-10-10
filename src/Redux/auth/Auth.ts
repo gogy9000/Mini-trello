@@ -28,11 +28,13 @@ export const thunkAuth = {
     authMe: createAsyncThunk("auth/authMe", async (params, {dispatch}) => {
 
         const promise =  ApiAuth.authMe().then((response) => {
+
             if (response.data.resultCode === 0) {
                 dispatch(actionsAuth.setAuthData({...response.data.data, isAuthorized: true}))
             }
             return response
         })
+        console.log(promise)
         errorsInterceptor(dispatch, [promise])
     }),
     login: createAsyncThunk("auth/login", async (loginPayload: LoginPayloadType, {dispatch}) => {

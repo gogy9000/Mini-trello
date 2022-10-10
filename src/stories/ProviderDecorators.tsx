@@ -16,7 +16,7 @@ let rootReducer = combineReducers({
 })
 
 let stateStories:AppRootStateType["toDoReducer"] = {
-    tasksTitle: [{id: '123321', title: 'todo azaza', addedDate: 'string', order: 0, filter: 'All'}] as TodoTitleType[],
+    tasksTitle: [{_id: '123321', title: 'todo azaza', addedDate: 'string', order: 0, filter: 'All'}] as TodoTitleType[],
     taskBody: {
         ['123321']:  [{
                 description: 'string | null',
@@ -25,7 +25,7 @@ let stateStories:AppRootStateType["toDoReducer"] = {
                 priority: 1,
                 startDate: 'string | null',
                 deadline: 'string | null',
-                id: '321',
+                _id: '321',
                 todoListId: '123',
                 order: 0,
                 addedDate: '123'
