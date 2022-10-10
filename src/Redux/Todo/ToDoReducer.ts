@@ -40,15 +40,15 @@ export const thunks = {
                 if (response.data.resultCode === 0) {
                     dispatch(actions.createNewTodoAC(response.data.data.item))
                     let promise = new Promise((resolve, reject) => {
-                        if (state.toDoReducer.taskBody[todo.id].length === 0) {
+                        if (state.toDoReducer.taskBody[todo._id].length === 0) {
                             reject('activeTasks-empty')
                         }
-                        state.toDoReducer.taskBody[todo.id].forEach(
+                        state.toDoReducer.taskBody[todo._id].forEach(
                             (task, i, arr) => {
                                 if (task.isASynchronizedTask) {
                                     dispatch(thunks.synchronizeTask(
                                             {
-                                                task: {...task, todoListId: response.data.data.item.id},
+                                                task: {...task, todoListId: response.data.data.item._id},
                                                 todo: response.data.data.item
                                             }
                                         )
@@ -75,10 +75,10 @@ export const thunks = {
     (todo.synchronizeTasks, async (todo: TodoListItem, {dispatch, getState}) => {
         const state = getState() as AppRootStateType
         if (!todo.isASynchronizedTodo) {
-            for (const task of state.toDoReducer.taskBody[todo.id]) {
+            for (const task of state.toDoReducer.taskBody[todo._id]) {
                 if (task.isASynchronizedTask) {
                     dispatch(thunks.synchronizeTask(
-                        {task: {...task, todoListId: todo.id}, todo}))
+                        {task: {...task, todoListId: todo._id}, todo}))
                 }
             }
         }
@@ -104,7 +104,7 @@ export const thunks = {
                 const response = await API.getTodoList()
                 if (response.status === 200) {
                     response.data.forEach((todo) => {
-                        dispatch(thunks.getTasks(todo.id))
+                        dispatch(thunks.getTasks(todo._id))
                     })
                    return  response.data
 
@@ -118,6 +118,7 @@ export const thunks = {
     getTasks: createAsyncThunk<TaskItem[],string,{rejectValue: string[]}>
     (todo.getTasks, async (todolistId:string, {rejectWithValue}) => {
         const response = await API.getTasks(todolistId)
+        console.log(response)
         if (response.status === 200) {
             return response.data.items
         }else {
@@ -133,7 +134,7 @@ export const thunks = {
         const state = getState() as AppRootStateType
         if (state.toDoReducer.offlineMode) {
             return {
-                id: v1(),
+                _id: v1(),
                 title: title,
                 addedDate: JSON.stringify(new Date()),
                 order: 0,
@@ -151,7 +152,7 @@ export const thunks = {
 
     updateTodoList: createAsyncThunk<TodoListItem,TodoListItem,{rejectValue: string[]}>
     (todo.updateTodoList, async (todo: TodoListItem, {rejectWithValue}) => {
-        const {title, id, isASynchronizedTodo} = todo
+        const {title, _id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
             if (title.length > 100) {
               return rejectWithValue(["Maximum length of '100'. (Title)"])
@@ -159,7 +160,7 @@ export const thunks = {
               return todo
             }
         } else {
-            const response = await API.updateTodoLis(id, title)
+            const response = await API.updateTodoList(_id, title)
                 if (response.data.resultCode === 0) {
                  return todo
                 }else {
@@ -170,13 +171,13 @@ export const thunks = {
 
     deleteTodolist: createAsyncThunk<string,TodoListItem,{ rejectValue: string[]}>
     (todo.deleteTodolist, async (todo: TodoListItem, {rejectWithValue}) => {
-        const {id, isASynchronizedTodo} = todo
+        const {_id, isASynchronizedTodo} = todo
         if (isASynchronizedTodo) {
-            return  id
+            return  _id
         } else {
-            const response = await API.deleteTodoList(id)
+            const response = await API.deleteTodoList(_id)
                 if (response.data.resultCode === 0) {
-                    return  id
+                    return  _id
                 }else {
                     return rejectWithValue(response.data.messages)
                 }
@@ -193,16 +194,16 @@ export const thunks = {
             priority: 0,
             startDate: null,
             deadline: null,
-            id: v1(),
-            todoListId: todo.id,
+            _id: v1(),
+            todoListId: todo._id,
             order: 0,
             addedDate: JSON.stringify(new Date()),
             isASynchronizedTask: true,
 
         }
-        dispatch(actions.addIdInWaitingList({id:todo.id}))
+        dispatch(actions.addIdInWaitingList({id:todo._id}))
         if (todo.isASynchronizedTodo) {
-            dispatch(actions.removeIdInWaitingList({id:todo.id}))
+            dispatch(actions.removeIdInWaitingList({id:todo._id}))
             if (taskTitle.length > 100) {
                 const error = "Maximum length of '100'. (Title)"
                 return rejectWithValue([error])
@@ -212,8 +213,8 @@ export const thunks = {
             }
 
         } else {
-            const response = await API.createNewTask(todo.id, taskTitle)
-            dispatch(actions.removeIdInWaitingList({id:todo.id}))
+            const response = await API.createNewTask(todo._id, taskTitle)
+            dispatch(actions.removeIdInWaitingList({id:todo._id}))
             if (response.data.resultCode === 0) {
                 return response.data.data.item
             } else {
@@ -235,6 +236,7 @@ export const thunks = {
             }
         } else {
             const response = await API.updateTask(task)
+            console.log(response)
             if (response.data.resultCode === 0) {
                 return response.data.data.item
             } else {
@@ -248,7 +250,7 @@ export const thunks = {
             if (task.isASynchronizedTask) {
                 return {response: {data: {}, fieldsErrors: [""], messages: [""], resultCode: 0}, task}
             } else {
-                const promise = await API.deleteTask(task.todoListId, task.id)
+                const promise = await API.deleteTask(task.todoListId, task._id)
                 return {response: promise.data, task}
             }
         }
@@ -272,14 +274,14 @@ const todoSlice = createSlice({
     reducers: {
         createNewTodoAC: (state, action: PayloadAction<TodoListItem>) => {
             state.tasksTitle = [...state.tasksTitle, {...action.payload, filter: 'All'}]
-            state.taskBody[action.payload.id] = []
+            state.taskBody[action.payload._id] = []
         },
         changeUnauthorizedMode: (state, action: PayloadAction<boolean>) => {
             state.offlineMode = action.payload
         },
         changeFilterAC: (state, action: PayloadAction<{ todoId: string, newFilter: string }>) => {
             state.tasksTitle.forEach(todo => {
-                if (todo.id === action.payload.todoId) {
+                if (todo._id === action.payload.todoId) {
                     todo.filter = action.payload.newFilter
                 }
             })
@@ -321,33 +323,33 @@ const todoSlice = createSlice({
         builder
             //delete task
             .addCase(thunks.deleteTask.pending, (state, action) => {
-                addIdInWaitingList(state, action.meta.arg.id)
+                addIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.deleteTask.fulfilled, (state, action) => {
                 if (action.payload.response.resultCode === 0) {
                     state.taskBody[action.payload.task.todoListId] = state.taskBody[action.payload.task.todoListId]
-                        .filter(task => task.id !== action.payload.task.id)
+                        .filter(task => task._id !== action.payload.task._id)
                 } else {
                     clientsErrorsInterceptor(state, action.payload.response.messages)
                 }
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.deleteTask.rejected, (state, action) => {
                 networkErrorsInterceptor(state, action.error.message)
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             //update task
             .addCase(thunks.updateTask.pending, (state, action) => {
-                addIdInWaitingList(state, action.meta.arg.id)
+                addIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.updateTask.fulfilled, (state, action) => {
                 state.taskBody[action.payload.todoListId] = state.taskBody[action.payload.todoListId]
-                    .map(task => task.id === action.payload.id ? action.payload : task)
-                removeIdInWaitingList(state, action.meta.arg.id)
+                    .map(task => task._id === action.payload._id ? action.payload : task)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.updateTask.rejected, (state, action) => {
                 unionErrorsInterceptor(state, action)
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             //add task
             .addCase(thunks.addTask.pending, (state, action) => {
@@ -360,32 +362,32 @@ const todoSlice = createSlice({
             })
             //delete todoList
             .addCase(thunks.deleteTodolist.pending, (state, action) => {
-                addIdInWaitingList(state, action.meta.arg.id)
+                addIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.deleteTodolist.fulfilled, (state, action) => {
-                state.tasksTitle = state.tasksTitle.filter(todo => todo.id !== action.payload)
+                state.tasksTitle = state.tasksTitle.filter(todo => todo._id !== action.payload)
                 delete state.taskBody[action.payload]
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.deleteTodolist.rejected, (state, action) => {
                 unionErrorsInterceptor(state, action)
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             //update todoList
             .addCase(thunks.updateTodoList.pending, (state, action) => {
-                addIdInWaitingList(state, action.meta.arg.id)
+                addIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.updateTodoList.fulfilled, (state, action) => {
                 state.tasksTitle.forEach(todo => {
-                    if (todo.id === action.payload.id) {
+                    if (todo._id === action.payload._id) {
                         todo.title = action.payload.title
                     }
                 })
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
             .addCase(thunks.updateTodoList.rejected, (state, action) => {
                 unionErrorsInterceptor(state, action)
-                removeIdInWaitingList(state, action.meta.arg.id)
+                removeIdInWaitingList(state, action.meta.arg._id)
             })
         //create todoList
             .addCase(thunks.createTodolist.pending, (state, action) => {
@@ -393,7 +395,7 @@ const todoSlice = createSlice({
             })
             .addCase(thunks.createTodolist.fulfilled, (state, action) => {
                 state.tasksTitle = [...state.tasksTitle, {...action.payload, filter: 'All'}]
-                state.taskBody[action.payload.id] = []
+                state.taskBody[action.payload._id] = []
                 state.isFetching=false
             })
             .addCase(thunks.createTodolist.rejected, (state, action) => {
@@ -406,9 +408,10 @@ const todoSlice = createSlice({
             })
             .addCase(thunks.getTasks.fulfilled,(state,action)=>{
                 state.taskBody = action.payload.reduce((taskBody, newTask) => {
+
                     return {
                         ...taskBody, [newTask.todoListId]: [
-                            ...taskBody[newTask.todoListId].filter((oldTask) => oldTask.id !== newTask.id), newTask
+                            ...taskBody[newTask.todoListId].filter((oldTask) => oldTask._id !== newTask._id), newTask
                         ]
                     }
                 }, state.taskBody as { [key: string]: TaskType[] })
@@ -428,7 +431,7 @@ const todoSlice = createSlice({
                 }, [] as TodoTitleType[])
 
                 state.taskBody = action.payload.reduce((acc, todo: TodoListItem) => {
-                    return {...acc, [todo.id]: []}
+                    return {...acc, [todo._id]: []}
                 }, state.taskBody)
                 state.isFetching=false
             })
@@ -438,34 +441,34 @@ const todoSlice = createSlice({
             })
             //synchronize todo
             .addCase(thunks.synchronizeTodo.pending,(state,action)=>{
-                addIdInWaitingList(state,action.meta.arg.id)
+                addIdInWaitingList(state,action.meta.arg._id)
             })
             .addCase(thunks.synchronizeTodo.fulfilled,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.id)
+                removeIdInWaitingList(state,action.meta.arg._id)
             })
             .addCase(thunks.synchronizeTodo.rejected,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.id)
+                removeIdInWaitingList(state,action.meta.arg._id)
                 unionErrorsInterceptor(state, action)
             })
             //synchronizeTask
             .addCase(thunks.synchronizeTask.pending,(state,action)=>{
-                addIdInWaitingList(state,action.meta.arg.task.id)
+                addIdInWaitingList(state,action.meta.arg.task._id)
             })
             .addCase(thunks.synchronizeTask.fulfilled,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.task.id)
+                removeIdInWaitingList(state,action.meta.arg.task._id)
             })
             .addCase(thunks.synchronizeTask.rejected,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.task.id)
+                removeIdInWaitingList(state,action.meta.arg.task._id)
             })
 
             .addCase(thunks.synchronizeTasks.pending,(state,action)=>{
-                addIdInWaitingList(state,action.meta.arg.id)
+                addIdInWaitingList(state,action.meta.arg._id)
             })
             .addCase(thunks.synchronizeTasks.fulfilled,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.id)
+                removeIdInWaitingList(state,action.meta.arg._id)
             })
             .addCase(thunks.synchronizeTasks.rejected,(state,action)=>{
-                removeIdInWaitingList(state,action.meta.arg.id)
+                removeIdInWaitingList(state,action.meta.arg._id)
             })
 
     }

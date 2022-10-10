@@ -16,7 +16,7 @@ export type Item<D=any>={
 }
 
 export type TodoListItem = {
-    "id": string,
+    "_id": string,
     "title": string
     "addedDate": string
     "order": number
@@ -36,7 +36,7 @@ export type TaskItem = {
     priority: number
     startDate: string|null
     deadline: string|null
-    id: string
+    _id: string
     todoListId: string
     order: number
     addedDate: string
@@ -55,9 +55,11 @@ export type AuthDataType = {
 }
 
 const instance = axiosRateLimit( axios.create({
-    withCredentials: true,
-    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
+    // withCredentials: true,
+    // baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    // headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
+    baseURL:`https://mini-trello-backend.herokuapp.com`
+        // `http://localhost:3005`
 }),{maxRequests:2,perMilliseconds:1000,maxRPS:2})
 
 
@@ -81,7 +83,7 @@ export const API = {
     createTodoList: (title: string = 'new todo') => instance.post(`todo-lists`, {title: title})
         .then((response: AxiosResponse<Data<Item<TodoListItem>>>) => response),
 
-    updateTodoLis: (todolistId: string, title: string) => {
+    updateTodoList: (todolistId: string, title: string) => {
         return instance.put(`todo-lists/${todolistId}`, {title: title})
             .then((response:AxiosResponse<Data<{}>>)=>{
             return response
@@ -100,7 +102,7 @@ export const API = {
             .then((response: AxiosResponse<Data<Item<TaskItem>>>) => response),
 
     updateTask: (task: TaskType) => {
-        return instance.put(`todo-lists/${task.todoListId}/tasks/${task.id}`,
+        return instance.put(`todo-lists/${task.todoListId}/tasks/${task._id}`,
             {
                 title: task.title,
                 description: task.description,

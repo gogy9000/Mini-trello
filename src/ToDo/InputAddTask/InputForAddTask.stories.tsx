@@ -22,5 +22,5 @@ const Template: ComponentStory<typeof InputForAddTask> = (args) => {
 export const EmptyTodo = Template.bind({})
 
 EmptyTodo.args = {
-todo:{id:"123", title:"todo", addedDate:"string", order:0}
+todo:{_id:"123", title:"todo", addedDate:"string", order:0}
 }

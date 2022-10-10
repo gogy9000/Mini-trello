@@ -7,7 +7,7 @@ export type TaskType = {
     priority: number
     startDate: string|null
     deadline: string|null
-    id: string
+    _id: string
     todoListId: string
     order: number
     addedDate: string
@@ -15,7 +15,7 @@ export type TaskType = {
 }
 
 export type TodoTitleType ={
-    id:string
+    _id:string
     title:string
     addedDate:string
     order:number

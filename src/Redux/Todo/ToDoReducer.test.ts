@@ -16,7 +16,7 @@ beforeEach(() => {
         taskId2 = "13df920d-7a38-42b2-a5b9-ca2bc9fa333e"
 
         newTask = {
-            id: "8ab714ca-d983-499b-b74e-22dd4e578d37",
+            _id: "8ab714ca-d983-499b-b74e-22dd4e578d37",
             title: "adasdasd",
             description: null,
             todoListId: "b072220d-fb22-419f-9e90-27fb715cf285",
@@ -30,7 +30,7 @@ beforeEach(() => {
         stateToDo = {
             tasksTitle: [
                 {
-                    id: todoId,
+                    _id: todoId,
                     addedDate: "123",
                     order: 1,
                     filter: 'All',
@@ -38,7 +38,7 @@ beforeEach(() => {
                 }],
             taskBody: {
                 [todoId]: [{
-                        id: taskId1,
+                        _id: taskId1,
                         title: "dfd",
                         description: null,
                         todoListId: todoId,
@@ -67,7 +67,7 @@ test('filter should be changed', () => {
 
 test('Todo should be add', () => {
     let TodoItem = {
-        id: "63a2f645-ec04-4c14-af49-7124e2a0a505",
+        _id: "63a2f645-ec04-4c14-af49-7124e2a0a505",
         title: 'newTodo',
         addedDate: "2022-06-12T14:56:44.52",
         order: -2
@@ -109,20 +109,20 @@ test('task should be deleted', () => {
 test('todolist should be refreshed', () => {
     let refreshedTodolist = [
         {
-            id: 'testId',
+            _id: 'testId',
             addedDate: "123",
             order: 1,
             title: 'string'
         }]
     let action = thunks.getTodolistAndTasks.fulfilled(refreshedTodolist,"")
     let newState = toDoReducer(stateToDo, action)
-    expect(newState.tasksTitle[0].id).toBe('testId')
+    expect(newState.tasksTitle[0]._id).toBe('testId')
 
 })
 test('tasks should be refreshed', () => {
     let refreshedTasks = [
         {
-            id: taskId1,
+            _id: taskId1,
             title: "dfd",
             description: 'ololo',
             todoListId: todoId,
@@ -135,7 +135,7 @@ test('tasks should be refreshed', () => {
             isASynchronizedTask:true
         },
         {
-            id: taskId2,
+            _id: taskId2,
             title: "dfd",
             description: 'azaza',
             todoListId: todoId,

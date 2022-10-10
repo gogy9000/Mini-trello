@@ -27,9 +27,9 @@ export const ToDo: React.FC<ToDoPropsType> = React.memo(({todo}) => {
 
                     <InputForAddTask todo={todo}/>
 
-                    <TasksContainer todoId={todo.id} filter={todo.filter}/>
+                    <TasksContainer todoId={todo._id} filter={todo.filter}/>
 
-                    <ButtonsInToDoContainer todoId={todo.id} filter={todo.filter}/>
+                    <ButtonsInToDoContainer todoId={todo._id} filter={todo.filter}/>
 
                 </Card>
 

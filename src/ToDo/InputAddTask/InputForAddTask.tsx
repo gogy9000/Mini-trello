@@ -17,7 +17,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
         const [errorInput, setErrorInput] = useState<boolean>(false)
 
         const dispatch = useDispatchApp()
-        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo._id])
 
         const addTask = useCallback(() => {
 
@@ -28,7 +28,7 @@ export const InputForAddTask: React.FC<InputBlockForAddTaskPropsType> = React.me
 
             dispatch(thunks.addTask({todo, taskTitle:inputText}))
             setInputText('')
-        }, [dispatch, todo.id, inputText])
+        }, [dispatch, todo._id, inputText])
 
         const ChangeTextTaskTitle = (e: React.ChangeEvent<HTMLInputElement>) => setInputText(e.currentTarget.value)
 

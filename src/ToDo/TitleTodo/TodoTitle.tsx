@@ -19,7 +19,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const [updateTodoMode, setUpdateTodoMode] = useState<boolean>(false)
         const [error, setError] = useState<string>('')
 
-        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo.id])
+        const isWaitingTodo = useSelectorApp(store => store.toDoReducer.waitingList[todo._id])
         const dispatch = useDispatchApp()
 
         // const setTodoNameOnChange = (e: ChangeEvent<HTMLInputElement>) => setTodoName(e.currentTarget.value)
@@ -31,7 +31,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
             }
             dispatch(thunks.updateTodoList({...todo, title: todoName.trim()}))
             setUpdateTodoMode(!updateTodoMode)
-        }, [dispatch, todo.id, todoName, updateTodoMode])
+        }, [dispatch, todo._id, todoName, updateTodoMode])
 
         const onUpdateTodoMode = useCallback(() => {
             if (updateTodoMode) {
@@ -47,7 +47,7 @@ export const TodoTitle: React.FC<TodoTitlePropsType> = React.memo(({todo}) => {
         const removeTodo = useCallback(() => {
                 dispatch(thunks.deleteTodolist(todo))
             }
-            , [dispatch, todo.id, todo.isASynchronizedTodo])
+            , [dispatch, todo._id, todo.isASynchronizedTodo])
 
         const uploadTodo = () => {
             dispatch(thunks.synchronizeTodo(todo))
