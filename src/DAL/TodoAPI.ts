@@ -55,11 +55,11 @@ export type AuthDataType = {
 }
 
 const instance = axiosRateLimit( axios.create({
-    // withCredentials: true,
-    // baseURL: 'https://social-network.samuraijs.com/api/1.1/',
-    // headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
-    baseURL:`https://mini-trello-backend.herokuapp.com`
-        // `http://localhost:3005`
+    withCredentials: true,
+    baseURL: 'https://social-network.samuraijs.com/api/1.1/',
+    headers: {"API-KEY": "1fb0efe7-1c1f-46ce-bb74-74ed02f7875f"}
+    // baseURL:`https://mini-trello-backend.herokuapp.com`
+    //     // `http://localhost:3005`
 }),{maxRequests:2,perMilliseconds:1000,maxRPS:2})
 
 
